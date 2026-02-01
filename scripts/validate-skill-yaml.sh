@@ -23,6 +23,31 @@ for field in name description version; do
   fi
 done
 
+# Check name format (kebab-case)
+SKILL_NAME=$(echo "$FRONTMATTER" | grep "^name:" | sed 's/^name: *//')
+if [[ ! "$SKILL_NAME" =~ ^[a-z][a-z0-9-]*$ ]]; then
+  echo "❌ Error: Skill name must be in kebab-case (lowercase-with-hyphens)"
+  echo "   Found: '$SKILL_NAME'"
+  echo "   Expected format: lowercase-words-separated-by-hyphens"
+  echo "   Examples: prompt-engineer, skill-creator, code-reviewer"
+  exit 2
+fi
+
+# Check if name contains uppercase, underscores, or camelCase
+if [[ "$SKILL_NAME" =~ [A-Z] ]]; then
+  echo "❌ Error: Skill name contains uppercase letters"
+  echo "   Found: '$SKILL_NAME'"
+  echo "   Convert to kebab-case: $(echo "$SKILL_NAME" | tr '[:upper:]' '[:lower:]' | tr ' _' '-')"
+  exit 2
+fi
+
+if [[ "$SKILL_NAME" =~ _ ]]; then
+  echo "❌ Error: Skill name uses underscores (snake_case)"
+  echo "   Found: '$SKILL_NAME'"
+  echo "   Use hyphens instead: ${SKILL_NAME//_/-}"
+  exit 2
+fi
+
 # Check description format (third-person)
 DESCRIPTION=$(echo "$FRONTMATTER" | grep "^description:" | sed 's/^description: *//')
 if [[ ! "$DESCRIPTION" =~ "This skill should be used when" ]]; then
@@ -32,4 +57,5 @@ if [[ ! "$DESCRIPTION" =~ "This skill should be used when" ]]; then
 fi
 
 echo "✅ YAML frontmatter valid!"
+echo "✅ Skill name format correct: $SKILL_NAME"
 exit 0
