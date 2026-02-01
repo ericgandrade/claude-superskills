@@ -71,7 +71,31 @@ EMAIL=$(git config user.email || echo "")
 
 ## Main Workflow
 
+### Progress Tracking Guidelines
+
+Throughout the workflow, display a visual progress bar before starting each phase to keep the user informed. The progress bar format is:
+
+```
+[████████████░░░░░░] 60% - Step 3/5: Creating SKILL.md
+```
+
+**Format specifications:**
+- 20 characters wide (use █ for filled, ░ for empty)
+- Percentage based on current step (Step 1=20%, Step 2=40%, Step 3=60%, Step 4=80%, Step 5=100%)
+- Step counter showing current/total (e.g., "Step 3/5")
+- Brief description of current phase
+
+**Display the progress bar using:**
+```bash
+echo "[████░░░░░░░░░░░░░░] 20% - Step 1/5: Brainstorming & Planning"
+```
+
 ### Phase 1: Brainstorming & Planning
+
+**Progress:** Display before starting this phase:
+```bash
+echo "[████░░░░░░░░░░░░░░] 20% - Step 1/5: Brainstorming & Planning"
+```
 
 Display progress:
 ```
@@ -114,6 +138,11 @@ Display progress:
 
 ### Phase 2: Prompt Enhancement (Optional)
 
+**Progress:** Display before starting this phase:
+```bash
+echo "[████████░░░░░░░░░░] 40% - Step 2/5: Prompt Enhancement"
+```
+
 Update progress:
 ```
 ╔══════════════════════════════════════════════════════════════╗
@@ -139,6 +168,11 @@ If **No** or prompt-engineer unavailable:
 - Proceed with original user input
 
 ### Phase 3: File Generation
+
+**Progress:** Display before starting this phase:
+```bash
+echo "[████████████░░░░░░] 60% - Step 3/5: File Generation"
+```
 
 Update progress:
 ```
@@ -219,6 +253,11 @@ sed "s/{{SKILL_NAME}}/$SKILL_NAME/g" \
 
 ### Phase 4: Validation
 
+**Progress:** Display before starting this phase:
+```bash
+echo "[████████████████░░] 80% - Step 4/5: Validation"
+```
+
 Update progress:
 ```
 ╔══════════════════════════════════════════════════════════════╗
@@ -260,6 +299,11 @@ scripts/validate-skill-content.sh ".github/skills/$SKILL_NAME"
 - Add missing required fields
 
 ### Phase 5: Installation
+
+**Progress:** Display before starting this phase:
+```bash
+echo "[████████████████████] 100% - Step 5/5: Installation"
+```
 
 Update progress:
 ```
@@ -325,6 +369,11 @@ ls -la ~/.claude/skills/$SKILL_NAME
 ```
 
 ### Phase 6: Completion
+
+**Progress:** Display completion message:
+```bash
+echo "[████████████████████] 100% - ✓ Skill created successfully!"
+```
 
 Update progress:
 ```
