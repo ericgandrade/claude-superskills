@@ -44,6 +44,39 @@ Transform raw prompts into optimized prompts using **11 established frameworks**
 
 ---
 
+### 🛠️ **skill-creator** v1.0.0
+
+Automate CLI skill creation with best practices built-in.
+
+**Status:** ✨ Zero-Config | 🌍 Universal | 🔧 Meta-Skill
+
+**Capabilities:**
+- 🎯 Interactive brainstorming workflow (5 phases)
+- ✨ Template-driven file generation
+- 🔍 Automatic validation (YAML + content + style)
+- 📦 Flexible installation (local/global/hybrid)
+- 📊 Visual progress tracking
+- 🔗 Optional prompt-engineer integration
+
+**Triggers:**
+- `create a new skill`
+- `build a skill`
+- `make a custom skill`
+- `develop a CLI skill`
+- `extend the CLI`
+
+**Features:**
+- 🎯 Step 0: Discovery pattern (runtime platform detection)
+- 📏 Anthropic best practices enforcement
+- 📝 Progressive disclosure (SKILL.md + bundled resources)
+- ✅ Writing style validation (imperative/third-person)
+- 📊 Word count optimization (1.5-2k ideal)
+- 🔧 Bundled resources structure (references/examples/scripts)
+
+**[→ Full Documentation](./.github/skills/skill-creator/README.md)**
+
+---
+
 ### 🔮 Coming Soon
 
 More skills are in development! This library will grow with:
