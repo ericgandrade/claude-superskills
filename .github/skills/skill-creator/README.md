@@ -12,7 +12,7 @@ The skill-creator automates the entire workflow of creating new CLI skills for G
 - **✨ Template Automation** - Automatic file generation with zero manual configuration
 - **🔍 Quality Validation** - Built-in checks for YAML, content quality, and writing style
 - **📦 Flexible Installation** - Choose repository-only, global, or hybrid installation
-- **📊 Progress Tracking** - Visual gauge showing completion status at each step
+- **📊 Visual Progress Bar** - Real-time progress indicator showing completion status (e.g., `[████████████░░░░░░] 60% - Step 3/5`)
 - **🔗 Prompt Engineer Integration** - Optional enhancement using prompt-engineer skill
 
 ## When to Use
@@ -71,12 +71,17 @@ gh copilot "create a new skill for debugging Python errors"
 claude "create a skill that helps with git workflows"
 ```
 
-The skill will guide you through:
-1. **Brainstorming** - Define purpose, triggers, and type
-2. **Refinement** (optional) - Enhance with prompt-engineer skill
-3. **Generation** - Create files from templates
-4. **Validation** - Check quality and standards
-5. **Installation** - Choose local, global, or both
+The skill will guide you through with visual progress tracking:
+1. **Brainstorming** (20%) - Define purpose, triggers, and type
+2. **Prompt Enhancement** (40%, optional) - Enhance with prompt-engineer skill
+3. **File Generation** (60%) - Create files from templates
+4. **Validation** (80%) - Check quality and standards
+5. **Installation** (100%) - Choose local, global, or both
+
+Each phase displays a progress bar:
+```
+[████████████░░░░░░] 60% - Step 3/5: File Generation
+```
 
 ### Advanced Usage
 
@@ -120,11 +125,7 @@ Here's what creating a skill looks like:
 ```
 You: "create a skill for database schema migrations"
 
-╔══════════════════════════════════════════════════════════════╗
-║     🛠️  SKILL CREATOR - Creating New Skill                  ║
-╠══════════════════════════════════════════════════════════════╣
-║ → Phase 1: Brainstorming                 [10%]               ║
-╚══════════════════════════════════════════════════════════════╝
+[████░░░░░░░░░░░░░░] 20% - Step 1/5: Brainstorming & Planning
 
 What should this skill do?
 > Helps users create and manage database schema migrations safely

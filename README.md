@@ -51,11 +51,11 @@ Automate CLI skill creation with best practices built-in.
 **Status:** ✨ Zero-Config | 🌍 Universal | 🔧 Meta-Skill
 
 **Capabilities:**
-- 🎯 Interactive brainstorming workflow (5 phases)
+- 🎯 Interactive brainstorming workflow (5 phases with progress tracking)
 - ✨ Template-driven file generation
 - 🔍 Automatic validation (YAML + content + style)
 - 📦 Flexible installation (local/global/hybrid)
-- 📊 Visual progress tracking
+- 📊 Visual progress bar (`[████████████░░░░░░] 60% - Step 3/5`)
 - 🔗 Optional prompt-engineer integration
 
 **Triggers:**
