@@ -13,17 +13,17 @@ Transform raw prompts into optimized prompts using **11 established frameworks**
 **Status:** ✨ Zero-Config | 🌍 Universal
 
 **Supported Frameworks:**
-- **RTF** (Role-Task-Format) - Role-based tasks
-- **Chain of Thought** - Step-by-step reasoning
-- **RISEN** (Role, Instructions, Steps, End goal, Narrowing) - Structured projects
-- **RODES** (Role, Objective, Details, Examples, Sense check) - Complex design
-- **Chain of Density** - Summarization and compression
-- **R-A-C-E** (Role, Audience, Context, Expectation) - Communication tasks
-- **R-I-S-E** (Research, Investigate, Synthesize, Evaluate) - Investigation
-- **S-T-A-R** (Situation, Task, Action, Result) - Contextual problem-solving
-- **S-O-A-P** (Subjective, Objective, Assessment, Plan) - Structured documentation
-- **C-L-E-A-R** (Collaborative, Limited, Emotional, Appreciable, Refinable) - Goal-setting
-- **G-R-O-W** (Goal, Reality, Options, Will) - Coaching and development
+- **RTF** (Role-Task-Format): Role-based tasks
+- **Chain of Thought**: Step-by-step reasoning
+- **RISEN** (Role, Instructions, Steps, End goal, Narrowing): Structured projects
+- **RODES** (Role, Objective, Details, Examples, Sense check): Complex design
+- **Chain of Density**: Summarization and compression
+- **R-A-C-E** (Role, Audience, Context, Expectation): Communication tasks
+- **R-I-S-E** (Research, Investigate, Synthesize, Evaluate): Investigation
+- **S-T-A-R** (Situation, Task, Action, Result): Contextual problem-solving
+- **S-O-A-P** (Subjective, Objective, Assessment, Plan): Structured documentation
+- **C-L-E-A-R** (Collaborative, Limited, Emotional, Appreciable, Refinable): Goal-setting
+- **G-R-O-W** (Goal, Reality, Options, Will): Coaching and development
 
 **Triggers:**
 - `melhore este prompt`
