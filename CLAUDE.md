@@ -17,26 +17,50 @@ resources/
 scripts/                  # Validation and automation scripts
 ```
 
-Skills for both platforms must maintain **functional parity** - only tool names differ (`Read`/`Edit`/`Bash` for Claude vs `view`/`edit`/`run` for Copilot).
+Skills for both platforms must maintain **functional parity** - only tool names differ (`Read`/`Edit`/`Bash` for Claude vs `view`/`edit`/`bash` for Copilot).
 
 ## Validation Commands
 
 ```bash
-# Validate YAML frontmatter (kebab-case naming, required fields)
+# Validate a single skill's YAML frontmatter (kebab-case naming, required fields)
 ./scripts/validate-skill-yaml.sh .github/skills/<skill-name>
 
-# Validate content quality (word count 1500-2000 ideal, writing style)
+# Validate a single skill's content quality (word count 1500-2000 ideal, writing style)
 ./scripts/validate-skill-content.sh .github/skills/<skill-name>
+
+# Validate all skills at once
+for skill in .github/skills/*/; do
+  ./scripts/validate-skill-yaml.sh "$skill"
+  ./scripts/validate-skill-content.sh "$skill"
+done
 
 # Check installed AI tools
 ./scripts/check-tools.sh
 
-# Create new skill scaffolding
+# Create new skill scaffolding (creates both platform versions)
 ./scripts/create-skill.sh <skill-name>
 
-# Install skills via symlinks
+# Install skills globally via symlinks (updates automatically on git pull)
 ./scripts/install-skills.sh $(pwd)
 ```
+
+### Manual Testing
+
+After installing, test a skill by triggering it in a new terminal session:
+
+```bash
+./scripts/install-skills.sh $(pwd)
+# Then in a new session, use a trigger phrase, e.g.:
+gh copilot -p "melhore este prompt: criar API REST"
+```
+
+### Pre-commit Validation Checklist
+
+Before committing new or modified skills, confirm all three pass:
+
+1. **YAML frontmatter** — `name` is kebab-case; `name`, `description`, `version` present; version is SemVer (X.Y.Z)
+2. **Content** — Word count 1500–2000 (max 5000); no second-person ("you should"); imperative form used; 3–5 realistic examples included
+3. **Structure** — Required sections present: Purpose, When to Use, Workflow, Critical Rules, Example Usage; Step 0: Discovery included if the skill interacts with project structure
 
 ## Skill Architecture
 
@@ -110,4 +134,18 @@ Tool name conversions:
 | `Read`      | `view`         |
 | `Edit`      | `edit`         |
 | `Write`     | `edit`         |
-| `Bash`      | `run`          |
+| `Bash`      | `bash`         |
+
+When adding a new skill, also update both index files:
+- `.github/skills/README.md`
+- `.claude/skills/README.md`
+
+### Skill Types
+
+Skills in this repository fall into categories:
+
+- **Universal skills** — Work anywhere (e.g., `prompt-engineer`)
+- **Meta-skills** — Create or manage other skills (e.g., `skill-creator`)
+- **Analysis skills** — Code review, exploration
+- **Documentation skills** — Generate docs, READMEs
+- **Testing skills** — Validation, test generation

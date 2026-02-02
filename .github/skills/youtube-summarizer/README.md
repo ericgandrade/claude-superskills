@@ -2,8 +2,8 @@
 
 > Extract transcripts from YouTube videos and generate comprehensive, detailed summaries
 
-**Version:** 1.0.0  
-**Status:** ✨ Zero-Config | 🌍 Universal  
+**Version:** 1.1.0
+**Status:** ✨ Zero-Config | 🌍 Universal
 **Platforms:** GitHub Copilot CLI, Claude Code
 
 ---
@@ -24,6 +24,8 @@ The **youtube-summarizer** skill automates the extraction of YouTube video trans
 - 🔍 **Metadata included** - Video title, channel, duration, URL
 - ⚡ **Error handling** - Clear messages for all failure scenarios
 - 🛠️ **Dependency management** - Offers to install requirements automatically
+- 📊 **Progress gauge** - Visual processing tracker across all steps
+- 💾 **Save to file** - Export summary (and optionally the raw transcript) as `.md`
 
 ---
 
@@ -179,7 +181,7 @@ Every summary follows this comprehensive structure:
 
 - **Python 3.x** (usually pre-installed on macOS/Linux)
 - **pip** (Python package manager)
-- **youtube-transcript-api** (installed automatically by the skill)
+- **[youtube-transcript-api](https://github.com/jdepoix/youtube-transcript-api)** by [Julien Depoix](https://github.com/jdepoix) (installed automatically by the skill)
 
 ### Manual Installation (Optional)
 
@@ -286,11 +288,7 @@ Possible reasons:
 
 ### Q: Can I save the summary to a file?
 
-**A:** Yes! After the summary is generated, you can ask:
-
-```bash
-copilot> save this to summary.md
-```
+**A:** Yes! After the summary is generated, the skill automatically asks if you'd like to save it. You can also choose to include the raw transcript in the same file. The summary is saved as `resumo-{VIDEO_ID}-{YYYY-MM-DD}.md`.
 
 ---
 
@@ -343,11 +341,11 @@ MIT License - see [LICENSE](../../../LICENSE) for details.
 
 ## Acknowledgments
 
-- **[youtube-transcript-api](https://github.com/jdepoix/youtube-transcript-api)** - For transcript extraction
+- **[youtube-transcript-api](https://github.com/jdepoix/youtube-transcript-api)** by [Julien Depoix](https://github.com/jdepoix) - Python library for extracting YouTube video transcripts
 - **Anthropic STAR/R-I-S-E frameworks** - For structured summarization
 
 ---
 
 **Built with ❤️ by Eric Andrade**
 
-*Version 1.0.0 | Last updated: February 2026*
+*Version 1.1.0 | Last updated: February 2026*

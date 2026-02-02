@@ -43,6 +43,10 @@ Test skills by installing them and running through trigger phrases:
 
 # Test in new terminal session
 gh copilot -p "melhore este prompt: criar API REST"
+
+# Validate individual skill components
+./scripts/validate-skill-yaml.sh .github/skills/prompt-engineer
+./scripts/validate-skill-content.sh .github/skills/prompt-engineer
 ```
 
 ## Architecture
@@ -135,6 +139,10 @@ When modifying skills, **update both platforms**:
 1. `.github/skills/<name>/SKILL.md` (Copilot)
 2. `.claude/skills/<name>/SKILL.md` (Claude)
 
+When adding new skills, also update both index files:
+- `.github/skills/README.md`
+- `.claude/skills/README.md`
+
 Tool name conversions:
 
 | Claude Code | GitHub Copilot |
@@ -143,6 +151,10 @@ Tool name conversions:
 | `Edit`      | `edit`         |
 | `Write`     | `edit`         |
 | `Bash`      | `bash`         |
+
+Prompt prefix conversions:
+- Copilot examples: `copilot> [command]`
+- Claude examples: `claude> [command]`
 
 ### Commit Conventions
 
@@ -205,7 +217,7 @@ examples/                  # Example skill usage
 
 ### Creating New Skills
 
-Use the scaffolding script instead of manual creation:
+**ALWAYS use the scaffolding script** instead of manual creation:
 
 ```bash
 ./scripts/create-skill.sh my-skill-name
@@ -214,8 +226,11 @@ Use the scaffolding script instead of manual creation:
 This ensures:
 - Correct directory structure
 - YAML frontmatter template
-- Both platform versions created
+- Both platform versions created (`.github/skills/` and `.claude/skills/`)
 - Validation-ready skeleton
+- Proper kebab-case naming enforcement
+
+**Never create skill directories manually** - the script handles all required boilerplate and ensures consistency.
 
 ### Skill Types
 
@@ -227,11 +242,21 @@ Skills in this repository fall into categories:
 - **Documentation skills** - Generate docs, READMEs
 - **Testing skills** - Validation, test generation
 
+### Existing Skills
+
+Current skills available in this repository:
+- **prompt-engineer** (v1.0.0) - Transform raw prompts using 11 established frameworks (RTF, RISEN, CoT, RODES, etc.)
+- **skill-creator** (v1.1.0) - Meta-skill for creating new skills with interactive brainstorming and validation
+- **youtube-summarizer** (v1.1.0) - Extract transcripts and generate comprehensive summaries from YouTube videos
+
+All skills follow the zero-config philosophy and work universally across projects.
+
 ### Resources
 
 - **[Skills Development Guide](./resources/skills-development.md)** - Comprehensive skill creation guide
 - **[CONTRIBUTING.md](./CONTRIBUTING.md)** - Contribution guidelines
 - **[CLAUDE.md](./CLAUDE.md)** - Claude Code specific guidance (similar content)
+- **[Templates](./resources/templates/)** - Skill templates and style guides
 
 ## References
 
@@ -239,3 +264,4 @@ Skills in this repository fall into categories:
 - [GitHub Copilot Agents](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills)
 - [Agent Skills Standard](https://agentskills.io)
 - [Anthropic Prompt Engineering](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering)
+- [Anthropic Agents & Tools](https://docs.anthropic.com/en/docs/agents-and-tools)

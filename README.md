@@ -77,20 +77,22 @@ Automate CLI skill creation with best practices built-in.
 
 ---
 
-### 🎥 **youtube-summarizer** v1.0.0
+### 🎥 **youtube-summarizer** v1.1.0
 
-Extract transcripts from YouTube videos and generate comprehensive, detailed summaries.
+Extract transcripts from YouTube videos and generate comprehensive, detailed summaries. Powered by [youtube-transcript-api](https://github.com/jdepoix/youtube-transcript-api) by [Julien Depoix](https://github.com/jdepoix).
 
 **Status:** ✨ Zero-Config | 🌍 Universal
 
 **Capabilities:**
-- 📹 Automatic transcript extraction using `youtube-transcript-api`
+- 📹 Automatic transcript extraction using [youtube-transcript-api](https://github.com/jdepoix/youtube-transcript-api)
 - ✅ Video validation (checks accessibility and transcript availability)
 - 🌍 Multi-language support (Portuguese/English with auto-fallback)
 - 📊 Comprehensive summaries using STAR + R-I-S-E framework
 - 📝 Structured Markdown output with sections and insights
 - 🔍 Includes video metadata (title, channel, duration, URL)
 - 🛠️ Automatic dependency management
+- 📊 Visual progress gauge during transcript extraction and summarization
+- 💾 Save summary to .md file (with optional raw transcript)
 
 **Triggers:**
 - `resume este video`
@@ -376,6 +378,9 @@ Inspired by:
 - **[PromptCowboy](https://promptcowboy.com/)** - For framework-driven prompt optimization
 - **[Anthropic's Prompt Engineering Guide](https://docs.anthropic.com/claude/docs/prompt-engineering)**
 - **The AI CLI community** for sharing best practices
+
+**Dependencies:**
+- **[youtube-transcript-api](https://github.com/jdepoix/youtube-transcript-api)** by [Julien Depoix](https://github.com/jdepoix) - Python library for YouTube transcript extraction (used by `youtube-summarizer`)
 
 ---
 

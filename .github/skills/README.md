@@ -32,7 +32,7 @@ Transform raw prompts into optimized prompts using 11 established frameworks (RT
 
 ---
 
-### 🛠️ **skill-creator** v1.0.0
+### 🛠️ **skill-creator** v1.1.0
 
 **Status:** ✨ Zero-Config | 🌍 Universal | 🔧 Meta-Skill
 
@@ -57,11 +57,11 @@ Automate CLI skill creation with best practices built-in. Interactive 5-phase wo
 
 ---
 
-### 🎥 **youtube-summarizer** v1.0.0
+### 🎥 **youtube-summarizer** v1.1.0
 
 **Status:** ✨ Zero-Config | 🌍 Universal
 
-Extract transcripts from YouTube videos and generate comprehensive, detailed summaries using STAR + R-I-S-E framework.
+Extract transcripts from YouTube videos and generate comprehensive, detailed summaries using STAR + R-I-S-E framework. Powered by [youtube-transcript-api](https://github.com/jdepoix/youtube-transcript-api) by [Julien Depoix](https://github.com/jdepoix).
 
 **Triggers:**
 - `resume este video`
@@ -70,12 +70,14 @@ Extract transcripts from YouTube videos and generate comprehensive, detailed sum
 - `summarize youtube video`
 
 **Features:**
-- 📹 Automatic transcript extraction
+- 📹 Automatic transcript extraction via youtube-transcript-api
 - ✅ Video and transcript validation
 - 🌍 Multi-language support (pt/en)
 - 📊 Verbose summaries with structured sections
 - 🔍 Includes metadata and insights
 - 🛠️ Automatic dependency management
+- 📊 Visual progress gauge during processing
+- 💾 Save summary to .md (with optional raw transcript)
 
 **[→ Full Documentation](./youtube-summarizer/README.md)**
 
