@@ -117,7 +117,7 @@ Extract transcripts from YouTube videos and generate comprehensive, detailed sum
 
 Upcoming features in development:
 
-- 📦 **npx installer** — Install skills directly via `npx`, without manual clone or symlink ([#1](https://github.com/ericgandrade/cli-ai-skills/issues/1))
+- ✅ **npx installer** — ~~Install skills directly via `npx`, without manual clone or symlink~~ **RELEASED v1.0.0** 🎉
 - 🤖 **Gemini skill** — Native skill for Google Gemini integration ([#2](https://github.com/ericgandrade/cli-ai-skills/issues/2))
 - 💻 **OpenCode skill** — Native skill for OpenCode integration ([#3](https://github.com/ericgandrade/cli-ai-skills/issues/3))
 - 🤖 **Codex skill** — Native skill for OpenAI Codex integration ([#4](https://github.com/ericgandrade/cli-ai-skills/issues/4))
@@ -172,7 +172,50 @@ The **prompt-engineer** skill analyzes your input and:
 
 ## 🚀 Installation
 
-### Quick Install (Recommended)
+### ⚡ Quick Install via npx (Easiest)
+
+[![npm version](https://img.shields.io/npm/v/cli-ai-skills.svg)](https://www.npmjs.com/package/cli-ai-skills)
+[![npm downloads](https://img.shields.io/npm/dm/cli-ai-skills.svg)](https://www.npmjs.com/package/cli-ai-skills)
+
+Install AI skills directly from npm without cloning this repository:
+
+```bash
+# Install all skills globally with interactive prompts
+npx cli-ai-skills install
+
+# Or install all skills without prompts (auto-detect platforms)
+npx cli-ai-skills install --all --yes
+
+# Install specific skill
+npx cli-ai-skills install prompt-engineer
+
+# List available skills
+npx cli-ai-skills list
+
+# Update installed skills
+npx cli-ai-skills update
+
+# Diagnose installation issues
+npx cli-ai-skills doctor
+```
+
+**Features:**
+- 🚀 **No git clone required** - works from any directory
+- 🎯 **Interactive prompts** - choose platform (Copilot/Claude), scope (global/local), and skills
+- 📊 **Visual progress** - real-time gauges during installation
+- ✅ **Version checking** - automatically detects outdated skills and offers updates
+- 🔍 **Platform detection** - auto-discovers GitHub Copilot CLI and Claude Code
+- 🛠️ **Built-in diagnostics** - `doctor` command for troubleshooting
+
+**Installation locations:**
+- **Global:** `~/.copilot/skills/` and `~/.claude/skills/` (recommended)
+- **Local:** `.github/skills/` and `.claude/skills/` in current project
+
+---
+
+### 🔧 Install from Source (Advanced)
+
+For development or if you want auto-updates via `git pull`:
 
 1. **Clone this repository:**
    ```bash
