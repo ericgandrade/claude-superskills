@@ -4,6 +4,68 @@ Reusable AI skills for **GitHub Copilot CLI** and **Claude Code** that work glob
 
 ---
 
+## 🧠 What Is This Project?
+
+This repository provides **reusable skills** for **terminal-based AI assistants** like GitHub Copilot CLI and Claude Code.
+
+### What Are Skills?
+
+Skills are "specialized instructions" that teach AI assistants how to perform specific tasks (like optimizing prompts, summarizing YouTube videos, creating new skills, etc.). Think of them as plugins or extensions that add new capabilities to your AI tools.
+
+### Who Is This For?
+
+If you use **GitHub Copilot CLI** or **Claude Code** in your terminal and want to extend their capabilities with specialized workflows, this project is for you.
+
+---
+
+## 🛠️ Supported Tools
+
+### GitHub Copilot CLI
+
+**What it is:** GitHub's AI assistant that runs in your terminal. It answers questions, generates code, and executes commands.
+
+**How to install:**
+- Requires GitHub Copilot subscription ([pricing info](https://github.com/features/copilot/plans))
+- Installation: `gh extension install github/gh-copilot`
+- Official docs: [docs.github.com/copilot/github-copilot-in-the-cli](https://docs.github.com/en/copilot/github-copilot-in-the-cli)
+
+**Example usage:**
+```bash
+gh copilot suggest "create REST API in Python"
+```
+
+---
+
+### Claude Code
+
+**What it is:** Anthropic's AI-powered development environment that runs in your terminal. It edits code, executes commands, and answers questions.
+
+**How to install:**
+- Visit [claude.ai/code](https://claude.ai/code)
+- Requires Anthropic account (free or paid plans available)
+- Official docs: [code.claude.com/docs](https://code.claude.com/docs)
+
+**Example usage:**
+```bash
+claude
+# Starts interactive terminal session
+```
+
+---
+
+### ✨ What This Project Adds
+
+With the **skills** in this repository, you add new specialized capabilities to the tools above:
+
+- 🎯 **prompt-engineer**: Transforms simple prompts into optimized prompts using 11 frameworks
+- 🎥 **youtube-summarizer**: Automatically summarizes YouTube videos
+- 🛠️ **skill-creator**: Creates new custom skills with best practices built-in
+
+**Without skills:** The tools only answer basic questions.  
+**With skills:** They gain specialized superpowers! 🚀
+
+---
+
 ## 📦 Available Skills
 
 ### 🎯 **prompt-engineer** v1.0.1
@@ -404,14 +466,38 @@ All projects share the same skill library
 
 ---
 
-## 📖 Learn More
+## ❓ FAQ for Beginners
 
-- **GitHub Copilot CLI:** [https://github.com/github/gh-copilot](https://github.com/github/gh-copilot)
-- **Claude Code:** [https://claude.ai/code](https://claude.ai/code)
-- **Prompting Frameworks:**
-  - [RTF (Role-Task-Format)](https://www.promptingguide.ai/techniques/rtf)
-  - [Chain of Thought](https://www.promptingguide.ai/techniques/cot)
-  - [More frameworks...](./resources/frameworks.md)
+**Q: Do I need to know how to code?**  
+A: Not necessarily. The tools (Copilot/Claude) help with code, but you can use skills just to optimize prompts or summarize videos.
+
+**Q: Is it free?**  
+A: The **skills are free**. However, you need access to GitHub Copilot (paid) or Claude Code (has free tier).
+
+**Q: Does it work on Windows/Mac/Linux?**  
+A: Yes! Skills work on any operating system that supports the underlying tools.
+
+**Q: Do I need to install skills for each project?**  
+A: No. Skills are **global** - install once and they work across all your projects.
+
+**Q: Can I create my own skills?**  
+A: Absolutely! Check our [Skills Development Guide](./resources/skills-development.md) or use the `skill-creator` skill to automate the process.
+
+---
+
+## 🔗 Official References
+
+### Tools
+- **GitHub Copilot CLI**: [Official Documentation](https://docs.github.com/en/copilot/github-copilot-in-the-cli)
+- **GitHub Copilot Pricing**: [github.com/features/copilot/plans](https://github.com/features/copilot/plans)
+- **Claude Code**: [claude.ai/code](https://claude.ai/code)
+- **Anthropic Documentation**: [docs.anthropic.com](https://docs.anthropic.com)
+
+### Skills & Agent Development
+- **Agent Skills Standard**: [agentskills.io](https://agentskills.io)
+- **Anthropic Prompt Engineering**: [docs.anthropic.com/prompt-engineering](https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering)
+- **Prompt Engineering Guide**: [promptingguide.ai](https://www.promptingguide.ai)
+- **GitHub Copilot Agent Skills**: [docs.github.com/copilot/concepts/agents](https://docs.github.com/en/copilot/concepts/agents/about-agent-skills)
 
 ---
 
