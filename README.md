@@ -648,8 +648,14 @@ Inspired by:
 - **[Anthropic's Prompt Engineering Guide](https://docs.anthropic.com/claude/docs/prompt-engineering)**
 - **The AI CLI community** for sharing best practices
 
-**Dependencies:**
+**External Dependencies:**
+
+Skills in this repository use the following open-source projects:
+
 - **[youtube-transcript-api](https://github.com/jdepoix/youtube-transcript-api)** by [Julien Depoix](https://github.com/jdepoix) - Python library for YouTube transcript extraction (used by `youtube-summarizer`)
+- **[faster-whisper](https://github.com/SYSTRAN/faster-whisper)** by [SYSTRAN](https://github.com/SYSTRAN) - Fast, accurate speech recognition engine (used by `audio-transcriber`)
+- **[openai-whisper](https://github.com/openai/whisper)** by [OpenAI](https://github.com/openai) - Robust speech recognition model (alternative for `audio-transcriber`)
+- **[ffmpeg](https://ffmpeg.org/)** - Multimedia framework for audio/video processing (used by `audio-transcriber`)
 
 ---
 
