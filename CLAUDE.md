@@ -50,8 +50,8 @@ After installing, test a skill by triggering it in a new terminal session:
 
 ```bash
 ./scripts/install-skills.sh $(pwd)
-# Then in a new session, use a trigger phrase, e.g.:
-gh copilot -p "melhore este prompt: criar API REST"
+# Then in a new session, use a trigger phrase (English or Portuguese), e.g.:
+gh copilot -p "improve this prompt: create REST API"
 ```
 
 ### Pre-commit Validation Checklist

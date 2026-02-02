@@ -976,7 +976,7 @@ grep -r 'status: \["' ".github/skills/your-skill/SKILL.md"
 **Check language compliance:**
 ```bash
 # Check for non-English prompts in examples
-grep -r "copilot> criar\|copilot> fazer\|claude> criar\|claude> fazer" ".github/skills/your-skill/SKILL.md"
+grep -r "copilot> create\|copilot> make\|claude> create\|claude> make" ".github/skills/your-skill/SKILL.md"
 
 # Check for localized field names in examples
 grep -r "tipo:\|prioridade:\|estado:" ".github/skills/your-skill/SKILL.md"

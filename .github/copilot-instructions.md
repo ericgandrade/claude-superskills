@@ -42,7 +42,7 @@ Test skills by installing them and running through trigger phrases:
 ./scripts/install-skills.sh $(pwd)
 
 # Test in new terminal session
-gh copilot -p "melhore este prompt: criar API REST"
+gh copilot -p "improve this prompt: create REST API"
 
 # Validate individual skill components
 ./scripts/validate-skill-yaml.sh .github/skills/prompt-engineer

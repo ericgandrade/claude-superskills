@@ -8,7 +8,7 @@ triggers:
   - "prompt engineering"
   - "transforme em prompt"
   - "crie prompt para"
-version: 1.0.0
+version: 1.0.1
 ---
 
 ## Purpose
@@ -379,7 +379,7 @@ Validation: Ensure code runs without errors on sample data and produces readable
 
 **User Input:**
 ```
-copilot> melhore este prompt: me ajuda a escrever código python
+copilot> improve this prompt: help me write Python code
 ```
 
 **Skill Internal Process:**
@@ -388,10 +388,10 @@ copilot> melhore este prompt: me ajuda a escrever código python
 
 **Skill asks user:**
 ```
-Qual tipo de código Python você precisa?
-- [ ] Análise de dados
+What type of Python code do you need?
+- [ ] Data analysis
 - [ ] Web scraping
-- [ ] Automação de tarefas
+- [ ] Task automation
 - [ ] API/backend development
 ```
 
@@ -401,17 +401,17 @@ Qual tipo de código Python você precisa?
 
 ````markdown
 ```
-Você é um desenvolvedor Python especialista em web scraping.
+You are a Python developer specialized in web scraping.
 
-Tarefa: Crie um script Python para fazer scraping de [especifique o site alvo].
+Task: Create a Python script to scrape data from [specify target website].
 
-Requisitos:
-- Use BeautifulSoup ou Scrapy
-- Implemente paginação e rate limiting
-- Armazene dados em formato estruturado (CSV ou JSON)
-- Inclua tratamento de erros para problemas de rede
+Requirements:
+- Use BeautifulSoup or Scrapy
+- Implement pagination and rate limiting
+- Store data in structured format (CSV or JSON)
+- Include error handling for network issues
 
-Formato de saída: Código Python completo e comentado com exemplos de uso.
+Output format: Complete, well-commented Python code with usage examples.
 ```
 ````
 
@@ -421,7 +421,7 @@ Formato de saída: Código Python completo e comentado com exemplos de uso.
 
 **User Input:**
 ```
-copilot> crie prompt para: preciso criar um sistema de recomendação de produtos considerando histórico de compras, preferências do usuário e tendências de mercado
+copilot> create prompt for: I need to build a product recommendation system considering purchase history, user preferences, and market trends
 ```
 
 **Skill Internal Process:**
@@ -468,7 +468,7 @@ Output format: Technical design document with architecture diagrams, algorithm j
 
 **User Input:**
 ```
-copilot> transforme em prompt: quero melhorar meu processo
+copilot> transform into prompt: I want to improve my process
 ```
 
 **Skill Internal Process:**
@@ -477,23 +477,23 @@ copilot> transforme em prompt: quero melhorar meu processo
 
 **Skill asks:**
 ```
-Qual processo você quer melhorar?
-- [ ] Processo de trabalho/produtividade
-- [ ] Processo de aprendizagem
-- [ ] Processo técnico (desenvolvimento, deploy, etc.)
+Which process do you want to improve?
+- [ ] Work/productivity process
+- [ ] Learning process
+- [ ] Technical process (development, deployment, etc.)
 ```
 
-**User:** "Processo de trabalho"
+**User:** "Work process"
 
 **Skill asks:**
 ```
-Qual aspecto específico do trabalho?
-- [ ] Gestão de tempo
-- [ ] Colaboração em equipe
-- [ ] Tomada de decisões
+Which specific aspect of work?
+- [ ] Time management
+- [ ] Team collaboration
+- [ ] Decision-making
 ```
 
-**User:** "Tomada de decisões"
+**User:** "Decision-making"
 
 **Skill Internal Process:**
 3. **Select:** C-L-E-A-R (goal clarity) + G-R-O-W (development/coaching)
@@ -502,40 +502,40 @@ Qual aspecto específico do trabalho?
 
 ````markdown
 ```
-Contexto: Tenho dificuldade em tomar decisões de forma ágil e eficaz no meu processo de trabalho.
+Context: I struggle to make decisions quickly and effectively in my work process.
 
-Objetivo (Goal): Desenvolver um framework estruturado para melhorar a velocidade e qualidade das minhas decisões profissionais.
+Goal: Develop a structured framework to improve the speed and quality of my professional decisions.
 
-Realidade Atual (Reality):
-- Decisões frequentemente atrasadas devido à análise excessiva
-- Falta de critérios claros para avaliar opções
-- Incerteza sobre quando decidir vs. coletar mais informações
+Current Reality:
+- Decisions frequently delayed due to excessive analysis
+- Lack of clear criteria for evaluating options
+- Uncertainty about when to decide vs. gather more information
 
-Resultado Desejado:
-- Framework de decisão consistente e reproduzível
-- Critérios claros para diferentes tipos de decisões
-- Redução da fadiga de decisão
+Desired Outcome:
+- Consistent, reproducible decision-making framework
+- Clear criteria for different types of decisions
+- Reduced decision fatigue
 
-Colaborativo: Quem está envolvido? (Eu, equipe, stakeholders)
-Limitado: Escopo focado em decisões do dia a dia, não estratégicas de longo prazo
-Emocional: Por que isso importa? (Reduzir estresse, aumentar confiança, melhorar resultados)
-Apreciável: Como medir progresso? (Tempo médio de decisão, satisfação com resultados)
-Refinável: Como iterar? (Revisar framework mensalmente com base em decisões passadas)
+Collaborative: Who is involved? (Me, team, stakeholders)
+Limited: Scope focused on day-to-day decisions, not long-term strategic decisions
+Emotional: Why does this matter? (Reduce stress, increase confidence, improve results)
+Appreciable: How to measure progress? (Average decision time, satisfaction with outcomes)
+Refinable: How to iterate? (Review framework monthly based on past decisions)
 
-Sua tarefa:
-1. Avaliar meus padrões atuais de tomada de decisão e identificar gargalos
-2. Propor um framework de decisão (ex: Matriz de Eisenhower, RAPID, Árvore de Decisão)
-3. Criar templates de critérios para cenários comuns de decisão
-4. Desenhar processo para rastrear resultados de decisões e iterar
+Your task:
+1. Assess my current decision-making patterns and identify bottlenecks
+2. Propose a decision framework (e.g., Eisenhower Matrix, RAPID, Decision Tree)
+3. Create criteria templates for common decision scenarios
+4. Design a process to track decision outcomes and iterate
 
-Opções a explorar:
-- Frameworks estruturados vs. heurísticas rápidas
-- Decisões individuais vs. colaborativas
-- Ferramentas de apoio (checklists, scorecards, etc.)
+Options to explore:
+- Structured frameworks vs. quick heuristics
+- Individual decisions vs. collaborative decisions
+- Supporting tools (checklists, scorecards, etc.)
 
-Compromisso (Will): Implementar o framework proposto durante 30 dias e avaliar resultados.
+Commitment: Implement the proposed framework for 30 days and evaluate results.
 
-Formato de saída: Playbook prático de tomada de decisão com templates, exemplos e métricas para medir melhoria.
+Output format: Practical decision-making playbook with templates, examples, and metrics to measure improvement.
 ```
 ````
 
@@ -545,7 +545,7 @@ Formato de saída: Playbook prático de tomada de decisão com templates, exempl
 
 **User Input:**
 ```
-copilot> otimize prompt: meu código Python não está funcionando, precisa debugar
+copilot> optimize prompt: my Python code isn't working, needs debugging
 ```
 
 **Skill Internal Process:**
@@ -590,7 +590,7 @@ Include a working example to verify the fix.
 
 **User Input:**
 ```
-copilot> crie prompt para: escrever email profissional para executivos sobre mudança de estratégia
+copilot> create prompt for: write a professional email to executives about strategic change
 ```
 
 **Skill Internal Process:**

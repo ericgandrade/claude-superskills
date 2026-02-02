@@ -6,7 +6,7 @@ Reusable AI skills for **GitHub Copilot CLI** and **Claude Code** that work glob
 
 ## 📦 Available Skills
 
-### 🎯 **prompt-engineer** v1.0.0
+### 🎯 **prompt-engineer** v1.0.1
 
 Transform raw prompts into optimized prompts using **11 established frameworks**.
 
@@ -77,7 +77,7 @@ Automate CLI skill creation with best practices built-in.
 
 ---
 
-### 🎥 **youtube-summarizer** v1.1.0
+### 🎥 **youtube-summarizer** v1.1.1
 
 Extract transcripts from YouTube videos and generate comprehensive, detailed summaries. Powered by [youtube-transcript-api](https://github.com/jdepoix/youtube-transcript-api) by [Julien Depoix](https://github.com/jdepoix).
 
@@ -115,12 +115,12 @@ Extract transcripts from YouTube videos and generate comprehensive, detailed sum
 
 ### 🗺️ Roadmap
 
-Próximos itens em desenvolvimento:
+Upcoming features in development:
 
-- 📦 **npx installer** — Instalar skills diretamente via `npx`, sem clone ou symlink manual ([#1](https://github.com/ericgandrade/cli-ai-skills/issues/1))
-- 🤖 **Gemini skill** — Skill nativa para integração com Google Gemini ([#2](https://github.com/ericgandrade/cli-ai-skills/issues/2))
-- 💻 **OpenCode skill** — Skill nativa para integração com OpenCode ([#3](https://github.com/ericgandrade/cli-ai-skills/issues/3))
-- 🤖 **Codex skill** — Skill nativa para integração com OpenAI Codex ([#4](https://github.com/ericgandrade/cli-ai-skills/issues/4))
+- 📦 **npx installer** — Install skills directly via `npx`, without manual clone or symlink ([#1](https://github.com/ericgandrade/cli-ai-skills/issues/1))
+- 🤖 **Gemini skill** — Native skill for Google Gemini integration ([#2](https://github.com/ericgandrade/cli-ai-skills/issues/2))
+- 💻 **OpenCode skill** — Native skill for OpenCode integration ([#3](https://github.com/ericgandrade/cli-ai-skills/issues/3))
+- 🤖 **Codex skill** — Native skill for OpenAI Codex integration ([#4](https://github.com/ericgandrade/cli-ai-skills/issues/4))
 
 **Want to contribute?** See [CONTRIBUTING.md](./CONTRIBUTING.md)
 
@@ -194,8 +194,8 @@ The **prompt-engineer** skill analyzes your input and:
 
 3. **Open a NEW terminal** and test:
    ```bash
-   # GitHub Copilot - use any trigger
-   gh copilot -p "melhore este prompt: criar API REST"
+   # GitHub Copilot - use any trigger (English or Portuguese)
+   gh copilot -p "improve this prompt: create REST API"
    
    # Claude Code - start interactive session
    claude
@@ -248,15 +248,15 @@ ln -s /full/path/to/cli-ai-skills/.claude/skills/prompt-engineer ~/.claude/skill
 
 **Input:**
 ```bash
-copilot> melhore este prompt: me ajuda a escrever código python
+copilot> improve this prompt: help me write python code
 ```
 
 **Skill asks:**
 ```
-Qual tipo de código Python você precisa?
-- [ ] Análise de dados
+What type of Python code do you need?
+- [ ] Data analysis
 - [ ] Web scraping
-- [ ] Automação de tarefas
+- [ ] Task automation
 ```
 
 **You select:** "Web scraping"
@@ -264,16 +264,16 @@ Qual tipo de código Python você precisa?
 **Output:**
 ````markdown
 ```
-Você é um desenvolvedor Python especialista em web scraping.
+You are a Python developer expert in web scraping.
 
-Tarefa: Crie um script Python para fazer scraping de [especifique o site alvo].
+Task: Create a Python script to scrape [specify target website].
 
-Requisitos:
-- Use BeautifulSoup ou Scrapy
-- Implemente paginação e rate limiting
-- Armazene dados em formato estruturado (CSV ou JSON)
+Requirements:
+- Use BeautifulSoup or Scrapy
+- Implement pagination and rate limiting
+- Store data in structured format (CSV or JSON)
 
-Formato de saída: Código Python completo e comentado com exemplos de uso.
+Output format: Complete and commented Python code with usage examples.
 ```
 ````
 

@@ -1,6 +1,6 @@
 # 🎯 Prompt Engineer
 
-**Version:** 1.0.0  
+**Version:** 1.0.1  
 **Status:** ✨ Zero-Config | 🌍 Universal
 
 Transform raw prompts into optimized, production-ready prompts using 11 established prompting frameworks.
@@ -32,27 +32,27 @@ This skill works in **"magic mode"** - it operates silently, only asking questio
 Use any of these trigger phrases:
 
 ```bash
-claude> melhore este prompt: [your rough prompt]
-claude> otimize prompt: [your idea]
+claude> improve this prompt: [your rough prompt]
+claude> optimize prompt: [your idea]
 claude> refine prompt: [what you want]
-claude> prompt engineering para: [task description]
-claude> transforme em prompt: [concept]
-claude> crie prompt para: [goal]
+claude> prompt engineering for: [task description]
+claude> transform into prompt: [concept]
+claude> create prompt for: [goal]
 ```
 
 ### Example 1: Simple Task
 
 **Input:**
 ```bash
-claude> melhore este prompt: me ajuda a escrever código python
+claude> improve this prompt: help me write Python code
 ```
 
 **Skill asks:**
 ```
-Qual tipo de código Python você precisa?
-- [ ] Análise de dados
+What type of Python code do you need?
+- [ ] Data analysis
 - [ ] Web scraping
-- [ ] Automação de tarefas
+- [ ] Task automation
 - [ ] API/backend development
 ```
 
@@ -61,17 +61,17 @@ Qual tipo de código Python você precisa?
 **Output:**
 ````markdown
 ```
-Você é um desenvolvedor Python especialista em web scraping.
+You are a Python developer expert in web scraping.
 
-Tarefa: Crie um script Python para fazer scraping de [especifique o site alvo].
+Task: Create a Python script to scrape data from [specify target website].
 
-Requisitos:
-- Use BeautifulSoup ou Scrapy
-- Implemente paginação e rate limiting
-- Armazene dados em formato estruturado (CSV ou JSON)
-- Inclua tratamento de erros para problemas de rede
+Requirements:
+- Use BeautifulSoup or Scrapy
+- Implement pagination and rate limiting
+- Store data in structured format (CSV or JSON)
+- Include error handling for network issues
 
-Formato de saída: Código Python completo e comentado com exemplos de uso.
+Output format: Complete, commented Python code with usage examples.
 ```
 ````
 
@@ -81,7 +81,7 @@ Formato de saída: Código Python completo e comentado com exemplos de uso.
 
 **Input:**
 ```bash
-claude> crie prompt para: sistema de recomendação de produtos com histórico de compras e tendências de mercado
+claude> create prompt for: product recommendation system with purchase history and market trends
 ```
 
 **Output:**
@@ -118,53 +118,53 @@ Output format: Technical design document with architecture diagrams and implemen
 
 **Input:**
 ```bash
-claude> transforme em prompt: quero melhorar meu processo
+claude> transform into prompt: I want to improve my process
 ```
 
 **Skill asks:**
 ```
-Qual processo você quer melhorar?
-- [ ] Processo de trabalho/produtividade
-- [ ] Processo de aprendizagem
-- [ ] Processo técnico (desenvolvimento, deploy, etc.)
+What process do you want to improve?
+- [ ] Work/productivity process
+- [ ] Learning process
+- [ ] Technical process (development, deployment, etc.)
 ```
 
-**You select:** "Processo de trabalho"
+**You select:** "Work process"
 
 **Skill asks:**
 ```
-Qual aspecto específico?
-- [ ] Gestão de tempo
-- [ ] Colaboração em equipe
-- [ ] Tomada de decisões
+What specific aspect?
+- [ ] Time management
+- [ ] Team collaboration
+- [ ] Decision making
 ```
 
-**You select:** "Tomada de decisões"
+**You select:** "Decision making"
 
 **Output:**
 ````markdown
 ```
-Contexto: Tenho dificuldade em tomar decisões de forma ágil e eficaz no trabalho.
+Context: I struggle with making decisions quickly and effectively at work.
 
-Objetivo: Desenvolver um framework estruturado para melhorar velocidade e qualidade de decisões.
+Objective: Develop a structured framework to improve decision speed and quality.
 
-Realidade Atual:
-- Decisões atrasadas por análise excessiva
-- Falta de critérios claros
-- Incerteza sobre quando decidir vs. coletar informações
+Current Reality:
+- Decisions delayed by excessive analysis
+- Lack of clear criteria
+- Uncertainty about when to decide vs. gather information
 
-Resultado Desejado:
-- Framework de decisão consistente
-- Critérios claros para diferentes tipos de decisões
-- Redução de fadiga de decisão
+Desired Outcome:
+- Consistent decision-making framework
+- Clear criteria for different decision types
+- Reduced decision fatigue
 
-Sua tarefa:
-1. Avaliar padrões atuais e identificar gargalos
-2. Propor framework (Eisenhower Matrix, RAPID, Decision Tree)
-3. Criar templates de critérios
-4. Desenhar processo de tracking e iteração
+Your task:
+1. Assess current patterns and identify bottlenecks
+2. Propose framework (Eisenhower Matrix, RAPID, Decision Tree)
+3. Create decision criteria templates
+4. Design tracking and iteration process
 
-Formato de saída: Playbook prático com templates, exemplos e métricas.
+Output format: Practical playbook with templates, examples, and metrics.
 ```
 ````
 
@@ -513,7 +513,7 @@ User Input (rough prompt)
 ### Coding
 
 ```bash
-claude> otimize prompt: criar API REST em Python
+claude> optimize prompt: create REST API in Python
 ```
 
 → Generates structured prompt with role, requirements, output format, examples
@@ -523,7 +523,7 @@ claude> otimize prompt: criar API REST em Python
 ### Writing
 
 ```bash
-claude> crie prompt para: escrever artigo técnico sobre microservices
+claude> create prompt for: write technical article about microservices
 ```
 
 → Generates audience-aware prompt with structure, tone, and content guidelines
@@ -533,7 +533,7 @@ claude> crie prompt para: escrever artigo técnico sobre microservices
 ### Analysis
 
 ```bash
-claude> refine prompt: analisar dados de vendas e identificar tendências
+claude> refine prompt: analyze sales data and identify trends
 ```
 
 → Generates step-by-step analytical framework with visualization requirements
@@ -543,7 +543,7 @@ claude> refine prompt: analisar dados de vendas e identificar tendências
 ### Decision Making
 
 ```bash
-claude> melhore este prompt: preciso decidir entre tecnologias A e B
+claude> improve this prompt: I need to decide between technology A and B
 ```
 
 → Generates decision framework with criteria, trade-offs, and validation
@@ -553,7 +553,7 @@ claude> melhore este prompt: preciso decidir entre tecnologias A e B
 ### Learning
 
 ```bash
-claude> transforme em prompt: aprender machine learning do zero
+claude> transform into prompt: learn machine learning from zero
 ```
 
 → Generates learning path prompt with phases, resources, and milestones
@@ -583,7 +583,7 @@ claude> transforme em prompt: aprender machine learning do zero
 ---
 
 ### Q: Can I customize the frameworks?
-**A:** The skill uses standard framework definitions. You can't customize them, but you can provide additional constraints in your input (e.g., "crie prompt curto para...").
+**A:** The skill uses standard framework definitions. You can't customize them, but you can provide additional constraints in your input (e.g., "create a short prompt for...").
 
 ---
 
@@ -655,5 +655,5 @@ Then configure:
 
 ## 📄 Version
 
-**v1.0.0** | Zero-Config | Universal  
+**v1.0.1** | Zero-Config | Universal  
 *Works in any project, any context, any terminal.*

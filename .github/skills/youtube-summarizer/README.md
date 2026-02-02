@@ -2,7 +2,7 @@
 
 > Extract transcripts from YouTube videos and generate comprehensive, detailed summaries
 
-**Version:** 1.1.0
+**Version:** 1.1.1
 **Status:** ✨ Zero-Config | 🌍 Universal
 **Platforms:** GitHub Copilot CLI, Claude Code
 
@@ -36,13 +36,13 @@ The **youtube-summarizer** skill automates the extraction of YouTube video trans
 Activate this skill with any of these phrases:
 
 ```bash
-# Portuguese
-copilot> resume este video: https://www.youtube.com/watch?v=VIDEO_ID
-copilot> resumir video do youtube https://youtu.be/VIDEO_ID
-copilot> extrair transcript youtube https://youtube.com/watch?v=VIDEO_ID
-
 # English
-copilot> summarize youtube video https://www.youtube.com/watch?v=VIDEO_ID
+copilot> summarize this video: https://www.youtube.com/watch?v=VIDEO_ID
+copilot> summarize youtube video https://youtu.be/VIDEO_ID
+copilot> extract youtube transcript https://youtube.com/watch?v=VIDEO_ID
+
+# Portuguese (also supported)
+copilot> resume este video: https://www.youtube.com/watch?v=VIDEO_ID
 ```
 
 ### First-Time Setup
@@ -66,7 +66,7 @@ Select "Yes" and the skill handles installation automatically.
 ### 1. **Educational Video Documentation**
 
 ```bash
-copilot> resume este video: https://www.youtube.com/watch?v=abc123
+copilot> summarize this video: https://www.youtube.com/watch?v=abc123
 ```
 
 **Output:**
@@ -90,7 +90,7 @@ copilot> summarize youtube video https://youtu.be/xyz789
 ### 3. **Conference Talk Reference**
 
 ```bash
-copilot> extrair transcript youtube https://youtube.com/watch?v=def456
+copilot> extract youtube transcript https://youtube.com/watch?v=def456
 ```
 
 **Output:**
@@ -102,7 +102,7 @@ copilot> extrair transcript youtube https://youtube.com/watch?v=def456
 ### 4. **Language Learning Content**
 
 ```bash
-copilot> resumir video do youtube https://youtu.be/ghi789
+copilot> summarize youtube video https://youtu.be/ghi789
 ```
 
 **Output:**

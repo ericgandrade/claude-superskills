@@ -6,7 +6,7 @@ triggers:
   - "resumir video do youtube"
   - "extrair transcript youtube"
   - "summarize youtube video"
-version: 1.1.0
+version: 1.1.1
 author: Eric Andrade
 created: 2026-02-01
 platforms: [github-copilot-cli, claude-code]
@@ -304,20 +304,20 @@ echo "[████████████████████] 100% - Step
 ```markdown
 # [Video Title]
 
-**Canal:** [Channel Name]  
-**Duração:** [Duration]  
+**Channel:** [Channel Name]  
+**Duration:** [Duration]  
 **URL:** [https://youtube.com/watch?v=VIDEO_ID]  
-**Data de Publicação:** [Date if available]
+**Publication Date:** [Date if available]
 
 ---
 
-## 📊 Síntese Executiva
+## 📊 Executive Summary
 
 [2-3 paragraph overview of the content, main themes, and target audience]
 
 ---
 
-## 📝 Resumo Detalhado
+## 📝 Detailed Summary
 
 ### [Topic 1]
 
@@ -333,7 +333,7 @@ echo "[████████████████████] 100% - Step
 
 ---
 
-## 💡 Principais Insights
+## 💡 Key Insights
 
 - **[Insight 1]:** [Explanation]
 - **[Insight 2]:** [Explanation]
@@ -341,27 +341,27 @@ echo "[████████████████████] 100% - Step
 
 ---
 
-## 📚 Conceitos e Terminologia
+## 📚 Concepts and Terminology
 
 - **[Term 1]:** [Definition and context]
 - **[Term 2]:** [Definition and context]
 
 ---
 
-## 🔗 Recursos Mencionados
+## 🔗 Mentioned Resources
 
 - [Resource 1] - [Description]
 - [Resource 2] - [Description]
 
 ---
 
-## 📌 Conclusão
+## 📌 Conclusion
 
 [Final synthesis and takeaways]
 
 ---
 
-*Resumo gerado a partir da transcrição do vídeo usando youtube-transcript-api*
+*Summary generated from video transcript using youtube-transcript-api*
 ```
 
 **Presentation:**
@@ -380,17 +380,17 @@ echo "[████████████████████] 100% - Step
 **Ask the user:**
 
 ```
-Você quer salvar o resumo como arquivo .md?
-- [ ] Yes — Salvar resumo como arquivo Markdown
-- [ ] No — Apenas exibir no terminal
+Do you want to save the summary as a .md file?
+- [ ] Yes — Save summary as Markdown file
+- [ ] No — Only display in terminal
 ```
 
 **If user selects "Yes", ask:**
 
 ```
-Você quer incluir o raw transcript no arquivo?
-- [ ] Yes — Incluir transcript completo após o resumo
-- [ ] No — Apenas o resumo
+Do you want to include the raw transcript in the file?
+- [ ] Yes — Include full transcript after the summary
+- [ ] No — Summary only
 ```
 
 **If user chose to save:**
@@ -406,7 +406,7 @@ Você quer incluir o raw transcript no arquivo?
 
    ## 📄 Raw Transcript
 
-   > *Transcrição original extraída do vídeo usando youtube-transcript-api*
+   > *Original transcript extracted from video using youtube-transcript-api*
 
    {full transcript text}
    ```
@@ -415,14 +415,14 @@ Você quer incluir o raw transcript no arquivo?
 
 4. Confirm to the user:
    ```
-   ✅ Arquivo salvo: resumo-{VIDEO_ID}-{YYYY-MM-DD}.md
+   ✅ File saved: resumo-{VIDEO_ID}-{YYYY-MM-DD}.md
    ```
 
 **If user chose not to save:** Confirm that the summary was displayed and the workflow is complete.
 
 **Display completion gauge:**
 ```bash
-echo "[████████████████████] 100% - ✓ Processamento concluído!"
+echo "[████████████████████] 100% - ✓ Processing complete!"
 ```
 
 ```
@@ -541,7 +541,7 @@ Possible solutions:
 
 **User Input:**
 ```
-copilot> resume este video: https://www.youtube.com/watch?v=dQw4w9WgXcQ
+copilot> summarize this video: https://www.youtube.com/watch?v=dQw4w9WgXcQ
 ```
 
 **Skill Process:**
@@ -565,8 +565,8 @@ copilot> resume este video: https://www.youtube.com/watch?v=dQw4w9WgXcQ
 ```markdown
 # Rick Astley - Never Gonna Give You Up (Official Video)
 
-**Canal:** Rick Astley  
-**Duração:** 3:33  
+**Channel:** Rick Astley  
+**Duration:** 3:33  
 **URL:** https://www.youtube.com/watch?v=dQw4w9WgXcQ
 
 [... full detailed summary following the structured template ...]
@@ -575,14 +575,14 @@ copilot> resume este video: https://www.youtube.com/watch?v=dQw4w9WgXcQ
 **Save Options:**
 
 ```
-Você quer salvar o resumo como arquivo .md?
-→ Yes — Salvar resumo como arquivo Markdown
+Do you want to save the summary as a .md file?
+→ Yes — Save summary as Markdown file
 
-Você quer incluir o raw transcript no arquivo?
-→ No — Apenas o resumo
+Do you want to include the raw transcript in the file?
+→ No — Summary only
 
-✅ Arquivo salvo: resumo-dQw4w9WgXcQ-2026-02-01.md
-[████████████████████] 100% - ✓ Processamento concluído!
+✅ File saved: resumo-dQw4w9WgXcQ-2026-02-01.md
+[████████████████████] 100% - ✓ Processing complete!
 ```
 
 ---
@@ -591,7 +591,7 @@ Você quer incluir o raw transcript no arquivo?
 
 **User Input:**
 ```
-copilot> summarize youtube video https://youtu.be/abc123
+copilot> summarize this youtube video https://youtu.be/abc123
 ```
 
 **Skill Response:**
@@ -621,7 +621,7 @@ Successfully installed youtube-transcript-api-0.6.1
 
 **User Input:**
 ```
-copilot> extrair transcript youtube https://youtube.com/watch?v=xyz789
+copilot> extract youtube transcript https://youtube.com/watch?v=xyz789
 ```
 
 **Skill Response:**
@@ -643,7 +643,7 @@ Cannot proceed with summary generation.
 
 **User Input:**
 ```
-copilot> resumir video do youtube www.youtube.com/some-video
+copilot> summarize youtube video www.youtube.com/some-video
 ```
 
 **Skill Response:**
@@ -664,7 +664,7 @@ Please provide a valid YouTube video URL.
 
 **User Input:**
 ```
-copilot> resumir video do youtube: https://www.youtube.com/watch?v=exemplo123
+copilot> summarize this youtube video: https://www.youtube.com/watch?v=exemplo123
 ```
 
 **Skill Process:**
@@ -686,18 +686,18 @@ copilot> resumir video do youtube: https://www.youtube.com/watch?v=exemplo123
 **Output:**
 
 ```markdown
-# Introdução à Inteligência Artificial - Conceitos Fundamentais
+# Introduction to Artificial Intelligence - Fundamental Concepts
 
-**Canal:** TechEdu Brasil  
-**Duração:** 45:12  
+**Channel:** TechEdu Brasil  
+**Duration:** 45:12  
 **URL:** https://www.youtube.com/watch?v=exemplo123  
-**Data de Publicação:** 2026-01-15
+**Publication Date:** 2026-01-15
 
 ---
 
-## 📊 Síntese Executiva
+## 📊 Executive Summary
 
-Este vídeo oferece uma introdução abrangente aos conceitos fundamentais de Inteligência Artificial (IA), destinado a iniciantes e profissionais que desejam compreender os fundamentos técnicos e aplicações práticas da IA moderna. O instrutor aborda desde definições básicas até algoritmos de aprendizado de máquina, utilizando exemplos práticos e visualizações para facilitar a compreensão.
+This video provides a comprehensive introduction to the fundamental concepts of Artificial Intelligence (AI), designed for beginners and professionals who want to understand the technical foundations and practical applications of modern AI. The instructor covers everything from basic definitions to machine learning algorithms, using practical examples and visualizations to facilitate understanding.
 
 [... continued detailed summary ...]
 ```
@@ -705,14 +705,14 @@ Este vídeo oferece uma introdução abrangente aos conceitos fundamentais de In
 **Save Options:**
 
 ```
-Você quer salvar o resumo como arquivo .md?
-→ Yes — Salvar resumo como arquivo Markdown
+Do you want to save the summary as a .md file?
+→ Yes — Save summary as Markdown file
 
-Você quer incluir o raw transcript no arquivo?
-→ Yes — Incluir transcript completo após o resumo
+Do you want to include the raw transcript in the file?
+→ Yes — Include full transcript after the summary
 
-✅ Arquivo salvo: resumo-exemplo123-2026-02-01.md (inclui raw transcript)
-[████████████████████] 100% - ✓ Processamento concluído!
+✅ File saved: resumo-exemplo123-2026-02-01.md (includes raw transcript)
+[████████████████████] 100% - ✓ Processing complete!
 ```
 
 ---
@@ -793,6 +793,6 @@ Sample output showing what a complete summary looks like (see Example 5 above fo
 
 ---
 
-**Version:** 1.1.0
+**Version:** 1.1.1
 **Last Updated:** 2026-02-01
 **Maintained By:** Eric Andrade
