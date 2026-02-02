@@ -21,12 +21,15 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
+        working-directory: ./cli-installer
         run: npm ci
 
       - name: Run tests
+        working-directory: ./cli-installer
         run: npm test
 
       - name: Publish to npm
+        working-directory: ./cli-installer
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
