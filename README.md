@@ -18,12 +18,12 @@ Transform raw prompts into optimized prompts using **11 established frameworks**
 - **RISEN** (Role, Instructions, Steps, End goal, Narrowing): Structured projects
 - **RODES** (Role, Objective, Details, Examples, Sense check): Complex design
 - **Chain of Density**: Summarization and compression
-- **R-A-C-E** (Role, Audience, Context, Expectation): Communication tasks
-- **R-I-S-E** (Research, Investigate, Synthesize, Evaluate): Investigation
-- **S-T-A-R** (Situation, Task, Action, Result): Contextual problem-solving
-- **S-O-A-P** (Subjective, Objective, Assessment, Plan): Structured documentation
-- **C-L-E-A-R** (Collaborative, Limited, Emotional, Appreciable, Refinable): Goal-setting
-- **G-R-O-W** (Goal, Reality, Options, Will): Coaching and development
+- **RACE** (Role, Audience, Context, Expectation): Communication tasks
+- **RISE** (Research, Investigate, Synthesize, Evaluate): Investigation
+- **STAR** (Situation, Task, Action, Result): Contextual problem-solving
+- **SOAP** (Subjective, Objective, Assessment, Plan): Structured documentation
+- **CLEAR** (Collaborative, Limited, Emotional, Appreciable, Refinable): Goal-setting
+- **GROW** (Goal, Reality, Options, Will): Coaching and development
 
 **Triggers:**
 - `melhore este prompt`
@@ -139,12 +139,12 @@ The skills in this library leverage established prompting frameworks to optimize
 | **RISEN** | RISEN | Structured multi-phase projects | Role, Instructions, Steps, End goal, Narrowing |
 | **RODES** | RODES | Complex design and system architecture | Role, Objective, Details, Examples, Sense check |
 | **Chain of Density** | CoD | Summarization and iterative compression | Verbose → Iterative compression → Dense |
-| **R-A-C-E** | RACE | Communication and presentations | Role, Audience, Context, Expectation |
-| **R-I-S-E** | RISE | Investigation and systematic analysis | Research, Investigate, Synthesize, Evaluate |
-| **S-T-A-R** | STAR | Contextual problem-solving | Situation, Task, Action, Result |
-| **S-O-A-P** | SOAP | Structured documentation and records | Subjective, Objective, Assessment, Plan |
-| **C-L-E-A-R** | CLEAR | Goal-setting and measurable objectives | Collaborative, Limited, Emotional, Appreciable, Refinable |
-| **G-R-O-W** | GROW | Coaching and personal development | Goal, Reality, Options, Will |
+| **RACE** | RACE | Communication and presentations | Role, Audience, Context, Expectation |
+| **RISE** | RISE | Investigation and systematic analysis | Research, Investigate, Synthesize, Evaluate |
+| **STAR** | STAR | Contextual problem-solving | Situation, Task, Action, Result |
+| **SOAP** | SOAP | Structured documentation and records | Subjective, Objective, Assessment, Plan |
+| **CLEAR** | CLEAR | Goal-setting and measurable objectives | Collaborative, Limited, Emotional, Appreciable, Refinable |
+| **GROW** | GROW | Coaching and personal development | Goal, Reality, Options, Will |
 
 ### Framework Selection Logic
 
@@ -156,8 +156,8 @@ The **prompt-engineer** skill analyzes your input and:
 
 **Common Framework Blends:**
 - **RODES + Chain of Thought** → Complex technical projects requiring step-by-step planning
-- **C-L-E-A-R + G-R-O-W** → Leadership and personal development goals
-- **R-A-C-E + S-T-A-R** → Strategic communication with rich context
+- **CLEAR + GROW** → Leadership and personal development goals
+- **RACE + STAR** → Strategic communication with rich context
 
 **You never choose the framework manually** - the skill does it automatically based on your needs.
 

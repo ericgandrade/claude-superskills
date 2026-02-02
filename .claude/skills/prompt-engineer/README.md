@@ -16,7 +16,7 @@ This skill works in **"magic mode"** - it operates silently, only asking questio
 ### ✨ Key Features
 
 - **🎯 Intent Analysis:** Understands what you're trying to accomplish
-- **🧠 11 Frameworks:** RTF, Chain of Thought, RISEN, RODES, Chain of Density, R-A-C-E, R-I-S-E, S-T-A-R, S-O-A-P, C-L-E-A-R, G-R-O-W
+- **🧠 11 Frameworks:** RTF, Chain of Thought, RISEN, RODES, Chain of Density, RACE, RISE, STAR, SOAP, CLEAR, GROW
 - **🔄 Framework Blending:** Combines multiple frameworks when needed
 - **❓ Smart Clarification:** Only asks questions when critically needed
 - **📏 Adaptive Output:** Matches prompt length to task complexity
@@ -32,19 +32,19 @@ This skill works in **"magic mode"** - it operates silently, only asking questio
 Use any of these trigger phrases:
 
 ```bash
-claude> improve this prompt: [your rough prompt]
-claude> optimize prompt: [your idea]
-claude> refine prompt: [what you want]
-claude> prompt engineering for: [task description]
-claude> transform into prompt: [concept]
-claude> create prompt for: [goal]
+copilot> improve this prompt: [your rough prompt]
+copilot> optimize prompt: [your idea]
+copilot> refine prompt: [what you want]
+copilot> prompt engineering for: [task description]
+copilot> transform into prompt: [concept]
+copilot> create prompt for: [goal]
 ```
 
 ### Example 1: Simple Task
 
 **Input:**
 ```bash
-claude> improve this prompt: help me write Python code
+copilot> improve this prompt: help me write Python code
 ```
 
 **Skill asks:**
@@ -81,7 +81,7 @@ Output format: Complete, commented Python code with usage examples.
 
 **Input:**
 ```bash
-claude> create prompt for: product recommendation system with purchase history and market trends
+copilot> create prompt for: product recommendation system with purchase history and market trends
 ```
 
 **Output:**
@@ -118,7 +118,7 @@ Output format: Technical design document with architecture diagrams and implemen
 
 **Input:**
 ```bash
-claude> transform into prompt: I want to improve my process
+copilot> transform into prompt: I want to improve my process
 ```
 
 **Skill asks:**
@@ -289,7 +289,7 @@ Compress this article into progressively denser summaries:
 
 ---
 
-### 6. **R-A-C-E**
+### 6. **RACE**
 
 **Structure:** Role, Audience, Context, Expectation
 
@@ -311,7 +311,7 @@ Expectation: Explain root causes and recovery plan in non-technical terms.
 
 ---
 
-### 7. **R-I-S-E**
+### 7. **RISE**
 
 **Structure:** Research, Investigate, Synthesize, Evaluate
 
@@ -325,7 +325,7 @@ Expectation: Explain root causes and recovery plan in non-technical terms.
 
 **Example:**
 ```
-Analyze customer churn data using R-I-S-E:
+Analyze customer churn data using RISE:
 Research: Collect churn metrics, exit surveys, support tickets.
 Investigate: Identify patterns in churned users.
 Synthesize: Combine findings into themes.
@@ -334,7 +334,7 @@ Evaluate: Recommend retention strategies based on evidence.
 
 ---
 
-### 8. **S-T-A-R**
+### 8. **STAR**
 
 **Structure:** Situation, Task, Action, Result
 
@@ -356,7 +356,7 @@ Result: Deploy 10+ times per day with <5% rollback rate.
 
 ---
 
-### 9. **S-O-A-P**
+### 9. **SOAP**
 
 **Structure:** Subjective, Objective, Assessment, Plan
 
@@ -379,7 +379,7 @@ Plan: 1) Scale pool size 2) Add monitoring alerts 3) Review query performance.
 
 ---
 
-### 10. **C-L-E-A-R**
+### 10. **CLEAR**
 
 **Structure:** Collaborative, Limited, Emotional, Appreciable, Refinable
 
@@ -404,7 +404,7 @@ Refinable: Bi-weekly retrospectives, adjust priorities based on feedback.
 
 ---
 
-### 11. **G-R-O-W**
+### 11. **GROW**
 
 **Structure:** Goal, Reality, Options, Will
 
@@ -443,14 +443,14 @@ The skill analyzes your input and:
    - RTF → Role-based tasks
    - Chain of Thought → Step-by-step reasoning
    - RISEN/RODES → Complex projects
-   - R-A-C-E → Communication
-   - S-T-A-R → Contextual problems
+   - RACE → Communication
+   - STAR → Contextual problems
    - And so on...
 
 4. **Blends secondary frameworks when needed**
    - RODES + Chain of Thought → Complex technical projects
-   - C-L-E-A-R + G-R-O-W → Leadership goals
-   - R-A-C-E + S-T-A-R → Strategic communication
+   - CLEAR + GROW → Leadership goals
+   - RACE + STAR → Strategic communication
 
 **You never choose the framework manually** - the skill does it automatically in "magic mode."
 
@@ -461,9 +461,9 @@ The skill analyzes your input and:
 | Task Type | Primary Framework | Blended With | Result |
 |-----------|------------------|--------------|--------|
 | Complex technical design | RODES | Chain of Thought | Structured design with step-by-step reasoning |
-| Leadership development | C-L-E-A-R | G-R-O-W | Measurable goals with action commitment |
-| Strategic communication | R-A-C-E | S-T-A-R | Audience-aware storytelling with context |
-| Incident investigation | R-I-S-E | S-O-A-P | Systematic analysis with structured documentation |
+| Leadership development | CLEAR | GROW | Measurable goals with action commitment |
+| Strategic communication | RACE | STAR | Audience-aware storytelling with context |
+| Incident investigation | RISE | SOAP | Systematic analysis with structured documentation |
 | Project planning | RISEN | RTF | Multi-phase delivery with role clarity |
 
 ---
@@ -513,7 +513,7 @@ User Input (rough prompt)
 ### Coding
 
 ```bash
-claude> optimize prompt: create REST API in Python
+copilot> optimize prompt: create REST API in Python
 ```
 
 → Generates structured prompt with role, requirements, output format, examples
@@ -523,7 +523,7 @@ claude> optimize prompt: create REST API in Python
 ### Writing
 
 ```bash
-claude> create prompt for: write technical article about microservices
+copilot> create prompt for: write technical article about microservices
 ```
 
 → Generates audience-aware prompt with structure, tone, and content guidelines
@@ -533,7 +533,7 @@ claude> create prompt for: write technical article about microservices
 ### Analysis
 
 ```bash
-claude> refine prompt: analyze sales data and identify trends
+copilot> refine prompt: analyze sales data and identify trends
 ```
 
 → Generates step-by-step analytical framework with visualization requirements
@@ -543,7 +543,7 @@ claude> refine prompt: analyze sales data and identify trends
 ### Decision Making
 
 ```bash
-claude> improve this prompt: I need to decide between technology A and B
+copilot> improve this prompt: I need to decide between technology A and B
 ```
 
 → Generates decision framework with criteria, trade-offs, and validation
@@ -553,7 +553,7 @@ claude> improve this prompt: I need to decide between technology A and B
 ### Learning
 
 ```bash
-claude> transform into prompt: learn machine learning from zero
+copilot> transform into prompt: learn machine learning from zero
 ```
 
 → Generates learning path prompt with phases, resources, and milestones
@@ -613,13 +613,13 @@ This skill is designed to work **globally** across all your projects.
    git clone https://github.com/eric.andrade/cli-ai-skills.git
    ```
 
-2. Configure Claude to load skills globally:
+2. Configure Copilot to load skills globally:
    ```bash
-   # Add to ~/.claude/config.json
+   # Add to ~/.copilot/config.json
    {
      "skills": {
        "directories": [
-         "/path/to/cli-ai-skills/.claude/skills"
+         "/path/to/cli-ai-skills/.github/skills"
        ]
      }
    }
@@ -628,16 +628,16 @@ This skill is designed to work **globally** across all your projects.
 ### Option 2: Copy to Global Skills Directory
 
 ```bash
-cp -r /path/to/cli-ai-skills/.claude/skills/prompt-engineer ~/.claude/global-skills/
+cp -r /path/to/cli-ai-skills/.github/skills/prompt-engineer ~/.copilot/global-skills/
 ```
 
 Then configure:
 ```bash
-# Add to ~/.claude/config.json
+# Add to ~/.copilot/config.json
 {
   "skills": {
     "directories": [
-      "~/.claude/global-skills"
+      "~/.copilot/global-skills"
     ]
   }
 }

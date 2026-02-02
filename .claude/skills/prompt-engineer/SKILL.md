@@ -1,6 +1,6 @@
 ---
 name: prompt-engineer
-description: Transforms user prompts into optimized prompts using frameworks (RTF, RISEN, Chain of Thought, RODES, Chain of Density, R-A-C-E, R-I-S-E, S-T-A-R, S-O-A-P, C-L-E-A-R, G-R-O-W)
+description: Transforms user prompts into optimized prompts using frameworks (RTF, RISEN, Chain of Thought, RODES, Chain of Density, RACE, RISE, STAR, SOAP, CLEAR, GROW)
 triggers:
   - "melhore este prompt"
   - "otimize prompt"
@@ -96,17 +96,17 @@ Invoke this skill when:
 | **Structured projects** (multi-phase, deliverables) | **RISEN** (Role, Instructions, Steps, End goal, Narrowing) | Comprehensive structure for complex work |
 | **Complex design/analysis** (systems, architecture) | **RODES** (Role, Objective, Details, Examples, Sense check) | Balances detail with validation |
 | **Summarization** (compress, synthesize) | **Chain of Density** | Iterative refinement to essential info |
-| **Communication** (reports, presentations, storytelling) | **R-A-C-E** (Role, Audience, Context, Expectation) | Audience-aware messaging |
-| **Investigation/analysis** (research, diagnosis) | **R-I-S-E** (Research, Investigate, Synthesize, Evaluate) | Systematic analytical approach |
-| **Contextual situations** (problem-solving with background) | **S-T-A-R** (Situation, Task, Action, Result) | Context-rich problem framing |
-| **Documentation** (medical, technical, records) | **S-O-A-P** (Subjective, Objective, Assessment, Plan) | Structured information capture |
-| **Goal-setting** (OKRs, objectives, targets) | **C-L-E-A-R** (Collaborative, Limited, Emotional, Appreciable, Refinable) | Goal clarity and actionability |
-| **Coaching/development** (mentoring, growth) | **G-R-O-W** (Goal, Reality, Options, Will) | Developmental conversation structure |
+| **Communication** (reports, presentations, storytelling) | **RACE** (Role, Audience, Context, Expectation) | Audience-aware messaging |
+| **Investigation/analysis** (research, diagnosis) | **RISE** (Research, Investigate, Synthesize, Evaluate) | Systematic analytical approach |
+| **Contextual situations** (problem-solving with background) | **STAR** (Situation, Task, Action, Result) | Context-rich problem framing |
+| **Documentation** (medical, technical, records) | **SOAP** (Subjective, Objective, Assessment, Plan) | Structured information capture |
+| **Goal-setting** (OKRs, objectives, targets) | **CLEAR** (Collaborative, Limited, Emotional, Appreciable, Refinable) | Goal clarity and actionability |
+| **Coaching/development** (mentoring, growth) | **GROW** (Goal, Reality, Options, Will) | Developmental conversation structure |
 
 **Blending Strategy:**
 - **Combine 2-3 frameworks** when task spans multiple types
 - Example: Complex technical project → **RODES + Chain of Thought** (structure + reasoning)
-- Example: Leadership decision → **C-L-E-A-R + G-R-O-W** (goal clarity + development)
+- Example: Leadership decision → **CLEAR + GROW** (goal clarity + development)
 
 **Selection Criteria:**
 - Primary framework = best match to core task type
@@ -193,7 +193,7 @@ Create 5 iterations of summaries:
 5. Maximum density (absolute essentials)
 ```
 
-**R-A-C-E Template:**
+**RACE Template:**
 ```
 Role: You are [communicator role].
 Audience: [Target audience with characteristics].
@@ -201,7 +201,7 @@ Context: [Background/situation].
 Expectation: [What audience needs to know/do].
 ```
 
-**R-I-S-E Template:**
+**RISE Template:**
 ```
 Research: [Topic/question to investigate]
 Investigate: [Specific areas to explore]
@@ -209,7 +209,7 @@ Synthesize: [How to combine findings]
 Evaluate: [Criteria for assessment]
 ```
 
-**S-T-A-R Template:**
+**STAR Template:**
 ```
 Situation: [Background context]
 Task: [Specific challenge/objective]
@@ -217,7 +217,7 @@ Action: [What needs to be done]
 Result: [Expected outcome]
 ```
 
-**S-O-A-P Template:**
+**SOAP Template:**
 ```
 Subjective: [User-reported information]
 Objective: [Observable facts]
@@ -225,7 +225,7 @@ Assessment: [Analysis/diagnosis]
 Plan: [Recommended actions]
 ```
 
-**C-L-E-A-R Template:**
+**CLEAR Template:**
 ```
 Collaborative: [Who is involved]
 Limited: [Scope/boundaries]
@@ -234,7 +234,7 @@ Appreciable: [Measurable progress]
 Refinable: [How to iterate/improve]
 ```
 
-**G-R-O-W Template:**
+**GROW Template:**
 ```
 Goal: [What you want to achieve]
 Reality: [Current situation/challenges]
@@ -379,7 +379,7 @@ Validation: Ensure code runs without errors on sample data and produces readable
 
 **User Input:**
 ```
-claude> improve this prompt: help me write Python code
+copilot> improve this prompt: help me write Python code
 ```
 
 **Skill Internal Process:**
@@ -421,7 +421,7 @@ Output format: Complete, well-commented Python code with usage examples.
 
 **User Input:**
 ```
-claude> create prompt for: I need to build a product recommendation system considering purchase history, user preferences, and market trends
+copilot> create prompt for: I need to build a product recommendation system considering purchase history, user preferences, and market trends
 ```
 
 **Skill Internal Process:**
@@ -464,11 +464,11 @@ Output format: Technical design document with architecture diagrams, algorithm j
 
 ---
 
-### **Example 3: Ambiguous Prompt → Multi-Step Clarification → C-L-E-A-R + G-R-O-W**
+### **Example 3: Ambiguous Prompt → Multi-Step Clarification → CLEAR + GROW**
 
 **User Input:**
 ```
-claude> transform into prompt: I want to improve my process
+copilot> transform into prompt: I want to improve my process
 ```
 
 **Skill Internal Process:**
@@ -496,7 +496,7 @@ Which specific aspect of work?
 **User:** "Decision-making"
 
 **Skill Internal Process:**
-3. **Select:** C-L-E-A-R (goal clarity) + G-R-O-W (development/coaching)
+3. **Select:** CLEAR (goal clarity) + GROW (development/coaching)
 
 **Skill Output:**
 
@@ -545,7 +545,7 @@ Output format: Practical decision-making playbook with templates, examples, and 
 
 **User Input:**
 ```
-claude> optimize prompt: my Python code isn't working, needs debugging
+copilot> optimize prompt: my Python code isn't working, needs debugging
 ```
 
 **Skill Internal Process:**
@@ -586,17 +586,17 @@ Include a working example to verify the fix.
 
 ---
 
-### **Example 5: Writing/Communication → R-A-C-E**
+### **Example 5: Writing/Communication → RACE**
 
 **User Input:**
 ```
-claude> create prompt for: write a professional email to executives about strategic change
+copilot> create prompt for: write a professional email to executives about strategic change
 ```
 
 **Skill Internal Process:**
 1. **Analyze:** Communication task, audience-aware (executives), clear goal
 2. **Clarify:** Skip
-3. **Select:** R-A-C-E (audience-focused communication)
+3. **Select:** RACE (audience-focused communication)
 
 **Skill Output:**
 
@@ -640,7 +640,7 @@ Output format: Complete email draft ready to send.
 
 ## Notes
 
-This skill is **platform-agnostic** and works in any terminal context where Claude Code is available. It does not depend on:
+This skill is **platform-agnostic** and works in any terminal context where GitHub Copilot CLI is available. It does not depend on:
 - Obsidian vault structure
 - Specific project configurations
 - External files or templates
