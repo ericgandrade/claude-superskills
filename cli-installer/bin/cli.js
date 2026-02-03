@@ -2,12 +2,10 @@
 
 const { detectTools, getInstallInstructions } = require('../lib/detector');
 const { promptPlatforms } = require('../lib/interactive');
+const { installCopilotSkills } = require('../lib/copilot');
+const { installClaudeSkills } = require('../lib/claude');
+const { install: installCodexSkills } = require('../lib/codex');
 const path = require('path');
-
-// Importar installers existentes
-const copilotInstaller = require('../lib/copilot');
-const claudeInstaller = require('../lib/claude');
-const codexInstaller = require('../lib/codex');
 
 async function main() {
   console.log('\n🚀 cli-ai-skills v1.4.0 - Tri-Platform Installer\n');
@@ -44,15 +42,15 @@ async function main() {
   
   // Instalar para plataformas selecionadas
   if (platforms.includes('copilot')) {
-    copilotInstaller.installCopilotSkills(repoPath);
+    installCopilotSkills(repoPath);
   }
   
   if (platforms.includes('claude')) {
-    claudeInstaller.installClaudeSkills(repoPath);
+    installClaudeSkills(repoPath);
   }
   
   if (platforms.includes('codex')) {
-    codexInstaller.install(repoPath);
+    installCodexSkills(repoPath);
   }
   
   console.log('\n✅ Instalação concluída!\n');
