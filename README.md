@@ -91,18 +91,6 @@ With the **skills** in this repository, you add new specialized capabilities to 
 **Without skills:** The tools only answer basic questions.  
 **With skills:** They gain specialized superpowers! 🚀
 
-### 🆕 v1.4.0: Tri-Platform Support
-
-Now supports **three platforms** with 100% workflow parity:
-
-| Platform | Invocation | Installation | Skills |
-|----------|------------|--------------|--------|
-| **GitHub Copilot CLI** | Auto triggers | `gh extension install` | 4 skills |
-| **Claude Code** | Auto triggers | NPM/manual symlinks | 4 skills |
-| **OpenAI Codex** | Manual `@skill-name` | `$skill-installer` / NPM | 4 skills |
-
-**All platforms:** Same workflows, same capabilities, same quality!
-
 ---
 
 ## 📦 Available Skills
