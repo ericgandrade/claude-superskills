@@ -6,7 +6,7 @@ Custom skills for GitHub Copilot CLI that work globally across all projects.
 
 ## 📦 Available Skills
 
-### 🎯 **prompt-engineer** v1.0.0
+### 🎯 **prompt-engineer** v1.0.1
 
 **Status:** ✨ Zero-Config | 🌍 Universal
 
@@ -77,9 +77,36 @@ Extract transcripts from YouTube videos and generate comprehensive, detailed sum
 - 🔍 Includes metadata and insights
 - 🛠️ Automatic dependency management
 - 📊 Visual progress gauge during processing
-- 💾 Flexible save options: summary-only, summary+transcript, or transcript-only (NEW v1.2.0)
+- 💾 Flexible save options: summary-only, summary+transcript, or transcript-only
 
 **[→ Full Documentation](./youtube-summarizer/README.md)**
+
+---
+
+### 🎙️ **audio-transcriber** v1.1.0
+
+**Status:** ✨ Zero-Config | 🌍 Universal | 🤖 AI-Enhanced | 🐍 Python | 🎯 Interactive
+
+Transform audio recordings into professional Markdown documentation with intelligent atas/summaries using LLM integration (Claude/Copilot CLI) and automatic prompt engineering.
+
+**Triggers:**
+- `transcribe audio to markdown`
+- `transcreva este áudio`
+- `convert audio file to text`
+- `extract speech from audio`
+
+**Features:**
+- 🧠 **LLM Integration** - Claude CLI (primary) or GitHub Copilot CLI (fallback)
+- ✨ **Smart Prompts** - Auto-integration with prompt-engineer skill
+- 📊 Progress indicators (tqdm + rich)
+- 📁 Timestamp-based filenames
+- 🧹 Auto-cleanup of temporary files
+- 🎙️ Speaker diarization
+- 🌍 99 languages with automatic detection
+- ⚡ Auto-install dependencies (Whisper + ffmpeg + tqdm + rich)
+- 🔒 100% local Whisper processing
+
+**[→ Full Documentation](./audio-transcriber/README.md)** | **[→ Changelog](./audio-transcriber/CHANGELOG.md)**
 
 ---
 
@@ -97,5 +124,5 @@ See the [main README](../../README.md#installation) for global setup instruction
 
 ---
 
-**Total Skills:** 3  
-**Last Updated:** February 2026
+**Total Skills:** 4  
+**Last Updated:** February 3, 2026

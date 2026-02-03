@@ -1,35 +1,61 @@
-# Audio Transcriber Skill
+# Audio Transcriber Skill v1.1.0
 
-Transform audio recordings into professional Markdown documentation with meeting minutes, speaker identification, and intelligent summaries.
+Transform audio recordings into professional Markdown documentation with **intelligent atas/summaries using LLM integration** (Claude/Copilot CLI) and automatic prompt engineering.
 
-## 🎯 Features
+## 🆕 What's New in v1.1.0
+
+- **🧠 LLM Integration** - Claude CLI (primary) or GitHub Copilot CLI (fallback) for intelligent processing
+- **✨ Smart Prompts** - Automatic integration with prompt-engineer skill
+  - User-provided prompts → automatically improved → user chooses version
+  - No prompt → analyzes transcript → suggests format → generates structured prompt
+- **📊 Progress Indicators** - Visual progress bars (tqdm) and spinners (rich)
+- **📁 Timestamp Filenames** - `transcript-YYYYMMDD-HHMMSS.md` + `ata-YYYYMMDD-HHMMSS.md`
+- **🧹 Auto-Cleanup** - Removes temporary `metadata.json` and `transcription.json`
+- **🎨 Rich Terminal UI** - Beautiful formatted output with panels and colors
+
+See **[CHANGELOG.md](./CHANGELOG.md)** for complete v1.1.0 details.
+
+## 🎯 Core Features
 
 - **📝 Rich Markdown Output** - Structured reports with metadata tables, timestamps, and formatting
 - **🎙️ Speaker Diarization** - Automatically identifies and labels different speakers
 - **📊 Technical Metadata** - Extracts file size, duration, language, processing time
-- **📋 Meeting Minutes** - Generates topics, decisions, action items automatically
-- **💡 Executive Summaries** - 3-5 paragraph intelligent summaries
+- **📋 Intelligent Atas/Summaries** - Generated via LLM (Claude/Copilot) with customizable prompts
+- **💡 Executive Summaries** - AI-generated structured summaries with topics, decisions, action items
 - **🌍 Multi-language** - Supports 99 languages with auto-detection
 - **⚡ Zero Configuration** - Auto-discovers Faster-Whisper/Whisper installation
-- **🔒 Privacy-First** - 100% local processing, no cloud uploads
-- **📄 Multiple Formats** - TXT, SRT, VTT, JSON exports
-- **🚀 Batch Processing** - Transcribe multiple files at once
+- **🔒 Privacy-First** - 100% local Whisper processing, no cloud uploads
+- **🚀 Flexible Modes** - Transcript-only or intelligent processing with LLM
 
 ## 📦 Installation
 
-### 1. Install Transcription Engine
+### Quick Install (NPX)
+
+```bash
+npx cli-ai-skills@latest install audio-transcriber
+```
+
+This automatically:
+- Downloads the skill
+- Installs Python dependencies (faster-whisper, tqdm, rich)
+- Installs ffmpeg (macOS via Homebrew)
+- Sets up the skill globally
+
+### Manual Installation
+
+#### 1. Install Transcription Engine
 
 **Recommended (fastest):**
 ```bash
-pip install faster-whisper
+pip install faster-whisper tqdm rich
 ```
 
 **Alternative (original Whisper):**
 ```bash
-pip install openai-whisper
+pip install openai-whisper tqdm rich
 ```
 
-### 2. Install Audio Tools (Optional)
+#### 2. Install Audio Tools (Optional)
 
 For format conversion support:
 ```bash
@@ -40,7 +66,19 @@ brew install ffmpeg
 apt install ffmpeg
 ```
 
-### 3. Install Skill
+#### 3. Install LLM CLI (Optional - for intelligent summaries)
+
+**Claude CLI (recommended):**
+```bash
+# Follow: https://docs.anthropic.com/en/docs/claude-cli
+```
+
+**GitHub Copilot CLI (alternative):**
+```bash
+gh extension install github/gh-copilot
+```
+
+#### 4. Install Skill
 
 **Global installation (auto-updates with git pull):**
 ```bash
