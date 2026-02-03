@@ -253,6 +253,8 @@ async function installCommand(skillNames, options) {
                 console.log(chalk.dim('     You can install later:'));
                 if (requirements.type === 'bash') {
                   console.log(chalk.dim(`     bash ${path.relative(process.cwd(), requirements.scriptPath)}`));
+                } else if (requirements.type === 'pip') {
+                  console.log(chalk.dim(`     pip install --user ${requirements.packages.join(' ')}`));
                 }
               }
             }

@@ -35,10 +35,16 @@ class RequirementsInstaller {
     
     if (await fs.pathExists(requirementsTxt)) {
       const packages = await fs.readFile(requirementsTxt, 'utf-8');
+      const parsedPackages = packages
+        .split('\n')
+        .filter(p => p.trim() && !p.trim().startsWith('#'));
+      if (parsedPackages.length === 0) {
+        return { hasRequirements: false };
+      }
       return {
         hasRequirements: true,
         file: requirementsTxt,
-        packages: packages.split('\n').filter(p => p.trim() && !p.startsWith('#')),
+        packages: parsedPackages,
         type: 'pip',
         method: 'requirements.txt'
       };
