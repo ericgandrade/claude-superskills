@@ -4,7 +4,7 @@
 
 **Version:** 1.2.0
 **Status:** ✨ Zero-Config | 🌍 Universal
-**Platforms:** GitHub Copilot CLI, Claude Code
+**Platforms:** GitHub Copilot CLI, Codex
 
 ---
 
@@ -323,7 +323,7 @@ cd cli-ai-skills
 
 This creates symlinks in:
 - `~/.copilot/skills/youtube-summarizer/` (GitHub Copilot CLI)
-- `~/.claude/skills/youtube-summarizer/` (Claude Code)
+- `~/.claude/skills/youtube-summarizer/` (Codex)
 
 ### Repository Installation
 
