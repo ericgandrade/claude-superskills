@@ -1,7 +1,14 @@
 ---
 name: prompt-engineer
-description: Transforms user prompts into optimized prompts using frameworks (RTF, RISEN, Chain of Thought, RODES, Chain of Density, RACE, RISE, STAR, SOAP, CLEAR, GROW)
-version: 1.0.2
+description: "Transforms user prompts into optimized prompts using frameworks (RTF, RISEN, Chain of Thought, RODES, Chain of Density, RACE, RISE, STAR, SOAP, CLEAR, GROW)"
+version: 1.1.0
+author: Eric Andrade
+created: 2025-02-01
+updated: 2026-02-04
+platforms: [github-copilot-cli, claude-code, codex]
+category: automation
+tags: [prompt-engineering, optimization, frameworks, ai-enhancement]
+risk: safe
 ---
 
 ## Purpose
@@ -49,32 +56,6 @@ Invoke this skill when:
 - **Ambiguous tasks:** Generic verbs ("help", "improve"), missing object/context
 - **Structured tasks:** Mentions steps, phases, deliverables, stakeholders
 
----
-
-### Step 2: Clarify (Conditional)
-
-**When to execute:** Only if Step 1 detects critical ambiguity or missing information.
-
-**Critical Ambiguity Triggers:**
-- Generic verbs without object (e.g., "improve this", "help me with X")
-- Missing task context (e.g., "create a system" → what kind? for what?)
-- Contradictory requirements
-- Multiple possible interpretations
-
-**Actions:**
-1. Use `ask_user` tool to ask targeted clarifying questions
-2. Provide **multiple choice** options when possible (faster UX)
-3. Limit to **2-3 questions maximum** to avoid frustration
-4. Frame questions around missing critical information, not nice-to-haves
-
-**Example Questions:**
-- "What type of [X] do you need?" → [Option A, Option B, Option C]
-- "What's the primary goal?" → [Learn concept, Build solution, Analyze data]
-- "Who is the audience?" → [Technical team, Executives, General public]
-
-**If clarity is sufficient:** Skip this step entirely and proceed to Step 3.
-
----
 
 ### Step 3: Select Framework(s)
 
@@ -108,144 +89,6 @@ Invoke this skill when:
 
 **Critical Rule:** This selection happens **silently** - do not explain framework choice to user.
 
----
-
-### Step 4: Generate Optimized Prompt
-
-**Objective:** Construct a polished, production-ready prompt using selected framework(s).
-
-**Generation Rules:**
-
-**4.1. Adaptive Sizing**
-- **Original prompt <100 chars** → Output 150-300 words (focused, direct)
-- **Original prompt 100-300 chars** → Output 300-500 words (structured, detailed)
-- **Original prompt >300 chars** → Output 500-800 words (comprehensive, with examples)
-
-**4.2. Essential Components** (include when applicable):
-- ✅ **Role/Context:** "You are a [expert/role] with expertise in [domain]"
-- ✅ **Task:** Clear, specific instruction on what to do
-- ✅ **Output Format:** "Provide X as [format: list, code, table, essay, etc.]"
-- ✅ **Constraints:** Limitations, requirements, boundaries
-- ✅ **Examples:** (when helpful) Show 1-2 examples of desired output
-- ✅ **Validation:** (for complex tasks) "Verify that [quality criteria]"
-
-**4.3. Framework Application**
-
-**RTF Template:**
-```
-Role: You are [expert role].
-Task: [Specific task description with clear objective].
-Format: [Expected output format with structure].
-```
-
-**Chain of Thought Template:**
-```
-[Task description]
-
-Approach this step-by-step:
-1. [First reasoning step]
-2. [Second reasoning step]
-...
-N. [Final step leading to answer]
-
-Show your reasoning for each step.
-```
-
-**RISEN Template:**
-```
-Role: You are [expert].
-Instructions: [What to do].
-Steps:
-1. [Step 1]
-2. [Step 2]
-...
-End Goal: [Desired outcome].
-Narrowing: [Constraints/focus areas].
-```
-
-**RODES Template:**
-```
-Role: [Expert identity]
-Objective: [What to achieve]
-Details:
-- [Key detail 1]
-- [Key detail 2]
-Examples: [1-2 examples of expected output]
-Sense Check: [Validation criteria]
-```
-
-**Chain of Density Template:**
-```
-[Content to summarize]
-
-Create 5 iterations of summaries:
-1. Initial summary (verbose)
-2. Denser summary (remove non-essential)
-3. Denser still (compress further)
-4. Highly dense (only critical info)
-5. Maximum density (absolute essentials)
-```
-
-**RACE Template:**
-```
-Role: You are [communicator role].
-Audience: [Target audience with characteristics].
-Context: [Background/situation].
-Expectation: [What audience needs to know/do].
-```
-
-**RISE Template:**
-```
-Research: [Topic/question to investigate]
-Investigate: [Specific areas to explore]
-Synthesize: [How to combine findings]
-Evaluate: [Criteria for assessment]
-```
-
-**STAR Template:**
-```
-Situation: [Background context]
-Task: [Specific challenge/objective]
-Action: [What needs to be done]
-Result: [Expected outcome]
-```
-
-**SOAP Template:**
-```
-Subjective: [User-reported information]
-Objective: [Observable facts]
-Assessment: [Analysis/diagnosis]
-Plan: [Recommended actions]
-```
-
-**CLEAR Template:**
-```
-Collaborative: [Who is involved]
-Limited: [Scope/boundaries]
-Emotional: [Why it matters]
-Appreciable: [Measurable progress]
-Refinable: [How to iterate/improve]
-```
-
-**GROW Template:**
-```
-Goal: [What you want to achieve]
-Reality: [Current situation/challenges]
-Options: [Possible approaches]
-Will: [Commitment to action]
-```
-
-**4.4. Blending Multiple Frameworks**
-
-When combining frameworks, structure the prompt in sections:
-
-```
-[Primary Framework Structure]
-
-[Secondary Framework Elements Integrated]
-
-Example:
----
 Role: You are a senior software architect. [RTF - Role]
 
 Objective: Design a microservices architecture for [system]. [RODES - Objective]
@@ -281,62 +124,6 @@ Before finalizing, verify:
 - [ ] No ambiguous language
 - [ ] Appropriate level of detail for task complexity
 
----
-
-### Step 5: Present Output
-
-**Objective:** Deliver the optimized prompt in a clean, copy-ready format.
-
-**Output Format:**
-
-````markdown
-```
-[OPTIMIZED PROMPT]
-```
-````
-
-**Rules:**
-- ✅ **Use Markdown code block** for easy copying
-- ✅ **No preamble** ("Here's your optimized prompt...")
-- ✅ **No technical explanations** (which framework was used, why, etc.)
-- ✅ **No meta-commentary** (suggestions, notes, caveats)
-- ✅ **Just the prompt** - clean, polished, ready to use
-
-**Example:**
-
-````markdown
-```
-You are an expert Python developer specializing in data analysis.
-
-Task: Create a Python script to analyze CSV data with the following requirements:
-- Read CSV from user-specified path
-- Calculate descriptive statistics (mean, median, std dev)
-- Generate visualizations (histogram, box plot)
-- Export results to PDF report
-
-Output format: Complete, well-commented Python code with usage examples.
-
-Constraints:
-- Use pandas and matplotlib libraries
-- Handle missing values gracefully
-- Include error handling for file I/O
-
-Example output structure:
-1. Data loading function
-2. Statistical analysis function
-3. Visualization function
-4. Report generation function
-5. Main execution block
-
-Validation: Ensure code runs without errors on sample data and produces readable PDF.
-```
-````
-
-**Post-Output:**
-- If user asks for changes, iterate on the prompt (apply requested modifications)
-- If user asks for explanation, provide brief rationale (exception to "magic mode")
-
----
 
 ## Critical Rules
 
@@ -364,57 +151,12 @@ Validation: Ensure code runs without errors on sample data and produces readable
 - ✅ Use examples in complex prompts to illustrate expected output
 - ✅ Validate prompt completeness before presenting (quality checks in Step 4.6)
 
----
-
-## Example Usage
-
-### **Example 1: Simple Vague Prompt → Clarification → RTF**
-
-**User Input:**
-```
-codex> improve this prompt: help me write Python code
-```
-
-**Skill Internal Process:**
-1. **Analyze:** Vague (no specifics on what Python code), simple task
-2. **Clarify:** Ask what kind of Python code
-
-**Skill asks user:**
-```
-What type of Python code do you need?
-- [ ] Data analysis
-- [ ] Web scraping
-- [ ] Task automation
-- [ ] API/backend development
-```
-
-**User responds:** "Web scraping"
-
-**Skill Output:**
-
-````markdown
-```
-You are a Python developer specialized in web scraping.
-
-Task: Create a Python script to scrape data from [specify target website].
-
-Requirements:
-- Use BeautifulSoup or Scrapy
-- Implement pagination and rate limiting
-- Store data in structured format (CSV or JSON)
-- Include error handling for network issues
-
-Output format: Complete, well-commented Python code with usage examples.
-```
-````
-
----
 
 ### **Example 2: Complex Clear Prompt → RODES + Chain of Thought (No Clarification)**
 
 **User Input:**
 ```
-codex> create prompt for: I need to build a product recommendation system considering purchase history, user preferences, and market trends
+copilot> create prompt for: I need to build a product recommendation system considering purchase history, user preferences, and market trends
 ```
 
 **Skill Internal Process:**
@@ -455,90 +197,12 @@ Output format: Technical design document with architecture diagrams, algorithm j
 ```
 ````
 
----
-
-### **Example 3: Ambiguous Prompt → Multi-Step Clarification → CLEAR + GROW**
-
-**User Input:**
-```
-codex> transform into prompt: I want to improve my process
-```
-
-**Skill Internal Process:**
-1. **Analyze:** Highly ambiguous (which process?), unclear domain
-2. **Clarify:** Required
-
-**Skill asks:**
-```
-Which process do you want to improve?
-- [ ] Work/productivity process
-- [ ] Learning process
-- [ ] Technical process (development, deployment, etc.)
-```
-
-**User:** "Work process"
-
-**Skill asks:**
-```
-Which specific aspect of work?
-- [ ] Time management
-- [ ] Team collaboration
-- [ ] Decision-making
-```
-
-**User:** "Decision-making"
-
-**Skill Internal Process:**
-3. **Select:** CLEAR (goal clarity) + GROW (development/coaching)
-
-**Skill Output:**
-
-````markdown
-```
-Context: I struggle to make decisions quickly and effectively in my work process.
-
-Goal: Develop a structured framework to improve the speed and quality of my professional decisions.
-
-Current Reality:
-- Decisions frequently delayed due to excessive analysis
-- Lack of clear criteria for evaluating options
-- Uncertainty about when to decide vs. gather more information
-
-Desired Outcome:
-- Consistent, reproducible decision-making framework
-- Clear criteria for different types of decisions
-- Reduced decision fatigue
-
-Collaborative: Who is involved? (Me, team, stakeholders)
-Limited: Scope focused on day-to-day decisions, not long-term strategic decisions
-Emotional: Why does this matter? (Reduce stress, increase confidence, improve results)
-Appreciable: How to measure progress? (Average decision time, satisfaction with outcomes)
-Refinable: How to iterate? (Review framework monthly based on past decisions)
-
-Your task:
-1. Assess my current decision-making patterns and identify bottlenecks
-2. Propose a decision framework (e.g., Eisenhower Matrix, RAPID, Decision Tree)
-3. Create criteria templates for common decision scenarios
-4. Design a process to track decision outcomes and iterate
-
-Options to explore:
-- Structured frameworks vs. quick heuristics
-- Individual decisions vs. collaborative decisions
-- Supporting tools (checklists, scorecards, etc.)
-
-Commitment: Implement the proposed framework for 30 days and evaluate results.
-
-Output format: Practical decision-making playbook with templates, examples, and metrics to measure improvement.
-```
-````
-
----
 
 ### **Example 4: Code Debugging → Chain of Thought**
 
 **User Input:**
 ```
-codex> optimize prompt: my Python code isn't working, needs debugging
+copilot> optimize prompt: my Python code isn't working, needs debugging
 ```
 
 **Skill Internal Process:**
@@ -577,59 +241,6 @@ Include a working example to verify the fix.
 ```
 ````
 
----
-
-### **Example 5: Writing/Communication → RACE**
-
-**User Input:**
-```
-codex> create prompt for: write a professional email to executives about strategic change
-```
-
-**Skill Internal Process:**
-1. **Analyze:** Communication task, audience-aware (executives), clear goal
-2. **Clarify:** Skip
-3. **Select:** RACE (audience-focused communication)
-
-**Skill Output:**
-
-````markdown
-```
-Role: You are a senior communications strategist crafting executive-level messaging.
-
-Audience: C-level executives (CEO, CFO, COO) with limited time, focused on business impact.
-
-Context: The organization is shifting strategic direction [specify: new market, product pivot, operational model change, etc.].
-
-Expectation: Executives need to:
-- Understand the rationale for the change
-- See clear business impact (risks and opportunities)
-- Know their role in the transition
-- Feel confident in the decision
-
-Task: Write a professional email announcing the strategic change.
-
-Structure:
-1. **Subject line:** Concise, action-oriented (max 8 words)
-2. **Opening:** State the change directly (no preamble)
-3. **Rationale:** 2-3 bullet points on why (data-driven)
-4. **Impact:** What changes for them (specific actions needed)
-5. **Next steps:** Timeline and immediate actions
-6. **Closing:** Confidence statement and contact for questions
-
-Tone: Professional, confident, concise (max 250 words for email body).
-
-Constraints:
-- Avoid jargon and buzzwords
-- Use data/metrics where possible
-- Assume 2-minute read time
-- Emphasize business outcomes over process
-
-Output format: Complete email draft ready to send.
-```
-````
-
----
 
 ## Notes
 

@@ -1,82 +1,130 @@
 # Changelog
 
-All notable changes to cli-ai-skills will be documented in this file.
+All notable changes to this project are documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [1.4.0] - 2026-02-07
+---
+
+## [1.5.0] - 2026-02-04
 
 ### Added
-- **OpenAI Codex CLI/App support** for all 4 skills
-- `.codex/skills/` complete infrastructure (prompt-engineer, skill-creator, youtube-summarizer, audio-transcriber)
-- **Smart installer** with automatic tool detection (gh copilot, claude, codex)
-- Interactive platform selection via `inquirer` (multi-select checkbox)
-- Tri-platform architecture (Copilot + Claude + Codex)
-- `lib/detector.js` - Auto-detection of installed AI CLI tools
-- `lib/interactive.js` - Interactive platform selection
-- `lib/codex.js` - Codex-specific installer
-- `.codex/skills/README.md` index file
-- Codex-specific installation instructions across all READMEs
+
+- **NPX CLI Shortcuts:** Commands `i` (install), `ls` (list), `up` (update), `rm` (uninstall), `doc` (doctor)
+- **NPX CLI Short Flags:** `-a` (--all), `-g` (--global), `-l` (--local), `-y` (--yes), `-q` (--quiet)
+- **Zero-Config Installation:** Run `npx cli-ai-skills` with no arguments to install all skills automatically
+- **Bundle Support:** `--bundle <name>` for installing curated skill collections
+- **Search Functionality:** `--search <keyword>` to find skills by name, description, tags, or category
+- **List Bundles Command:** `--list-bundles` to show all available bundle options
+- **Skills Metadata:** Added `category`, `tags`, `risk`, and `platforms` to all 4 skills
+- **Skills Index JSON:** Auto-generated `skills_index.json` for programmatic access to skill metadata
+- **Bundles Configuration:** `bundles.json` with 4 curated collections (essential, content, developer, all)
+- **Documentation Structure:** Reorganized into `docs/` with `guides/`, `bundles/`, and `references/` subdirectories
+- **Quality Standards Guide:** `docs/guides/quality-standards.md` with comprehensive best practices
+- **Skill Anatomy Guide:** `docs/guides/skill-anatomy.md` explaining skill structure and metadata
+- **Getting Started Guide:** `docs/guides/getting-started.md` for new users with quick start
+- **Bundles Guide:** `docs/bundles/bundles.md` with detailed bundle descriptions and use cases
+- **Issue Templates:** Bug report and feature request templates in `.github/ISSUE_TEMPLATE/`
+- **Pull Request Template:** `.github/PULL_REQUEST_TEMPLATE.md` with comprehensive checklist
+- **Auto-Generated Catalog:** `CATALOG.md` with complete skill listing and categorization
+- **Version Sync Script:** `scripts/verify-version-sync.sh` to ensure version consistency across platforms
+- **Generation Scripts:** `scripts/generate-skills-index.py` and `scripts/generate-catalog.py` for automation
 
 ### Changed
-- `cli-installer` now detects installed AI CLI tools automatically
-- Updated installation workflow to be platform-aware
-- Removed `triggers:` from Codex SKILL.md files (manual invocation via `@skill-name`)
-- Updated all Codex examples (`copilot>` → `codex>`)
-- Skills bumped to v1.0.2, v1.1.1, v1.1.1, v1.1.1 (PATCH - Codex adaptation)
-- Enhanced README.md with tri-platform support table
-- Updated VERSIONING.md with tri-platform sync rules
-- package.json: description updated, keywords added (codex, openai-codex)
 
-### Fixed
-- Inconsistent versioning across skill READMEs
-- Missing installation instructions for Codex platform
-- Documentation gaps in platform-specific workflows
+- **README.md:** Reduced from 724 lines to 126 lines for improved readability and focus
+- **cli-installer:** Updated from v1.4.0 to v1.5.0 with modern CLI patterns
+- **skill-creator:** Updated from v1.2.0 to v1.3.0 (added metadata, fixed .codex dessync)
+- **prompt-engineer:** Updated from v1.0.2 to v1.1.0 (added metadata)
+- **youtube-summarizer:** Updated from v1.1.0 to v1.2.0 (added metadata)
+- **audio-transcriber:** Updated from v1.0.0 to v1.2.0 (added metadata)
+- **Documentation Organization:** Moved from `resources/` to structured `docs/` directory
+- **CONTRIBUTING.md:** Updated with references to new documentation structure and quality standards
 
-### Maintained
-- 100% workflow parity across all 3 platforms
-- Zero-config design philosophy
-- All 11 frameworks in prompt-engineer (RTF, RISEN, CoT, RODES, Chain of Density, RACE, RISE, STAR, SOAP, CLEAR, GROW)
-- LLM integration in audio-transcriber v1.1.0
-- Python script dependencies (youtube-summarizer, audio-transcriber)
+### Migration Notes
 
-## [1.3.1] - 2026-02-03
+- **100% Backward Compatible:** All existing installations continue working without changes
+- **Optional Features:** New commands and flags are additive; old commands still work perfectly
+- **Automatic Detection:** Skills automatically detect and use new metadata when present
+- **No Breaking Changes:** Users can continue using v1.4.0 patterns indefinitely
+- **Version Synchronization:** Fixed skill-creator .codex desynchronization (v1.1.1 → v1.2.0)
 
-### Added
-- audio-transcriber v1.1.0 with intelligent LLM integration
-- Smart prompt enhancement using prompt-engineer
-- Auto-analysis and suggestion workflow when no prompt provided
-- Progress gauge UI for transcription workflow
+### Upgrade Instructions
 
-### Changed
-- audio-transcriber: Improved LLM workflow (always enhance prompts, suggest formats)
-- Updated all skill indexes (.github/skills/README.md, .claude/skills/README.md)
-- Synchronized README versions across platforms
+```bash
+# Update the CLI installer
+npm install -g cli-ai-skills@latest
 
-### Fixed
-- Version control inconsistencies across repository
-- Missing git tags (v1.3.1)
-- Outdated skill listings
+# Or use npx (always uses latest)
+npx cli-ai-skills@latest --version
 
-## [1.2.1] - 2026-02-02
+# Try new features
+npx cli-ai-skills --list-bundles
+npx cli-ai-skills --bundle essential -y
+npx cli-ai-skills --search "prompt"
+npx cli-ai-skills ls -q
+```
 
-### Fixed
-- Bug fixes and stability improvements
+---
 
-## [1.2.0] - 2026-01-30
+## [1.4.0] - 2026-02-03
 
 ### Added
-- youtube-summarizer skill v1.1.0
-- skill-creator skill v1.1.0
+- Codex CLI/App support for OpenAI integration
+- Smart platform detection
+- Interactive skill selection
+- Version checking for updates
 
-## [1.0.1] - 2026-01-15
+---
+
+## [1.3.0] - 2026-01-15
 
 ### Added
-- prompt-engineer skill v1.0.1 (11 frameworks)
+- CLI installer package
+- GitHub Copilot CLI support
+- Claude Code support
 
-## [1.0.0] - 2026-01-01
+---
+
+## [1.2.0] - 2026-01-01
+
+### Added
+- audio-transcriber skill v1.1.1
+- youtube-summarizer skill v1.2.0
+
+---
+
+## [1.1.0] - 2025-12-15
+
+### Added
+- prompt-engineer skill v1.0.2
+- Initial repository structure
+
+---
+
+## [1.0.0] - 2025-12-01
 
 ### Added
 - Initial release
-- Dual-platform support (GitHub Copilot CLI + Claude Code)
+- skill-creator skill v1.2.0
+- Project documentation
+
+---
+
+## Git Tags
+
+5 git tags have been created for this release:
+
+- **v1.5.0** - Main project release
+- **skill-creator-v1.3.0** - Skill version tag
+- **prompt-engineer-v1.1.0** - Skill version tag
+- **youtube-summarizer-v1.2.0** - Skill version tag
+- **audio-transcriber-v1.2.0** - Skill version tag
+
+---
+
+**Documentation:** [README.md](./README.md) | [Full Catalog](./CATALOG.md) | [Guides](./docs/guides/)
+
+**Contributing:** [CONTRIBUTING.md](./CONTRIBUTING.md) | [Quality Standards](./docs/guides/quality-standards.md)
+
+**Links:** [GitHub](https://github.com/ericgandrade/cli-ai-skills) | [NPM](https://www.npmjs.com/package/cli-ai-skills)

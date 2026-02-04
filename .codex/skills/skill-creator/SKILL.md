@@ -1,10 +1,14 @@
 ---
 name: skill-creator
-description: This skill should be used when the user asks to "create a new skill", "build a skill", "make a custom skill", "develop a CLI skill", or wants to extend the CLI with new capabilities. Automates the entire skill creation workflow from brainstorming to installation.
-version: 1.1.1
+description: "This skill should be used when the user asks to create a new skill, build a skill, make a custom skill, develop a CLI skill, or wants to extend the CLI with new capabilities. Automates the entire skill creation workflow from brainstorming to installation."
+version: 1.3.0
 author: Eric Andrade
 created: 2025-02-01
-platforms: [github-copilot-cli, claude-code]
+updated: 2026-02-04
+platforms: [github-copilot-cli, claude-code, codex]
+category: meta
+tags: [automation, scaffolding, skill-creation, meta-skill]
+risk: safe
 ---
 
 # skill-creator
@@ -53,7 +57,7 @@ REPO_ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
 SKILLS_REPO="$REPO_ROOT"
 
 # Check if in cli-ai-skills repository
-if [[ ! -d "$SKILLS_REPO/.codex/skills" ]]; then
+if [[ ! -d "$SKILLS_REPO/.github/skills" ]]; then
     echo "⚠️  Not in cli-ai-skills repository. Creating standalone skill."
     STANDALONE=true
 fi
@@ -128,7 +132,7 @@ Display progress:
 
 4. **Which platforms should support this skill?**
    - [ ] GitHub Copilot CLI
-   - [ ] Claude Code
+   - [ ] Codex
    - [ ] Both (recommended)
 
 5. **Provide a one-sentence description** (will appear in metadata)
@@ -193,7 +197,7 @@ SKILL_NAME=$(echo "$USER_INPUT" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
 
 # Create directories
 if [[ "$PLATFORM" =~ "copilot" ]]; then
-    mkdir -p ".codex/skills/$SKILL_NAME"/{references,examples,scripts}
+    mkdir -p ".github/skills/$SKILL_NAME"/{references,examples,scripts}
 fi
 
 if [[ "$PLATFORM" =~ "claude" ]]; then
@@ -232,18 +236,18 @@ sed "s/{{SKILL_NAME}}/$SKILL_NAME/g; \
      s/{{AUTHOR}}/$AUTHOR/g; \
      s/{{DATE}}/$(date +%Y-%m-%d)/g" \
     resources/templates/skill-template-copilot.md \
-    > ".codex/skills/$SKILL_NAME/SKILL.md"
+    > ".github/skills/$SKILL_NAME/SKILL.md"
 
 # Create README
 sed "s/{{SKILL_NAME}}/$SKILL_NAME/g" \
     resources/templates/readme-template.md \
-    > ".codex/skills/$SKILL_NAME/README.md"
+    > ".github/skills/$SKILL_NAME/README.md"
 ```
 
 **Display created structure:**
 ```
 ✅ Created:
-   .codex/skills/your-skill-name/
+   .github/skills/your-skill-name/
    ├── SKILL.md (832 lines)
    ├── README.md (347 lines)
    ├── references/
@@ -272,10 +276,10 @@ Update progress:
 
 ```bash
 # Validate YAML frontmatter
-scripts/validate-skill-yaml.sh ".codex/skills/$SKILL_NAME"
+scripts/validate-skill-yaml.sh ".github/skills/$SKILL_NAME"
 
 # Validate content quality
-scripts/validate-skill-content.sh ".codex/skills/$SKILL_NAME"
+scripts/validate-skill-content.sh ".github/skills/$SKILL_NAME"
 ```
 
 **Expected output:**
@@ -318,7 +322,7 @@ Update progress:
 **Ask the user:**
 "How would you like to install this skill?"
 
-- [ ] **Repository only** - Files created in `.codex/skills/` (works when in repo)
+- [ ] **Repository only** - Files created in `.github/skills/` (works when in repo)
 - [ ] **Global installation** - Create symlinks in `~/.copilot/skills/` (works everywhere)
 - [ ] **Both** - Repository + global symlinks (recommended, auto-updates with git pull)
 - [ ] **Skip installation** - Just create files
@@ -347,16 +351,16 @@ echo "Install for these platforms? [Y/n]"
 ```bash
 # GitHub Copilot CLI
 if [[ " ${INSTALL_TARGETS[*]} " =~ " copilot " ]]; then
-    ln -sf "$SKILLS_REPO/.codex/skills/$SKILL_NAME" \
+    ln -sf "$SKILLS_REPO/.github/skills/$SKILL_NAME" \
            "$HOME/.copilot/skills/$SKILL_NAME"
     echo "✅ Installed for GitHub Copilot CLI"
 fi
 
-# Claude Code
+# Codex
 if [[ " ${INSTALL_TARGETS[*]} " =~ " claude " ]]; then
     ln -sf "$SKILLS_REPO/.claude/skills/$SKILL_NAME" \
            "$HOME/.claude/skills/$SKILL_NAME"
-    echo "✅ Installed for Claude Code"
+    echo "✅ Installed for Codex"
 fi
 ```
 
@@ -391,7 +395,7 @@ Update progress:
 🎉 Skill created successfully!
 
 📦 Skill Name: your-skill-name
-📁 Location: .codex/skills/your-skill-name/
+📁 Location: .github/skills/your-skill-name/
 🔗 Installed: Global (Copilot + Claude)
 
 📋 Files Created:
@@ -405,7 +409,7 @@ Update progress:
    1. Test the skill: Try trigger phrases in CLI
    2. Add examples: Create working code samples in examples/
    3. Extend docs: Add detailed guides to references/
-   4. Commit changes: git add .codex/skills/your-skill-name && git commit
+   4. Commit changes: git add .github/skills/your-skill-name && git commit
    5. Share: Push to repository for team use
 
 💡 Pro Tips:
@@ -422,7 +426,7 @@ Update progress:
 
 If platforms cannot be detected:
 ```
-⚠️  Unable to detect GitHub Copilot CLI or Claude Code
+⚠️  Unable to detect GitHub Copilot CLI or Codex
     
 Would you like to:
 1. Install for repository only (works when in repo)
@@ -549,9 +553,3 @@ Executable utilities for skill maintenance:
 - **Repository:** https://github.com/yourusername/cli-ai-skills
 - **Writing Style Guide:** `resources/templates/writing-style-guide.md`
 - **Progress Tracker Template:** `resources/templates/progress-tracker.md`
-
----
-
-**Version:** 1.1.0  
-**Last Updated:** 2026-02-01  
-**Maintained By:** Eric Andrade
