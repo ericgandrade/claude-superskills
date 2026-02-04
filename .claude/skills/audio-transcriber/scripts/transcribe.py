@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Audio Transcriber v1.1.0
+Audio Transcriber v1.2.1
 Transcreve áudio para texto e gera atas/resumos usando LLM.
 """
 
@@ -411,7 +411,7 @@ def main():
     """Função principal."""
     import argparse
     
-    parser = argparse.ArgumentParser(description="Audio Transcriber v1.1.0")
+    parser = argparse.ArgumentParser(description="Audio Transcriber v1.2.1")
     parser.add_argument("audio_file", help="Arquivo de áudio para transcrever")
     parser.add_argument("--prompt", help="Prompt customizado para processar transcript")
     parser.add_argument("--model", default="base", help="Modelo Whisper (tiny/base/small/medium/large)")
@@ -424,7 +424,7 @@ def main():
         console.print(f"[red]❌ Arquivo não encontrado: {args.audio_file}[/red]")
         sys.exit(1)
     
-    console.print("[bold cyan]🎵 Audio Transcriber v1.1.0[/bold cyan]\n")
+    console.print("[bold cyan]🎵 Audio Transcriber v1.2.1[/bold cyan]\n")
     
     # Step 1: Transcrever
     transcription_data = transcribe_audio(args.audio_file, model=args.model)
