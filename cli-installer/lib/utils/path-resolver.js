@@ -63,16 +63,35 @@ function getSkillsSourcePath(basePath, platform) {
 
 /**
  * Get user home directory skills path for a platform
+ * Includes multi-path fallback for Codex (robust solution)
  * @param {string} platform - Platform name
  * @returns {string} Path to user's skills directory
  */
 function getUserSkillsPath(platform) {
   const home = process.env.HOME || process.env.USERPROFILE;
 
+  // Special handling for Codex with multi-path fallback
+  if (platform === 'codex') {
+    const codexPaths = [
+      path.join(home, '.codex', 'vendor_imports', 'skills', 'skills', '.curated'), // Real path (primary)
+      path.join(home, '.codex', 'vendor_imports', 'skills', 'skills', '.custom'),  // Alternative
+      path.join(home, '.codex', 'skills')                                           // Documented path (fallback)
+    ];
+
+    // Return first existing path, or primary path if none exist (will be created)
+    for (const codexPath of codexPaths) {
+      if (fs.existsSync(codexPath)) {
+        return codexPath;
+      }
+    }
+    
+    // Return primary path (will be created during install)
+    return codexPaths[0];
+  }
+
   const platformDirs = {
     'copilot': path.join(home, '.github', 'skills'),
     'claude': path.join(home, '.claude', 'skills'),
-    'codex': path.join(home, '.codex', 'skills'),
     'opencode': path.join(home, '.opencode', 'skills'),
     'gemini': path.join(home, '.gemini', 'skills')
   };

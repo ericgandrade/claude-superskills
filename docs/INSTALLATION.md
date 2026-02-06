@@ -348,6 +348,71 @@ This is **normal** if you haven't installed GitHub Copilot CLI, Claude Code, or 
 **What to do:**
 1. Install at least one AI CLI tool first:
    - **GitHub Copilot CLI:** https://github.com/github/copilot-cli
+   - **Claude Code:** https://claude.ai/code
+   - **OpenAI Codex:** https://openai.com/codex
+   - **OpenCode:** https://opencode.ai
+   - **Gemini CLI:** https://gemini.google.com/cli
+
+2. After installing, run `npx cli-ai-skills` again
+
+---
+
+### Issue: Codex App not detecting skills
+
+**Symptoms:**
+- Skills installed successfully
+- Codex CLI (`codex --version`) works
+- Skills don't appear in Codex App
+
+**Root Cause:**
+Codex uses a non-standard path structure: `~/.codex/vendor_imports/skills/skills/.curated/`
+
+**Solution:** The installer now handles this automatically (v1.7.3+)
+
+**Verify installation:**
+```bash
+# Check if skills are in the correct location
+ls -la ~/.codex/vendor_imports/skills/skills/.curated/
+
+# You should see symlinks to:
+# - skill-creator
+# - prompt-engineer
+# - youtube-summarizer
+# - audio-transcriber
+```
+
+**If skills are missing:**
+```bash
+# Reinstall
+npx cli-ai-skills --all -y
+
+# Or use doctor command to diagnose
+npx cli-ai-skills doctor
+```
+
+**Restart Codex App:**
+After installation, you may need to:
+1. Quit Codex App completely
+2. Reopen Codex App
+3. Skills should now appear in the skills menu
+
+**Manual Installation (fallback):**
+```bash
+# Create directory structure
+mkdir -p ~/.codex/vendor_imports/skills/skills/.curated
+
+# Clone repository
+git clone https://github.com/ericandrade/cli-ai-skills.git
+
+# Create symlinks manually
+cd ~/.codex/vendor_imports/skills/skills/.curated
+ln -s /path/to/cli-ai-skills/.codex/skills/skill-creator skill-creator
+ln -s /path/to/cli-ai-skills/.codex/skills/prompt-engineer prompt-engineer
+ln -s /path/to/cli-ai-skills/.codex/skills/youtube-summarizer youtube-summarizer
+ln -s /path/to/cli-ai-skills/.codex/skills/audio-transcriber audio-transcriber
+```
+
+---
    - **Claude Code:** https://code.claude.ai/
    
 2. Run `cli-ai-skills` again - it will detect the tools

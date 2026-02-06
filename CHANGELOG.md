@@ -6,6 +6,41 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.7.4] - 2026-02-06
+
+### Fixed
+
+- **Codex Installer:** Corrected installation path for OpenAI Codex App
+  - Now installs to `~/.codex/vendor_imports/skills/skills/.curated/` (actual Codex path)
+  - Previously used `~/.codex/skills/` which Codex App doesn't recognize
+  - Added multi-path fallback for robustness (tries `.curated/`, `.custom/`, and documented path)
+  - Enhanced logging to show exact installation destination
+  - Skills now properly appear in Codex App after restart
+
+### Changed
+
+- **Path Resolver:** Updated `getUserSkillsPath('codex')` with intelligent fallback logic
+  - Primary: `~/.codex/vendor_imports/skills/skills/.curated/` (official Codex location)
+  - Fallback 1: `~/.codex/vendor_imports/skills/skills/.custom/` (future alternative)
+  - Fallback 2: `~/.codex/skills/` (documented but unused path)
+- **Codex Installer:** Improved error messages and success logging
+  - Shows destination path on installation
+  - Returns `{installed, failed}` object for programmatic use
+  - Better alignment with other platform installers (OpenCode, Gemini)
+
+### Documentation
+
+- **INSTALLATION.md:** Added "Codex App not detecting skills" troubleshooting section
+  - Explains Codex's unique path structure
+  - Verification commands to check installation
+  - Manual installation fallback instructions
+  - Note about needing to restart Codex App
+- **README.md:** Updated supported platforms section with path information
+  - Added note about Codex's special directory structure
+  - Clarified that installer handles this automatically
+
+---
+
 ## [1.5.0] - 2026-02-04
 
 ### Added

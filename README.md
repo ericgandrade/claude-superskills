@@ -81,9 +81,13 @@ npx cli-ai-skills --search "video"
 
 ## 💻 Supported Platforms
 
-- **GitHub Copilot CLI** - Terminal AI assistant
-- **Claude Code** - Anthropic's Claude in development
-- **OpenAI Codex** - GPT-powered coding assistant
+- **GitHub Copilot CLI** - Terminal AI assistant (`~/.github/skills/`)
+- **Claude Code** - Anthropic's Claude in development (`~/.claude/skills/`)
+- **OpenAI Codex** - GPT-powered coding assistant (`~/.codex/vendor_imports/skills/skills/.curated/`)
+- **OpenCode** - Open source AI coding assistant (`~/.opencode/skills/`)
+- **Gemini CLI** - Google's Gemini in terminal (`~/.gemini/skills/`)
+
+**Note on Codex:** The installer automatically handles Codex's unique directory structure. Skills are installed to `~/.codex/vendor_imports/skills/skills/.curated/` and should appear in the Codex App after restart.
 
 ## 📚 Documentation
 
