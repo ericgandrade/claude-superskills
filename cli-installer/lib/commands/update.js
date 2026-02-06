@@ -31,8 +31,8 @@ async function updateCommand(skillNames, options) {
     const availableSkills = await downloader.listAvailableSkills();
     const outdatedSkills = [];
 
-    for (const platform of ['copilot', 'claude']) {
-      if (!platforms[platform].installed) continue;
+    for (const platform of ['copilot', 'claude', 'opencode', 'gemini']) {
+      if (!platforms[platform] || !platforms[platform].installed) continue;
 
       for (const skillMeta of availableSkills) {
         const status = await versionChecker.checkVersion(skillMeta.name, platform, skillMeta.version);
@@ -54,6 +54,21 @@ async function updateCommand(skillNames, options) {
     if (outdatedSkills.length === 0) {
       gauge.complete('All skills are up to date');
       console.log(chalk.green('\n✨ All skills are already at the latest version!\n'));
+      
+      // Offer reinstall option
+      if (!options.yes) {
+        const { reinstall } = await inquirer.prompt([{
+          type: 'confirm',
+          name: 'reinstall',
+          message: 'Would you like to reinstall all skills?',
+          default: false
+        }]);
+        
+        if (reinstall) {
+          return await reinstallAllSkills(platforms, availableSkills, options);
+        }
+      }
+      
       return;
     }
 
@@ -140,3 +155,43 @@ async function updateCommand(skillNames, options) {
 }
 
 module.exports = updateCommand;
+
+/**
+ * Reinstall all skills for all platforms
+ */
+async function reinstallAllSkills(platforms, availableSkills, options) {
+  console.log(chalk.cyan('\n🔄 Reinstalling all skills...\n'));
+  
+  const installer = new SkillInstaller();
+  const results = { reinstalled: 0, failed: 0 };
+  
+  for (const platform of ['copilot', 'claude', 'opencode', 'gemini']) {
+    if (!platforms[platform] || !platforms[platform].installed) continue;
+    
+    for (const skill of availableSkills) {
+      try {
+        await installer.install(skill.name, platform, 'global', 'symlink');
+        results.reinstalled++;
+        console.log(chalk.green(`  ✓ ${skill.name} (${platform})`));
+      } catch (error) {
+        results.failed++;
+        console.log(chalk.red(`  ✗ ${skill.name} (${platform}): ${error.message}`));
+      }
+    }
+  }
+  
+  // Summary
+  console.log('\n' + ProgressGauge.summary({
+    completed: results.reinstalled,
+    failed: results.failed,
+    total: results.reinstalled + results.failed
+  }));
+  
+  if (results.reinstalled > 0) {
+    console.log(chalk.green(`\n✨ Successfully reinstalled ${results.reinstalled} skill(s)!\n`));
+  }
+  
+  if (results.failed > 0) {
+    console.log(chalk.yellow(`⚠️  ${results.failed} skill(s) failed to reinstall.\n`));
+  }
+}

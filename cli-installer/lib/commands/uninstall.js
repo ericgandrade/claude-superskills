@@ -27,8 +27,8 @@ async function uninstallCommand(skillName, options) {
     // If specific skill name provided, only check that one
     const skillsToCheck = skillName ? [skillName] : await getInstalledSkillNames();
 
-    for (const platform of ['copilot', 'claude']) {
-      if (!platforms[platform].installed) continue;
+    for (const platform of ['copilot', 'claude', 'opencode', 'gemini']) {
+      if (!platforms[platform] || !platforms[platform].installed) continue;
 
       for (const skill of skillsToCheck) {
         const status = await versionChecker.checkVersion(skill, platform, '999.999.999');
@@ -184,31 +184,38 @@ async function uninstallCommand(skillName, options) {
 function getSkillPath(skillName, platform) {
   const homeDir = os.homedir();
   
-  if (platform === 'copilot') {
-    return path.join(homeDir, '.copilot', 'skills', skillName);
-  } else if (platform === 'claude') {
-    return path.join(homeDir, '.claude', 'skills', skillName);
+  const platformPaths = {
+    copilot: path.join(homeDir, '.copilot', 'skills', skillName),
+    claude: path.join(homeDir, '.claude', 'skills', skillName),
+    opencode: path.join(homeDir, '.opencode', 'skills', skillName),
+    gemini: path.join(homeDir, '.gemini', 'skills', skillName)
+  };
+  
+  if (!platformPaths[platform]) {
+    throw new Error(`Unknown platform: ${platform}`);
   }
   
-  throw new Error(`Unknown platform: ${platform}`);
+  return platformPaths[platform];
 }
 
 async function getInstalledSkillNames() {
   const homeDir = os.homedir();
   const skills = new Set();
 
-  // Check Copilot skills
-  const copilotSkillsDir = path.join(homeDir, '.copilot', 'skills');
-  if (await fs.pathExists(copilotSkillsDir)) {
-    const copilotSkills = await fs.readdir(copilotSkillsDir);
-    copilotSkills.forEach(s => skills.add(s));
-  }
-
-  // Check Claude skills
-  const claudeSkillsDir = path.join(homeDir, '.claude', 'skills');
-  if (await fs.pathExists(claudeSkillsDir)) {
-    const claudeSkills = await fs.readdir(claudeSkillsDir);
-    claudeSkills.forEach(s => skills.add(s));
+  const platforms = ['copilot', 'claude', 'opencode', 'gemini'];
+  
+  for (const platform of platforms) {
+    const skillsDir = path.join(homeDir, `.${platform}`, 'skills');
+    
+    if (await fs.pathExists(skillsDir)) {
+      const platformSkills = await fs.readdir(skillsDir);
+      platformSkills.forEach(s => {
+        const fullPath = path.join(skillsDir, s);
+        if (fs.statSync(fullPath).isDirectory()) {
+          skills.add(s);
+        }
+      });
+    }
   }
 
   return Array.from(skills);

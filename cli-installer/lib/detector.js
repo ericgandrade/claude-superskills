@@ -2,40 +2,95 @@ const { execSync } = require('child_process');
 
 /**
  * Detecta ferramentas AI CLI instaladas no sistema
- * @returns {Object} { copilot: boolean, claude: boolean, codex: boolean }
+ * @returns {Object} { copilot: {installed, version, path}, claude: {...}, ... }
  */
 function detectTools() {
   const tools = {
-    copilot: false,
-    claude: false,
-    codex: false
+    copilot: detectCopilot(),
+    claude: detectClaude(),
+    codex: detectCodex(),
+    opencode: detectOpenCode(),
+    gemini: detectGemini()
   };
 
-  // Detectar GitHub Copilot CLI
-  try {
-    execSync('gh copilot --version', { stdio: 'ignore' });
-    tools.copilot = true;
-  } catch (e) {
-    // Não instalado
-  }
-
-  // Detectar Claude Code
-  try {
-    execSync('claude --version', { stdio: 'ignore' });
-    tools.claude = true;
-  } catch (e) {
-    // Não instalado
-  }
-
-  // Detectar OpenAI Codex
-  try {
-    execSync('codex --version', { stdio: 'ignore' });
-    tools.codex = true;
-  } catch (e) {
-    // Não instalado
-  }
-
   return tools;
+}
+
+/**
+ * Detecta GitHub Copilot CLI
+ */
+function detectCopilot() {
+  try {
+    const version = execSync('gh copilot --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
+    const path = execSync('which gh', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
+    return { installed: true, version, path };
+  } catch (e) {
+    return { installed: false, version: null, path: null };
+  }
+}
+
+/**
+ * Detecta Claude Code
+ */
+function detectClaude() {
+  try {
+    const version = execSync('claude --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
+    const path = execSync('which claude', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
+    return { installed: true, version, path };
+  } catch (e) {
+    return { installed: false, version: null, path: null };
+  }
+}
+
+/**
+ * Detecta OpenAI Codex
+ */
+function detectCodex() {
+  try {
+    const version = execSync('codex --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
+    const path = execSync('which codex', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
+    return { installed: true, version, path };
+  } catch (e) {
+    return { installed: false, version: null, path: null };
+  }
+}
+
+/**
+ * Detecta OpenCode
+ */
+function detectOpenCode() {
+  try {
+    const version = execSync('opencode --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
+    const path = execSync('which opencode', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
+    return { installed: true, version, path };
+  } catch (e) {
+    // Método alternativo: verificar via npm global
+    try {
+      execSync('npm list -g opencode', { stdio: 'ignore' });
+      return { installed: true, version: 'unknown', path: 'npm global' };
+    } catch {
+      return { installed: false, version: null, path: null };
+    }
+  }
+}
+
+/**
+ * Detecta Gemini CLI
+ */
+function detectGemini() {
+  try {
+    const version = execSync('gemini --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
+    const path = execSync('which gemini', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
+    return { installed: true, version, path };
+  } catch (e) {
+    // Método alternativo: verificar via npm global
+    try {
+      execSync('npm list -g gemini-cli', { stdio: 'ignore' });
+      return { installed: true, version: 'unknown', path: 'npm global' };
+    } catch {
+      return { installed: false, version: null, path: null };
+    }
+  }
 }
 
 /**
@@ -58,8 +113,15 @@ Instale ao menos uma das seguintes ferramentas:
 📦 OpenAI Codex:
    npm install -g @openai/codex
 
+📦 OpenCode:
+   npm install -g opencode
+
+📦 Gemini CLI:
+   npm install -g @google/gemini-cli
+
 Após instalar, execute novamente: npx cli-ai-skills
   `;
 }
 
 module.exports = { detectTools, getInstallInstructions };
+

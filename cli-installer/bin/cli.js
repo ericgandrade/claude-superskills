@@ -1,15 +1,22 @@
 #!/usr/bin/env node
 
 const { detectTools, getInstallInstructions } = require('../lib/detector');
-const { promptPlatforms } = require('../lib/interactive');
+const { promptPlatforms, setupEscapeHandler } = require('../lib/interactive');
+const { setupCleanupHandler } = require('../lib/cleanup');
 const { installCopilotSkills } = require('../lib/copilot');
 const { installClaudeSkills } = require('../lib/claude');
 const { install: installCodexSkills } = require('../lib/codex');
+const { install: installOpenCodeSkills } = require('../lib/opencode');
+const { install: installGeminiSkills } = require('../lib/gemini');
 const { listBundles, validateBundle } = require('../lib/bundles');
 const { searchSkills } = require('../lib/search');
+const { displayToolsTable } = require('../lib/ui/table');
+const { checkInstalledVersion, isUpdateAvailable } = require('../lib/version-checker');
+const chalk = require('chalk');
+const inquirer = require('inquirer');
 const path = require('path');
 
-const VERSION = '1.5.0';
+const VERSION = '1.6.0';
 
 // Command aliases
 const commandAliases = {
@@ -32,7 +39,11 @@ const shortFlags = {
 async function main() {
   const args = process.argv.slice(2);
   
-  console.log(`\n🚀 cli-ai-skills v${VERSION} - Tri-Platform Installer\n`);
+  // Setup handlers
+  setupEscapeHandler();
+  setupCleanupHandler();
+  
+  console.log(chalk.cyan.bold(`\n🚀 cli-ai-skills v${VERSION} - Multi-Platform Installer\n`));
   
   // Handle help
   if (args.includes('--help') || args.includes('-h')) {
@@ -74,21 +85,20 @@ async function main() {
     const bundleName = args[bundleIdx + 1];
     const bundle = validateBundle(bundleName);
     
-    console.log(`🔍 Detectando ferramentas AI CLI instaladas...\n`);
+    console.log(chalk.cyan('🔍 Detectando ferramentas AI CLI instaladas...\n'));
     const detected = detectTools();
-    const hasAny = detected.copilot || detected.claude || detected.codex;
+    
+    // Display tools table
+    displayToolsTable(detected);
+    
+    const hasAny = detected.copilot.installed || detected.claude.installed || 
+                   detected.codex.installed || detected.opencode.installed || 
+                   detected.gemini.installed;
     
     if (!hasAny) {
       console.log(getInstallInstructions());
       process.exit(1);
     }
-    
-    // Show detected tools
-    console.log('Ferramentas detectadas:');
-    if (detected.copilot) console.log('  ✅ GitHub Copilot CLI');
-    if (detected.claude) console.log('  ✅ Claude Code');
-    if (detected.codex) console.log('  ✅ OpenAI Codex');
-    console.log('');
     
     // Check for --yes flag (skip prompts)
     const skipPrompt = args.includes('-y') || args.includes('--yes');
@@ -96,9 +106,11 @@ async function main() {
     let platforms;
     if (skipPrompt) {
       platforms = [];
-      if (detected.copilot) platforms.push('copilot');
-      if (detected.claude) platforms.push('claude');
-      if (detected.codex) platforms.push('codex');
+      if (detected.copilot.installed) platforms.push('copilot');
+      if (detected.claude.installed) platforms.push('claude');
+      if (detected.codex.installed) platforms.push('codex');
+      if (detected.opencode.installed) platforms.push('opencode');
+      if (detected.gemini.installed) platforms.push('gemini');
     } else {
       platforms = await promptPlatforms(detected);
     }
@@ -127,6 +139,12 @@ async function main() {
       if (platforms.includes('codex')) {
         installCodexSkills(repoPath, [skill], quiet);
       }
+      if (platforms.includes('opencode')) {
+        installOpenCodeSkills(repoPath, [skill], quiet);
+      }
+      if (platforms.includes('gemini')) {
+        installGeminiSkills(repoPath, [skill], quiet);
+      }
     });
     
     if (!quiet) {
@@ -137,22 +155,64 @@ async function main() {
   
   // Zero-config mode (no arguments)
   if (args.length === 0 || command === 'install') {
-    console.log('🔍 Detectando ferramentas AI CLI instaladas...\n');
+    console.log(chalk.cyan('🔍 Detectando ferramentas AI CLI instaladas...\n'));
     
     const detected = detectTools();
-    const hasAny = detected.copilot || detected.claude || detected.codex;
+    
+    // Display tools table
+    displayToolsTable(detected);
+    
+    const hasAny = detected.copilot.installed || detected.claude.installed || 
+                   detected.codex.installed || detected.opencode.installed || 
+                   detected.gemini.installed;
     
     if (!hasAny) {
       console.log(getInstallInstructions());
       process.exit(1);
     }
     
-    // Show detected tools
-    console.log('Ferramentas detectadas:');
-    if (detected.copilot) console.log('  ✅ GitHub Copilot CLI');
-    if (detected.claude) console.log('  ✅ Claude Code');
-    if (detected.codex) console.log('  ✅ OpenAI Codex');
-    console.log('');
+    // Check if already installed
+    const installInfo = checkInstalledVersion();
+    
+    if (installInfo.installed) {
+      console.log(chalk.cyan(`\nℹ️  cli-ai-skills já instalado nas seguintes plataformas:\n`));
+      
+      for (const platform of installInfo.platforms) {
+        const version = installInfo.versions[platform];
+        console.log(chalk.dim(`  • ${platform}: v${version}`));
+      }
+      
+      if (isUpdateAvailable(installInfo)) {
+        console.log(chalk.yellow(`\n⚠️  Nova versão disponível: v${installInfo.latestVersion}\n`));
+        
+        const { update } = await inquirer.prompt([{
+          type: 'confirm',
+          name: 'update',
+          message: 'Deseja atualizar agora?',
+          default: true
+        }]);
+        
+        if (!update) {
+          console.log(chalk.dim('\n❌ Atualização cancelada.\n'));
+          process.exit(0);
+        }
+        
+        console.log(chalk.cyan('\n🔄 Atualizando skills...\n'));
+      } else {
+        console.log(chalk.green(`\n✅ Você já possui a versão mais recente (v${installInfo.latestVersion})\n`));
+        
+        const { reinstall } = await inquirer.prompt([{
+          type: 'confirm',
+          name: 'reinstall',
+          message: 'Deseja reinstalar?',
+          default: false
+        }]);
+        
+        if (!reinstall) {
+          process.exit(0);
+        }
+      }
+    }
     
     // Check for --yes flag (zero-config mode)
     const skipPrompt = args.includes('-y') || args.includes('--yes');
@@ -161,20 +221,22 @@ async function main() {
     if (skipPrompt) {
       // Auto-select all detected platforms
       platforms = [];
-      if (detected.copilot) platforms.push('copilot');
-      if (detected.claude) platforms.push('claude');
-      if (detected.codex) platforms.push('codex');
+      if (detected.copilot.installed) platforms.push('copilot');
+      if (detected.claude.installed) platforms.push('claude');
+      if (detected.codex.installed) platforms.push('codex');
+      if (detected.opencode.installed) platforms.push('opencode');
+      if (detected.gemini.installed) platforms.push('gemini');
     } else {
       // Interactive selection
       platforms = await promptPlatforms(detected);
     }
     
     if (platforms.length === 0) {
-      console.log('\n❌ Instalação cancelada.\n');
+      console.log(chalk.red('\n❌ Instalação cancelada.\n'));
       process.exit(0);
     }
     
-    console.log(`\n📦 Instalando skills para: ${platforms.join(', ')}\n`);
+    console.log(chalk.cyan(`\n📦 Instalando skills para: ${platforms.join(', ')}\n`));
     
     const repoPath = path.resolve(__dirname, '../..');
     const quiet = args.includes('-q') || args.includes('--quiet');
@@ -192,8 +254,21 @@ async function main() {
       installCodexSkills(repoPath, null, quiet);
     }
     
+    if (platforms.includes('opencode')) {
+      installOpenCodeSkills(repoPath, null, quiet);
+    }
+    
+    if (platforms.includes('gemini')) {
+      installGeminiSkills(repoPath, null, quiet);
+    }
+    }
+    
+    if (platforms.includes('codex')) {
+      installCodexSkills(repoPath, null, quiet);
+    }
+    
     if (!quiet) {
-      console.log(`\n✅ Instalação concluída com sucesso!\n`);
+      console.log(chalk.green(`\n✅ Instalação concluída com sucesso!\n`));
     }
     return;
   }
