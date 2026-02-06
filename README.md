@@ -1,11 +1,11 @@
-# 🤖 CLI AI Skills v1.5.0
+# 🤖 CLI AI Skills v1.6.0
 
-Reusable AI skills for **GitHub Copilot CLI**, **Claude Code**, and **OpenAI Codex** — install once, use everywhere.
+Reusable AI skills for **GitHub Copilot CLI**, **Claude Code**, **OpenAI Codex**, **OpenCode**, and **Gemini CLI** — install once, use everywhere.
 
-![Version](https://img.shields.io/badge/version-1.5.0-blue.svg)
+![Version](https://img.shields.io/badge/version-1.6.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Skills](https://img.shields.io/badge/skills-4-brightgreen.svg)
-![Platforms](https://img.shields.io/badge/platforms-3-orange.svg)
+![Platforms](https://img.shields.io/badge/platforms-5-orange.svg)
 
 ## 🚀 Quick Start
 
@@ -25,7 +25,7 @@ That's it! All skills are now available across your projects.
 - **Zero-Config Install** - Run once, works everywhere
 - **Curated Bundles** - Install exactly what you need
 - **Smart Search** - Find skills by keyword
-- **3 Platform Support** - GitHub Copilot, Claude Code, Codex
+- **5 Platform Support** - GitHub Copilot, Claude Code, Codex, OpenCode, Gemini
 - **Command Shortcuts** - `i`, `ls`, `up`, `rm`, `doc`
 - **Short Flags** - `-a`, `-g`, `-l`, `-y`, `-q`
 

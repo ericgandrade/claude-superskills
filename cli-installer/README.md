@@ -1,10 +1,10 @@
-# cli-ai-skills v1.5.0
+# cli-ai-skills v1.6.0
 
 🚀 **NPX Installer for AI Skills**
 
-Install reusable skills for GitHub Copilot CLI, Claude Code, and OpenAI Codex in one command.
+Install reusable skills for GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, and Gemini CLI in one command.
 
-![Version](https://img.shields.io/badge/version-1.5.0-blue.svg)
+![Version](https://img.shields.io/badge/version-1.6.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Node](https://img.shields.io/badge/node-%3E%3D14.0.0-green.svg)
 
@@ -23,7 +23,7 @@ npx cli-ai-skills --bundle essential -y
 
 ## 📦 What It Does
 
-1. 🔍 **Detects** installed AI CLI tools (Copilot, Claude, Codex)
+1. 🔍 **Detects** installed AI CLI tools (Copilot, Claude, Codex, OpenCode, Gemini)
 2. 📋 **Lists** all 4 available AI skills
 3. ⚙️ **Installs** skills to the correct platform directories
 4. ✅ **Validates** installation success
