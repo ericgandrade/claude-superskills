@@ -261,11 +261,6 @@ async function main() {
     if (platforms.includes('gemini')) {
       installGeminiSkills(repoPath, null, quiet);
     }
-    }
-    
-    if (platforms.includes('codex')) {
-      installCodexSkills(repoPath, null, quiet);
-    }
     
     if (!quiet) {
       console.log(chalk.green(`\n✅ Instalação concluída com sucesso!\n`));
