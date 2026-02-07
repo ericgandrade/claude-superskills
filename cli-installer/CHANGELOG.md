@@ -2,6 +2,16 @@
 
 All notable changes to cli-ai-skills will be documented in this file.
 
+## [1.9.0] - 2026-02-07
+
+### Added
+- ✨ Synced `agent-skill-discovery` v1.1.0 to all packaged platforms
+- 📁 Added repository-aware discovery behavior documentation in packaged skill files
+
+### Changed
+- 📝 Updated packaged `agent-skill-discovery` README/SKILL docs for dual-scope discovery
+- 📦 Package version bumped to `1.9.0`
+
 ## [1.7.1] - 2026-02-06
 
 ### Added

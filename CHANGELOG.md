@@ -6,6 +6,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.9.0] - 2026-02-07
+
+### Added
+
+- ✨ **agent-skill-discovery v1.1.0** now performs dual-scope discovery:
+  - Installed resources (existing behavior)
+  - Current repository resources (new behavior)
+- 📁 Current repository scan now detects local agents, local skills, and local MCP configs
+- 🧭 Discovery output now separates `Installed Resources` and
+  `Current Repository Resources`
+
+### Changed
+
+- 📝 Updated `skills/agent-skill-discovery/SKILL.md` workflow with repository scan step
+- 📝 Updated `skills/agent-skill-discovery/README.md` with dual-scope examples
+- 📝 Updated root `README.md` discovery description and skill version
+- 📚 Regenerated `skills_index.json` and `CATALOG.md`
+
 ## [1.7.3] - 2026-02-07
 
 ### Added

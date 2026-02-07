@@ -1,7 +1,7 @@
 ---
 name: agent-skill-discovery
-description: "This skill should be used when the user wants to see all installed plugins, agents, skills, and MCP servers. Scans the environment and presents a structured catalog of available resources. Works across all AI CLI platforms (Claude Code, GitHub Copilot, Gemini CLI, OpenCode, OpenAI Codex)."
-version: 1.0.0
+description: "This skill should be used when the user wants to see all installed plugins, agents, skills, and MCP servers, and also inspect the current repository for local agents, skills, and MCP configuration. Scans the environment and presents a structured catalog of available resources. Works across all AI CLI platforms (Claude Code, GitHub Copilot, Gemini CLI, OpenCode, OpenAI Codex)."
+version: 1.1.0
 author: Eric Andrade
 created: 2026-02-07
 updated: 2026-02-07
@@ -24,7 +24,7 @@ triggers:
 
 ## Purpose
 
-Automated inventory of all AI CLI resources installed on the system. This skill provides a comprehensive, platform-agnostic catalog of plugins, agents, skills, and MCP servers available in the current environment.
+Automated inventory of AI CLI resources across two scopes: resources installed on the system and resources present in the current repository. This skill provides a comprehensive, platform-agnostic catalog of plugins, agents, skills, and MCP servers available in the current environment.
 
 The skill operates in discovery-only mode—it scans, lists, and presents resources without performing analysis, recommendations, or orchestration. It serves as the foundation layer for resource awareness across all supported AI CLI platforms.
 
@@ -39,6 +39,7 @@ Invoke this skill when:
 - Discovering newly installed plugins or MCP servers
 - Verifying skill installation after setup
 - Understanding platform capabilities
+- Checking whether the current repository contains local agents, skills, or MCP configs
 
 ## Platform Support
 
@@ -328,13 +329,66 @@ Example results:
 - If ToolSearch fails: Continue with server info, mark tools as "unavailable"
 - If no tools found for server: Include server with toolCount = 0
 
-### Step 4: Apply Filters (Optional)
+### Step 4: Scan Current Repository
+
+**Objective:** Discover local resources inside the repository where the user is currently working.
+
+**Scope:**
+
+Scan from current working directory (repository root when available). Do not use hardcoded absolute paths.
+
+**4.1 Discover Local Agents:**
+
+Search for agent manifests in common conventions:
+- `**/plugin.json` files containing `agents` arrays
+- `**/agents/*.md` and `**/agents/*.json`
+- `**/.claude/agents/*` and similar platform-local agent folders
+
+For each candidate:
+- Parse safely (JSON/YAML/Markdown metadata)
+- Extract agent name, description, and source path
+- Mark resource scope as `local`
+
+**4.2 Discover Local Skills:**
+
+Search for skill definitions in common conventions:
+- `**/skills/*/SKILL.md`
+- `**/.*/skills/*/SKILL.md` (hidden platform folders in repo)
+
+Parse YAML frontmatter using same validation rules as installed skills.
+
+**4.3 Discover Local MCP Configurations:**
+
+Search for MCP configuration files in common conventions:
+- `./.mcp.json`
+- `./mcp.json`
+- `./.config/mcp.json`
+- `**/.mcp.json` (nested workspace folders)
+
+If multiple files exist:
+- Parse all valid configs
+- Merge by server name
+- Deduplicate with installed scope by server name + command
+
+**4.4 Deduplication Rules:**
+
+- Keep installed and local inventories in separate sections
+- Inside each section, deduplicate by normalized name
+- If same resource appears in both scopes, keep both entries and label scope explicitly
+
+**Graceful Handling:**
+
+- If repository has no local resources: Return empty local arrays
+- If a local file is malformed: Skip file, continue scan
+- If repository root cannot be determined: Fallback to current working directory
+
+### Step 5: Apply Filters (Optional)
 
 **Objective:** Filter results based on user-specified criteria.
 
 **Filter Types:**
 
-**4.1 By Resource Type:**
+**5.1 By Resource Type:**
 
 ```bash
 # User request: "list only plugins"
@@ -344,7 +398,7 @@ Example results:
 # Filter: Show only MCP servers, hide plugins and skills
 ```
 
-**4.2 By Category:**
+**5.2 By Category:**
 
 ```bash
 # User request: "show development skills"
@@ -354,7 +408,7 @@ Example results:
 # Filter: skills.filter(s => s.category === 'content')
 ```
 
-**4.3 By Keyword Search:**
+**5.3 By Keyword Search:**
 
 ```bash
 # User request: "find resources related to Notion"
@@ -388,19 +442,21 @@ Detect filter intent from user request:
 - "related to", "about", "for" → Keyword search
 - Category names (development, content, analysis) → Category filter
 
-### Step 5: Generate Catalog
+### Step 6: Generate Catalog
 
 **Objective:** Present discovered resources in clean, structured markdown.
 
 **Output Format:**
 
 ```markdown
-# 📦 Installed Resources
+# 📦 Resource Discovery Report
 
 **Platform:** {platform_name}
 **Scan Date:** {YYYY-MM-DD HH:MM:SS}
 
 ---
+
+# 📦 Installed Resources
 
 ## 🔌 Plugins ({count})
 
@@ -433,13 +489,40 @@ Detect filter intent from user request:
 
 ---
 
+# 📁 Current Repository Resources
+
+**Repository Path:** {cwd}
+
+## 🔌 Local Agents ({count})
+
+### {agent_name}
+**Description:** {description}
+**Source:** `{relative_path}`
+
+## 🛠️ Local Skills ({count})
+
+### {skill_name} v{version}
+**Description:** {description}
+**Source:** `{relative_path}`
+
+## 🌐 Local MCP Servers ({count})
+
+### {server_name} ({type|unknown})
+**Source Config:** `{relative_path}`
+**Command:** `{command_or_unknown}`
+
+---
+
 ## 📊 Summary
 
-- **Total Plugins:** {count}
-- **Total Agents:** {count}
-- **Total Skills:** {count}
-- **Total MCP Servers:** {count}
-- **Total MCP Tools:** {count}
+- **Installed Plugins:** {count}
+- **Installed Agents:** {count}
+- **Installed Skills:** {count}
+- **Installed MCP Servers:** {count}
+- **Installed MCP Tools:** {count}
+- **Local Agents:** {count}
+- **Local Skills:** {count}
+- **Local MCP Servers:** {count}
 ```
 
 **Presentation Rules:**
@@ -449,12 +532,11 @@ Detect filter intent from user request:
    - Include summary at bottom
 
 2. **Sorting:**
-   - Plugins: Alphabetical by name
-   - Skills: Alphabetical by name
-   - MCP Servers: Alphabetical by name
+   - Plugins/Agents/Skills/MCPs: Alphabetical by name
 
 3. **Empty Sections:**
-   - If no resources found: Display "None installed"
+   - If no installed resources found: Display "None installed"
+   - If no local repository resources found: Display "None found in current repository"
    - Example: `## 🔌 Plugins (0)\n\nNone installed.`
 
 4. **Tool Lists:**
@@ -478,6 +560,7 @@ Detect filter intent from user request:
 - ❌ Use platform-specific tool names without detection context
 - ❌ Fail if a single resource is malformed (skip and continue)
 - ❌ Make assumptions about missing metadata (use defaults or skip)
+- ❌ Omit repository scope when user asks for full discovery
 
 ### **ALWAYS:**
 
@@ -489,6 +572,8 @@ Detect filter intent from user request:
 - ✅ Present clean, structured markdown output
 - ✅ Include resource counts in all sections
 - ✅ Show platform name and timestamp in header
+- ✅ Scan current repository in addition to installed scope
+- ✅ Show installed and repository resources in separate sections
 - ✅ Sort resources alphabetically within each section
 - ✅ Validate JSON/YAML before parsing (try-catch)
 
@@ -497,6 +582,7 @@ Detect filter intent from user request:
 - **Zero-Config:** Discover paths at runtime, never hardcode
 - **Fail-Safe:** Missing resources return empty arrays, not errors
 - **Platform-Agnostic:** Same output format on all 5 platforms
+- **Dual-Scope:** Always inspect installed scope and current repository scope
 - **Read-Only:** Never modify, execute, or recommend resources
 - **Fresh Scan:** No caching, always scan fresh on invocation
 

@@ -1,6 +1,6 @@
 # 📚 CLI AI Skills Catalog
 
-**Generated:** 2026-02-07T15:20:13.531508Z  
+**Generated:** 2026-02-07T17:26:19.869197Z  
 **Total Skills:** 6  
 **Platforms:** GitHub Copilot CLI, Claude Code, OpenAI Codex
 
@@ -10,7 +10,7 @@
 
 | Skill | Version | Category | Tags | Risk | Platforms |
 |-------|---------|----------|------|------|-----------|
-| **agent-skill-discovery** | 1.0.0 | discovery | discovery, inventory, catalog | safe | 🤖 🧠 ⚙️ opencode gemini |
+| **agent-skill-discovery** | 1.1.0 | discovery | discovery, inventory, catalog | safe | 🤖 🧠 ⚙️ opencode gemini |
 | **agent-skill-orchestrator** | 1.1.0 | orchestration | orchestration, planning, strategy | safe | 🤖 🧠 ⚙️ opencode gemini |
 | **audio-transcriber** | 1.2.1 | content | audio, transcription, whisper | safe | 🤖 🧠 ⚙️ |
 | **prompt-engineer** | 1.1.0 | automation | prompt-engineering, optimization, frameworks | safe | 🤖 🧠 ⚙️ |
@@ -39,7 +39,7 @@
 
 ### Discovery
 
-- **agent-skill-discovery** (v1.0.0)
+- **agent-skill-discovery** (v1.1.0)
   - Description: This skill should be used when the user wants to see all installed plugins, agents, skills, and MCP ...
   - Tags: discovery, inventory, catalog, platform-agnostic, mcp
 

@@ -1,15 +1,16 @@
 # agent-skill-discovery
 
-Scans and lists all installed plugins, agents, skills, and MCP servers across any AI CLI platform.
+Scans installed resources and the current repository for plugins, agents, skills, and MCP servers.
 
 ## Overview
 
-`agent-skill-discovery` is a platform-agnostic skill that provides a comprehensive inventory of all resources available in your AI CLI environment. It automatically detects whether you're using Claude Code, GitHub Copilot CLI, Gemini CLI, OpenCode, or OpenAI Codex, and generates a structured catalog of everything installed.
+`agent-skill-discovery` is a platform-agnostic skill that provides a comprehensive inventory across two scopes: resources installed in the AI CLI environment and resources found in the current repository. It automatically detects whether you're using Claude Code, GitHub Copilot CLI, Gemini CLI, OpenCode, or OpenAI Codex, and generates a structured catalog for both scopes.
 
 ## Features
 
 - **🌐 Platform-Agnostic** - Works identically on all 5 AI CLI platforms
 - **🔍 Comprehensive Discovery** - Finds plugins, agents, skills, and MCP servers
+- **📁 Repository-Aware Scan** - Checks the current repository for local agents, skills, and MCP configs
 - **📊 Structured Output** - Clean markdown catalog with resource counts
 - **🔧 Zero-Config** - No setup required, discovers paths dynamically
 - **🎯 Optional Filtering** - Filter by type, category, or keyword
@@ -24,6 +25,7 @@ Use this skill when you want to:
 - Find MCP servers and their available tools
 - Audit available capabilities before planning tasks
 - Debug missing resources or tools
+- Verify whether the current repository has local agents, skills, or MCP servers
 
 ## Installation
 
@@ -75,12 +77,14 @@ gemini  # or: opencode, codex
 ## Example Output
 
 ```markdown
-# 📦 Installed Resources
+# 📦 Resource Discovery Report
 
 **Platform:** Claude Code
 **Scan Date:** 2026-02-07 14:32:15
 
 ---
+
+## 📦 Installed Resources
 
 ## 🔌 Plugins (3)
 - feature-dev (3 agents)
@@ -99,12 +103,20 @@ gemini  # or: opencode, codex
 - claude_ai_Notion (5 tools)
 - plugin_playwright (15 tools)
 
+## 📁 Current Repository Resources
+- Local Agents: 1
+- Local Skills: 2
+- Local MCP Servers: 1
+
 ## 📊 Summary
-- Total Plugins: 3
-- Total Agents: 11
-- Total Skills: 8
-- Total MCP Servers: 2
-- Total MCP Tools: 20
+- Installed Plugins: 3
+- Installed Agents: 11
+- Installed Skills: 8
+- Installed MCP Servers: 2
+- Installed MCP Tools: 20
+- Local Agents: 1
+- Local Skills: 2
+- Local MCP Servers: 1
 ```
 
 ## Filtering
@@ -144,10 +156,10 @@ gemini  # or: opencode, codex
 ## How It Works
 
 1. **Platform Detection** - Automatically identifies which AI CLI is running
-2. **Resource Scanning** - Uses Glob to find plugin.json and SKILL.md files
-3. **MCP Discovery** - Reads .mcp.json and uses ToolSearch to find MCP tools
+2. **Installed Scan** - Finds installed plugin.json, SKILL.md, and MCP configs
+3. **Repository Scan** - Scans current repository for local agents, skills, and MCP configs
 4. **Data Parsing** - Extracts metadata from JSON/YAML frontmatter
-5. **Catalog Generation** - Presents results in structured markdown
+5. **Catalog Generation** - Presents installed and repository scopes in structured markdown
 
 ## What Gets Discovered
 
@@ -168,6 +180,11 @@ gemini  # or: opencode, codex
 - Connection status
 - Available tools with descriptions
 - Command and arguments
+
+### Current Repository
+- Local agents declared in plugin manifests or agent folders
+- Local skills defined by `skills/*/SKILL.md` conventions
+- Local MCP servers declared in repository MCP config files
 
 ## Troubleshooting
 
@@ -250,6 +267,11 @@ Found a bug or want to improve discovery?
 MIT License - See [LICENSE](../../LICENSE) for details.
 
 ## Version History
+
+### v1.1.0 (2026-02-07)
+- Added current repository scan for local agents, skills, and MCP servers
+- Added dual-scope output sections: Installed and Current Repository
+- Added deduplication guidance across scopes
 
 ### v1.0.0 (2026-02-07)
 - Initial release

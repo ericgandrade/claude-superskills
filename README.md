@@ -1,8 +1,8 @@
-# 🤖 CLI AI Skills v1.8.0
+# 🤖 CLI AI Skills v1.9.0
 
 Reusable AI skills for **GitHub Copilot CLI**, **Claude Code**, **OpenAI Codex**, **OpenCode**, and **Gemini CLI** — install once, use everywhere.
 
-![Version](https://img.shields.io/badge/version-1.8.0-blue.svg)
+![Version](https://img.shields.io/badge/version-1.9.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Skills](https://img.shields.io/badge/skills-6-brightgreen.svg)
 ![Platforms](https://img.shields.io/badge/platforms-5-orange.svg)
@@ -51,7 +51,7 @@ curl -fsSL https://raw.githubusercontent.com/ericandrade/cli-ai-skills/main/scri
 ### 🔍 Discovery & Orchestration
 | Skill | Version | Purpose |
 |-------|---------|---------|
-| **agent-skill-discovery** | v1.0.0 | Scan and list all installed plugins, agents, skills, and MCP servers |
+| **agent-skill-discovery** | v1.1.0 | Scan installed resources and current repository resources (agents, skills, MCPs) |
 | **agent-skill-orchestrator** | v1.1.0 | Intelligent task planning with automatic prompt optimization and resource matching |
 
 ### 🛠️ Development & Automation
@@ -100,7 +100,7 @@ npx cli-ai-skills --search "video"
 claude  # or: gh copilot, gemini, opencode, codex
 > "What do I have installed?"
 
-# Output: Lists all plugins, skills, MCPs
+# Output: Lists installed and current-repository plugins, skills, MCPs
 
 # 2. Get intelligent execution plan
 > "Plan how to build a REST API with authentication"
@@ -188,7 +188,7 @@ MIT - See [LICENSE](./LICENSE) for details.
 
 **Built with ❤️ by [Eric Andrade](https://github.com/ericgandrade)**
 
-*Version 1.5.0 | February 2026*
+*Version 1.9.0 | February 2026*
 
 ## 🎁 Get Started
 
