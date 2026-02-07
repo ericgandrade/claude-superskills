@@ -243,8 +243,13 @@ async function main() {
     
     console.log(chalk.cyan(`\n📦 Instalando skills para: ${platforms.join(', ')}\n`));
     
-    const repoPath = getSkillsBasePath(__dirname);
+    const isLocal = args.includes('--local') || args.includes('-l');
+    const repoPath = isLocal ? process.cwd() : getSkillsBasePath(__dirname);
     const quiet = args.includes('-q') || args.includes('--quiet');
+
+    if (isLocal && !quiet) {
+      console.log(chalk.yellow(`📂 Modo Local: Buscando skills em ${repoPath}`));
+    }
     
     // Install for selected platforms
     if (platforms.includes('copilot')) {

@@ -7,12 +7,16 @@
       "description": "Core skills for getting started with AI-assisted development. Perfect for beginners.",
       "skills": [
         "skill-creator",
-        "prompt-engineer"
+        "prompt-engineer",
+        "agent-skill-discovery",
+        "agent-skill-orchestrator"
       ],
       "use_cases": [
         "Creating custom AI skills",
         "Optimizing AI prompts",
-        "Learning best practices"
+        "Learning best practices",
+        "Discovering available resources",
+        "Planning complex tasks"
       ],
       "target": "Beginners, skill developers"
     },
@@ -44,10 +48,27 @@
       ],
       "target": "Skill developers, power users"
     },
+    "orchestration": {
+      "name": "Orchestration & Planning",
+      "description": "Discover resources and create intelligent execution plans for complex tasks.",
+      "skills": [
+        "agent-skill-discovery",
+        "agent-skill-orchestrator"
+      ],
+      "use_cases": [
+        "Discovering installed resources",
+        "Planning complex tasks",
+        "Resource orchestration",
+        "Strategic execution plans"
+      ],
+      "target": "Users with multiple plugins/skills, complex workflows"
+    },
     "all": {
       "name": "All Skills",
       "description": "Complete collection of all available skills for comprehensive functionality.",
       "skills": [
+        "agent-skill-discovery",
+        "agent-skill-orchestrator",
         "skill-creator",
         "prompt-engineer",
         "youtube-summarizer",
@@ -55,6 +76,7 @@
       ],
       "use_cases": [
         "Complete AI assistance",
+        "Resource discovery and orchestration",
         "All content processing",
         "Custom skill development",
         "Prompt optimization"
