@@ -17,9 +17,9 @@ function checkInstalledVersion() {
   };
   
   const homeDir = os.homedir();
-  
+
   const skillDirs = {
-    copilot: path.join(homeDir, '.copilot', 'skills'),
+    copilot: path.join(homeDir, '.github', 'skills'),
     claude: path.join(homeDir, '.claude', 'skills'),
     codex: path.join(homeDir, '.codex', 'skills'),
     opencode: path.join(homeDir, '.opencode', 'skills'),
@@ -90,7 +90,7 @@ function isUpdateAvailable(installInfo) {
 function checkPlatformInstallation(platform) {
   const homeDir = os.homedir();
   const platformMap = {
-    copilot: '.copilot',
+    copilot: '.github',
     claude: '.claude',
     codex: '.codex',
     opencode: '.opencode',

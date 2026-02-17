@@ -28,7 +28,7 @@ class PlatformDetector {
       installed: false,
       cliInstalled: false,
       version: null,
-      globalPath: path.join(this.homeDir, '.copilot', 'skills'),
+      globalPath: path.join(this.homeDir, '.github', 'skills'),
       localPath: path.join(process.cwd(), '.github', 'skills')
     };
 
@@ -42,7 +42,7 @@ class PlatformDetector {
     }
 
     // Check if global skills directory exists
-    result.installed = await fs.pathExists(path.join(this.homeDir, '.copilot'));
+    result.installed = await fs.pathExists(path.join(this.homeDir, '.github'));
 
     return result;
   }

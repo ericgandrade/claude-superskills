@@ -93,7 +93,7 @@ class VersionChecker {
     
     let skillPath;
     if (platform === 'copilot') {
-      skillPath = path.join(homeDir, '.copilot', 'skills', skillName);
+      skillPath = path.join(homeDir, '.github', 'skills', skillName);
     } else if (platform === 'claude') {
       skillPath = path.join(homeDir, '.claude', 'skills', skillName);
     } else {
