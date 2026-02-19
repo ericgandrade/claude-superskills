@@ -63,6 +63,37 @@ claude-superskills/
         └── bundles.md
 ```
 
+### ⛔ NEVER DO THIS — The Platform Dirs Rule
+
+> **Skills must NEVER exist in platform directories inside this repository.**
+
+The following paths are in `.gitignore` and must stay empty/absent in the repo:
+
+```
+.github/skills/      ← GITIGNORED — do not create or commit
+.claude/skills/      ← GITIGNORED — do not create or commit
+.codex/skills/       ← GITIGNORED — do not create or commit
+.agent/skills/       ← GITIGNORED — do not create or commit
+.gemini/skills/      ← GITIGNORED — do not create or commit
+.cursor/skills/      ← GITIGNORED — do not create or commit
+.adal/skills/        ← GITIGNORED — do not create or commit
+cli-installer/skills/ ← GITIGNORED — do not create or commit
+```
+
+**Why?** Before v1.10.4 these were synced copies of `skills/`, creating 90 duplicate files (8× every skill). Every skill change required syncing all directories and the repository size bloated with identical content. The problem was discovered when paths diverged, causing Antigravity and OpenCode to install from wrong directories.
+
+**The rule:** Edit skills **only** in `skills/`. The installer downloads them from GitHub at runtime and caches at `~/.claude-superskills/cache/{version}/skills/`. Nothing gets bundled in the npm package. Nothing gets committed to platform dirs.
+
+**If you ever see skills committed under these paths, remove them:**
+```bash
+git rm -r --cached .github/skills/ .claude/skills/ .codex/skills/ \
+  .agent/skills/ .gemini/skills/ .cursor/skills/ .adal/skills/ \
+  cli-installer/skills/
+git commit -m "fix: remove erroneously committed platform skill dirs"
+```
+
+---
+
 ### Key Architecture Principles (v1.10.4+)
 
 1. **Single Source of Truth**: All skills are maintained in `skills/` only

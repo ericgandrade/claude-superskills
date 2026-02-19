@@ -28,6 +28,25 @@ npm install -g claude-superskills
 npx claude-superskills --bundle essential -y
 ```
 
+**Local install (no npm/npx required):**
+
+If you have cloned the repository and want to install skills directly, without any internet download or Node.js:
+```bash
+git clone https://github.com/ericgandrade/claude-superskills
+cd claude-superskills
+
+# Interactive — choose which platforms to install to
+./scripts/local-install.sh
+
+# Auto-install to all detected platforms
+./scripts/local-install.sh -y
+
+# Silent auto-install (CI / scripted environments)
+./scripts/local-install.sh -y -q
+```
+
+The script reads directly from `skills/`, detects your installed platforms, and copies everything into the right directories. No Node.js, no npm, no internet.
+
 See [Installation Guide](docs/INSTALLATION.md) for all methods and troubleshooting.
 
 **Uninstall:**
