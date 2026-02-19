@@ -30,11 +30,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Backward Compatibility:** Scripts that check exit codes will now work correctly
 - **Migration:** No changes needed for existing users
 
-### 🔗 Related
-
-- Identified by Codex automated review in antigravity-awesome-skills PR #62
-- Also fixed in antigravity-awesome-skills fork
-
 ---
 
 ## [1.2.0] - 2026-02-04

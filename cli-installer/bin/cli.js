@@ -8,6 +8,7 @@ const { installClaudeSkills } = require('../lib/claude');
 const { install: installCodexSkills } = require('../lib/codex');
 const { install: installOpenCodeSkills } = require('../lib/opencode');
 const { install: installGeminiSkills } = require('../lib/gemini');
+const { install: installAntigravitySkills } = require('../lib/antigravity');
 const { listBundles, validateBundle } = require('../lib/bundles');
 const { searchSkills } = require('../lib/search');
 const { displayToolsTable } = require('../lib/ui/table');
@@ -94,16 +95,16 @@ async function main() {
     
     // Display tools table
     displayToolsTable(detected);
-    
-    const hasAny = detected.copilot.installed || detected.claude.installed || 
-                   detected.codex_cli.installed || detected.codex_app.installed || detected.opencode.installed || 
-                   detected.gemini.installed;
-    
+
+    const hasAny = detected.copilot.installed || detected.claude.installed ||
+                   detected.codex_cli.installed || detected.codex_app.installed || detected.opencode.installed ||
+                   detected.gemini.installed || detected.antigravity.installed;
+
     if (!hasAny) {
       console.log(getInstallInstructions());
       process.exit(1);
     }
-    
+
     // Check for --yes flag (skip prompts)
     const skipPrompt = args.includes('-y') || args.includes('--yes');
     
@@ -115,6 +116,7 @@ async function main() {
       if (detected.codex_cli.installed) platforms.push('codex_cli');
       if (detected.opencode.installed) platforms.push('opencode');
       if (detected.gemini.installed) platforms.push('gemini');
+      if (detected.antigravity.installed) platforms.push('antigravity');
     } else {
       platforms = await promptPlatforms(detected);
     }
@@ -149,6 +151,9 @@ async function main() {
       if (platforms.includes('gemini')) {
         installGeminiSkills(repoPath, [skill], quiet);
       }
+      if (platforms.includes('antigravity')) {
+        installAntigravitySkills(repoPath, [skill], quiet);
+      }
     });
     
     if (!quiet) {
@@ -165,11 +170,11 @@ async function main() {
     
     // Display tools table
     displayToolsTable(detected);
-    
-    const hasAny = detected.copilot.installed || detected.claude.installed || 
-                   detected.codex_cli.installed || detected.codex_app.installed || detected.opencode.installed || 
-                   detected.gemini.installed;
-    
+
+    const hasAny = detected.copilot.installed || detected.claude.installed ||
+                   detected.codex_cli.installed || detected.codex_app.installed || detected.opencode.installed ||
+                   detected.gemini.installed || detected.antigravity.installed;
+
     if (!hasAny) {
       console.log(getInstallInstructions());
       process.exit(1);
@@ -271,7 +276,11 @@ async function main() {
     if (platforms.includes('gemini')) {
       installGeminiSkills(repoPath, null, quiet);
     }
-    
+
+    if (platforms.includes('antigravity')) {
+      installAntigravitySkills(repoPath, null, quiet);
+    }
+
     if (!quiet) {
       console.log(chalk.green(`\n✅ Instalação concluída com sucesso!\n`));
     }

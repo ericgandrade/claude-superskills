@@ -107,6 +107,14 @@ async function promptPlatforms(detected) {
     });
   }
 
+  if (detected.antigravity && detected.antigravity.installed) {
+    choices.push({
+      name: '✅ Google Antigravity (~/.gemini/antigravity/skills/)',
+      value: 'antigravity',
+      checked: true
+    });
+  }
+
   if (choices.length === 0) {
     return [];
   }

@@ -20,13 +20,16 @@ cli-ai-skills/
 │   ├── skill-creator/
 │   ├── prompt-engineer/
 │   ├── youtube-summarizer/
-│   └── audio-transcriber/
+│   ├── audio-transcriber/
+│   ├── agent-skill-discovery/
+│   └── agent-skill-orchestrator/
 │
 ├── .github/skills/            # GitHub Copilot CLI (auto-synced from skills/)
 ├── .claude/skills/            # Claude Code (auto-synced from skills/)
 ├── .codex/skills/             # OpenAI Codex (auto-synced from skills/)
 ├── .opencode/skills/          # OpenCode (auto-synced from skills/)
 ├── .gemini/skills/            # Gemini CLI (auto-synced from skills/)
+├── .agent/skills/             # Generic agent format (auto-synced from skills/)
 │
 ├── cli-installer/             # NPM package that installs skills
 │   ├── bin/cli.js            # Main CLI entry point
@@ -40,7 +43,7 @@ cli-ai-skills/
 │   │   ├── bundles.js        # Skill bundle definitions
 │   │   ├── search.js         # Skill search functionality
 │   │   └── version-checker.js # Update notifications
-│   ├── package.json          # NPM package manifest (v1.7.2)
+│   ├── package.json          # NPM package manifest (v1.10.0)
 │   └── skills/               # Bundled skills for distribution
 │
 ├── scripts/                   # Build, validation, and automation
@@ -238,17 +241,20 @@ Skills that interact with project structure should include a discovery phase tha
 
 ### Version Consistency
 
-The package version is defined in `cli-installer/package.json` (currently v1.7.2). However, there are version references in multiple places:
+The package version is defined in `cli-installer/package.json` (currently **v1.10.0**).
 
-- `cli-installer/package.json`: **v1.7.2** (source of truth for npm)
-- `cli-installer/bin/cli.js`: **v1.6.0** (hardcoded, needs update)
-- `README.md`: States **v1.7.1** and **v1.5.0** in different places
+**Version management:**
+- `cli-installer/package.json`: **v1.10.0** (source of truth for npm)
+- `cli-installer/bin/cli.js`: Reads version **dynamically** from package.json (no manual update needed)
+- `README.md`: May contain multiple version references that need updating
+- `CHANGELOG.md`: Should be updated with each release
 
 **When bumping versions:**
 1. Run `./scripts/bump-version.sh [patch|minor|major]` to update package.json
-2. Manually update `VERSION` constant in `cli-installer/bin/cli.js`
+2. ~~Manually update `VERSION` constant in `cli-installer/bin/cli.js`~~ (no longer needed - auto-reads from package.json)
 3. Update version badges/references in README.md
 4. Update CHANGELOG.md with release notes
+5. Commit and tag will be created automatically by the bump script
 
 ### Build Before Commit
 
@@ -259,7 +265,7 @@ Always run build script before committing skill changes:
 # 2. Build to sync to all platforms
 ./scripts/build-skills.sh
 # 3. Commit all changed platform directories
-git add skills/ .github/ .claude/ .codex/ .opencode/ .gemini/ cli-installer/skills/
+git add skills/ .github/ .claude/ .codex/ .opencode/ .gemini/ .agent/ cli-installer/skills/
 git commit -m "feat: update skill-name"
 ```
 
@@ -307,11 +313,12 @@ All installers:
 
 ### Bundle System (`lib/bundles.js`)
 
-Curated skill collections:
-- **essential**: `skill-creator`, `prompt-engineer` (recommended for beginners)
+Curated skill collections defined in `bundles.json`:
+- **essential**: `skill-creator`, `prompt-engineer`, `agent-skill-discovery`, `agent-skill-orchestrator` (recommended for beginners)
 - **content**: `youtube-summarizer`, `audio-transcriber` (content creation)
 - **developer**: `skill-creator` (for skill development)
-- **all**: Complete collection
+- **orchestration**: `agent-skill-discovery`, `agent-skill-orchestrator` (resource discovery and task planning)
+- **all**: Complete collection (all 6 skills)
 
 ### Search Functionality (`lib/search.js`)
 
@@ -335,11 +342,12 @@ vim skills/my-skill/SKILL.md
 ./scripts/build-skills.sh
 
 # This syncs to:
-# - .github/skills/     (GitHub Copilot)
-# - .claude/skills/     (Claude Code)
-# - .codex/skills/      (OpenAI Codex)
-# - .opencode/skills/   (OpenCode)
-# - .gemini/skills/     (Gemini CLI)
+# - .github/skills/       (GitHub Copilot)
+# - .claude/skills/       (Claude Code)
+# - .codex/skills/        (OpenAI Codex)
+# - .opencode/skills/     (OpenCode)
+# - .gemini/skills/       (Gemini CLI)
+# - .agent/skills/        (Generic agent format)
 # - cli-installer/skills/ (for npm package)
 ```
 
@@ -405,6 +413,60 @@ Skills in this repository fall into categories:
 
 - **Meta-skills** — Create or manage other skills (e.g., `skill-creator`)
 - **Automation** — Workflow optimization (e.g., `prompt-engineer`)
+- **Orchestration** — Resource discovery and task planning (e.g., `agent-skill-discovery`, `agent-skill-orchestrator`)
 - **Content** — Media processing (e.g., `youtube-summarizer`, `audio-transcriber`)
 - **Analysis** — Code review, exploration (future)
 - **Documentation** — Generate docs, READMEs (future)
+
+### Orchestration Skills (v1.7.3+)
+
+Two new skills added for resource discovery and intelligent task orchestration:
+
+#### agent-skill-discovery (v1.1.0+)
+
+**Purpose:** Platform-agnostic resource discovery that scans and lists all installed plugins, agents, skills, and MCP servers.
+
+**Key features:**
+- **Dual-scope discovery** (v1.9.0+):
+  - Installed resources: Global installations across all platforms
+  - Current repository resources: Local agents, skills, and MCP configs in project
+- Works identically across all 6 AI CLI platforms
+- Zero-config dynamic path discovery
+- Optional filtering by type, category, or keyword
+- MCP server detection with tool enumeration
+- Structured markdown output with resource counts
+
+**Use cases:**
+- "What skills are installed?"
+- "Show all MCP servers"
+- "List local agents in this repo"
+- "Find skills related to testing"
+
+#### agent-skill-orchestrator (v1.0.0)
+
+**Purpose:** Analyzes user requirements and creates strategic execution plans using available resources.
+
+**Key features:**
+- Intelligent resource matching with confidence scoring (0-100%)
+- Multi-factor weighted algorithm:
+  - Trigger phrase matching (30%)
+  - Semantic similarity (25%)
+  - Tool availability (20%)
+  - Category relevance (15%)
+  - MCP integration bonus (10%)
+- Generates primary + alternative execution strategies
+- Always requests explicit user approval before execution
+- Prerequisites detection and success criteria definition
+- Uses `agent-skill-discovery` as a dependency
+
+**Use cases:**
+- "Plan how to build a REST API with authentication"
+- "Create a strategy for analyzing video content"
+- "How can I optimize my development workflow?"
+
+**Workflow:**
+1. Runs `agent-skill-discovery` to inventory available resources
+2. Analyzes user requirements
+3. Matches requirements to available resources with confidence scores
+4. Generates strategic execution plan with alternatives
+5. Requests user approval before proceeding

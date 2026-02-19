@@ -16,7 +16,8 @@ function displayToolsTable(tools) {
     codex_cli: 'OpenAI Codex CLI',
     codex_app: 'OpenAI Codex App',
     opencode: 'OpenCode',
-    gemini: 'Gemini CLI'
+    gemini: 'Gemini CLI',
+    antigravity: 'Google Antigravity'
   };
   
   for (const [key, name] of Object.entries(toolNames)) {
@@ -45,16 +46,17 @@ function displayToolsTable(tools) {
  */
 function getToolsSummary(tools) {
   const installed = [];
-  
+
   if (tools.copilot && tools.copilot.installed) installed.push('copilot');
   if (tools.claude && tools.claude.installed) installed.push('claude');
   if (tools.codex_cli && tools.codex_cli.installed) installed.push('codex_cli');
   if (tools.codex_app && tools.codex_app.installed) installed.push('codex_app');
   if (tools.opencode && tools.opencode.installed) installed.push('opencode');
   if (tools.gemini && tools.gemini.installed) installed.push('gemini');
-  
+  if (tools.antigravity && tools.antigravity.installed) installed.push('antigravity');
+
   return {
-    total: 6,
+    total: 7,
     installed: installed.length,
     names: installed
   };

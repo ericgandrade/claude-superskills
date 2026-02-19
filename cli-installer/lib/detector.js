@@ -14,7 +14,8 @@ function detectTools() {
     codex_cli: detectCodexCli(),
     codex_app: detectCodexApp(),
     opencode: detectOpenCode(),
-    gemini: detectGemini()
+    gemini: detectGemini(),
+    antigravity: detectAntigravity()
   };
 
   return tools;

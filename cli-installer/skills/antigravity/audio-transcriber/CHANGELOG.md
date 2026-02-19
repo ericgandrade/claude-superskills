@@ -32,11 +32,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Backward Compatibility:** All other functionality unchanged
 - **Migration:** Remove `--keep-temp` from scripts if used
 
-### 🔗 Related
-
-- Identified by Codex automated review in antigravity-awesome-skills PR #62
-- Also fixed in antigravity-awesome-skills fork (commit eb49312)
-
 ---
 
 ## [1.1.0] - 2026-02-03
