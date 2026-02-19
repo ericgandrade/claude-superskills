@@ -10,6 +10,7 @@ __pycache__/
 *.pyc
 *.log
 antigravity-awesome-skills/
+AGENTS.md
 
 # Codex local configuration
 .codex/auth.json

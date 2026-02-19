@@ -6,6 +6,64 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.10.4] - 2026-02-19
+
+### Changed
+
+- **No bundled skills in npm package** — `skills/` directory removed from the npm `files` array
+- Installer now downloads skills from the GitHub release tag at first use and caches them at `~/.claude-superskills/cache/{version}/skills/`
+- All 8 platform installers rewritten as async functions using `fs.copy` from cache (no more symlinks)
+- `downloader.js` rewritten with `ensureSkillsCached(version)`: tries release zip first, falls back to GitHub API tree walk
+- `path-resolver.js` simplified: `getCachedSkillsPath(version)` replaces `getSkillsSourcePath()`
+- `build-skills.sh` simplified to validation-only (counts skills in `skills/`, no longer syncs to platform dirs)
+- All platform skill directories (`.github/skills/`, `.claude/skills/`, `.codex/skills/`, `.agent/skills/`, `.gemini/skills/`, `.cursor/skills/`, `.adal/skills/`) removed from git and added to `.gitignore`
+- Fixed stale `opencode` path in `version-checker.js` (`.agents/` → `.agent/`)
+- Eliminated ~90 redundant copies of skill files (290 files deleted from repo)
+
+---
+
+## [1.10.3] - 2026-02-18
+
+### Changed
+
+- **Project renamed** from `cli-ai-skills` to `claude-superskills` (GitHub repo + npm package)
+- npm package `cli-ai-skills@*` deprecated with redirect message
+- GitHub Actions publish workflow updated with deprecation step
+- All file references updated across 164 files via bulk rename
+- **8-platform support** finalized: added Cursor IDE (`~/.cursor/skills/`) and AdaL CLI (`~/.adal/skills/`)
+- README updated with correct Compatibility & Invocation table
+
+---
+
+## [1.10.2] - 2026-02-15
+
+### Changed
+
+- Version bump to trigger npm publish after `v1.10.1` tag conflict
+
+---
+
+## [1.10.1] - 2026-02-15
+
+### Added
+
+- **Cursor IDE** support — installs skills to `~/.cursor/skills/`
+- **AdaL CLI** support — installs skills to `~/.adal/skills/`
+- New platform installers: `lib/cursor.js`, `lib/adal.js`
+
+### Changed
+
+- **OpenCode and Antigravity** paths consolidated to `~/.agent/skills/` (universal agent path)
+- `path-resolver.js`: `opencode` and `antigravity` both map to `.agent` as source and target
+- `build-skills.sh`: replaced `.antigravity/skills` and `.opencode/skills` with `.agent/skills`; added `.cursor/skills` and `.adal/skills`
+- README updated with corrected install paths for all 8 platforms
+
+### Fixed
+
+- OpenCode was incorrectly installing to `~/.agents/skills/` (plural) — corrected to `~/.agent/skills/`
+
+---
+
 ## [1.9.0] - 2026-02-07
 
 ### Added
