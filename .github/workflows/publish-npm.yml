@@ -73,6 +73,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Deprecate old cli-ai-skills package
-        run: npm deprecate 'cli-ai-skills@*' 'Package renamed to claude-superskills. Install with: npx claude-superskills' || true
+        run: |
+          npm deprecate 'cli-ai-skills@*' 'Package renamed to claude-superskills. Run npx claude-superskills instead.' || true
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
