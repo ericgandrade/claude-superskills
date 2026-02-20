@@ -1,6 +1,6 @@
 # 🤖 Claude Superskills v1.12.0
 
-Reusable AI CLI skills for GitHub Copilot and Claude Code.
+Scale AI-assisted engineering with a reusable skill platform that turns ad-hoc prompting into standardized, high-impact workflows. Install once and deliver consistent planning, research, orchestration, and content automation across your entire multi-tool AI stack.
 
 ![Version](https://img.shields.io/badge/version-1.12.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
