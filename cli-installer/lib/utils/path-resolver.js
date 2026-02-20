@@ -16,45 +16,38 @@ function getCachedSkillsPath(version) {
 }
 
 /**
- * Get user home directory skills path for a platform.
- * Includes multi-path fallback for Codex (robust solution).
- * @param {string} platform - Platform name
- * @returns {string} Path to user's skills directory
+ * Returns the two canonical Codex skill paths:
+ *   - ~/.agents/skills  → Codex CLI
+ *   - ~/.codex/skills   → Codex App
+ * Used by uninstall to clean both locations.
+ * @returns {string[]}
  */
 function getCodexSkillPaths() {
-  const home = process.env.HOME || process.env.USERPROFILE;
+  const home = os.homedir();
   return [
     path.join(home, '.agents', 'skills'),
-    path.join(home, '.codex', 'vendor_imports', 'skills', 'skills', '.curated'),
-    path.join(home, '.codex', 'vendor_imports', 'skills', 'skills', '.custom'),
     path.join(home, '.codex', 'skills')
   ];
 }
 
+/**
+ * Get user home directory skills path for a platform.
+ * @param {string} platform - Platform name
+ * @returns {string} Path to user's skills directory
+ */
 function getUserSkillsPath(platform) {
-  const home = process.env.HOME || process.env.USERPROFILE;
-
-  // Codex official path: ~/.agents/skills (keep legacy fallbacks for compatibility)
-  if (platform === 'codex') {
-    const codexPaths = getCodexSkillPaths();
-
-    for (const codexPath of codexPaths) {
-      if (fs.existsSync(codexPath)) {
-        return codexPath;
-      }
-    }
-
-    return codexPaths[0];
-  }
+  const home = os.homedir();
 
   const platformDirs = {
-    'copilot':    path.join(home, '.github', 'skills'),
-    'claude':     path.join(home, '.claude', 'skills'),
-    'opencode':   path.join(home, '.agent', 'skills'),
-    'gemini':     path.join(home, '.gemini', 'skills'),
-    'antigravity':path.join(home, '.agent', 'skills'),
-    'cursor':     path.join(home, '.cursor', 'skills'),
-    'adal':       path.join(home, '.adal', 'skills')
+    'codex_cli':   path.join(home, '.agents', 'skills'),
+    'codex_app':   path.join(home, '.codex', 'skills'),
+    'copilot':     path.join(home, '.github', 'skills'),
+    'claude':      path.join(home, '.claude', 'skills'),
+    'opencode':    path.join(home, '.agent', 'skills'),
+    'gemini':      path.join(home, '.gemini', 'skills'),
+    'antigravity': path.join(home, '.agent', 'skills'),
+    'cursor':      path.join(home, '.cursor', 'skills'),
+    'adal':        path.join(home, '.adal', 'skills')
   };
 
   return platformDirs[platform] || path.join(home, `.${platform}`, 'skills');

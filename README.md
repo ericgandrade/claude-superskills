@@ -1,8 +1,8 @@
-# 🤖 Claude Superskills v1.12.0
+# 🤖 Claude Superskills v1.12.7
 
 Scale AI-assisted engineering with a reusable skill platform that turns ad-hoc prompting into standardized, high-impact workflows. Install once and deliver consistent planning, research, orchestration, and content automation across your entire multi-tool AI stack.
 
-![Version](https://img.shields.io/badge/version-1.12.0-blue.svg)
+![Version](https://img.shields.io/badge/version-1.12.7-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Skills](https://img.shields.io/badge/skills-12-brightgreen.svg)
 ![Platforms](https://img.shields.io/badge/platforms-8-orange.svg)

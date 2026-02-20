@@ -77,12 +77,18 @@ async function promptPlatforms(detected, options = {}) {
     });
   }
   
-  // Codex CLI/App usam o mesmo diretório de skills; exibir uma única opção.
-  if ((detected.codex_cli && detected.codex_cli.installed) ||
-      (detected.codex_app && detected.codex_app.installed)) {
+  if (detected.codex_cli && detected.codex_cli.installed) {
     choices.push({
-      name: '✅ OpenAI Codex (CLI/App) (~/.agents/skills/)',
-      value: 'codex',
+      name: '✅ OpenAI Codex CLI (~/.agents/skills/)',
+      value: 'codex_cli',
+      checked: defaultChecked
+    });
+  }
+
+  if (detected.codex_app && detected.codex_app.installed) {
+    choices.push({
+      name: '✅ OpenAI Codex App (~/.codex/skills/)',
+      value: 'codex_app',
       checked: defaultChecked
     });
   }

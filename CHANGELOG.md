@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.12.7] - 2026-02-20
+
+### Fixed
+
+- **Codex installer**: Codex CLI and Codex App are now treated as two independent platforms with separate installers and separate target directories.
+  - `codex_cli` → `~/.agents/skills/` (Codex CLI)
+  - `codex_app` → `~/.codex/skills/` (Codex App)
+- Added `lib/codex-app.js` — dedicated installer for the OpenAI Codex desktop app.
+- Updated `lib/codex.js` — now explicitly targets `codex_cli` path only.
+- Updated `lib/utils/path-resolver.js` — `getUserSkillsPath` handles `codex_cli` and `codex_app` separately; removed incorrect `vendor_imports` fallback paths.
+- Updated `lib/interactive.js` — checkbox now shows Codex CLI and Codex App as separate selectable options.
+- Updated `bin/cli.js` — install and uninstall flows call the correct installer per platform; removed all references to the merged `'codex'` platform string.
+
 ## [1.12.0] - 2026-02-20
 
 ### Added

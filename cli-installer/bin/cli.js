@@ -5,7 +5,8 @@ const { promptPlatforms, setupEscapeHandler } = require('../lib/interactive');
 const { setupCleanupHandler } = require('../lib/cleanup');
 const { installCopilotSkills } = require('../lib/copilot');
 const { installClaudeSkills } = require('../lib/claude');
-const { install: installCodexSkills } = require('../lib/codex');
+const { install: installCodexCliSkills } = require('../lib/codex');
+const { install: installCodexAppSkills } = require('../lib/codex-app');
 const { install: installOpenCodeSkills } = require('../lib/opencode');
 const { install: installGeminiSkills } = require('../lib/gemini');
 const { install: installAntigravitySkills } = require('../lib/antigravity');
@@ -16,7 +17,7 @@ const { searchSkills } = require('../lib/search');
 const { displayToolsTable } = require('../lib/ui/table');
 const { checkInstalledVersion, isUpdateAvailable } = require('../lib/version-checker');
 const { ensureSkillsCached } = require('../lib/core/downloader');
-const { getUserSkillsPath, getCodexSkillPaths } = require('../lib/utils/path-resolver');
+const { getUserSkillsPath } = require('../lib/utils/path-resolver');
 const chalk = require('chalk');
 const inquirer = require('inquirer');
 const ora = require('ora');
@@ -67,7 +68,8 @@ function getDetectedPlatforms(detected) {
   const platforms = [];
   if (detected.copilot.installed) platforms.push('copilot');
   if (detected.claude.installed) platforms.push('claude');
-  if (detected.codex_cli.installed || detected.codex_app.installed) platforms.push('codex');
+  if (detected.codex_cli.installed) platforms.push('codex_cli');
+  if (detected.codex_app.installed) platforms.push('codex_app');
   if (detected.opencode.installed) platforms.push('opencode');
   if (detected.gemini.installed) platforms.push('gemini');
   if (detected.antigravity.installed) platforms.push('antigravity');
@@ -125,29 +127,10 @@ function getManagedSkillNames() {
 }
 
 function getPlatformTargetDir(platform) {
-  const homeDir = os.homedir();
-
-  if (platform === 'codex' || platform === 'codex_cli' || platform === 'codex_app') {
-    return getUserSkillsPath('codex');
-  }
-
-  const map = {
-    copilot: path.join(homeDir, '.github', 'skills'),
-    claude: path.join(homeDir, '.claude', 'skills'),
-    opencode: path.join(homeDir, '.agent', 'skills'),
-    gemini: path.join(homeDir, '.gemini', 'skills'),
-    antigravity: path.join(homeDir, '.agent', 'skills'),
-    cursor: path.join(homeDir, '.cursor', 'skills'),
-    adal: path.join(homeDir, '.adal', 'skills')
-  };
-
-  return map[platform];
+  return getUserSkillsPath(platform) || null;
 }
 
 function getPlatformTargetDirs(platform) {
-  if (platform === 'codex' || platform === 'codex_cli' || platform === 'codex_app') {
-    return getCodexSkillPaths();
-  }
   const dir = getPlatformTargetDir(platform);
   return dir ? [dir] : [];
 }
@@ -381,8 +364,11 @@ async function main() {
       if (platforms.includes('claude')) {
         await installClaudeSkills(cacheDir, [skill], quiet);
       }
-      if (platforms.includes('codex') || platforms.includes('codex_cli') || platforms.includes('codex_app')) {
-        await installCodexSkills(cacheDir, [skill], quiet);
+      if (platforms.includes('codex_cli')) {
+        await installCodexCliSkills(cacheDir, [skill], quiet);
+      }
+      if (platforms.includes('codex_app')) {
+        await installCodexAppSkills(cacheDir, [skill], quiet);
       }
       if (platforms.includes('opencode')) {
         await installOpenCodeSkills(cacheDir, [skill], quiet);
@@ -551,8 +537,12 @@ async function main() {
       await installClaudeSkills(cacheDir, null, quiet);
     }
 
-    if (platforms.includes('codex') || platforms.includes('codex_cli') || platforms.includes('codex_app')) {
-      await installCodexSkills(cacheDir, null, quiet);
+    if (platforms.includes('codex_cli')) {
+      await installCodexCliSkills(cacheDir, null, quiet);
+    }
+
+    if (platforms.includes('codex_app')) {
+      await installCodexAppSkills(cacheDir, null, quiet);
     }
 
     if (platforms.includes('opencode')) {
