@@ -234,6 +234,7 @@ async function main() {
   }
 
   const quiet = args.includes('-q') || args.includes('--quiet');
+  const skipPrompt = args.includes('-y') || args.includes('--yes');
 
   // Handle bundle installation
   const bundleIdx = args.indexOf('--bundle');
@@ -345,42 +346,65 @@ async function main() {
         console.log(chalk.dim(`  • ${platform}: v${version}`));
       }
 
-      if (isUpdateAvailable(installInfo)) {
+      const updateAvailable = isUpdateAvailable(installInfo);
+
+      if (skipPrompt) {
+        if (updateAvailable) {
+          console.log(chalk.cyan('\n🔄 Auto mode: updating skills...\n'));
+          requiresCleanReinstall = true;
+        } else {
+          console.log(chalk.cyan('\n♻️  Auto mode: reinstalling latest skills...\n'));
+          requiresCleanReinstall = true;
+        }
+      } else if (updateAvailable) {
         console.log(chalk.yellow(`\n⚠️  New version available: v${installInfo.latestVersion}\n`));
 
-        const { update } = await inquirer.prompt([{
-          type: 'confirm',
-          name: 'update',
-          message: 'Update now?',
-          default: true
+        const { action } = await inquirer.prompt([{
+          type: 'list',
+          name: 'action',
+          message: 'What do you want to do?',
+          choices: [
+            { name: 'Update to latest version', value: 'update' },
+            { name: 'Reinstall from scratch', value: 'reinstall' },
+            { name: 'Cancel', value: 'cancel' }
+          ],
+          default: 'update'
         }]);
 
-        if (!update) {
-          console.log(chalk.dim('\n❌ Update cancelled.\n'));
+        if (action === 'cancel') {
+          console.log(chalk.dim('\n❌ Operation cancelled.\n'));
           process.exit(0);
         }
 
-        console.log(chalk.cyan('\n🔄 Updating skills...\n'));
+        if (action === 'update') {
+          console.log(chalk.cyan('\n🔄 Updating skills...\n'));
+        } else {
+          console.log(chalk.cyan('\n♻️  Reinstalling skills from scratch...\n'));
+        }
         requiresCleanReinstall = true;
       } else {
         console.log(chalk.green(`\n✅ You already have the latest version (v${installInfo.latestVersion})\n`));
 
-        const { reinstall } = await inquirer.prompt([{
-          type: 'confirm',
-          name: 'reinstall',
-          message: 'Reinstall?',
-          default: false
+        const { action } = await inquirer.prompt([{
+          type: 'list',
+          name: 'action',
+          message: 'What do you want to do?',
+          choices: [
+            { name: 'Reinstall from scratch', value: 'reinstall' },
+            { name: 'Cancel', value: 'cancel' }
+          ],
+          default: 'reinstall'
         }]);
 
-        if (!reinstall) {
+        if (action === 'cancel') {
+          console.log(chalk.dim('\n❌ Operation cancelled.\n'));
           process.exit(0);
         }
+
+        console.log(chalk.cyan('\n♻️  Reinstalling skills from scratch...\n'));
         requiresCleanReinstall = true;
       }
     }
-
-    // Check for --yes flag (zero-config mode)
-    const skipPrompt = args.includes('-y') || args.includes('--yes');
 
     let platforms;
     if (skipPrompt) {
