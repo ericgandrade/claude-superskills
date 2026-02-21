@@ -29,7 +29,7 @@ claude-superskills/
 │   └── us-program-research/
 │
 ├── cli-installer/             # NPM package (claude-superskills)
-│   ├── bin/cli.js            # Main CLI entry point
+│   ├── bin/cli.js            # Main CLI entry point (commands, flags, install flow)
 │   ├── lib/
 │   │   ├── copilot.js        # GitHub Copilot installer
 │   │   ├── claude.js         # Claude Code installer
@@ -39,15 +39,31 @@ claude-superskills/
 │   │   ├── antigravity.js    # Antigravity installer
 │   │   ├── cursor.js         # Cursor IDE installer
 │   │   ├── adal.js           # AdaL CLI installer
-│   │   ├── core/
-│   │   │   └── downloader.js # GitHub download + local cache manager
-│   │   ├── utils/
-│   │   │   ├── path-resolver.js   # getCachedSkillsPath(), getUserSkillsPath()
-│   │   │   └── skill-versions.js
-│   │   ├── detector.js       # Platform detection
-│   │   ├── bundles.js        # Skill bundle definitions
+│   │   ├── interactive.js    # Inquirer prompts (platform checkbox, ESC handler)
+│   │   ├── cleanup.js        # Process cleanup / signal handlers
+│   │   ├── detector.js       # Platform detection (detectTools())
+│   │   ├── bundles.js        # Bundle loader (reads bundles.json)
 │   │   ├── search.js         # Skill search functionality
-│   │   └── version-checker.js
+│   │   ├── version-checker.js # Installed version comparison
+│   │   ├── commands/         # Modular command implementations
+│   │   │   ├── install.js
+│   │   │   ├── uninstall.js
+│   │   │   ├── list.js
+│   │   │   ├── update.js
+│   │   │   └── doctor.js
+│   │   ├── core/
+│   │   │   ├── downloader.js          # GitHub download + local cache manager
+│   │   │   ├── installer.js           # Core install logic
+│   │   │   ├── requirements-installer.js
+│   │   │   ├── detector.js            # Core platform detector class
+│   │   │   └── version-checker.js
+│   │   ├── ui/
+│   │   │   ├── table.js        # displayToolsTable()
+│   │   │   ├── prompts.js      # UI prompt helpers
+│   │   │   └── progress-gauge.js
+│   │   └── utils/
+│   │       ├── path-resolver.js   # getCachedSkillsPath(), getUserSkillsPath(), getCodexSkillPaths()
+│   │       └── skill-versions.js
 │   └── package.json          # NPM manifest (v1.12.8) — no skills/ in files
 │
 ├── scripts/
@@ -188,13 +204,21 @@ Publishing is automated via GitHub Actions on `v*` tag pushes.
 # 1. Validate skills source
 ./scripts/build-skills.sh
 
-# 2. Bump version (updates package.json, creates tag, pushes)
-./scripts/bump-version.sh [patch|minor|major]
-# ↑ this triggers the GitHub Actions publish workflow automatically
+# 2. Update CHANGELOG.md and README.md (version badges + footer)
 
-# Manual publish (if needed)
-cd cli-installer && npm publish
+# 3. Bump version in package.json (no git tag yet)
+./scripts/bump-version.sh [patch|minor|major]
+
+# 4. Stage all changed files, commit, create tag, push
+git add cli-installer/package.json cli-installer/package-lock.json \
+        CHANGELOG.md README.md CLAUDE.md
+git commit -m "fix: <description> and bump to vX.Y.Z"
+git tag vX.Y.Z
+git push origin main && git push origin vX.Y.Z
+# ↑ tag push triggers GitHub Actions publish workflow automatically
 ```
+
+> **Note:** `bump-version.sh` uses `--no-git-tag-version` — it only updates `package.json`. The git tag must be created and pushed manually after the commit.
 
 ### Testing the Download Flow
 
@@ -284,11 +308,17 @@ The package version is defined in `cli-installer/package.json` (currently **v1.1
 # Then update CHANGELOG.md
 ```
 
-**After bumping, commit order:**
+**Full bump + publish sequence:**
 ```bash
-git add README.md CHANGELOG.md
-git commit -m "docs: bump README and CHANGELOG to vX.Y.Z"
-git push origin main
+# 1. Edit CHANGELOG.md and README.md (badges + footer version)
+# 2. Run bump script (updates package.json only, no git tag)
+./scripts/bump-version.sh patch
+# 3. Stage everything, commit, tag, push
+git add cli-installer/package.json cli-installer/package-lock.json \
+        README.md CHANGELOG.md CLAUDE.md
+git commit -m "fix: ... and bump to vX.Y.Z"
+git tag vX.Y.Z && git push origin main && git push origin vX.Y.Z
+# GitHub Actions detects the tag and publishes to npm automatically
 ```
 
 ## Commit Convention
@@ -339,6 +369,12 @@ OpenCode and Antigravity share `~/.agent/skills/` as the universal agent path.
 - Cache location: `~/.claude-superskills/cache/{version}/skills/`
 - `clearCache()` — wipes `~/.claude-superskills/cache/`
 
+> **GitHub 403 / rate limit**: The GitHub API allows 60 unauthenticated requests/hour. On corporate networks or after repeated installs, the API tree walk may return 403. Set `GITHUB_TOKEN` env var to authenticate and raise the limit:
+> ```bash
+> GITHUB_TOKEN=ghp_xxx npx claude-superskills
+> ```
+> The release zip download (Strategy 1) does not require authentication and is unaffected by the API rate limit.
+
 ### Bundle System (`lib/bundles.js`)
 
 Curated skill collections:
@@ -365,7 +401,9 @@ Curated skill collections:
 - **Meta-skills** — Create or manage other skills (`skill-creator`)
 - **Automation** — Workflow optimization (`prompt-engineer`)
 - **Orchestration** — Resource discovery and task planning (`agent-skill-discovery`, `agent-skill-orchestrator`)
-- **Content** — Media processing (`youtube-summarizer`, `audio-transcriber`)
+- **Planning** — Pre-implementation design and execution (`brainstorming`, `writing-plans`, `executing-plans`)
+- **Research** — Deep research and academic analysis (`deep-research`, `us-program-research`)
+- **Content** — Media and document processing (`youtube-summarizer`, `audio-transcriber`, `docling-converter`)
 
 ### Orchestration Skills
 
