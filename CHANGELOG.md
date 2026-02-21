@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.12.8] - 2026-02-20
+
+### Fixed
+
+- **Codex installer**: reverted separate CLI/App platform split — Codex CLI reads from both `~/.agents/skills/` and `~/.codex/skills/`, causing duplicates when both were installed.
+- Unified Codex into a single platform targeting `~/.codex/skills/` only (works for both CLI and App).
+- `getCodexSkillPaths()` now returns `~/.codex/skills/` first + `~/.agents/skills/` second so uninstall also cleans any previous installs from the old path.
+- Removed `lib/codex-app.js` (merged back into `lib/codex.js`).
+- Interactive prompt now shows a single **OpenAI Codex CLI + App** option.
+
 ## [1.12.7] - 2026-02-20
 
 ### Fixed

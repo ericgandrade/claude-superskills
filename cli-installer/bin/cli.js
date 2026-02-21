@@ -5,8 +5,7 @@ const { promptPlatforms, setupEscapeHandler } = require('../lib/interactive');
 const { setupCleanupHandler } = require('../lib/cleanup');
 const { installCopilotSkills } = require('../lib/copilot');
 const { installClaudeSkills } = require('../lib/claude');
-const { install: installCodexCliSkills } = require('../lib/codex');
-const { install: installCodexAppSkills } = require('../lib/codex-app');
+const { install: installCodexSkills } = require('../lib/codex');
 const { install: installOpenCodeSkills } = require('../lib/opencode');
 const { install: installGeminiSkills } = require('../lib/gemini');
 const { install: installAntigravitySkills } = require('../lib/antigravity');
@@ -68,8 +67,7 @@ function getDetectedPlatforms(detected) {
   const platforms = [];
   if (detected.copilot.installed) platforms.push('copilot');
   if (detected.claude.installed) platforms.push('claude');
-  if (detected.codex_cli.installed) platforms.push('codex_cli');
-  if (detected.codex_app.installed) platforms.push('codex_app');
+  if (detected.codex_cli.installed || detected.codex_app.installed) platforms.push('codex');
   if (detected.opencode.installed) platforms.push('opencode');
   if (detected.gemini.installed) platforms.push('gemini');
   if (detected.antigravity.installed) platforms.push('antigravity');
@@ -364,11 +362,8 @@ async function main() {
       if (platforms.includes('claude')) {
         await installClaudeSkills(cacheDir, [skill], quiet);
       }
-      if (platforms.includes('codex_cli')) {
-        await installCodexCliSkills(cacheDir, [skill], quiet);
-      }
-      if (platforms.includes('codex_app')) {
-        await installCodexAppSkills(cacheDir, [skill], quiet);
+      if (platforms.includes('codex')) {
+        await installCodexSkills(cacheDir, [skill], quiet);
       }
       if (platforms.includes('opencode')) {
         await installOpenCodeSkills(cacheDir, [skill], quiet);
@@ -537,12 +532,8 @@ async function main() {
       await installClaudeSkills(cacheDir, null, quiet);
     }
 
-    if (platforms.includes('codex_cli')) {
-      await installCodexCliSkills(cacheDir, null, quiet);
-    }
-
-    if (platforms.includes('codex_app')) {
-      await installCodexAppSkills(cacheDir, null, quiet);
+    if (platforms.includes('codex')) {
+      await installCodexSkills(cacheDir, null, quiet);
     }
 
     if (platforms.includes('opencode')) {

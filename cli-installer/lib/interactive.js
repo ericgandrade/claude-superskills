@@ -77,18 +77,11 @@ async function promptPlatforms(detected, options = {}) {
     });
   }
   
-  if (detected.codex_cli && detected.codex_cli.installed) {
+  if ((detected.codex_cli && detected.codex_cli.installed) ||
+      (detected.codex_app && detected.codex_app.installed)) {
     choices.push({
-      name: '✅ OpenAI Codex CLI (~/.agents/skills/)',
-      value: 'codex_cli',
-      checked: defaultChecked
-    });
-  }
-
-  if (detected.codex_app && detected.codex_app.installed) {
-    choices.push({
-      name: '✅ OpenAI Codex App (~/.codex/skills/)',
-      value: 'codex_app',
+      name: '✅ OpenAI Codex CLI + App (~/.codex/skills/)',
+      value: 'codex',
       checked: defaultChecked
     });
   }

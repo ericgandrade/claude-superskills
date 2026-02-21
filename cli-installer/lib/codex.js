@@ -10,10 +10,10 @@ const { getUserSkillsPath } = require('./utils/path-resolver');
  * @param {boolean} quiet - Suppress output
  */
 async function install(cacheDir, skills = null, quiet = false) {
-  const targetDir = getUserSkillsPath('codex_cli');
+  const targetDir = getUserSkillsPath('codex');
 
   if (!quiet) {
-    console.log(chalk.cyan('\n📦 Installing skills for OpenAI Codex CLI...'));
+    console.log(chalk.cyan('\n📦 Installing skills for OpenAI Codex...'));
     console.log(chalk.gray(`   Target: ${targetDir}`));
   }
 
@@ -40,7 +40,7 @@ async function install(cacheDir, skills = null, quiet = false) {
     try {
       if (fs.existsSync(dest)) await fs.remove(dest);
       await fs.copy(src, dest);
-      if (!quiet) console.log(chalk.green(`   ✓ Codex CLI: ${skill}`));
+      if (!quiet) console.log(chalk.green(`   ✓ Codex: ${skill}`));
       installed++;
     } catch (err) {
       if (!quiet) console.log(chalk.red(`   ✗ Error installing ${skill}: ${err.message}`));
@@ -49,7 +49,7 @@ async function install(cacheDir, skills = null, quiet = false) {
   }
 
   if (!quiet) {
-    console.log(chalk.green(`\n✅ ${installed} Codex CLI skill(s) installed`));
+    console.log(chalk.green(`\n✅ ${installed} Codex skill(s) installed`));
     if (failed > 0) console.log(chalk.yellow(`⚠️  ${failed} skill(s) failed`));
   }
 

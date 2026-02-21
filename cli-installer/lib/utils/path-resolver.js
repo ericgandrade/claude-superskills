@@ -16,17 +16,16 @@ function getCachedSkillsPath(version) {
 }
 
 /**
- * Returns the two canonical Codex skill paths:
- *   - ~/.agents/skills  → Codex CLI
- *   - ~/.codex/skills   → Codex App
- * Used by uninstall to clean both locations.
+ * Returns all Codex-related skill paths for cleanup purposes (uninstall).
+ * Codex CLI and App both write to ~/.codex/skills/ now, but ~/.agents/skills/
+ * may still exist from previous installs — include it so uninstall cleans it too.
  * @returns {string[]}
  */
 function getCodexSkillPaths() {
   const home = os.homedir();
   return [
-    path.join(home, '.agents', 'skills'),
-    path.join(home, '.codex', 'skills')
+    path.join(home, '.codex', 'skills'),
+    path.join(home, '.agents', 'skills')
   ];
 }
 
@@ -39,8 +38,7 @@ function getUserSkillsPath(platform) {
   const home = os.homedir();
 
   const platformDirs = {
-    'codex_cli':   path.join(home, '.agents', 'skills'),
-    'codex_app':   path.join(home, '.codex', 'skills'),
+    'codex':       path.join(home, '.codex', 'skills'),
     'copilot':     path.join(home, '.github', 'skills'),
     'claude':      path.join(home, '.claude', 'skills'),
     'opencode':    path.join(home, '.agent', 'skills'),
