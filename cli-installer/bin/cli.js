@@ -32,6 +32,7 @@ const VERSION = packageJson.version;
 const commandAliases = {
   'i': 'install',
   'ls': 'list',
+  'st': 'status',
   'up': 'update',
   'rm': 'uninstall',
   'doc': 'doctor'
@@ -397,6 +398,33 @@ async function getInstalledSkillsByPlatforms(platforms) {
   return Array.from(installed).sort();
 }
 
+function printStatusByScope(detected, scope) {
+  const detectedPlatforms = getDetectedPlatforms(detected);
+  if (detectedPlatforms.length === 0) {
+    console.log(chalk.yellow('\n⚠️  No supported platforms detected.\n'));
+    return;
+  }
+
+  console.log(chalk.cyan(`\n📊 Installation status (scope: ${scope})\n`));
+
+  for (const platform of detectedPlatforms) {
+    const status = getPlatformInstallStatus(platform);
+    const globalDir = status.globalDir || '(n/a)';
+    const localDir = status.localDir || '(n/a)';
+    const globalLine = `${status.hasGlobal ? '✅' : '⬜'} ${status.globalCount} skill(s)`;
+    const localLine = `${status.hasLocal ? '✅' : '⬜'} ${status.localCount} skill(s)`;
+
+    console.log(chalk.bold(`• ${platform}`));
+    if (scope === 'global' || scope === 'both') {
+      console.log(chalk.dim(`  global: ${globalLine}  -> ${globalDir}`));
+    }
+    if (scope === 'local' || scope === 'both') {
+      console.log(chalk.dim(`  local:  ${localLine}  -> ${localDir}`));
+    }
+  }
+  console.log();
+}
+
 function getInstallerByPlatform(platform) {
   const installers = {
     copilot: installCopilotSkills,
@@ -727,6 +755,12 @@ async function main() {
       break;
     }
 
+    case 'status': {
+      const detected = detectTools();
+      printStatusByScope(detected, cliScopeOverride || 'both');
+      break;
+    }
+
     case 'update':
       console.log('🔄 Updating skills...');
       console.log('✅ All skills are up to date!\n');
@@ -756,6 +790,7 @@ Usage: npx claude-superskills [COMMAND] [OPTIONS]
 Commands:
   install, i      Install skills (default)
   list, ls        List installed skills
+  status, st      Show installed status by scope
   update, up      Update skills
   uninstall, rm   Remove skills
   doctor, doc     Check installation
@@ -781,6 +816,7 @@ Examples:
   npx claude-superskills --search "prompt"        # Search for skills
   npx claude-superskills --list-bundles           # Show available bundles
   npx claude-superskills ls -q                    # List skills, quiet mode
+  npx claude-superskills status --scope both      # Show global/local status
   npx claude-superskills --scope global           # Global install (recommended)
   npx claude-superskills --scope local            # Local install for current repository
   npx claude-superskills --scope both             # Global + local install (advanced)

@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **claude-superskills** is a reusable AI skills library for **8 AI platforms**: GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, and AdaL CLI. Skills are Markdown-based workflow specifications (`SKILL.md`) that teach AI agents how to perform specific tasks.
 
-- **npm package**: `claude-superskills` (v1.12.10) — `npx claude-superskills`
+- **npm package**: `claude-superskills` (v1.12.11) — `npx claude-superskills`
 - **GitHub**: `https://github.com/ericgandrade/claude-superskills`
 - **Old package** `cli-ai-skills` is deprecated, redirects to this one
 
@@ -64,7 +64,7 @@ claude-superskills/
 │   │   └── utils/
 │   │       ├── path-resolver.js   # getCachedSkillsPath(), getUserSkillsPath(), getCodexSkillPaths()
 │   │       └── skill-versions.js
-│   └── package.json          # NPM manifest (v1.12.10) — no skills/ in files
+│   └── package.json          # NPM manifest (v1.12.11) — no skills/ in files
 │
 ├── scripts/
 │   ├── build-skills.sh       # Validates skills/ source (no longer syncs)
@@ -293,7 +293,7 @@ Skills that interact with project structure should include a discovery phase tha
 
 ## Version Management
 
-The package version is defined in `cli-installer/package.json` (currently **v1.12.10**).
+The package version is defined in `cli-installer/package.json` (currently **v1.12.11**).
 
 - `cli-installer/package.json` — source of truth for npm
 - `cli-installer/bin/cli.js` — reads version dynamically from package.json
@@ -302,7 +302,7 @@ The package version is defined in `cli-installer/package.json` (currently **v1.1
 
 **Bumping:**
 ```bash
-./scripts/bump-version.sh patch   # 1.12.10 → 1.12.11
+./scripts/bump-version.sh patch   # 1.12.11 → 1.12.12
 # Updates package.json, commits, creates tag, pushes → triggers publish workflow
 # Then update README.md badges manually
 # Then update CHANGELOG.md
@@ -337,16 +337,16 @@ refactor: <change>                         # Code restructure
 
 ### CLI Entry Point (`bin/cli.js`)
 
-- **Command Aliases**: `i` (install), `ls` (list), `up` (update), `rm` (uninstall), `doc` (doctor)
+- **Command Aliases**: `i` (install), `ls` (list), `st` (status), `up` (update), `rm` (uninstall), `doc` (doctor)
 - **Short Flags**: `-a` (--all), `-g` (--global), `-l` (--local), `-y` (--yes), `-q` (--quiet)
 - **Cache Warming**: `warmCache(quiet)` calls `ensureSkillsCached(VERSION)` before any install
 - **All installer calls are `async/await`**
 
 ### Platform Installers (`lib/`)
 
-All 8 installers share the same async signature:
+All 8 installers share this async signature:
 ```js
-async function install(cacheDir, skills = null, quiet = false)
+async function install(cacheDir, skills = null, quiet = false, targetDirOverride = null, label = 'Platform')
 ```
 
 | File | Platform | Install target |

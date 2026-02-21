@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.12.11] - 2026-02-21
+
+### Added
+
+- New `status` command (`st` alias) to show installation diagnostics by platform and scope.
+- `status` supports `--scope global|local|both` and prints global/local paths with installed skill counts.
+
+### Changed
+
+- Updated installer documentation and examples for scoped operations and status inspection.
+
 ## [1.12.10] - 2026-02-21
 
 ### Changed
