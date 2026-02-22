@@ -1,10 +1,10 @@
-# claude-superskills v1.12.12
+# claude-superskills v1.13.3
 
 🚀 **NPX Installer for AI Skills**
 
 Install reusable skills for GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, and AdaL CLI in one command.
 
-![Version](https://img.shields.io/badge/version-1.12.12-blue.svg)
+![Version](https://img.shields.io/badge/version-1.13.3-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Node](https://img.shields.io/badge/node-%3E%3D14.0.0-green.svg)
 
@@ -29,8 +29,10 @@ See [Installation Guide](../docs/INSTALLATION.md) for full methods.
 
 1. Detects installed AI tools and IDEs.
 2. Fetches the matching skills release cache.
-3. Installs skills into correct platform directories.
-4. Validates installation and reports status.
+3. Compares installed skills with installer versions (`outdated`, `missing`, `up-to-date`).
+4. Recommends smart update actions and installs globally into platform directories.
+
+Installation mode is always global. Local repository scope is no longer supported.
 
 ## 💻 Supported Platforms
 

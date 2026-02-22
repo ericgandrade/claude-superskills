@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.13.3] - 2026-02-22
+
+### Changed
+
+- CLI installer now runs in **global-only** mode (removed local/both scope options and prompts).
+- `install`, `status`, and `update` now compare installed skill versions against the installer cache and show per-platform differences.
+- Installer now highlights **missing new skills** and recommends a smart action (`update outdated + install missing`).
+- Updated CLI help and documentation (`README.md`, `cli-installer/README.md`, `CLAUDE.md`) to reflect smart update behavior and global-only installs.
+
+### Fixed
+
+- Replaced the previous `update` command stub in `cli-installer/bin/cli.js` with real smart update execution.
+
 ## [1.13.2] - 2026-02-21
 
 ### Fixed

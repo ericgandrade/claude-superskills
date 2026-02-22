@@ -1,8 +1,8 @@
-# 🤖 Claude Superskills v1.12.12
+# 🤖 Claude Superskills v1.13.3
 
 Scale AI-assisted engineering with a reusable skill platform that turns ad-hoc prompting into standardized, high-impact workflows. Install once and deliver consistent planning, research, orchestration, and content automation across your entire multi-tool AI stack.
 
-![Version](https://img.shields.io/badge/version-1.12.12-blue.svg)
+![Version](https://img.shields.io/badge/version-1.13.3-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Skills](https://img.shields.io/badge/skills-14-brightgreen.svg)
 ![Platforms](https://img.shields.io/badge/platforms-8-orange.svg)
@@ -19,8 +19,7 @@ curl -fsSL https://raw.githubusercontent.com/ericgandrade/claude-superskills/mai
 npx claude-superskills
 ```
 
-The installer now supports `global`, `local`, and `both` scopes for all platforms.
-Default and recommendation: `global` (avoids tool confusion).
+The installer always uses **global installation** (`~/.<platform>/skills`), compares installed skill versions with the current installer version, shows differences, and recommends updates/new installs automatically.
 
 **Other methods:**
 ```bash
@@ -66,7 +65,7 @@ curl -fsSL https://raw.githubusercontent.com/ericgandrade/claude-superskills/mai
 - **8 Platform Support** - GitHub Copilot, Claude Code, Codex, OpenCode, Gemini, Antigravity, Cursor, AdaL
 - **Discovery & Orchestration** - Find and plan with available resources
 - **Command Shortcuts** - `i`, `ls`, `up`, `rm`, `doc`
-- **Short Flags** - `-a`, `-g`, `-l`, `-y`, `-q`
+- **Short Flags** - `-a`, `-y`, `-q`
 
 ## 📦 Available Skills
 
@@ -212,18 +211,16 @@ These skills follow the universal `SKILL.md` format and work with any AI coding 
 |---------|----------|---------|
 | `install` | `i` | Install skills |
 | `list` | `ls` | List installed skills |
-| `status` | `st` | Show install status by scope |
-| `update` | `up` | Update skills |
+| `status` | `st` | Show global install status + version differences |
+| `update` | `up` | Smart update (outdated + missing skills) |
 | `uninstall` | `rm` | Remove skills |
 | `doctor` | `doc` | Check installation |
 
 ```bash
 npx claude-superskills i -a -y -q    # Install all, skip prompts, quiet mode
-npx claude-superskills status --scope both # Show global/local status before changes
-npx claude-superskills --scope global # Recommended scope
-npx claude-superskills --scope local  # Current repository only
-npx claude-superskills --scope both   # Advanced: global + local
-npx claude-superskills ls -q         # List with minimal output
+npx claude-superskills status         # Show global status + skill version differences
+npx claude-superskills up -y          # Update outdated + install missing skills
+npx claude-superskills ls -q          # List with minimal output
 npx claude-superskills --list-bundles # Show available bundles
 ```
 
@@ -257,7 +254,7 @@ MIT - See [LICENSE](./LICENSE) for details.
 
 **Built with ❤️ by [Eric Andrade](https://github.com/ericgandrade)**
 
-*Version 1.12.12 | February 2026*
+*Version 1.13.3 | February 2026*
 
 ## 🎁 Get Started
 
