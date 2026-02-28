@@ -5,10 +5,16 @@ version: 1.1.0
 author: Eric Andrade
 created: 2025-02-01
 updated: 2026-02-04
-platforms: [github-copilot-cli, claude-code, codex]
+platforms: [github-copilot-cli, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
 category: automation
 tags: [prompt-engineering, optimization, frameworks, ai-enhancement]
 risk: safe
+triggers:
+  - "improve this prompt"
+  - "optimize this prompt"
+  - "make this prompt better"
+  - "refine this prompt"
+  - "engineer this prompt"
 ---
 
 ## Purpose

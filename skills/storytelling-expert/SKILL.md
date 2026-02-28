@@ -1,7 +1,20 @@
 ---
 name: storytelling-expert
-description: This skill should be used when the user needs to transform ideas, presentations, speeches, or data into persuasive stories using elite storytelling frameworks.
+description: "This skill should be used when the user needs to transform ideas, presentations, speeches, or data into persuasive stories using elite storytelling frameworks."
 version: 1.0.0
+author: Eric Andrade
+created: 2026-02-07
+updated: 2026-02-07
+platforms: [github-copilot-cli, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
+category: content
+tags: [storytelling, narrative, frameworks, persuasion, pitch]
+risk: safe
+triggers:
+  - "help with storytelling"
+  - "improve this story"
+  - "create a narrative for"
+  - "investor pitch"
+  - "sales speech"
 ---
 
 # 📖 Storytelling Expert

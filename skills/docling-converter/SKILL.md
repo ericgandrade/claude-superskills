@@ -1,7 +1,19 @@
 ---
 name: docling-converter
-description: This skill should be used when the user needs to convert documents into structured Markdown or JSON using Docling.
+description: "This skill should be used when the user needs to convert documents (PDF, DOCX, PPTX, images, HTML) into structured Markdown or JSON using Docling."
 version: 1.0.1
+author: Eric Andrade
+created: 2026-02-07
+updated: 2026-02-07
+platforms: [github-copilot-cli, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
+category: content
+tags: [docling, document-conversion, pdf, ocr, markdown, json]
+risk: safe
+triggers:
+  - "convert this pdf to markdown"
+  - "extract text from scanned document"
+  - "docling conversion"
+  - "convert docx pptx to markdown"
 ---
 
 # 📄 Docling Document Converter
@@ -78,7 +90,7 @@ fi
 
 **Actions:**
 
-Create a temporary script `.gemini/tmp/docling_convert.py`:
+Create a temporary script `/tmp/docling_convert.py`:
 
 ```python
 import sys
@@ -156,7 +168,7 @@ INPUT_FILE="$USER_INPUT_FILE"
 OUTPUT_DIR="./converted_docs"
 
 # Execute script
-python3 .gemini/tmp/docling_convert.py "$INPUT_FILE" "$OUTPUT_DIR" $OCR_FLAG
+python3 /tmp/docling_convert.py "$INPUT_FILE" "$OUTPUT_DIR" $OCR_FLAG
 ```
 
 ### Step 3: Result & Validation

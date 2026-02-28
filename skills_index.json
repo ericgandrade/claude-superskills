@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated": "2026-02-20T18:48:09.276295Z",
+  "generated": "2026-02-28T02:01:48.026871Z",
   "skills": [
     {
       "name": "agent-skill-discovery",
@@ -80,9 +80,20 @@
       "platforms": [
         "github-copilot-cli",
         "claude-code",
-        "codex"
+        "codex",
+        "opencode",
+        "gemini",
+        "antigravity",
+        "cursor",
+        "adal"
       ],
-      "triggers": []
+      "triggers": [
+        "transcribe this audio",
+        "convert audio to text",
+        "transcribe this meeting",
+        "meeting minutes from audio",
+        "transcribe recording"
+      ]
     },
     {
       "name": "brainstorming",
@@ -106,7 +117,13 @@
         "cursor",
         "adal"
       ],
-      "triggers": []
+      "triggers": [
+        "brainstorm ideas for",
+        "help me design",
+        "generate ideas for",
+        "I want to create",
+        "let's brainstorm"
+      ]
     },
     {
       "name": "deep-research",
@@ -131,12 +148,18 @@
         "cursor",
         "adal"
       ],
-      "triggers": []
+      "triggers": [
+        "research this topic",
+        "deep dive into",
+        "investigate this",
+        "analyze this subject",
+        "find information about"
+      ]
     },
     {
       "name": "docling-converter",
-      "version": "1.0.0",
-      "description": "This skill should be used when the user needs to convert documents (PDF, Office, images, HTML, Markdown) into structured outputs such as Markdown, JSON, or DoclingDocument using Docling.",
+      "version": "1.0.1",
+      "description": "This skill should be used when the user needs to convert documents (PDF, DOCX, PPTX, images, HTML) into structured Markdown or JSON using Docling.",
       "category": "content",
       "tags": [
         "docling",
@@ -186,7 +209,44 @@
         "cursor",
         "adal"
       ],
-      "triggers": []
+      "triggers": [
+        "execute this plan",
+        "implement the plan",
+        "let's execute",
+        "run through this implementation",
+        "start executing"
+      ]
+    },
+    {
+      "name": "mckinsey-strategist",
+      "version": "1.0.0",
+      "description": "This skill should be used when the user needs structured strategic analysis and high-impact executive recommendations for complex business problems.",
+      "category": "planning",
+      "tags": [
+        "consulting",
+        "strategy",
+        "mckinsey",
+        "analysis",
+        "business"
+      ],
+      "risk": "safe",
+      "platforms": [
+        "github-copilot-cli",
+        "claude-code",
+        "codex",
+        "opencode",
+        "gemini",
+        "antigravity",
+        "cursor",
+        "adal"
+      ],
+      "triggers": [
+        "act as a consultant",
+        "strategic analysis for",
+        "business diagnosis",
+        "consulting case",
+        "mckinsey style recommendation"
+      ]
     },
     {
       "name": "prompt-engineer",
@@ -203,9 +263,20 @@
       "platforms": [
         "github-copilot-cli",
         "claude-code",
-        "codex"
+        "codex",
+        "opencode",
+        "gemini",
+        "antigravity",
+        "cursor",
+        "adal"
       ],
-      "triggers": []
+      "triggers": [
+        "improve this prompt",
+        "optimize this prompt",
+        "make this prompt better",
+        "refine this prompt",
+        "engineer this prompt"
+      ]
     },
     {
       "name": "skill-creator",
@@ -222,9 +293,51 @@
       "platforms": [
         "github-copilot-cli",
         "claude-code",
-        "codex"
+        "codex",
+        "opencode",
+        "gemini",
+        "antigravity",
+        "cursor",
+        "adal"
       ],
-      "triggers": []
+      "triggers": [
+        "create a skill",
+        "build a new skill",
+        "make a custom skill",
+        "develop a skill",
+        "new skill for"
+      ]
+    },
+    {
+      "name": "storytelling-expert",
+      "version": "1.0.0",
+      "description": "This skill should be used when the user needs to transform ideas, presentations, speeches, or data into persuasive stories using elite storytelling frameworks.",
+      "category": "content",
+      "tags": [
+        "storytelling",
+        "narrative",
+        "frameworks",
+        "persuasion",
+        "pitch"
+      ],
+      "risk": "safe",
+      "platforms": [
+        "github-copilot-cli",
+        "claude-code",
+        "codex",
+        "opencode",
+        "gemini",
+        "antigravity",
+        "cursor",
+        "adal"
+      ],
+      "triggers": [
+        "help with storytelling",
+        "improve this story",
+        "create a narrative for",
+        "investor pitch",
+        "sales speech"
+      ]
     },
     {
       "name": "us-program-research",
@@ -279,7 +392,13 @@
         "cursor",
         "adal"
       ],
-      "triggers": []
+      "triggers": [
+        "write a plan for",
+        "create implementation plan",
+        "plan this feature",
+        "design the implementation",
+        "write the plan"
+      ]
     },
     {
       "name": "youtube-summarizer",
@@ -297,23 +416,6 @@
       "platforms": [
         "github-copilot-cli",
         "claude-code",
-        "codex"
-    {
-      "name": "storytelling-expert",
-      "version": "1.0.0",
-      "description": "Transforma ideias, apresentações, discursos de vendas ou dados em histórias altamente engajadoras e persuasivas utilizando frameworks de narrativa de elite. Analisa o contexto e aplica automaticamente o framework mais adequado (StoryBrand, Golden Circle, Pixar, etc.).",
-      "category": "content",
-      "tags": [
-        "storytelling",
-        "narrative",
-        "frameworks",
-        "persuasion",
-        "pitch"
-      ],
-      "risk": "safe",
-      "platforms": [
-        "github-copilot-cli",
-        "claude-code",
         "codex",
         "opencode",
         "gemini",
@@ -322,42 +424,11 @@
         "adal"
       ],
       "triggers": [
-        "ajude com storytelling",
-        "melhore essa história",
-        "crie uma narrativa para",
-        "pitch de investidor",
-        "discurso de vendas"
-      ]
-    },
-    {
-      "name": "mckinsey-strategist",
-      "version": "1.0.0",
-      "description": "Atua como um Sócio Sênior de Estratégia (McKinsey-style) para desconstruir problemas complexos de negócios e fornecer recomendações de alto impacto utilizando frameworks analíticos de elite (SWOT, VRIO, 7S, Second-Order Thinking).",
-      "category": "planning",
-      "tags": [
-        "consulting",
-        "strategy",
-        "mckinsey",
-        "analysis",
-        "business"
-      ],
-      "risk": "safe",
-      "platforms": [
-        "github-copilot-cli",
-        "claude-code",
-        "codex",
-        "opencode",
-        "gemini",
-        "antigravity",
-        "cursor",
-        "adal"
-      ],
-      "triggers": [
-        "act as a consultant",
-        "strategic analysis for",
-        "business diagnosis",
-        "consulting case",
-        "mckinsey style recommendation"
+        "summarize this youtube video",
+        "extract transcript from youtube",
+        "summarize video at",
+        "what does this video say",
+        "youtube summary"
       ]
     }
   ]

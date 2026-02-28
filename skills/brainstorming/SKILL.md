@@ -9,6 +9,12 @@ platforms: [github-copilot-cli, claude-code, codex, opencode, gemini, antigravit
 category: planning
 tags: [brainstorming, design, requirements, pre-implementation]
 risk: safe
+triggers:
+  - "brainstorm ideas for"
+  - "help me design"
+  - "generate ideas for"
+  - "I want to create"
+  - "let's brainstorm"
 ---
 
 # Brainstorming Ideas Into Designs

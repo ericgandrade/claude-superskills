@@ -5,10 +5,16 @@ version: 1.3.1
 author: Eric Andrade
 created: 2025-02-01
 updated: 2026-02-04
-platforms: [github-copilot-cli, claude-code, codex]
+platforms: [github-copilot-cli, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
 category: meta
 tags: [automation, scaffolding, skill-creation, meta-skill]
 risk: safe
+triggers:
+  - "create a skill"
+  - "build a new skill"
+  - "make a custom skill"
+  - "develop a skill"
+  - "new skill for"
 ---
 
 # skill-creator

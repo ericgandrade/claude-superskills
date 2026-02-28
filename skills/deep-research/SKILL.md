@@ -9,6 +9,12 @@ platforms: [github-copilot-cli, claude-code, codex, opencode, gemini, antigravit
 category: research
 tags: [research, search, analysis, synthesis, citations]
 risk: safe
+triggers:
+  - "research this topic"
+  - "deep dive into"
+  - "investigate this"
+  - "analyze this subject"
+  - "find information about"
 ---
 
 # Deep Research (No External API)

@@ -5,10 +5,16 @@ version: 1.2.1
 author: Eric Andrade
 created: 2025-02-01
 updated: 2026-02-04
-platforms: [github-copilot-cli, claude-code, codex]
+platforms: [github-copilot-cli, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
 category: content
 tags: [video, summarization, transcription, youtube, content-analysis]
 risk: safe
+triggers:
+  - "summarize this youtube video"
+  - "extract transcript from youtube"
+  - "summarize video at"
+  - "what does this video say"
+  - "youtube summary"
 ---
 
 # youtube-summarizer
