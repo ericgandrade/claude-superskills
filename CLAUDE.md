@@ -15,8 +15,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```
 claude-superskills/
-├── .claude-plugin/            # Claude Code plugin manifest
-│   └── plugin.json           # Plugin metadata (name, version, description, author...)
+├── .claude-plugin/            # Claude Code plugin manifest + marketplace catalog
+│   ├── plugin.json           # Plugin metadata (name, version, description, author...)
+│   └── marketplace.json      # Marketplace catalog — lists plugin + GitHub source
 │
 ├── skills/                    # SINGLE SOURCE OF TRUTH for all skills
 │   ├── skill-creator/
@@ -70,7 +71,7 @@ claude-superskills/
 │   │   └── utils/
 │   │       ├── path-resolver.js   # getCachedSkillsPath(), getUserSkillsPath(), getCodexSkillPaths()
 │   │       └── skill-versions.js
-│   └── package.json          # NPM manifest (v1.13.4) — no skills/ in files
+│   └── package.json          # NPM manifest — no skills/ in files
 │
 ├── scripts/
 │   ├── build-skills.sh       # Validates skills/ source (no longer syncs)
@@ -123,16 +124,18 @@ git commit -m "fix: remove erroneously committed platform skill dirs"
 
 ---
 
-### Key Architecture Principles (v1.12.0+)
+### Key Architecture Principles (v1.13.7+)
 
 1. **Single Source of Truth**: All skills are maintained in `skills/` only
 2. **Download at Install Time**: The installer fetches skills from the GitHub release tag and caches them at `~/.claude-superskills/cache/{version}/skills/` — no skills are bundled in the npm package
 3. **Platform-Specific Installers**: Each platform has its own async installer in `cli-installer/lib/`; all copy from the cache using `fs.copy` (no symlinks)
 4. **No Platform Dirs in Repo**: `.github/skills/`, `.claude/skills/`, `.codex/skills/`, `.agent/skills/`, `.agents/skills/`, `.gemini/skills/`, `.cursor/skills/`, `.adal/skills/` are all in `.gitignore`
 5. **Bundle System**: Skills are grouped into curated bundles (essential, content, developer, orchestration, all)
+6. **Claude Code Native Plugin**: `.claude-plugin/plugin.json` makes this a first-class Claude Code plugin. Skills are available as `/claude-superskills:<skill-name>`. `.claude-plugin/marketplace.json` enables installation via `/plugin marketplace add`. Both files must have their version kept in sync with `cli-installer/package.json`.
 
 ### Install Flow
 
+**Via npm installer (all 8 platforms):**
 ```
 npx claude-superskills
     → detect installed platforms
@@ -149,6 +152,23 @@ npx claude-superskills
         antigravity → ~/.gemini/antigravity/skills/
         cursor      → ~/.cursor/skills/
         adal        → ~/.adal/skills/
+```
+
+**Via Claude Code native plugin (Claude Code only):**
+```
+# Add marketplace (once)
+/plugin marketplace add ericgandrade/claude-superskills
+    → clones repo, reads .claude-plugin/marketplace.json
+    → finds plugin entry: source: github ericgandrade/claude-superskills
+
+# Install plugin
+/plugin install claude-superskills@claude-superskills
+    → clones repo → copies to ~/.claude/plugins/cache/claude-superskills/
+    → auto-discovers skills/ directory
+    → registers all 14+ skills as /claude-superskills:<skill-name>
+
+# Test locally (no marketplace required)
+claude --plugin-dir ./claude-superskills
 ```
 
 ## Development Commands
@@ -173,7 +193,25 @@ done
 
 # Validate skills source (counts skills, no syncing needed)
 ./scripts/build-skills.sh
+
+# Test new skill as Claude Code plugin (locally, no install)
+claude --plugin-dir ./ --print "/claude-superskills:<skill-name>"
 ```
+
+### New Skill Checklist (mandatory — plugin model)
+
+Every new skill added to `skills/` **must** trigger the following updates before committing:
+
+1. **`skills/<skill-name>/SKILL.md`** — create with valid frontmatter: `name` (kebab-case), `description` ("This skill should be used when..."), `version` (1.0.0), `author`, `platforms`, `category`, `tags`, `risk`. No bare date fields.
+2. **`skills/<skill-name>/README.md`** — create with `## Metadata` table (Version, Author, Created, Updated, Platforms, Category, Tags, Risk). Dates go here, NOT in SKILL.md.
+3. **`README.md`** — add skill to the relevant category table; bump the `skills-N` badge count.
+4. **`CLAUDE.md`** — add skill to the architecture tree (`skills/`) and to the Skill Types section; update the skills badge count note.
+5. **`.claude-plugin/plugin.json`** — bump `"version"` (minor for new skill: X.Y.0 → X.(Y+1).0).
+6. **`cli-installer/package.json`** — bump version to match plugin.json via `./scripts/bump-version.sh minor`.
+7. **`CHANGELOG.md`** — add entry under new version.
+8. **`bundles.json`** — add skill to appropriate bundle(s) if applicable.
+
+> ⛔ **Do NOT set `version` in `.claude-plugin/marketplace.json` plugin entry.** The docs specify that `plugin.json` is the version authority for GitHub-sourced plugins. Setting it in both places causes silent conflicts. Only set version in `plugin.json`.
 
 ### CLI Installer Development
 
@@ -215,8 +253,11 @@ Publishing is automated via GitHub Actions on `v*` tag pushes.
 # 3. Bump version in package.json (no git tag yet)
 ./scripts/bump-version.sh [patch|minor|major]
 
-# 4. Stage all changed files, commit, create tag, push
+# 4. Manually update .claude-plugin/plugin.json "version" to match package.json
+
+# 5. Stage all changed files, commit, create tag, push
 git add cli-installer/package.json cli-installer/package-lock.json \
+        .claude-plugin/plugin.json \
         CHANGELOG.md README.md CLAUDE.md
 git commit -m "fix: <description> and bump to vX.Y.Z"
 git tag vX.Y.Z
@@ -233,6 +274,7 @@ git push origin main && git push origin vX.Y.Z
 > - `CHANGELOG.md` (new version entry with added/changed/fixed items)
 > - `CLAUDE.md` (architecture/workflow/rules/version references)
 > - `cli-installer/package.json` and `cli-installer/package-lock.json` (version bump)
+> - `.claude-plugin/plugin.json` — `"version"` must match `package.json` exactly
 > - Git commit + version tag `vX.Y.Z` + push `main` and tag to trigger publish workflow
 
 ### Testing the Download Flow
@@ -256,6 +298,7 @@ Before committing new or modified skills:
 2. **No bare date values** — `created:` and `updated:` fields must NOT appear in `SKILL.md` frontmatter. Bare `YYYY-MM-DD` values are parsed as Date objects by js-yaml (Claude Code's parser), causing `malformed YAML frontmatter` errors. Put dates in `README.md` Metadata section.
 3. **Content** — Word count 1500–2000 (max 5000); no second-person ("you should"); imperative form used; 3–5 realistic examples
 4. **Structure** — Required sections: Purpose, When to Use, Workflow, Critical Rules, Example Usage; Step 0: Discovery if skill interacts with project structure
+5. **Plugin version sync** — `.claude-plugin/plugin.json` `"version"` must match `cli-installer/package.json` version exactly. If you bumped the npm version, also update plugin.json manually (bump-version.sh does NOT update it automatically).
 
 ## Skill Architecture
 
@@ -321,31 +364,35 @@ Skills that interact with project structure should include a discovery phase tha
 
 ## Version Management
 
-The package version is defined in `cli-installer/package.json` (currently **v1.13.6**).
-The `.claude-plugin/plugin.json` version must be kept in sync with `cli-installer/package.json`.
+The package version is defined in `cli-installer/package.json` (currently **v1.13.7**).
+`.claude-plugin/plugin.json` `"version"` must always match `package.json` exactly.
 
-- `cli-installer/package.json` — source of truth for npm
+- `cli-installer/package.json` — source of truth for npm version
+- `.claude-plugin/plugin.json` — source of truth for Claude Code plugin version (must match npm)
+- `.claude-plugin/marketplace.json` — **do NOT set `version` here**; plugin.json takes precedence for GitHub-sourced plugins (docs spec)
 - `cli-installer/bin/cli.js` — reads version dynamically from package.json
 - `README.md` — version badges need manual update after bump
 - `CHANGELOG.md` — must be updated before publishing
 
 **Bumping:**
 ```bash
-./scripts/bump-version.sh patch   # 1.13.5 → 1.13.6
-# Updates package.json, commits, creates tag, pushes → triggers publish workflow
-# Then update README.md badges manually
-# Then update CHANGELOG.md
+./scripts/bump-version.sh patch   # 1.13.6 → 1.13.7
+# ↑ Updates cli-installer/package.json only
+# Then manually update .claude-plugin/plugin.json "version" to match
+# Then update README.md badges and CHANGELOG.md
 ```
 
 **Full bump + publish sequence:**
 ```bash
 # 1. Edit CHANGELOG.md and README.md (badges + footer version)
 # 2. Run bump script (updates package.json only, no git tag)
-./scripts/bump-version.sh patch
-# 3. Stage everything, commit, tag, push
+./scripts/bump-version.sh [patch|minor|major]
+# 3. Manually update .claude-plugin/plugin.json version to match
+# 4. Stage everything, commit, tag, push
 git add cli-installer/package.json cli-installer/package-lock.json \
+        .claude-plugin/plugin.json \
         README.md CHANGELOG.md CLAUDE.md
-git commit -m "fix: ... and bump to vX.Y.Z"
+git commit -m "feat/fix: ... and bump to vX.Y.Z"
 git tag vX.Y.Z && git push origin main && git push origin vX.Y.Z
 # GitHub Actions detects the tag and publishes to npm automatically
 ```
@@ -411,7 +458,7 @@ Curated skill collections:
 - **content**: `youtube-summarizer`, `audio-transcriber`, `docling-converter`
 - **developer**: `skill-creator`
 - **orchestration**: `agent-skill-discovery`, `agent-skill-orchestrator`
-- **all**: all 12 skills
+- **all**: all 14 skills
 
 ## Automation Scripts
 

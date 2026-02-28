@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.13.7] - 2026-02-28
+
+### Changed
+
+- **CLAUDE.md**: new "New Skill Checklist" section — every new skill must update `plugin.json` version, README badges, skill tables, bundles, and CHANGELOG before committing
+- **CLAUDE.md**: updated Change Management Rule to require `.claude-plugin/plugin.json` sync on every release
+- **CLAUDE.md**: updated Publishing Workflow and full bump sequence to include `.claude-plugin/plugin.json`
+- **CLAUDE.md**: updated Pre-commit Validation Checklist with plugin version sync check (#5)
+- **CLAUDE.md**: documented both install flows (npm and Claude Code native plugin)
+- **CLAUDE.md**: clarified that `marketplace.json` must NOT set `version` in plugin entry (plugin.json is authority for GitHub sources per official docs)
+- **`.claude-plugin/marketplace.json`**: removed `version` from plugin entry (plugin.json takes precedence)
+
+---
+
 ## [1.13.6] - 2026-02-28
 
 ### Added

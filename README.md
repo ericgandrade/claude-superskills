@@ -1,8 +1,8 @@
-# 🤖 Claude Superskills v1.13.6
+# 🤖 Claude Superskills v1.13.7
 
 Scale AI-assisted engineering with a reusable skill platform that turns ad-hoc prompting into standardized, high-impact workflows. Install once and deliver consistent planning, research, orchestration, and content automation across your entire multi-tool AI stack.
 
-![Version](https://img.shields.io/badge/version-1.13.6-blue.svg)
+![Version](https://img.shields.io/badge/version-1.13.7-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Skills](https://img.shields.io/badge/skills-14-brightgreen.svg)
 ![Platforms](https://img.shields.io/badge/platforms-8-orange.svg)
@@ -58,30 +58,76 @@ curl -fsSL https://raw.githubusercontent.com/ericgandrade/claude-superskills/mai
 
 ## 🔌 Claude Code Plugin (Native)
 
-Use claude-superskills directly as a Claude Code plugin — no npm, no Node.js required:
+Use claude-superskills as a native Claude Code plugin — no npm, no Node.js required.
+Requires **Claude Code v1.0.33+** (`claude --version` to check).
 
-**Via marketplace (recommended):**
+---
+
+### Option A — Claude Code CLI (Terminal)
+
+**Method 1: Shell command (outside a session)**
+
 ```bash
-# Add the marketplace
-/plugin marketplace add ericgandrade/claude-superskills
+# Add marketplace + install in one flow
+claude plugin install claude-superskills@claude-superskills
+```
 
-# Install the plugin
+> If you get "marketplace not found", add it first:
+> ```bash
+> claude plugin marketplace add ericgandrade/claude-superskills
+> claude plugin install claude-superskills@claude-superskills
+> ```
+
+Choose your scope with `--scope`:
+
+```bash
+claude plugin install claude-superskills@claude-superskills --scope user     # all your projects (default)
+claude plugin install claude-superskills@claude-superskills --scope project  # team-shared via .claude/settings.json
+claude plugin install claude-superskills@claude-superskills --scope local    # this project only, gitignored
+```
+
+**Method 2: Interactive UI (inside a running `claude` session)**
+
+```
+# These are in-session slash commands, run them inside claude:
+/plugin marketplace add ericgandrade/claude-superskills
 /plugin install claude-superskills@claude-superskills
 ```
 
-**Test locally without installing:**
+Or open the plugin manager with `/plugin` → **Discover** tab → search "claude-superskills" → **Enter** → choose scope.
+
+**Method 3: Local test (no install needed)**
+
 ```bash
 git clone https://github.com/ericgandrade/claude-superskills
 claude --plugin-dir ./claude-superskills
 ```
 
-All 14 skills become available under the `claude-superskills:` namespace:
+---
+
+### Option B — Claude.ai Web (claude.ai)
+
+Plugin installation on claude.ai requires the plugin to be listed in the **official Anthropic marketplace**. Submission is pending. Once approved, you will be able to install directly from:
+
+> **Settings → Extensions → Browse Plugins** on [claude.ai](https://claude.ai)
+
+To be notified when the plugin is available on claude.ai, watch this repository.
+
+---
+
+### Once installed — all 14 skills under the `claude-superskills:` namespace
+
 ```
 /claude-superskills:skill-creator
 /claude-superskills:deep-research
 /claude-superskills:brainstorming
+/claude-superskills:prompt-engineer
 /claude-superskills:mckinsey-strategist
-...
+/claude-superskills:writing-plans
+/claude-superskills:executing-plans
+/claude-superskills:agent-skill-discovery
+/claude-superskills:agent-skill-orchestrator
+... (14 total)
 ```
 
 > **npm install still works** for GitHub Copilot, Cursor IDE, Gemini CLI, and 5 other platforms. The plugin format is Claude Code-specific.
@@ -284,7 +330,7 @@ MIT - See [LICENSE](./LICENSE) for details.
 
 **Built with ❤️ by [Eric Andrade](https://github.com/ericgandrade)**
 
-*Version 1.13.6 | February 2026*
+*Version 1.13.7 | February 2026*
 
 ## 🎁 Get Started
 
