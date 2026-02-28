@@ -1,0 +1,46 @@
+{
+  "name": "claude-superskills",
+  "owner": {
+    "name": "Eric Andrade",
+    "email": "eric@ericgandrade.com"
+  },
+  "metadata": {
+    "description": "14 universal AI skills for Claude Code — skill creation, deep research, strategic planning, content processing, and orchestration workflows"
+  },
+  "plugins": [
+    {
+      "name": "claude-superskills",
+      "source": {
+        "source": "github",
+        "repo": "ericgandrade/claude-superskills"
+      },
+      "description": "14 universal AI skills for Claude Code — skill creation, deep research, strategic planning, content processing, and orchestration workflows",
+      "version": "1.13.6",
+      "author": {
+        "name": "Eric Andrade"
+      },
+      "homepage": "https://github.com/ericgandrade/claude-superskills",
+      "repository": "https://github.com/ericgandrade/claude-superskills",
+      "license": "MIT",
+      "keywords": [
+        "skills",
+        "ai",
+        "automation",
+        "research",
+        "planning",
+        "orchestration",
+        "content",
+        "strategy",
+        "prompt-engineering"
+      ],
+      "category": "productivity",
+      "tags": [
+        "skills",
+        "research",
+        "planning",
+        "content",
+        "orchestration"
+      ]
+    }
+  ]
+}

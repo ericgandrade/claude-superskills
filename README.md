@@ -60,7 +60,16 @@ curl -fsSL https://raw.githubusercontent.com/ericgandrade/claude-superskills/mai
 
 Use claude-superskills directly as a Claude Code plugin — no npm, no Node.js required:
 
-**Test locally (no install):**
+**Via marketplace (recommended):**
+```bash
+# Add the marketplace
+/plugin marketplace add ericgandrade/claude-superskills
+
+# Install the plugin
+/plugin install claude-superskills@claude-superskills
+```
+
+**Test locally without installing:**
 ```bash
 git clone https://github.com/ericgandrade/claude-superskills
 claude --plugin-dir ./claude-superskills
