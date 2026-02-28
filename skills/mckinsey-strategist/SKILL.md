@@ -1,7 +1,20 @@
 ---
 name: mckinsey-strategist
-description: This skill should be used when the user needs structured strategic analysis and high-impact executive recommendations for complex business problems.
+description: "This skill should be used when the user needs structured strategic analysis and high-impact executive recommendations for complex business problems."
 version: 1.0.0
+author: Eric Andrade
+created: 2026-02-07
+updated: 2026-02-07
+platforms: [github-copilot-cli, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
+category: planning
+tags: [consulting, strategy, mckinsey, analysis, business]
+risk: safe
+triggers:
+  - "act as a consultant"
+  - "strategic analysis for"
+  - "business diagnosis"
+  - "consulting case"
+  - "mckinsey style recommendation"
 ---
 
 # 💼 McKinsey Strategist

@@ -9,6 +9,12 @@ platforms: [github-copilot-cli, claude-code, codex, opencode, gemini, antigravit
 category: planning
 tags: [planning, execution, checkpoints, implementation]
 risk: safe
+triggers:
+  - "execute this plan"
+  - "implement the plan"
+  - "let's execute"
+  - "run through this implementation"
+  - "start executing"
 ---
 
 # Executing Plans

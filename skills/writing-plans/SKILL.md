@@ -9,6 +9,12 @@ platforms: [github-copilot-cli, claude-code, codex, opencode, gemini, antigravit
 category: planning
 tags: [planning, implementation-plan, task-breakdown, tdd]
 risk: safe
+triggers:
+  - "write a plan for"
+  - "create implementation plan"
+  - "plan this feature"
+  - "design the implementation"
+  - "write the plan"
 ---
 
 # Writing Plans
