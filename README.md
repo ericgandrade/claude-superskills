@@ -1,8 +1,8 @@
-# 🤖 Claude Superskills v1.13.5
+# 🤖 Claude Superskills v1.13.6
 
 Scale AI-assisted engineering with a reusable skill platform that turns ad-hoc prompting into standardized, high-impact workflows. Install once and deliver consistent planning, research, orchestration, and content automation across your entire multi-tool AI stack.
 
-![Version](https://img.shields.io/badge/version-1.13.5-blue.svg)
+![Version](https://img.shields.io/badge/version-1.13.6-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Skills](https://img.shields.io/badge/skills-14-brightgreen.svg)
 ![Platforms](https://img.shields.io/badge/platforms-8-orange.svg)
@@ -55,6 +55,27 @@ See [Installation Guide](docs/INSTALLATION.md) for all methods and troubleshooti
 ```bash
 curl -fsSL https://raw.githubusercontent.com/ericgandrade/claude-superskills/main/scripts/uninstall.sh | bash
 ```
+
+## 🔌 Claude Code Plugin (Native)
+
+Use claude-superskills directly as a Claude Code plugin — no npm, no Node.js required:
+
+**Test locally (no install):**
+```bash
+git clone https://github.com/ericgandrade/claude-superskills
+claude --plugin-dir ./claude-superskills
+```
+
+All 14 skills become available under the `claude-superskills:` namespace:
+```
+/claude-superskills:skill-creator
+/claude-superskills:deep-research
+/claude-superskills:brainstorming
+/claude-superskills:mckinsey-strategist
+...
+```
+
+> **npm install still works** for GitHub Copilot, Cursor IDE, Gemini CLI, and 5 other platforms. The plugin format is Claude Code-specific.
 
 ## ✨ Features
 
@@ -254,7 +275,7 @@ MIT - See [LICENSE](./LICENSE) for details.
 
 **Built with ❤️ by [Eric Andrade](https://github.com/ericgandrade)**
 
-*Version 1.13.4 | February 2026*
+*Version 1.13.6 | February 2026*
 
 ## 🎁 Get Started
 

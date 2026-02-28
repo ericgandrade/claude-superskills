@@ -6,7 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **claude-superskills** is a reusable AI skills library for **8 AI platforms**: GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, and AdaL CLI. Skills are Markdown-based workflow specifications (`SKILL.md`) that teach AI agents how to perform specific tasks.
 
-- **npm package**: `claude-superskills` (v1.13.5) — `npx claude-superskills`
+- **npm package**: `claude-superskills` (v1.13.6) — `npx claude-superskills`
+- **Claude Code plugin**: `claude --plugin-dir ./claude-superskills` — native plugin, no npm needed
 - **GitHub**: `https://github.com/ericgandrade/claude-superskills`
 - **Old package** `cli-ai-skills` is deprecated, redirects to this one
 
@@ -14,6 +15,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```
 claude-superskills/
+├── .claude-plugin/            # Claude Code plugin manifest
+│   └── plugin.json           # Plugin metadata (name, version, description, author...)
+│
 ├── skills/                    # SINGLE SOURCE OF TRUTH for all skills
 │   ├── skill-creator/
 │   ├── prompt-engineer/
@@ -317,7 +321,8 @@ Skills that interact with project structure should include a discovery phase tha
 
 ## Version Management
 
-The package version is defined in `cli-installer/package.json` (currently **v1.13.5**).
+The package version is defined in `cli-installer/package.json` (currently **v1.13.6**).
+The `.claude-plugin/plugin.json` version must be kept in sync with `cli-installer/package.json`.
 
 - `cli-installer/package.json` — source of truth for npm
 - `cli-installer/bin/cli.js` — reads version dynamically from package.json

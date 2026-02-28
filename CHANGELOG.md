@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.13.6] - 2026-02-28
+
+### Added
+
+- **`.claude-plugin/plugin.json`** — claude-superskills is now a native Claude Code plugin.
+  Skills are accessible via the `/claude-superskills:<skill-name>` namespace in Claude Code.
+  Test locally with `claude --plugin-dir ./claude-superskills` (no npm required).
+- **README.md**: new "Claude Code Plugin (Native)" installation section with `--plugin-dir` instructions.
+
+---
+
 ## [1.13.5] - 2026-02-28
 
 ### Fixed
