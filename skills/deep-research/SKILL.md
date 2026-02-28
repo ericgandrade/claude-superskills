@@ -3,8 +3,6 @@ name: deep-research
 description: "This skill should be used when the user needs deep, multi-step research using native web tools (WebSearch/WebFetch) without external API keys."
 version: 1.0.0
 author: Eric Andrade
-created: 2026-02-20
-updated: 2026-02-20
 platforms: [github-copilot-cli, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
 category: research
 tags: [research, search, analysis, synthesis, citations]

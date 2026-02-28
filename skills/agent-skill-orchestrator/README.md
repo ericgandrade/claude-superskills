@@ -383,3 +383,18 @@ MIT License - See [LICENSE](../../LICENSE)
 - **Scoring Details:** [references/scoring-algorithm.md](references/scoring-algorithm.md)
 - **Issues:** [GitHub Issues](https://github.com/yourusername/claude-superskills/issues)
 - **Discussions:** [GitHub Discussions](https://github.com/yourusername/claude-superskills/discussions)
+
+---
+
+## Metadata
+
+| Field | Value |
+|-------|-------|
+| Version | 1.1.0 |
+| Author | Eric Andrade |
+| Created | 2026-02-07 |
+| Updated | 2026-02-07 |
+| Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI |
+| Category | orchestration |
+| Tags | orchestration, planning, strategy, intelligent-matching, platform-agnostic |
+| Risk | safe |

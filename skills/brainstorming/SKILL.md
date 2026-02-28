@@ -3,8 +3,6 @@ name: brainstorming
 description: "This skill should be used when the user needs pre-implementation ideation for creative work, such as creating features, building components, adding functionality, or modifying behavior."
 version: 1.0.0
 author: Eric Andrade
-created: 2026-02-20
-updated: 2026-02-20
 platforms: [github-copilot-cli, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
 category: planning
 tags: [brainstorming, design, requirements, pre-implementation]

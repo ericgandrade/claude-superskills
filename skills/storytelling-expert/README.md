@@ -60,5 +60,19 @@ Aprovar o piloto de 3 meses com a ferramenta X.
 
 ---
 
-**Autor:** [Seu Nome/Organização]
 **Licença:** MIT
+
+---
+
+## Metadata
+
+| Field | Value |
+|-------|-------|
+| Version | 1.0.0 |
+| Author | Eric Andrade |
+| Created | 2026-02-22 |
+| Updated | 2026-02-28 |
+| Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
+| Category | content |
+| Tags | storytelling, narrative, presentations, speeches, frameworks |
+| Risk | safe |

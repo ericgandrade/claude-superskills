@@ -655,5 +655,17 @@ Then configure:
 
 ## 📄 Version
 
-**v1.0.1** | Zero-Config | Universal  
-*Works in any project, any context, any terminal.*
+---
+
+## Metadata
+
+| Field | Value |
+|-------|-------|
+| Version | 1.1.0 |
+| Author | Eric Andrade |
+| Created | 2025-02-01 |
+| Updated | 2026-02-04 |
+| Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex |
+| Category | automation |
+| Tags | prompt-engineering, optimization, frameworks, ai-enhancement |
+| Risk | safe |

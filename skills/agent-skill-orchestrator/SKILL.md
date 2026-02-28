@@ -3,8 +3,6 @@ name: agent-skill-orchestrator
 description: "This skill should be used when the user needs to solve a complex task and wants a detailed execution plan using the best available resources. Analyzes user requirements, discovers available plugins/agents/skills/MCPs, performs intelligent matching with confidence scoring, and creates strategic execution plans with alternatives. Works across all AI CLI platforms."
 version: 1.1.0
 author: Eric Andrade
-created: 2026-02-07
-updated: 2026-02-07
 platforms: [github-copilot-cli, claude-code, codex, opencode, gemini]
 category: orchestration
 tags: [orchestration, planning, strategy, intelligent-matching, platform-agnostic]

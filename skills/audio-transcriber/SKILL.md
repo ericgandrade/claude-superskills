@@ -3,8 +3,6 @@ name: audio-transcriber
 description: "This skill should be used when the user needs to transform audio recordings into professional Markdown documentation with intelligent summaries using LLM integration."
 version: 1.2.1
 author: Eric Andrade
-created: 2025-02-01
-updated: 2026-02-04
 platforms: [github-copilot-cli, claude-code, codex]
 category: content
 tags: [audio, transcription, whisper, meeting-minutes, speech-to-text]

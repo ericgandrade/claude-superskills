@@ -264,7 +264,15 @@ For issues or questions:
 
 ---
 
-**Version:** 1.3.0  
-**Platform:** GitHub Copilot CLI, Claude Code  
-**Author:** Eric Andrade  
-**Last Updated:** 2026-02-01
+## Metadata
+
+| Field | Value |
+|-------|-------|
+| Version | 1.3.1 |
+| Author | Eric Andrade |
+| Created | 2025-02-01 |
+| Updated | 2026-02-04 |
+| Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex |
+| Category | meta |
+| Tags | automation, scaffolding, skill-creation, meta-skill |
+| Risk | safe |

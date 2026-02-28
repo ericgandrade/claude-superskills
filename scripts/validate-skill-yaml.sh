@@ -56,6 +56,20 @@ if [[ ! "$DESCRIPTION" =~ "This skill should be used when" ]]; then
   echo "   Found: $DESCRIPTION"
 fi
 
+# Check for bare YAML date values (YYYY-MM-DD parsed as Date objects by js-yaml)
+DATE_FIELDS=$(echo "$FRONTMATTER" | grep -E "^[a-z_]+: [0-9]{4}-[0-9]{2}-[0-9]{2}$" || true)
+if [[ -n "$DATE_FIELDS" ]]; then
+  echo "❌ Error: Bare date values found in SKILL.md frontmatter:"
+  echo "$DATE_FIELDS" | while IFS= read -r line; do echo "   $line"; done
+  echo ""
+  echo "   js-yaml (Claude Code's YAML parser) treats YYYY-MM-DD as Date objects,"
+  echo "   not strings. This causes 'malformed YAML frontmatter' errors in Claude Code."
+  echo ""
+  echo "   Fix: Move 'created' and 'updated' dates to the README.md Metadata section."
+  echo "   If you must keep them in frontmatter, quote them: created: \"2026-02-20\""
+  exit 2
+fi
+
 echo "✅ YAML frontmatter valid!"
 echo "✅ Skill name format correct: $SKILL_NAME"
 exit 0

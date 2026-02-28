@@ -3,8 +3,6 @@ name: skill-creator
 description: "This skill should be used when the user asks to create a new skill, build a skill, make a custom skill, develop a CLI skill, or wants to extend the CLI with new capabilities. Automates the entire skill creation workflow from brainstorming to installation."
 version: 1.3.1
 author: Eric Andrade
-created: 2025-02-01
-updated: 2026-02-04
 platforms: [github-copilot-cli, claude-code, codex]
 category: meta
 tags: [automation, scaffolding, skill-creation, meta-skill]
@@ -211,22 +209,32 @@ fi
      name: {{SKILL_NAME}}
      description: This skill should be used when the user needs to [clear use case].
      version: {{VERSION}}
+     author: {{AUTHOR}}
+     platforms: [platform1, platform2]
+     category: category-name
+     tags: [tag1, tag2, tag3]
+     risk: safe
      ---
      ```
    - `description` must be third-person and start with `This skill should be used when...`
+   - ⛔ **NEVER add `created:` or `updated:` date fields to SKILL.md frontmatter.**
+     YAML parsers (js-yaml used by Claude Code) treat bare `YYYY-MM-DD` values as Date
+     objects, not strings, causing "malformed YAML frontmatter" errors. Put creation
+     and update dates in the README.md Metadata section instead.
    - Substitute placeholders:
      - `{{SKILL_NAME}}` → kebab-case name
      - `{{DESCRIPTION}}` → one-line description
      - `{{TRIGGERS}}` → comma-separated trigger phrases
      - `{{PURPOSE}}` → detailed purpose from brainstorming
-     - `{{AUTHOR}}` → from git config
-     - `{{DATE}}` → current date (YYYY-MM-DD)
+     - `{{AUTHOR}}` → from git config (string, safe in YAML)
      - `{{VERSION}}` → "1.0.0"
 
 2. **README.md** - Use `readme-template.md`:
    - User-facing documentation (300-500 words)
    - Include installation instructions
    - Add usage examples
+   - **Include a `## Metadata` table** with: Version, Author, Created (today's date as plain text),
+     Updated (today's date as plain text), Platforms, Category, Tags, Risk
 
 3. **References/** (optional but recommended):
    - Create `detailed-guide.md` for extended documentation (2k-5k words)
@@ -235,16 +243,17 @@ fi
 **File creation commands:**
 
 ```bash
-# Apply template with substitution
+# Apply template with substitution (NOTE: no {{DATE}} in SKILL.md — dates go in README.md)
 sed "s/{{SKILL_NAME}}/$SKILL_NAME/g; \
      s/{{DESCRIPTION}}/$DESCRIPTION/g; \
-     s/{{AUTHOR}}/$AUTHOR/g; \
-     s/{{DATE}}/$(date +%Y-%m-%d)/g" \
+     s/{{AUTHOR}}/$AUTHOR/g" \
     resources/templates/skill-template-copilot.md \
     > ".github/skills/$SKILL_NAME/SKILL.md"
 
-# Create README
-sed "s/{{SKILL_NAME}}/$SKILL_NAME/g" \
+# Create README (includes Metadata section with dates as plain text)
+sed "s/{{SKILL_NAME}}/$SKILL_NAME/g; \
+     s/{{AUTHOR}}/$AUTHOR/g; \
+     s/{{DATE}}/$(date +%Y-%m-%d)/g" \
     resources/templates/readme-template.md \
     > ".github/skills/$SKILL_NAME/README.md"
 
@@ -252,12 +261,13 @@ sed "s/{{SKILL_NAME}}/$SKILL_NAME/g" \
 if [[ "$PLATFORM" =~ "codex" ]]; then
     sed "s/{{SKILL_NAME}}/$SKILL_NAME/g; \
          s/{{DESCRIPTION}}/$DESCRIPTION/g; \
-         s/{{AUTHOR}}/$AUTHOR/g; \
-         s/{{DATE}}/$(date +%Y-%m-%d)/g" \
+         s/{{AUTHOR}}/$AUTHOR/g" \
         resources/templates/skill-template-codex.md \
         > ".codex/skills/$SKILL_NAME/SKILL.md"
-    
-    sed "s/{{SKILL_NAME}}/$SKILL_NAME/g" \
+
+    sed "s/{{SKILL_NAME}}/$SKILL_NAME/g; \
+         s/{{AUTHOR}}/$AUTHOR/g; \
+         s/{{DATE}}/$(date +%Y-%m-%d)/g" \
         resources/templates/readme-template.md \
         > ".codex/skills/$SKILL_NAME/README.md"
 fi

@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **claude-superskills** is a reusable AI skills library for **8 AI platforms**: GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, and AdaL CLI. Skills are Markdown-based workflow specifications (`SKILL.md`) that teach AI agents how to perform specific tasks.
 
-- **npm package**: `claude-superskills` (v1.13.4) — `npx claude-superskills`
+- **npm package**: `claude-superskills` (v1.13.5) — `npx claude-superskills`
 - **GitHub**: `https://github.com/ericgandrade/claude-superskills`
 - **Old package** `cli-ai-skills` is deprecated, redirects to this one
 
@@ -249,8 +249,9 @@ ls ~/.claude-superskills/cache/
 Before committing new or modified skills:
 
 1. **YAML frontmatter** — `name` is kebab-case; `name`, `description`, `version` present; version is SemVer (X.Y.Z)
-2. **Content** — Word count 1500–2000 (max 5000); no second-person ("you should"); imperative form used; 3–5 realistic examples
-3. **Structure** — Required sections: Purpose, When to Use, Workflow, Critical Rules, Example Usage; Step 0: Discovery if skill interacts with project structure
+2. **No bare date values** — `created:` and `updated:` fields must NOT appear in `SKILL.md` frontmatter. Bare `YYYY-MM-DD` values are parsed as Date objects by js-yaml (Claude Code's parser), causing `malformed YAML frontmatter` errors. Put dates in `README.md` Metadata section.
+3. **Content** — Word count 1500–2000 (max 5000); no second-person ("you should"); imperative form used; 3–5 realistic examples
+4. **Structure** — Required sections: Purpose, When to Use, Workflow, Critical Rules, Example Usage; Step 0: Discovery if skill interacts with project structure
 
 ## Skill Architecture
 
@@ -267,11 +268,23 @@ Each skill directory contains:
 ---
 name: kebab-case-name        # Required, lowercase with hyphens only
 description: "This skill should be used when..."  # Required, third-person
-triggers:                    # Recommended
-  - "trigger phrase"
 version: 1.0.0              # Required, SemVer
+author: Name Surname         # Optional, plain string — safe in YAML
+platforms: [platform-a, platform-b]  # Optional, array of strings
+category: category-name      # Optional, plain string
+tags: [tag1, tag2]           # Optional, array of strings
+risk: safe                   # Optional: safe | medium | high
+triggers:                    # Optional, recommended for specific invocations
+  - "trigger phrase"
 ---
 ```
+
+> ⛔ **NEVER add `created:` or `updated:` date fields to SKILL.md frontmatter.**
+> Bare `YYYY-MM-DD` values (e.g. `created: 2026-02-20`) are parsed as **Date objects**
+> by js-yaml (the YAML parser used by Claude Code v2+), NOT as strings. This causes
+> Claude Code to throw `malformed YAML frontmatter in SKILL.md` and refuse to load
+> the skill entirely. **Move creation and update dates to the `README.md` Metadata
+> section** as plain text strings in a Markdown table — they are safe there.
 
 ### Required Sections
 
@@ -304,7 +317,7 @@ Skills that interact with project structure should include a discovery phase tha
 
 ## Version Management
 
-The package version is defined in `cli-installer/package.json` (currently **v1.13.4**).
+The package version is defined in `cli-installer/package.json` (currently **v1.13.5**).
 
 - `cli-installer/package.json` — source of truth for npm
 - `cli-installer/bin/cli.js` — reads version dynamically from package.json
@@ -313,7 +326,7 @@ The package version is defined in `cli-installer/package.json` (currently **v1.1
 
 **Bumping:**
 ```bash
-./scripts/bump-version.sh patch   # 1.13.4 → 1.13.5
+./scripts/bump-version.sh patch   # 1.13.5 → 1.13.6
 # Updates package.json, commits, creates tag, pushes → triggers publish workflow
 # Then update README.md badges manually
 # Then update CHANGELOG.md

@@ -7,7 +7,10 @@ triggers:
   - {{TRIGGER_3}}
 version: 1.0.0
 author: {{AUTHOR}}
-date: {{DATE}}
+platforms: [github-copilot-cli, claude-code]
+category: general
+tags: [tag1, tag2]
+risk: safe
 ---
 
 # {{SKILL_NAME}}

@@ -6,6 +6,31 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.13.5] - 2026-02-28
+
+### Fixed
+
+- **SKILL.md frontmatter**: Removed `created:` and `updated:` bare date fields from 11 skills.
+  Bare `YYYY-MM-DD` values are parsed as Date objects by js-yaml (Claude Code's YAML parser),
+  causing `malformed YAML frontmatter in SKILL.md` errors. Dates moved to `README.md` Metadata section.
+- **skill-creator**: Updated template instructions to never add date fields to SKILL.md frontmatter
+  and to place Created/Updated in README.md Metadata table instead.
+- **resources/templates**: Removed `date: {{DATE}}` from `skill-template-claude.md` and
+  `skill-template-copilot.md` frontmatter; added Metadata section with `{{DATE}}` to `readme-template.md`.
+
+### Added
+
+- **README.md Metadata section**: All 14 skills now have a standardized `## Metadata` table in
+  their `README.md` with Version, Author, Created, Updated, Platforms, Category, Tags, and Risk.
+  Four new README.md files created for brainstorming, deep-research, executing-plans, writing-plans.
+- **validate-skill-yaml.sh**: New check that detects bare `YYYY-MM-DD` date values in SKILL.md
+  frontmatter and exits with error code 2, preventing the issue from recurring.
+
+### Changed
+
+- **CLAUDE.md**: Added permanent rule documenting the YAML date field restriction and updated
+  the frontmatter template to reflect the correct set of allowed fields.
+
 ## [1.13.4] - 2026-02-22
 
 ### Fixed

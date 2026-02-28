@@ -335,6 +335,15 @@ Open an issue in the [claude-superskills repository](https://github.com/youruser
 
 ---
 
-**Version:** 1.0.0  
-**Author:** Eric Andrade  
-**Created:** 2026-02-02
+## Metadata
+
+| Field | Value |
+|-------|-------|
+| Version | 1.2.1 |
+| Author | Eric Andrade |
+| Created | 2025-02-01 |
+| Updated | 2026-02-04 |
+| Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex |
+| Category | content |
+| Tags | audio, transcription, whisper, meeting-minutes, speech-to-text |
+| Risk | safe |

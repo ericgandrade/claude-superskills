@@ -54,5 +54,19 @@ O skill aplica automaticamente um diagnóstico profundo utilizando:
 
 ---
 
-**Autor:** [Seu Nome/Organização]
 **Licença:** MIT
+
+---
+
+## Metadata
+
+| Field | Value |
+|-------|-------|
+| Version | 1.0.0 |
+| Author | Eric Andrade |
+| Created | 2026-02-22 |
+| Updated | 2026-02-28 |
+| Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
+| Category | strategy |
+| Tags | consulting, strategy, mece, frameworks, business-analysis |
+| Risk | safe |

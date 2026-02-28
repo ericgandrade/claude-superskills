@@ -23,3 +23,18 @@ Structured workflow to research, compare, and rank US academic programs (PhD, Ma
 - "Use `us-program-research` to rank MS programs in AI under USD 50k."
 - "Use `us-program-research` for funded PhD options in Computer Science."
 - "Use `us-program-research` to generate my US application action plan."
+
+---
+
+## Metadata
+
+| Field | Value |
+|-------|-------|
+| Version | 1.0.0 |
+| Author | Eric Andrade |
+| Created | 2026-02-20 |
+| Updated | 2026-02-20 |
+| Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
+| Category | research |
+| Tags | us-programs, university-research, rankings, admissions, scorecards |
+| Risk | medium |

@@ -362,4 +362,17 @@ MIT License - see [LICENSE](../../../LICENSE) for details.
 
 **Built with ❤️ by Eric Andrade**
 
-*Version 1.1.0 | Last updated: February 2026*
+---
+
+## Metadata
+
+| Field | Value |
+|-------|-------|
+| Version | 1.2.1 |
+| Author | Eric Andrade |
+| Created | 2025-02-01 |
+| Updated | 2026-02-04 |
+| Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex |
+| Category | content |
+| Tags | video, summarization, transcription, youtube, content-analysis |
+| Risk | safe |

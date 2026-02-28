@@ -3,8 +3,6 @@ name: us-program-research
 description: "This skill should be used when the user needs structured research and ranking of US academic programs (PhD, Master's, Bachelor's), including credential analysis, parallel source collection, and an actionable application plan."
 version: 1.0.0
 author: Eric Andrade
-created: 2026-02-20
-updated: 2026-02-20
 platforms: [github-copilot-cli, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
 category: research
 tags: [us-programs, university-research, rankings, admissions, scorecards]
@@ -17,239 +15,239 @@ triggers:
   - "create us application action plan"
 ---
 
-# US Academic Program Research — Workflow Completo
+# US Academic Program Research — Complete Workflow
 
 ## Purpose
 
-Executar pesquisa estruturada de programas acadêmicos dos EUA com análise de credenciais, discovery paralela, scorecards adaptativos e geração de plano de aplicação em formato acionável.
+Run structured research on US academic programs with credential analysis, parallel discovery, adaptive scorecards, and generation of an actionable application plan in a deliverable format.
 
 ## When to Use
 
-Use este skill quando a tarefa exigir:
-- Seleção e ranking de programas (PhD, Master's ou Bachelor's) nos EUA
-- Comparação detalhada de currículo, custos e requisitos de admissão
-- Estratégia de aplicação baseada em perfil, budget e prazo
-- Documento final consolidado para decisão e execução
+Use this skill when the task requires:
+- Selecting and ranking programs (PhD, Master's, or Bachelor's) in the US
+- Detailed comparison of curriculum, costs, and admission requirements
+- Application strategy based on profile, budget, and timeline
+- A final consolidated document for decision-making and execution
 
 ## Workflow
 
-Siga as fases definidas abaixo em sequência, mantendo rastreabilidade de fontes e separação entre fatos e inferências.
+Follow the phases defined below in sequence, maintaining source traceability and separating facts from inferences.
 
-Pesquisa personalizada de programas acadêmicos nos EUA (PhD, Master's MS/MBA/MPS, ou Bachelor's).
-Analisa o perfil do candidato, executa buscas paralelas via subagents, identifica hidden gems,
-aplica scorecard adaptativo e gera um ACTION_PLAN.md completo com rankings, currículos, custos
-e checklist passo a passo.
+Personalized research on US academic programs (PhD, Master's MS/MBA/MPS, or Bachelor's).
+Analyzes the candidate's profile, runs parallel searches via subagents, identifies hidden gems,
+applies an adaptive scorecard, and generates a complete ACTION_PLAN.md with rankings, curricula, costs,
+and a step-by-step checklist.
 
-**Output:** Português. **Queries/subagents:** Inglês (obrigatório para qualidade das buscas).
-
----
-
-## Instruções de Execução
-
-1. FASE 0 — detectar tipo de programa (PRIMEIRA PERGUNTA)
-2. FASE 0B — coletar todos os inputs antes de pesquisar
-3. FASE 2 — lançar 4 subagents em UMA mensagem (paralelismo real)
-4. FASE 3 — lançar 4 subagents de pesquisa profunda em UMA mensagem
-5. FASE 4 — aplicar scorecard adaptativo após toda a pesquisa
-6. FASE 5 — gerar documento completo e salvar
-7. FASE 6 — apresentar relatório inline ao usuário
-
-> CRÍTICO: Todas as queries de busca e prompts de subagents DEVEM estar em inglês.
+**Output language:** Portuguese (matches user research context). **Queries/subagents:** English (required for search quality).
 
 ---
 
-## FASE 0 — Detecção do Tipo de Programa
+## Execution Instructions
 
-Usar AskUserQuestion com a pergunta:
-**"Que tipo de programa acadêmico nos EUA você está buscando?"**
+1. PHASE 0 — detect program type (FIRST QUESTION)
+2. PHASE 0B — collect all inputs before researching
+3. PHASE 2 — launch 4 subagents in ONE message (true parallelism)
+4. PHASE 3 — launch 4 deep-research subagents in ONE message
+5. PHASE 4 — apply adaptive scorecard after all research is complete
+6. PHASE 5 — generate full document and save
+7. PHASE 6 — present inline report to user
 
-Opções:
-1. **PhD / Doutorado** — 4–7 anos de pesquisa. Geralmente fully-funded (bolsa + mensalidade).
-2. **Master's** — MS, MBA, MPS, MEng (1,5–3 anos). Executivo, técnico, online ou presencial.
-3. **Bachelor's / Graduação** — Primeira ou segunda graduação (BS, BA). 2–4 anos.
-
-Tudo no workflow se adapta a essa resposta.
-
----
-
-## FASE 0B — Coleta de Inputs (2 rodadas de AskUserQuestion)
-
-### Round A — Perfil pessoal (todos os tipos, máx. 4 perguntas):
-1. Nome completo + email
-2. País de origem + idioma(s) dos diplomas
-3. Maior titulação atual: instituição, tipo de diploma, nota/GPA (ex: "8,1/10")
-4. Campo de estudo desejado (ex: Computer Science, Business Analytics, AI, Finance...)
-
-### Round B — Logística e preferências (máx. 4 perguntas):
-5. Cidade/estado alvo nos EUA (ou "aberto a qualquer localização")
-6. Formato preferido: presencial / 100% online / híbrido / sem preferência
-7. Orçamento total: até $20k / $20–50k / $50–80k / acima de $80k / busco financiamento
-8. Data de início desejada: 2026 / 2027 / 2028 / flexível
-
-Pergunta adicional específica por tipo:
-- **PhD:** Área de pesquisa específica? Advisors conhecidos? Somente programas funded?
-- **Master's:** Cargo/nível atual (Junior/Manager/Diretor/VP/C-Level)? Trabalhará durante o curso?
-- **Bachelor's:** Primeira ou segunda graduação? Créditos transferíveis? Preferência campus grande/pequeno?
-
-Inputs opcionais (oferecer, não exigir): CV, histórico de notas, cursos executivos anteriores,
-status migratório nos EUA (Green Card / F1-OPT / H1-B / outro).
+> CRITICAL: All search queries and subagent prompts MUST be in English.
 
 ---
 
-## FASE 1 — Análise de Perfil e Credenciais
+## PHASE 0 — Program Type Detection
 
-Determinar equivalência do diploma estrangeiro e estratégia de avaliação ANTES de pontuar qualquer programa.
+Use AskUserQuestion with:
+**"What type of US academic program are you looking for?"**
 
-**Ação:** Consultar `references/credential-analysis.md` para:
-- Tabela de equivalências de graus por país (inclui risco para Tecnólogo brasileiro)
-- Comparativo WES vs ECE por tipo de programa
-- Logística WES ICAP passo a passo (8 passos + 2 cenários: resultado favorável vs desfavorável)
-- Análise anti-juniorização para candidatos VP/C-Level (somente Master's)
-- Análise de advisor fit para PhD + template de email de contato
-- Lógica de in-state tuition (Green Card + 12 meses domicílio = elegível)
+Options:
+1. **PhD / Doctorate** — 4–7 years of research. Usually fully-funded (stipend + tuition).
+2. **Master's** — MS, MBA, MPS, MEng (1.5–3 years). Executive, technical, online or in-person.
+3. **Bachelor's / Undergraduate** — First or second degree (BS, BA). 2–4 years.
 
-> Tecnólogo brasileiro = RISCO ALTO. WES pode avaliar como Associate's ao invés de Bachelor's.
-> Recomendar carta institucional + ECE como segunda opinião se resultado WES for desfavorável.
+The entire workflow adapts to this answer.
 
 ---
 
-## FASE 2 — Discovery Paralela (4 Subagents)
+## PHASE 0B — Input Collection (2 rounds of AskUserQuestion)
 
-**CRÍTICO: Lançar todos os 4 subagents em UMA ÚNICA mensagem (Task tool × 4 simultâneos).**
+### Round A — Personal profile (all types, max 4 questions):
+1. Full name + email
+2. Country of origin + language(s) of diplomas
+3. Highest current degree: institution, diploma type, GPA/grade (e.g., "8.1/10")
+4. Desired field of study (e.g., Computer Science, Business Analytics, AI, Finance...)
 
-Dividir pesquisa entre 4 subagents com `subagent_type="general-purpose"`:
+### Round B — Logistics and preferences (max 4 questions):
+5. Target city/state in the US (or "open to any location")
+6. Preferred format: in-person / 100% online / hybrid / no preference
+7. Total budget: under $20k / $20–50k / $50–80k / over $80k / seeking funding
+8. Desired start date: 2026 / 2027 / 2028 / flexible
 
-| Subagent | Foco                          | Mínimo de programas |
-|:--------:|:------------------------------|:-------------------:|
-| A        | Regional / Presencial local   | 4                   |
-| B        | Nacional online / Brand equity| 5                   |
-| C        | Hidden gems (custo baixo)     | 3                   |
-| D        | Rankings de referência        | Top 20 contexto     |
+Additional type-specific question:
+- **PhD:** Specific research area? Known advisors? Funded programs only?
+- **Master's:** Current role/level (Junior/Manager/Director/VP/C-Level)? Will you work during the program?
+- **Bachelor's:** First or second degree? Transferable credits? Large/small campus preference?
 
-**Ação:** Consultar `references/subagent-prompts.md` para os prompts completos (em inglês)
-de cada subagent, incluindo todos os campos a coletar e queries de busca.
-
-**Após os 4 subagents concluírem:**
-- Deduplicar programas (mesma escola pode aparecer em múltiplos subagents)
-- Verificar acreditação: AACSB (negócios), ABET (engenharia) — ausência penaliza Brand Equity
-- Para PhD: verificar se fully-funded vs self-funded
-- Classificar em grupos: 1 (presencial principal), 1.5 (online brand equity), 2 (técnico/desprioritizado)
-- Meta: 12–20 programas únicos para a Fase 3
-
----
-
-## FASE 3 — Pesquisa Profunda Paralela (4 Subagents)
-
-**CRÍTICO: Dividir os 12–20 programas em 4 grupos (3–5 cada) e lançar em UMA única mensagem.**
-
-Para cada programa, coletar: currículo completo, custo verificado no site oficial, reviews de estudantes
-(Niche/Reddit/GMAT Club/GradCafe), requisitos de admissão (GMAT/TOEFL/cartas/deadline), rede de alumni.
-
-**Ação:** Consultar `references/subagent-prompts.md` para o template completo de pesquisa profunda
-(seção "Deep Research Template") com todas as queries em inglês.
+Optional inputs (offer, do not require): CV, academic transcripts, prior executive courses,
+US immigration status (Green Card / F1-OPT / H1-B / other).
 
 ---
 
-## FASE 4 — Scorecards Adaptativos
+## PHASE 1 — Profile & Credential Analysis
 
-**Ação:** Consultar `references/scorecards.md` para os scorecards completos.
+Determine foreign degree equivalency and evaluation strategy BEFORE scoring any program.
 
-### Seleção do Scorecard por Tipo de Programa:
+**Action:** Consult `references/credential-analysis.md` for:
+- Degree equivalency table by country (includes risk for Brazilian Tecnólogo degree)
+- WES vs ECE comparison by program type
+- WES ICAP step-by-step logistics (8 steps + 2 scenarios: favorable vs unfavorable result)
+- Anti-downgrading analysis for VP/C-Level candidates (Master's only)
+- Advisor fit analysis for PhD + contact email template
+- In-state tuition logic (Green Card + 12-month domicile = eligible)
 
-| Tipo       | Scorecard  | Critérios principais                                    |
-|:----------:|:----------:|:--------------------------------------------------------|
+> Brazilian Tecnólogo = HIGH RISK. WES may evaluate as Associate's instead of Bachelor's.
+> Recommend institutional letter + ECE as second opinion if WES result is unfavorable.
+
+---
+
+## PHASE 2 — Parallel Discovery (4 Subagents)
+
+**CRITICAL: Launch all 4 subagents in ONE SINGLE message (Task tool × 4 simultaneous).**
+
+Divide research among 4 subagents with `subagent_type="general-purpose"`:
+
+| Subagent | Focus                        | Minimum Programs |
+|:--------:|:-----------------------------|:----------------:|
+| A        | Regional / Local In-Person   | 4                |
+| B        | National Online / Brand Equity | 5              |
+| C        | Hidden Gems (low cost)       | 3                |
+| D        | Reference Rankings           | Top 20 context   |
+
+**Action:** Consult `references/subagent-prompts.md` for the full prompts (in English)
+for each subagent, including all fields to collect and search queries.
+
+**After all 4 subagents complete:**
+- Deduplicate programs (same school may appear in multiple subagents)
+- Verify accreditation: AACSB (business), ABET (engineering) — absence penalizes Brand Equity
+- For PhD: verify if fully-funded vs self-funded
+- Classify into groups: 1 (primary in-person), 1.5 (online brand equity), 2 (technical/deprioritized)
+- Target: 12–20 unique programs for Phase 3
+
+---
+
+## PHASE 3 — Parallel Deep Research (4 Subagents)
+
+**CRITICAL: Split the 12–20 programs into 4 groups (3–5 each) and launch in ONE single message.**
+
+For each program, collect: full curriculum, verified cost on official website, student reviews
+(Niche/Reddit/GMAT Club/GradCafe), admission requirements (GMAT/TOEFL/letters/deadline), alumni network.
+
+**Action:** Consult `references/subagent-prompts.md` for the full deep research template
+(section "Deep Research Template") with all queries in English.
+
+---
+
+## PHASE 4 — Adaptive Scorecards
+
+**Action:** Consult `references/scorecards.md` for the complete scorecards.
+
+### Scorecard Selection by Program Type:
+
+| Type       | Scorecard  | Key Criteria                                    |
+|:----------:|:----------:|:------------------------------------------------|
 | Master's   | Scorecard A| Brand + Exec Readiness + Flexibility + Network + ROI + Satisfaction |
 | PhD        | Scorecard B| Research Reputation + Advisor Fit + Funding + Placement + Satisfaction |
 | Bachelor's | Scorecard C| Brand + Career Launch + ROI + Campus Life + Satisfaction |
 
-### Para Master's — Pesos Adaptativos por Nível do Candidato:
+### Master's — Adaptive Weights by Candidate Level:
 
-| Critério              | EXECUTIVE | SENIOR | STANDARD | CAREER_LAUNCH | OPT_CRITICAL |
+| Criterion             | EXECUTIVE | SENIOR | STANDARD | CAREER_LAUNCH | OPT_CRITICAL |
 |:----------------------|:---------:|:------:|:--------:|:-------------:|:------------:|
 | Brand Equity          |    25     |   23   |    23    |      23       |     22       |
 | Executive Readiness*  |    25     |   22   |    18    |      10       |     20       |
 | Flexibility           |    16     |   16   |    14    |      12       |     16       |
 | Network Quality       |    15     |   15   |    15    |      15       |     12       |
-| ROI / Custo-Benefício |    12     |   14   |    16    |      20       |     14       |
+| ROI / Cost-Benefit    |    12     |   14   |    16    |      20       |     14       |
 | Student Satisfaction  |    10     |   10   |    10    |      10       |     10       |
 | STEM Designation      |     0     |    0   |     0    |       0       |      6       |
 
-*Para VP/C-Level = "Executive Readiness". Para não-executivos = "Career Launch Potential".
+*For VP/C-Level = "Executive Readiness". For non-executives = "Career Launch Potential".
 
-### Classificação em Tiers:
+### Tier Classification:
 
-| Tier    | Score  | Label                          | Ação                 |
-|:-------:|:------:|:-------------------------------|:---------------------|
-| Top 5   | ≥ 80   | Prioridade Máxima              | MUST APPLY           |
-| Tier 2  | 70–79  | Se Budget Permitir             | IF BUDGET ALLOWS     |
-| Tier 3  | 55–69  | Backup                         | BACKUP ONLY          |
-| Tier 4  | < 55   | Evitar                         | AVOID                |
+| Tier    | Score  | Label              | Action           |
+|:-------:|:------:|:-------------------|:-----------------|
+| Top 5   | ≥ 80   | Highest Priority   | MUST APPLY       |
+| Tier 2  | 70–79  | If Budget Allows   | IF BUDGET ALLOWS |
+| Tier 3  | 55–69  | Backup             | BACKUP ONLY      |
+| Tier 4  | < 55   | Avoid              | AVOID            |
 
-**💎 Hidden Gem** = Score ≥ 70 AND Custo ≤ 50% do budget AND Satisfação ≥ 8,0/10
-
----
-
-## FASE 5 — Geração do Documento
-
-Salvar como: `{NOME_CANDIDATO}_US_PROGRAM_ACTION_PLAN.md` (no diretório atual).
-
-**Ação:** Consultar `references/action-plan-template.md` para o template completo do documento
-em português, incluindo todas as seções, ~30 tabelas alinhadas e a Table Formatting Policy.
-
-**Seções obrigatórias no documento gerado:**
-Status Geral → Próximas Ações Prioritárias → Fase 1 (WES/ECE) → Fase 2 (Testes) →
-Fase 3 (Contato) → Fase 4 (Submissão) → Avaliadores → Programas Selecionados por Tier →
-Scorecard Adaptativo + Ranking Completo → Comparativo de Currículos → Currículos Detalhados →
-Comparativo de Custos → Comparativo de Admissão → Por Que Cada Programa → Inventário de Documentos → Notas.
+**💎 Hidden Gem** = Score ≥ 70 AND Cost ≤ 50% of budget AND Satisfaction ≥ 8.0/10
 
 ---
 
-## FASE 6 — Relatório Inline
+## PHASE 5 — Document Generation
 
-Apresentar ao usuário no chat (em português) após salvar o arquivo:
+Save as: `{CANDIDATE_NAME}_US_PROGRAM_ACTION_PLAN.md` (in current directory).
 
-**Bloco 1 — Perfil do Candidato** (máx. 5 linhas): tipo, campo, cargo/formação, GPA estimado, status migratório.
+**Action:** Consult `references/action-plan-template.md` for the full document template
+in Portuguese, including all sections, ~30 aligned tables, and the Table Formatting Policy.
 
-**Bloco 2 — Top 5 Recomendações** (tabela compacta):
-`| Rank | Programa | Score | Custo | Destaque |`
-
-**Bloco 3 — 💎 Hidden Gems** (se identificados): score ≥ 70 + custo baixo + satisfação ≥ 8,0.
-
-**Bloco 4 — ⚠️ Alertas**: programas sem reviews (red flag), daytime-only para executivos,
-advisors sem publicações recentes (PhD), grau limítrofe → WES urgente.
-
-**Bloco 5 — Próxima Ação URGENTE**: "O que fazer HOJE" — normalmente: iniciar WES/ECE ou contatar advisor.
-
-**Bloco 6 — Arquivo Gerado**: `✅ Documento salvo: {NOME}_US_PROGRAM_ACTION_PLAN.md ({N} linhas, {N} tabelas)`
+**Required sections in the generated document:**
+General Status → Priority Next Actions → Phase 1 (WES/ECE) → Phase 2 (Tests) →
+Phase 3 (Contact) → Phase 4 (Submission) → Evaluators → Selected Programs by Tier →
+Adaptive Scorecard + Full Ranking → Curriculum Comparison → Detailed Curricula →
+Cost Comparison → Admission Comparison → Why Each Program → Document Inventory → Notes.
 
 ---
 
-## Recursos Adicionais
+## PHASE 6 — Inline Report
 
-### Arquivos de Referência
+Present to the user in chat (in Portuguese) after saving the file:
 
-Consultar conforme necessário durante a execução:
+**Block 1 — Candidate Profile** (max 5 lines): type, field, role/education, estimated GPA, immigration status.
 
-- **`references/credential-analysis.md`** — Equivalências de diplomas, logística WES/ECE completa,
-  anti-juniorização, advisor fit (PhD), in-state tuition logic
-- **`references/scorecards.md`** — Scorecards A/B/C completos com rubricas detalhadas, fórmula ROI
-  com exemplo numérico, thresholds de tier e definição de hidden gems
-- **`references/subagent-prompts.md`** — Prompts completos (em inglês) para os 8 subagents:
-  4 de discovery (Fases 2A/B/C/D) e template de pesquisa profunda (Fase 3)
-- **`references/action-plan-template.md`** — Template completo do ACTION_PLAN.md em português
-  com todas as seções e tabelas alinhadas
-- **`references/research-sources.md`** — Fontes de pesquisa obrigatórias e red flags universais
-  por tipo de programa
+**Block 2 — Top 5 Recommendations** (compact table):
+`| Rank | Program | Score | Cost | Highlight |`
+
+**Block 3 — 💎 Hidden Gems** (if identified): score ≥ 70 + low cost + satisfaction ≥ 8.0.
+
+**Block 4 — ⚠️ Alerts**: programs without reviews (red flag), daytime-only for executives,
+advisors without recent publications (PhD), borderline degree → WES urgent.
+
+**Block 5 — URGENT Next Action**: "What to do TODAY" — usually: start WES/ECE or contact advisor.
+
+**Block 6 — Generated File**: `✅ Document saved: {NAME}_US_PROGRAM_ACTION_PLAN.md ({N} lines, {N} tables)`
+
+---
+
+## Additional Resources
+
+### Reference Files
+
+Consult as needed during execution:
+
+- **`references/credential-analysis.md`** — Degree equivalencies, full WES/ECE logistics,
+  anti-downgrading, advisor fit (PhD), in-state tuition logic
+- **`references/scorecards.md`** — Complete Scorecards A/B/C with detailed rubrics, ROI formula
+  with numeric example, tier thresholds, and hidden gem definition
+- **`references/subagent-prompts.md`** — Complete prompts (in English) for the 8 subagents:
+  4 discovery (Phases 2A/B/C/D) and deep research template (Phase 3)
+- **`references/action-plan-template.md`** — Complete ACTION_PLAN.md template in Portuguese
+  with all sections and aligned tables
+- **`references/research-sources.md`** — Mandatory research sources and universal red flags
+  by program type
 
 ## Critical Rules
 
-- Todas as queries de pesquisa e prompts para subagentes devem ser em inglês.
-- Não pular análise de credenciais antes do score/ranking.
-- Não apresentar recomendação final sem citar fontes e critérios.
-- Diferenciar claramente dado confirmado, suposição e recomendação.
+- All research queries and subagent prompts must be in English.
+- Do not skip credential analysis before scoring/ranking.
+- Do not present a final recommendation without citing sources and criteria.
+- Clearly differentiate confirmed data, assumptions, and recommendations.
 
 ## Example Usage
 
-1. "Quero um ranking de MS em Data Science nos EUA com budget de USD 50k."
-2. "Compare opções de PhD funded em Computer Science com foco em sistemas distribuídos."
-3. "Monte um plano de aplicação para MBA com início em 2027."
+1. "Rank MS in Data Science programs in the US with a budget of USD 50k."
+2. "Compare funded PhD options in Computer Science focused on distributed systems."
+3. "Build an application plan for an MBA starting in 2027."

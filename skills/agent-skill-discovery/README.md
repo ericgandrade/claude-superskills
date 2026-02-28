@@ -286,3 +286,18 @@ MIT License - See [LICENSE](../../LICENSE) for details.
 - **Examples:** [references/examples.md](references/examples.md)
 - **Issues:** [GitHub Issues](https://github.com/yourusername/claude-superskills/issues)
 - **Discussions:** [GitHub Discussions](https://github.com/yourusername/claude-superskills/discussions)
+
+---
+
+## Metadata
+
+| Field | Value |
+|-------|-------|
+| Version | 1.1.0 |
+| Author | Eric Andrade |
+| Created | 2026-02-07 |
+| Updated | 2026-02-07 |
+| Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI |
+| Category | discovery |
+| Tags | discovery, inventory, catalog, platform-agnostic, mcp |
+| Risk | safe |

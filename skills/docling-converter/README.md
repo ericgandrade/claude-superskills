@@ -21,3 +21,18 @@ Convert complex documents into structured outputs (Markdown, JSON, HTML) using D
 - "Use `docling-converter` to convert `proposal.pdf` to Markdown."
 - "Use `docling-converter` with OCR for `scanned-contract.pdf`."
 - "Use `docling-converter` to batch-convert files in `./docs`."
+
+---
+
+## Metadata
+
+| Field | Value |
+|-------|-------|
+| Version | 1.0.1 |
+| Author | Eric Andrade |
+| Created | 2025-02-01 |
+| Updated | 2026-02-04 |
+| Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex |
+| Category | content |
+| Tags | document-conversion, markdown, json, pdf, docling, ocr |
+| Risk | safe |
