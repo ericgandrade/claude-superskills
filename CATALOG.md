@@ -1,7 +1,7 @@
 # 📚 Claude Superskills Catalog
 
-**Generated:** 2026-02-20T18:48:09.306385Z  
-**Total Skills:** 12  
+**Generated:** 2026-02-28T02:08:54.619053Z  
+**Total Skills:** 14  
 **Platforms:** GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI
 
 ---
@@ -12,16 +12,18 @@
 |-------|---------|----------|------|------|-----------|
 | **agent-skill-discovery** | 1.1.0 | discovery | discovery, inventory, catalog | safe | 🤖 🧠 ⚙️ 🧩 ♊ |
 | **agent-skill-orchestrator** | 1.1.0 | orchestration | orchestration, planning, strategy | safe | 🤖 🧠 ⚙️ 🧩 ♊ |
-| **audio-transcriber** | 1.2.1 | content | audio, transcription, whisper | safe | 🤖 🧠 ⚙️ |
+| **audio-transcriber** | 1.2.1 | content | audio, transcription, whisper | safe | 🤖 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
 | **brainstorming** | 1.0.0 | planning | brainstorming, design, requirements | safe | 🤖 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
 | **deep-research** | 1.0.0 | research | research, search, analysis | safe | 🤖 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
-| **docling-converter** | 1.0.0 | content | docling, document-conversion, pdf | safe | 🤖 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
+| **docling-converter** | 1.0.1 | content | docling, document-conversion, pdf | safe | 🤖 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
 | **executing-plans** | 1.0.0 | planning | planning, execution, checkpoints | safe | 🤖 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
-| **prompt-engineer** | 1.1.0 | automation | prompt-engineering, optimization, frameworks | safe | 🤖 🧠 ⚙️ |
-| **skill-creator** | 1.3.1 | meta | automation, scaffolding, skill-creation | safe | 🤖 🧠 ⚙️ |
+| **mckinsey-strategist** | 1.0.0 | planning | consulting, strategy, mckinsey | safe | 🤖 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
+| **prompt-engineer** | 1.1.0 | automation | prompt-engineering, optimization, frameworks | safe | 🤖 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
+| **skill-creator** | 1.3.1 | meta | automation, scaffolding, skill-creation | safe | 🤖 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
+| **storytelling-expert** | 1.0.0 | content | storytelling, narrative, frameworks | safe | 🤖 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
 | **us-program-research** | 1.0.0 | research | us-programs, university-research, rankings | medium | 🤖 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
 | **writing-plans** | 1.0.0 | planning | planning, implementation-plan, task-breakdown | safe | 🤖 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
-| **youtube-summarizer** | 1.2.1 | content | video, summarization, transcription | safe | 🤖 🧠 ⚙️ |
+| **youtube-summarizer** | 1.2.1 | content | video, summarization, transcription | safe | 🤖 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
 
 ---
 
@@ -39,9 +41,13 @@
   - Description: This skill should be used when the user needs to transform audio recordings into professional Markdo...
   - Tags: audio, transcription, whisper, meeting-minutes, speech-to-text
 
-- **docling-converter** (v1.0.0)
-  - Description: This skill should be used when the user needs to convert documents (PDF, Office, images, HTML, Markd...
+- **docling-converter** (v1.0.1)
+  - Description: This skill should be used when the user needs to convert documents (PDF, DOCX, PPTX, images, HTML) i...
   - Tags: docling, document-conversion, pdf, ocr, markdown, json
+
+- **storytelling-expert** (v1.0.0)
+  - Description: This skill should be used when the user needs to transform ideas, presentations, speeches, or data i...
+  - Tags: storytelling, narrative, frameworks, persuasion, pitch
 
 - **youtube-summarizer** (v1.2.1)
   - Description: This skill should be used when the user needs to extract transcripts from YouTube videos and generat...
@@ -74,6 +80,10 @@
 - **executing-plans** (v1.0.0)
   - Description: This skill should be used when the user has a written implementation plan to execute in a separate s...
   - Tags: planning, execution, checkpoints, implementation
+
+- **mckinsey-strategist** (v1.0.0)
+  - Description: This skill should be used when the user needs structured strategic analysis and high-impact executiv...
+  - Tags: consulting, strategy, mckinsey, analysis, business
 
 - **writing-plans** (v1.0.0)
   - Description: This skill should be used when the user has a spec or requirements for a multi-step task before touc...

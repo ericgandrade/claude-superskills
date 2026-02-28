@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.13.5] - 2026-02-28
+
+### Fixed
+
+- Repaired malformed JSON in `skills_index.json` — `youtube-summarizer` entry was missing closing `]`, `"triggers"`, and `}`, making the entire index unparseable.
+- Fixed wrong Portuguese descriptions for `storytelling-expert` and `mckinsey-strategist` in `skills_index.json` (source `SKILL.md` had correct English descriptions).
+- Fixed version mismatch for `docling-converter` in `skills_index.json` (was `1.0.0`, should be `1.0.1`).
+- Completed missing YAML frontmatter (`platforms`, `category`, `tags`, `risk`, `triggers`, `author`, `created`, `updated`) in `docling-converter`, `mckinsey-strategist`, and `storytelling-expert` SKILL.md files.
+- Fixed hardcoded platform-specific path `.gemini/tmp/docling_convert.py` in `docling-converter` — replaced with portable `/tmp/docling_convert.py`.
+
+### Changed
+
+- Added meaningful `triggers` to 8 skills that previously had empty trigger arrays: `brainstorming`, `deep-research`, `executing-plans`, `writing-plans`, `prompt-engineer`, `skill-creator`, `audio-transcriber`, `youtube-summarizer`.
+- Expanded platform support from 3 to 8 platforms for `audio-transcriber`, `prompt-engineer`, `skill-creator`, and `youtube-summarizer`.
+- Regenerated `skills_index.json` from updated SKILL.md source files.
+
 ## [1.13.4] - 2026-02-22
 
 ### Fixed
