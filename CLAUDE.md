@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **claude-superskills** is a reusable AI skills library for **8 AI platforms**: GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, and AdaL CLI. Skills are Markdown-based workflow specifications (`SKILL.md`) that teach AI agents how to perform specific tasks.
 
-- **npm package**: `claude-superskills` (v1.13.9) — `npx claude-superskills`
+- **npm package**: `claude-superskills` (v1.14.0) — `npx claude-superskills`
 - **Claude Code plugin**: `claude --plugin-dir ./claude-superskills` — native plugin, no npm needed
 - **GitHub**: `https://github.com/ericgandrade/claude-superskills`
 - **Old package** `cli-ai-skills` is deprecated, redirects to this one
@@ -376,38 +376,48 @@ Skills that interact with project structure should include a discovery phase tha
 
 ## Version Management
 
-The package version is defined in `cli-installer/package.json` (currently **v1.13.9**).
+The package version is defined in `cli-installer/package.json` (currently **v1.14.0**).
 `.claude-plugin/plugin.json` `"version"` must always match `package.json` exactly.
 
 - `cli-installer/package.json` — source of truth for npm version
 - `.claude-plugin/plugin.json` — source of truth for Claude Code plugin version (must match npm)
 - `.claude-plugin/marketplace.json` — **do NOT set `version` here**; plugin.json takes precedence for GitHub-sourced plugins (docs spec)
 - `cli-installer/bin/cli.js` — reads version dynamically from package.json
-- `README.md` — version badges need manual update after bump
+- `README.md` — title, version badges, and footer need manual update
 - `CHANGELOG.md` — must be updated before publishing
 
-**Bumping:**
-```bash
-./scripts/bump-version.sh patch   # 1.13.6 → 1.13.7
-# ↑ Updates cli-installer/package.json only
-# Then manually update .claude-plugin/plugin.json "version" to match
-# Then update README.md badges and CHANGELOG.md
-```
+### 🚨 The Fool-Proof Release Checklist
 
-**Full bump + publish sequence:**
-```bash
-# 1. Edit CHANGELOG.md and README.md (badges + footer version)
-# 2. Run bump script (updates package.json only, no git tag)
-./scripts/bump-version.sh [patch|minor|major]
-# 3. Manually update .claude-plugin/plugin.json version to match
-# 4. Stage everything, commit, tag, push
-git add cli-installer/package.json cli-installer/package-lock.json \
-        .claude-plugin/plugin.json \
-        README.md CHANGELOG.md CLAUDE.md
-git commit -m "feat/fix: ... and bump to vX.Y.Z"
-git tag vX.Y.Z && git push origin main && git push origin vX.Y.Z
-# GitHub Actions detects the tag and publishes to npm automatically
-```
+Do not skip any of these steps when bumping the version.
+
+1. **Update the NPM Package:**
+   ```bash
+   cd cli-installer
+   npm version [patch|minor|major] --no-git-tag-version
+   cd ..
+   ```
+2. **Update the Claude Plugin:**
+   - Edit `.claude-plugin/plugin.json` and set `"version": "X.Y.Z"` to match the new version.
+3. **Update the README:**
+   - Change the main title: `# 🤖 Claude Superskills vX.Y.Z`
+   - Change the version badge: `![Version](https://img.shields.io/badge/version-X.Y.Z-blue.svg)`
+   - Change the footer: `*Version X.Y.Z | Month Year*`
+4. **Update the Changelog:**
+   - Add a new section `## [X.Y.Z] - YYYY-MM-DD` in `CHANGELOG.md` with release notes.
+5. **Regenerate Indexes (Just in case):**
+   ```bash
+   npm run generate-all --prefix cli-installer
+   ```
+6. **Commit, Tag, and Push:**
+   ```bash
+   git add cli-installer/package.json cli-installer/package-lock.json \
+           .claude-plugin/plugin.json \
+           README.md CHANGELOG.md CLAUDE.md CATALOG.md skills_index.json
+   git commit -m "chore: bump version to X.Y.Z"
+   git tag vX.Y.Z
+   git push origin main && git push origin vX.Y.Z
+   ```
+   *Note: Pushing the tag `vX.Y.Z` automatically triggers the GitHub Actions workflow to publish to NPM.*
 
 ## Commit Convention
 
@@ -466,6 +476,7 @@ OpenCode uses `~/.agent/skills/`. Antigravity uses `~/.gemini/antigravity/skills
 Curated skill collections:
 - **essential**: core workflow skills including `skill-creator`, `prompt-engineer`, discovery/orchestration, and planning trio
 - **planning**: `brainstorming`, `writing-plans`, `executing-plans`, `agent-skill-orchestrator`
+- **product**: comprehensive product management, strategic planning, and GTM frameworks
 - **research**: `deep-research`, `us-program-research`, `agent-skill-discovery`, `prompt-engineer`
 - **content**: `youtube-summarizer`, `audio-transcriber`, `docling-converter`
 - **developer**: `skill-creator`
@@ -488,6 +499,7 @@ Curated skill collections:
 - **Automation** — Workflow optimization (`prompt-engineer`)
 - **Orchestration** — Resource discovery and task planning (`agent-skill-discovery`, `agent-skill-orchestrator`)
 - **Planning** — Pre-implementation design and execution (`brainstorming`, `writing-plans`, `executing-plans`)
+- **Product & Strategy** — Frameworks for product management, discovery, and GTM (`product-strategy`, `product-discovery`, `abx-strategy`, etc.)
 - **Research** — Deep research and academic analysis (`deep-research`, `us-program-research`)
 - **Content** — Media and document processing (`youtube-summarizer`, `audio-transcriber`, `docling-converter`)
 
