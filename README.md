@@ -103,6 +103,13 @@ git clone https://github.com/ericgandrade/claude-superskills
 claude --plugin-dir ./claude-superskills
 ```
 
+> **SSH error during `plugin install`?**
+> Claude Code's `plugin install` clones via SSH by default. If you don't have an SSH key configured for GitHub, run this once before installing:
+> ```bash
+> git config --global url."https://github.com/".insteadOf "git@github.com:"
+> ```
+> This redirects SSH URLs to HTTPS globally. Tracked as [anthropics/claude-code#29722](https://github.com/anthropics/claude-code/issues/29722).
+
 ---
 
 ### Option B — Claude.ai Web (claude.ai)

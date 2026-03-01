@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 
-- **`.claude-plugin/marketplace.json`**: changed plugin `source` from `{"source":"github","repo":"..."}` to relative path `"."` — eliminates double-clone during `plugin install` and fixes SSH permission error on machines without GitHub SSH keys configured
+- **`README.md`**: added SSH troubleshooting note under plugin install — documents the `git config --global url.insteadOf` workaround for users without GitHub SSH keys configured; links to upstream bug [anthropics/claude-code#29722](https://github.com/anthropics/claude-code/issues/29722)
 
 ---
 
