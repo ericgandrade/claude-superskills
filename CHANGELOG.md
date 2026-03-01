@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.13.10] - 2026-03-01
+
+### Fixed
+
+- **`cli-installer`**: improved Google Antigravity detection in `lib/detector.js` by adding support for `agy` alias, standard application paths (macOS, Windows, Linux), and fallback via skills directory (~/.gemini/antigravity/skills/). This fixes issues where the installer failed to find Antigravity on machines without the binary in the `PATH`.
+
+---
+
 ## [1.13.9] - 2026-02-28
 
 ### Fixed
