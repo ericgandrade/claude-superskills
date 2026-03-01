@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.13.8] - 2026-02-28
+
+### Added
+
+- **README.md**: `## Privacy` section — documents that the plugin collects no data, has no backend, requires no API keys, and is fully auditable. URL: `github.com/ericgandrade/claude-superskills#privacy`
+- **README.md**: Privacy policy URL ready for Anthropic official marketplace submission
+
+### Fixed
+
+- **`.claude-plugin/marketplace.json`**: corrected owner email to `egandrade@gmail.com`
+
+---
+
 ## [1.13.7] - 2026-02-28
 
 ### Changed
