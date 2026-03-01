@@ -1,7 +1,26 @@
 {
   "version": "1.0.0",
-  "generated": "2026-02-20T18:48:09.276295Z",
+  "generated": "2026-03-01T20:24:04.743286Z",
   "skills": [
+    {
+      "name": "abx-strategy",
+      "version": "1.0.0",
+      "description": "Build Account-Based Everything (ABX) GTM strategies for complex B2B sales. Use when working on ABM strategy, ICP scoring, messaging architecture, product launches, or pipeline acceleration for companies with <500 accounts, $100K+ deals, and 6+ month sales cycles.",
+      "category": "product",
+      "tags": [],
+      "risk": "safe",
+      "platforms": [
+        "github-copilot",
+        "claude-code",
+        "codex",
+        "opencode",
+        "gemini",
+        "antigravity",
+        "cursor",
+        "adal"
+      ],
+      "triggers": []
+    },
     {
       "name": "agent-skill-discovery",
       "version": "1.1.0",
@@ -63,6 +82,25 @@
         "design a solution",
         "recommend approach"
       ]
+    },
+    {
+      "name": "ai-native-product",
+      "version": "1.0.0",
+      "description": "Build AI-native products with agency-control tradeoffs, calibration loops, and eval strategies. Use when building AI agents, LLM features, or products where AI handles user tasks autonomously. Part of the Modern Product Operating Model collection.",
+      "category": "product",
+      "tags": "product-management, ai, llm, agents, calibration, evals",
+      "risk": "safe",
+      "platforms": [
+        "github-copilot",
+        "claude-code",
+        "codex",
+        "opencode",
+        "gemini",
+        "antigravity",
+        "cursor",
+        "adal"
+      ],
+      "triggers": []
     },
     {
       "name": "audio-transcriber",
@@ -135,34 +173,13 @@
     },
     {
       "name": "docling-converter",
-      "version": "1.0.0",
-      "description": "This skill should be used when the user needs to convert documents (PDF, Office, images, HTML, Markdown) into structured outputs such as Markdown, JSON, or DoclingDocument using Docling.",
-      "category": "content",
-      "tags": [
-        "docling",
-        "document-conversion",
-        "pdf",
-        "ocr",
-        "markdown",
-        "json"
-      ],
-      "risk": "safe",
-      "platforms": [
-        "github-copilot-cli",
-        "claude-code",
-        "codex",
-        "opencode",
-        "gemini",
-        "antigravity",
-        "cursor",
-        "adal"
-      ],
-      "triggers": [
-        "convert this pdf to markdown",
-        "extract text from scanned document",
-        "docling conversion",
-        "convert docx pptx to markdown"
-      ]
+      "version": "1.0.1",
+      "description": "This skill should be used when the user needs to convert documents into structured Markdown or JSON using Docling.",
+      "category": "general",
+      "tags": [],
+      "risk": "unknown",
+      "platforms": [],
+      "triggers": []
     },
     {
       "name": "executing-plans",
@@ -178,6 +195,130 @@
       "risk": "safe",
       "platforms": [
         "github-copilot-cli",
+        "claude-code",
+        "codex",
+        "opencode",
+        "gemini",
+        "antigravity",
+        "cursor",
+        "adal"
+      ],
+      "triggers": []
+    },
+    {
+      "name": "mckinsey-strategist",
+      "version": "1.0.0",
+      "description": "This skill should be used when the user needs structured strategic analysis and high-impact executive recommendations for complex business problems.",
+      "category": "general",
+      "tags": [],
+      "risk": "unknown",
+      "platforms": [],
+      "triggers": []
+    },
+    {
+      "name": "product-architecture",
+      "version": "1.0.0",
+      "description": "Structure what you're building and why now. Use when organizing products into capability blocks, creating bet backlogs, building roadmaps, or writing solution briefs. Part of the Modern Product Operating Model collection.",
+      "category": "product",
+      "tags": "product-management, roadmap, backlog, solution-brief, product-architecture",
+      "risk": "safe",
+      "platforms": [
+        "github-copilot",
+        "claude-code",
+        "codex",
+        "opencode",
+        "gemini",
+        "antigravity",
+        "cursor",
+        "adal"
+      ],
+      "triggers": []
+    },
+    {
+      "name": "product-delivery",
+      "version": "1.0.0",
+      "description": "Ship, measure, and learn effectively. Use when planning staged rollouts, setting up metrics hierarchies, running bet retrospectives, or executing GTM launches. Part of the Modern Product Operating Model collection.",
+      "category": "product",
+      "tags": "product-management, delivery, metrics, gtm, launch",
+      "risk": "safe",
+      "platforms": [
+        "github-copilot",
+        "claude-code",
+        "codex",
+        "opencode",
+        "gemini",
+        "antigravity",
+        "cursor",
+        "adal"
+      ],
+      "triggers": []
+    },
+    {
+      "name": "product-discovery",
+      "version": "1.0.0",
+      "description": "Run continuous discovery to find problems worth solving. Use when setting up weekly discovery rhythm, building Opportunity Solution Trees, creating interview snapshots, exploring solutions, or testing assumptions before committing engineering resources. Part of the Modern Product Operating Model collection.",
+      "category": "product",
+      "tags": "product-management, discovery, user-research, ost, assumption-testing",
+      "risk": "safe",
+      "platforms": [
+        "github-copilot",
+        "claude-code",
+        "codex",
+        "opencode",
+        "gemini",
+        "antigravity",
+        "cursor",
+        "adal"
+      ],
+      "triggers": []
+    },
+    {
+      "name": "product-leadership",
+      "version": "1.0.0",
+      "description": "Operate as a Director or CPO leading product organizations. Use when managing product portfolios, aligning with executives, communicating to boards, designing team structures, or establishing operating rhythms. Part of the Modern Product Operating Model collection.",
+      "category": "product",
+      "tags": "product-management, leadership, portfolio, executive, cpo",
+      "risk": "safe",
+      "platforms": [
+        "github-copilot",
+        "claude-code",
+        "codex",
+        "opencode",
+        "gemini",
+        "antigravity",
+        "cursor",
+        "adal"
+      ],
+      "triggers": []
+    },
+    {
+      "name": "product-operating-model",
+      "version": "1.0.0",
+      "description": "Index of the Modern Product Operating Model \u2014 a collection of composable product skills. Use when user wants an overview of all product skills, doesn't know which specific skill they need, or wants to understand how the product systems connect.",
+      "category": "product",
+      "tags": "product-management, framework, index",
+      "risk": "safe",
+      "platforms": [
+        "github-copilot",
+        "claude-code",
+        "codex",
+        "opencode",
+        "gemini",
+        "antigravity",
+        "cursor",
+        "adal"
+      ],
+      "triggers": []
+    },
+    {
+      "name": "product-strategy",
+      "version": "1.0.0",
+      "description": "Build product strategy that drives real choices. Use when defining where to play and how to win, creating strategy canvases, defining ICP/Anti-ICP, positioning products, setting pricing strategy, planning GTM motions, or structuring strategic bets. Part of the Modern Product Operating Model collection.",
+      "category": "product",
+      "tags": "product-management, strategy, gtm, pricing, positioning",
+      "risk": "safe",
+      "platforms": [
+        "github-copilot",
         "claude-code",
         "codex",
         "opencode",
@@ -224,6 +365,16 @@
         "claude-code",
         "codex"
       ],
+      "triggers": []
+    },
+    {
+      "name": "storytelling-expert",
+      "version": "1.0.0",
+      "description": "This skill should be used when the user needs to transform ideas, presentations, speeches, or data into persuasive stories using elite storytelling frameworks.",
+      "category": "general",
+      "tags": [],
+      "risk": "unknown",
+      "platforms": [],
       "triggers": []
     },
     {
@@ -298,67 +449,8 @@
         "github-copilot-cli",
         "claude-code",
         "codex"
-    {
-      "name": "storytelling-expert",
-      "version": "1.0.0",
-      "description": "Transforma ideias, apresentações, discursos de vendas ou dados em histórias altamente engajadoras e persuasivas utilizando frameworks de narrativa de elite. Analisa o contexto e aplica automaticamente o framework mais adequado (StoryBrand, Golden Circle, Pixar, etc.).",
-      "category": "content",
-      "tags": [
-        "storytelling",
-        "narrative",
-        "frameworks",
-        "persuasion",
-        "pitch"
       ],
-      "risk": "safe",
-      "platforms": [
-        "github-copilot-cli",
-        "claude-code",
-        "codex",
-        "opencode",
-        "gemini",
-        "antigravity",
-        "cursor",
-        "adal"
-      ],
-      "triggers": [
-        "ajude com storytelling",
-        "melhore essa história",
-        "crie uma narrativa para",
-        "pitch de investidor",
-        "discurso de vendas"
-      ]
-    },
-    {
-      "name": "mckinsey-strategist",
-      "version": "1.0.0",
-      "description": "Atua como um Sócio Sênior de Estratégia (McKinsey-style) para desconstruir problemas complexos de negócios e fornecer recomendações de alto impacto utilizando frameworks analíticos de elite (SWOT, VRIO, 7S, Second-Order Thinking).",
-      "category": "planning",
-      "tags": [
-        "consulting",
-        "strategy",
-        "mckinsey",
-        "analysis",
-        "business"
-      ],
-      "risk": "safe",
-      "platforms": [
-        "github-copilot-cli",
-        "claude-code",
-        "codex",
-        "opencode",
-        "gemini",
-        "antigravity",
-        "cursor",
-        "adal"
-      ],
-      "triggers": [
-        "act as a consultant",
-        "strategic analysis for",
-        "business diagnosis",
-        "consulting case",
-        "mckinsey style recommendation"
-      ]
+      "triggers": []
     }
   ]
 }

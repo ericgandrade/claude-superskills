@@ -122,7 +122,15 @@
         "youtube-summarizer",
         "audio-transcriber",
         "storytelling-expert",
-        "mckinsey-strategist"
+        "mckinsey-strategist",
+        "abx-strategy",
+        "ai-native-product",
+        "product-architecture",
+        "product-delivery",
+        "product-discovery",
+        "product-leadership",
+        "product-operating-model",
+        "product-strategy"
       ],
       "use_cases": [
         "Complete AI assistance",
@@ -132,6 +140,27 @@
         "Prompt optimization"
       ],
       "target": "Power users, comprehensive setup"
+    },
+    "product": {
+      "name": "Product & Strategy",
+      "description": "Comprehensive frameworks for product management, strategic planning, and GTM.",
+      "skills": [
+        "abx-strategy",
+        "ai-native-product",
+        "product-architecture",
+        "product-delivery",
+        "product-discovery",
+        "product-leadership",
+        "product-operating-model",
+        "product-strategy"
+      ],
+      "use_cases": [
+        "Defining product strategy",
+        "Planning product architecture",
+        "GTM and ABX strategies",
+        "Improving product delivery and discovery"
+      ],
+      "target": "Product Managers, Strategists, Founders"
     }
   }
 }

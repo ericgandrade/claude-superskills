@@ -20,20 +20,28 @@ claude-superskills/
 │   └── marketplace.json      # Marketplace catalog — lists plugin + GitHub source
 │
 ├── skills/                    # SINGLE SOURCE OF TRUTH for all skills
-│   ├── skill-creator/
-│   ├── prompt-engineer/
-│   ├── youtube-summarizer/
-│   ├── audio-transcriber/
-│   ├── docling-converter/
+│   ├── abx-strategy/
 │   ├── agent-skill-discovery/
 │   ├── agent-skill-orchestrator/
+│   ├── ai-native-product/
+│   ├── audio-transcriber/
 │   ├── brainstorming/
-│   ├── writing-plans/
-│   ├── executing-plans/
 │   ├── deep-research/
-│   ├── us-program-research/
+│   ├── docling-converter/
+│   ├── executing-plans/
+│   ├── mckinsey-strategist/
+│   ├── product-architecture/
+│   ├── product-delivery/
+│   ├── product-discovery/
+│   ├── product-leadership/
+│   ├── product-operating-model/
+│   ├── product-strategy/
+│   ├── prompt-engineer/
+│   ├── skill-creator/
 │   ├── storytelling-expert/
-│   └── mckinsey-strategist/
+│   ├── us-program-research/
+│   ├── writing-plans/
+│   └── youtube-summarizer/
 │
 ├── cli-installer/             # NPM package (claude-superskills)
 │   ├── bin/cli.js            # Main CLI entry point (commands, flags, install flow)
@@ -165,7 +173,7 @@ npx claude-superskills
 /plugin install claude-superskills@claude-superskills
     → clones repo → copies to ~/.claude/plugins/cache/claude-superskills/
     → auto-discovers skills/ directory
-    → registers all 14+ skills as /claude-superskills:<skill-name>
+    → registers all 22+ skills as /claude-superskills:<skill-name>
 
 # NOTE: The shell command `claude plugin install ...` is currently unstable
 # due to upstream bugs in Claude Code (e.g. anthropics/claude-code#29722).
@@ -462,7 +470,7 @@ Curated skill collections:
 - **content**: `youtube-summarizer`, `audio-transcriber`, `docling-converter`
 - **developer**: `skill-creator`
 - **orchestration**: `agent-skill-discovery`, `agent-skill-orchestrator`
-- **all**: all 14 skills
+- **all**: all 22 skills
 
 ## Automation Scripts
 

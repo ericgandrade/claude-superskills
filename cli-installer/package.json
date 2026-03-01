@@ -1,7 +1,7 @@
 {
   "name": "claude-superskills",
   "version": "1.13.10",
-  "description": "Reusable AI CLI skills for GitHub Copilot and Claude Code",
+  "description": "22 Reusable AI CLI skills for GitHub Copilot and Claude Code",
   "main": "lib/index.js",
   "bin": {
     "claude-superskills": "bin/cli.js"

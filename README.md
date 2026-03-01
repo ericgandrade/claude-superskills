@@ -4,7 +4,7 @@ Scale AI-assisted engineering with a reusable skill platform that turns ad-hoc p
 
 ![Version](https://img.shields.io/badge/version-1.13.10-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
-![Skills](https://img.shields.io/badge/skills-14-brightgreen.svg)
+![Skills](https://img.shields.io/badge/skills-22-brightgreen.svg)
 ![Platforms](https://img.shields.io/badge/platforms-8-orange.svg)
 
 ## 🚀 Quick Install
@@ -121,7 +121,7 @@ To be notified when the plugin is available on claude.ai, watch this repository.
 
 ---
 
-### Once installed — all 14 skills under the `claude-superskills:` namespace
+### Once installed — all 22 skills under the `claude-superskills:` namespace
 
 ```
 /claude-superskills:skill-creator
@@ -133,14 +133,14 @@ To be notified when the plugin is available on claude.ai, watch this repository.
 /claude-superskills:executing-plans
 /claude-superskills:agent-skill-discovery
 /claude-superskills:agent-skill-orchestrator
-... (14 total)
+... (22 total)
 ```
 
 > **npm install still works** for GitHub Copilot, Cursor IDE, Gemini CLI, and 5 other platforms. The plugin format is Claude Code-specific.
 
 ## ✨ Features
 
-- **14 Universal Skills** - Work on all platforms
+- **22 Universal Skills** - Work on all platforms
 - **Zero-Config Install** - Run once, works everywhere
 - **Curated Bundles** - Install exactly what you need
 - **Smart Search** - Find skills by keyword
@@ -171,6 +171,18 @@ To be notified when the plugin is available on claude.ai, watch this repository.
 | **executing-plans** | v1.0.0 | Execute plans in batches with checkpoints and review gates |
 | **mckinsey-strategist** | v1.0.0 | Senior strategy consulting with SWOT, VRIO, 7S and First Principles analysis |
 
+### 📈 Product Management & Strategy
+| Skill | Version | Purpose |
+|-------|---------|---------|
+| **abx-strategy** | v1.0.0 | Build Account-Based Everything (ABX) GTM strategies |
+| **ai-native-product** | v1.0.0 | Design AI-native product features and capabilities |
+| **product-architecture** | v1.0.0 | Define scalable product architecture and modules |
+| **product-delivery** | v1.0.0 | Optimize product delivery and execution workflows |
+| **product-discovery** | v1.0.0 | Continuous product discovery and user research |
+| **product-leadership** | v1.0.0 | Establish product leadership and team alignment |
+| **product-operating-model** | v1.0.0 | Define the product operating model and processes |
+| **product-strategy** | v1.0.0 | Craft cohesive product strategy and roadmaps |
+
 ### 🔬 Research & Analysis
 | Skill | Version | Purpose |
 |-------|---------|---------|
@@ -196,6 +208,9 @@ npx claude-superskills --bundle content -y
 
 # Planning & Execution
 npx claude-superskills --bundle planning -y
+
+# Product Management & Strategy
+npx claude-superskills --bundle product -y
 
 # Research & Analysis
 npx claude-superskills --bundle research -y
@@ -356,6 +371,7 @@ Choose a bundle that fits your workflow:
 - **[Essential](docs/bundles/bundles.md#-essential-bundle)** - skill-creator, prompt-engineer
 - **[Content](docs/bundles/bundles.md#-content-creation-bundle)** - youtube-summarizer, audio-transcriber, docling-converter, storytelling-expert  
 - **[Planning](docs/bundles/bundles.md#-planning--execution-bundle)** - brainstorming, writing-plans, executing-plans, mckinsey-strategist
+- **[Product](docs/bundles/bundles.md#-product--strategy-bundle)** - abx-strategy, ai-native-product, product-strategy, and more
 - **[Research](docs/bundles/bundles.md#-research--analysis-bundle)** - deep-research, us-program-research + discovery
 - **[Developer](docs/bundles/bundles.md#-developer-bundle)** - skill-creator for power users
 - **[All](docs/bundles/bundles.md#-all-skills-bundle)** - Complete toolkit
