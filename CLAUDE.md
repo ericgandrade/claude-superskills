@@ -155,17 +155,21 @@ npx claude-superskills
 ```
 
 **Via Claude Code native plugin (Claude Code only):**
-```
-# Add marketplace (once)
+```text
+# Add marketplace + Install (Interactive method - Recommended)
+# Run these commands inside an active `claude` session:
 /plugin marketplace add ericgandrade/claude-superskills
     → clones repo, reads .claude-plugin/marketplace.json
     → finds plugin entry: source: github ericgandrade/claude-superskills
 
-# Install plugin
 /plugin install claude-superskills@claude-superskills
     → clones repo → copies to ~/.claude/plugins/cache/claude-superskills/
     → auto-discovers skills/ directory
     → registers all 14+ skills as /claude-superskills:<skill-name>
+
+# NOTE: The shell command `claude plugin install ...` is currently unstable
+# due to upstream bugs in Claude Code (e.g. anthropics/claude-code#29722).
+# Always prefer the in-session `/plugin` commands above.
 
 # Test locally (no marketplace required)
 claude --plugin-dir ./claude-superskills

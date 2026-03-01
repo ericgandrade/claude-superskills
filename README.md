@@ -65,18 +65,34 @@ Requires **Claude Code v1.0.33+** (`claude --version` to check).
 
 ### Option A — Claude Code CLI (Terminal)
 
-**Method 1: Shell command (outside a session)**
+> ⚠️ **Important:** While the universal installer (`npx claude-superskills`) works perfectly to copy skills into `~/.claude/skills/`, using the native Claude Code Plugin system (described below) is the **recommended and most suitable installation method** for Claude Code users.
 
+**Method 1: Interactive UI (Inside a running `claude` session) — Recommended**
+
+Start a Claude Code session:
 ```bash
-# Add marketplace + install in one flow
-claude plugin install claude-superskills@claude-superskills
+claude
 ```
 
-> If you get "marketplace not found", add it first:
-> ```bash
-> claude plugin marketplace add ericgandrade/claude-superskills
-> claude plugin install claude-superskills@claude-superskills
-> ```
+Then run these slash commands inside the session:
+```text
+# 1. Add the marketplace
+/plugin marketplace add ericgandrade/claude-superskills
+
+# 2. Install the plugin
+/plugin install claude-superskills@claude-superskills
+```
+
+Alternatively, open the plugin manager with `/plugin` → navigate to the **Discover** tab → search for "claude-superskills" → press **Enter** → choose your preferred scope.
+
+**Method 2: Shell command (Outside a session)**
+
+> 🐛 **Known Bug:** The `claude plugin install` shell command is currently **failing** due to an upstream issue in Claude Code. We strongly recommend using the interactive in-session method above. If you prefer a CLI approach, the universal installer (`npx claude-superskills`) is completely reliable and stable. Tracked at: [anthropics/claude-code#29722](https://github.com/anthropics/claude-code/issues/29722).
+
+```bash
+# Attempt to add marketplace + install in one flow (Currently unstable)
+claude plugin install claude-superskills@claude-superskills
+```
 
 Choose your scope with `--scope`:
 
@@ -86,29 +102,12 @@ claude plugin install claude-superskills@claude-superskills --scope project  # t
 claude plugin install claude-superskills@claude-superskills --scope local    # this project only, gitignored
 ```
 
-**Method 2: Interactive UI (inside a running `claude` session)**
-
-```
-# These are in-session slash commands, run them inside claude:
-/plugin marketplace add ericgandrade/claude-superskills
-/plugin install claude-superskills@claude-superskills
-```
-
-Or open the plugin manager with `/plugin` → **Discover** tab → search "claude-superskills" → **Enter** → choose scope.
-
 **Method 3: Local test (no install needed)**
 
 ```bash
 git clone https://github.com/ericgandrade/claude-superskills
 claude --plugin-dir ./claude-superskills
 ```
-
-> **SSH error during `plugin install`?**
-> Claude Code's `plugin install` clones via SSH by default. If you don't have an SSH key configured for GitHub, run this once before installing:
-> ```bash
-> git config --global url."https://github.com/".insteadOf "git@github.com:"
-> ```
-> This redirects SSH URLs to HTTPS globally. Tracked as [anthropics/claude-code#29722](https://github.com/anthropics/claude-code/issues/29722).
 
 ---
 
