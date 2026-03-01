@@ -130,7 +130,27 @@
         "product-discovery",
         "product-leadership",
         "product-operating-model",
-        "product-strategy"
+        "product-strategy",
+        "academic-cv-builder",
+        "career-changer-translator",
+        "cover-letter-generator",
+        "creative-portfolio-resume",
+        "executive-resume-writer",
+        "interview-prep-generator",
+        "job-description-analyzer",
+        "linkedin-profile-optimizer",
+        "offer-comparison-analyzer",
+        "portfolio-case-study-writer",
+        "reference-list-builder",
+        "resume-ats-optimizer",
+        "resume-bullet-writer",
+        "resume-formatter",
+        "resume-quantifier",
+        "resume-section-builder",
+        "resume-tailor",
+        "resume-version-manager",
+        "salary-negotiation-prep",
+        "tech-resume-optimizer"
       ],
       "use_cases": [
         "Complete AI assistance",
@@ -161,6 +181,39 @@
         "Improving product delivery and discovery"
       ],
       "target": "Product Managers, Strategists, Founders"
+    },
+    "career": {
+      "name": "Career & Professional Growth",
+      "description": "Comprehensive frameworks for resume optimization, job search strategy, and professional growth.",
+      "skills": [
+        "academic-cv-builder",
+        "career-changer-translator",
+        "cover-letter-generator",
+        "creative-portfolio-resume",
+        "executive-resume-writer",
+        "interview-prep-generator",
+        "job-description-analyzer",
+        "linkedin-profile-optimizer",
+        "offer-comparison-analyzer",
+        "portfolio-case-study-writer",
+        "reference-list-builder",
+        "resume-ats-optimizer",
+        "resume-bullet-writer",
+        "resume-formatter",
+        "resume-quantifier",
+        "resume-section-builder",
+        "resume-tailor",
+        "resume-version-manager",
+        "salary-negotiation-prep",
+        "tech-resume-optimizer"
+      ],
+      "use_cases": [
+        "Optimizing resumes for ATS",
+        "Preparing for interviews and negotiations",
+        "Tailoring job applications",
+        "Building professional portfolios and LinkedIn profiles"
+      ],
+      "target": "Job seekers, career changers, professionals"
     }
   }
 }

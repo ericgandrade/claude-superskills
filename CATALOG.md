@@ -1,7 +1,7 @@
 # 📚 Claude Superskills Catalog
 
-**Generated:** 2026-03-01T20:24:14.075961Z  
-**Total Skills:** 22  
+**Generated:** 2026-03-01T20:48:20.659100Z  
+**Total Skills:** 42  
 **Platforms:** GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI
 
 ---
@@ -11,15 +11,25 @@
 | Skill | Version | Category | Tags | Risk | Platforms |
 |-------|---------|----------|------|------|-----------|
 | **abx-strategy** | 1.0.0 | product | N/A | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
+| **academic-cv-builder** | 1.0.0 | career | N/A | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
 | **agent-skill-discovery** | 1.1.0 | discovery | discovery, inventory, catalog | safe | 🤖 🧠 ⚙️ 🧩 ♊ |
 | **agent-skill-orchestrator** | 1.1.0 | orchestration | orchestration, planning, strategy | safe | 🤖 🧠 ⚙️ 🧩 ♊ |
 | **ai-native-product** | 1.0.0 | product | p, r, o | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
 | **audio-transcriber** | 1.2.1 | content | audio, transcription, whisper | safe | 🤖 🧠 ⚙️ |
 | **brainstorming** | 1.0.0 | planning | brainstorming, design, requirements | safe | 🤖 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
+| **career-changer-translator** | 1.0.0 | career | N/A | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
+| **cover-letter-generator** | 1.0.0 | career | N/A | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
+| **creative-portfolio-resume** | 1.0.0 | career | N/A | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
 | **deep-research** | 1.0.0 | research | research, search, analysis | safe | 🤖 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
 | **docling-converter** | 1.0.1 | general | N/A | unknown |  |
 | **executing-plans** | 1.0.0 | planning | planning, execution, checkpoints | safe | 🤖 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
+| **executive-resume-writer** | 1.0.0 | career | N/A | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
+| **interview-prep-generator** | 1.0.0 | career | N/A | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
+| **job-description-analyzer** | 1.0.0 | career | N/A | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
+| **linkedin-profile-optimizer** | 1.0.0 | career | N/A | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
 | **mckinsey-strategist** | 1.0.0 | general | N/A | unknown |  |
+| **offer-comparison-analyzer** | 1.0.0 | career | N/A | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
+| **portfolio-case-study-writer** | 1.0.0 | career | N/A | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
 | **product-architecture** | 1.0.0 | product | p, r, o | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
 | **product-delivery** | 1.0.0 | product | p, r, o | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
 | **product-discovery** | 1.0.0 | product | p, r, o | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
@@ -27,8 +37,18 @@
 | **product-operating-model** | 1.0.0 | product | p, r, o | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
 | **product-strategy** | 1.0.0 | product | p, r, o | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
 | **prompt-engineer** | 1.1.0 | automation | prompt-engineering, optimization, frameworks | safe | 🤖 🧠 ⚙️ |
+| **reference-list-builder** | 1.0.0 | career | N/A | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
+| **resume-ats-optimizer** | 1.0.0 | career | N/A | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
+| **resume-bullet-writer** | 1.0.0 | career | N/A | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
+| **resume-formatter** | 1.0.0 | career | N/A | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
+| **resume-quantifier** | 1.0.0 | career | N/A | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
+| **resume-section-builder** | 1.0.0 | career | N/A | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
+| **resume-tailor** | 1.0.0 | career | N/A | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
+| **resume-version-manager** | 1.0.0 | career | N/A | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
+| **salary-negotiation-prep** | 1.0.0 | career | N/A | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
 | **skill-creator** | 1.3.1 | meta | automation, scaffolding, skill-creation | safe | 🤖 🧠 ⚙️ |
 | **storytelling-expert** | 1.0.0 | general | N/A | unknown |  |
+| **tech-resume-optimizer** | 1.0.0 | career | N/A | safe | github-copilot 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
 | **us-program-research** | 1.0.0 | research | us-programs, university-research, rankings | medium | 🤖 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
 | **writing-plans** | 1.0.0 | planning | planning, implementation-plan, task-breakdown | safe | 🤖 🧠 ⚙️ 🧩 ♊ 🪂 🖱️ 🧪 |
 | **youtube-summarizer** | 1.2.1 | content | video, summarization, transcription | safe | 🤖 🧠 ⚙️ |
@@ -42,6 +62,88 @@
 - **prompt-engineer** (v1.1.0)
   - Description: This skill should be used when the user needs to transform raw prompts into optimized prompts using ...
   - Tags: prompt-engineering, optimization, frameworks, ai-enhancement
+
+### Career
+
+- **academic-cv-builder** (v1.0.0)
+  - Description: Format CVs for academic positions with publications, grants, and teaching...
+  - Tags: 
+
+- **career-changer-translator** (v1.0.0)
+  - Description: Translate skills from one industry to another, identify transferable skills...
+  - Tags: 
+
+- **cover-letter-generator** (v1.0.0)
+  - Description: Create personalized, compelling cover letters from resume and job description...
+  - Tags: 
+
+- **creative-portfolio-resume** (v1.0.0)
+  - Description: Balance visual design with ATS compatibility for creative roles...
+  - Tags: 
+
+- **executive-resume-writer** (v1.0.0)
+  - Description: Create C-suite and VP level resumes emphasizing strategic leadership...
+  - Tags: 
+
+- **interview-prep-generator** (v1.0.0)
+  - Description: Generate STAR stories, practice questions, and talking points from resume...
+  - Tags: 
+
+- **job-description-analyzer** (v1.0.0)
+  - Description: Analyze job postings, calculate match scores, identify gaps, and create application strategy...
+  - Tags: 
+
+- **linkedin-profile-optimizer** (v1.0.0)
+  - Description: Optimize LinkedIn profile for searchability, recruiter visibility, and engagement...
+  - Tags: 
+
+- **offer-comparison-analyzer** (v1.0.0)
+  - Description: Compare multiple job offers side-by-side with total compensation analysis...
+  - Tags: 
+
+- **portfolio-case-study-writer** (v1.0.0)
+  - Description: Transform resume bullets into detailed portfolio case studies...
+  - Tags: 
+
+- **reference-list-builder** (v1.0.0)
+  - Description: Format professional references properly and prepare reference materials...
+  - Tags: 
+
+- **resume-ats-optimizer** (v1.0.0)
+  - Description: Optimize resumes for Applicant Tracking Systems, check ATS compatibility, and analyze keyword match...
+  - Tags: 
+
+- **resume-bullet-writer** (v1.0.0)
+  - Description: Transform weak resume bullets into achievement-focused statements with metrics and impact...
+  - Tags: 
+
+- **resume-formatter** (v1.0.0)
+  - Description: Ensure ATS-friendly formatting and create clean scannable layouts...
+  - Tags: 
+
+- **resume-quantifier** (v1.0.0)
+  - Description: Find opportunities to add metrics and estimate numbers when exact data unavailable...
+  - Tags: 
+
+- **resume-section-builder** (v1.0.0)
+  - Description: Create targeted resume sections optimized for different experience levels and roles...
+  - Tags: 
+
+- **resume-tailor** (v1.0.0)
+  - Description: Customize resume for specific job postings while maintaining truthfulness...
+  - Tags: 
+
+- **resume-version-manager** (v1.0.0)
+  - Description: Track different resume versions, maintain master resume, manage tailored versions...
+  - Tags: 
+
+- **salary-negotiation-prep** (v1.0.0)
+  - Description: Research market rates, build negotiation strategy, and create counter-offer scripts...
+  - Tags: 
+
+- **tech-resume-optimizer** (v1.0.0)
+  - Description: Optimize resumes for software engineering, PM, and technical roles...
+  - Tags: 
 
 ### Content
 

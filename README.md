@@ -1,10 +1,10 @@
-# 🤖 Claude Superskills v1.14.0
+# 🤖 Claude Superskills v1.15.0
 
 Scale AI-assisted engineering with a reusable skill platform that turns ad-hoc prompting into standardized, high-impact workflows. Install once and deliver consistent planning, research, orchestration, and content automation across your entire multi-tool AI stack.
 
 ![Version](https://img.shields.io/badge/version-1.14.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
-![Skills](https://img.shields.io/badge/skills-22-brightgreen.svg)
+![Skills](https://img.shields.io/badge/skills-42-brightgreen.svg)
 ![Platforms](https://img.shields.io/badge/platforms-8-orange.svg)
 
 ## 🚀 Quick Install
@@ -121,7 +121,7 @@ To be notified when the plugin is available on claude.ai, watch this repository.
 
 ---
 
-### Once installed — all 22 skills under the `claude-superskills:` namespace
+### Once installed — all 42 skills under the `claude-superskills:` namespace
 
 ```
 /claude-superskills:skill-creator
@@ -133,14 +133,14 @@ To be notified when the plugin is available on claude.ai, watch this repository.
 /claude-superskills:executing-plans
 /claude-superskills:agent-skill-discovery
 /claude-superskills:agent-skill-orchestrator
-... (22 total)
+... (42 total)
 ```
 
 > **npm install still works** for GitHub Copilot, Cursor IDE, Gemini CLI, and 5 other platforms. The plugin format is Claude Code-specific.
 
 ## ✨ Features
 
-- **22 Universal Skills** - Work on all platforms
+- **42 Universal Skills** - Work on all platforms
 - **Zero-Config Install** - Run once, works everywhere
 - **Curated Bundles** - Install exactly what you need
 - **Smart Search** - Find skills by keyword
@@ -150,6 +150,19 @@ To be notified when the plugin is available on claude.ai, watch this repository.
 - **Short Flags** - `-a`, `-y`, `-q`
 
 ## 📦 Available Skills
+
+### 💼 Career & Professional Growth
+| Skill | Version | Purpose |
+|-------|---------|---------|
+| **resume-ats-optimizer** | v1.0.0 | Optimize resumes for Applicant Tracking Systems |
+| **resume-bullet-writer** | v1.0.0 | Transform weak bullets into achievement-focused statements |
+| **job-description-analyzer** | v1.0.0 | Analyze job postings and calculate match scores |
+| **resume-tailor** | v1.0.0 | Customize resume for specific job postings |
+| **interview-prep-generator** | v1.0.0 | Generate STAR stories and practice questions |
+| **linkedin-profile-optimizer** | v1.0.0 | Sync resume with LinkedIn and optimize for searchability |
+| **salary-negotiation-prep** | v1.0.0 | Research market rates and build negotiation strategy |
+| **tech-resume-optimizer** | v1.0.0 | Optimize resumes for technical and PM roles |
+| ... | ... | (20 total in career bundle) |
 
 ### 🔍 Discovery & Orchestration
 | Skill | Version | Purpose |
@@ -211,6 +224,9 @@ npx claude-superskills --bundle planning -y
 
 # Product Management & Strategy
 npx claude-superskills --bundle product -y
+
+# Career & Professional Growth
+npx claude-superskills --bundle career -y
 
 # Research & Analysis
 npx claude-superskills --bundle research -y
@@ -372,6 +388,7 @@ Choose a bundle that fits your workflow:
 - **[Content](docs/bundles/bundles.md#-content-creation-bundle)** - youtube-summarizer, audio-transcriber, docling-converter, storytelling-expert  
 - **[Planning](docs/bundles/bundles.md#-planning--execution-bundle)** - brainstorming, writing-plans, executing-plans, mckinsey-strategist
 - **[Product](docs/bundles/bundles.md#-product--strategy-bundle)** - abx-strategy, ai-native-product, product-strategy, and more
+- **[Career](docs/bundles/bundles.md#-career--professional-growth-bundle)** - resume-ats-optimizer, interview-prep, salary-negotiation, and more
 - **[Research](docs/bundles/bundles.md#-research--analysis-bundle)** - deep-research, us-program-research + discovery
 - **[Developer](docs/bundles/bundles.md#-developer-bundle)** - skill-creator for power users
 - **[All](docs/bundles/bundles.md#-all-skills-bundle)** - Complete toolkit

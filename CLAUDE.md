@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **claude-superskills** is a reusable AI skills library for **8 AI platforms**: GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, and AdaL CLI. Skills are Markdown-based workflow specifications (`SKILL.md`) that teach AI agents how to perform specific tasks.
 
-- **npm package**: `claude-superskills` (v1.14.0) — `npx claude-superskills`
+- **npm package**: `claude-superskills` (v1.15.0) — `npx claude-superskills`
 - **Claude Code plugin**: `claude --plugin-dir ./claude-superskills` — native plugin, no npm needed
 - **GitHub**: `https://github.com/ericgandrade/claude-superskills`
 - **Old package** `cli-ai-skills` is deprecated, redirects to this one
@@ -21,15 +21,25 @@ claude-superskills/
 │
 ├── skills/                    # SINGLE SOURCE OF TRUTH for all skills
 │   ├── abx-strategy/
+│   ├── academic-cv-builder/
 │   ├── agent-skill-discovery/
 │   ├── agent-skill-orchestrator/
 │   ├── ai-native-product/
 │   ├── audio-transcriber/
 │   ├── brainstorming/
+│   ├── career-changer-translator/
+│   ├── cover-letter-generator/
+│   ├── creative-portfolio-resume/
 │   ├── deep-research/
 │   ├── docling-converter/
 │   ├── executing-plans/
+│   ├── executive-resume-writer/
+│   ├── interview-prep-generator/
+│   ├── job-description-analyzer/
+│   ├── linkedin-profile-optimizer/
 │   ├── mckinsey-strategist/
+│   ├── offer-comparison-analyzer/
+│   ├── portfolio-case-study-writer/
 │   ├── product-architecture/
 │   ├── product-delivery/
 │   ├── product-discovery/
@@ -37,8 +47,18 @@ claude-superskills/
 │   ├── product-operating-model/
 │   ├── product-strategy/
 │   ├── prompt-engineer/
+│   ├── reference-list-builder/
+│   ├── resume-ats-optimizer/
+│   ├── resume-bullet-writer/
+│   ├── resume-formatter/
+│   ├── resume-quantifier/
+│   ├── resume-section-builder/
+│   ├── resume-tailor/
+│   ├── resume-version-manager/
+│   ├── salary-negotiation-prep/
 │   ├── skill-creator/
 │   ├── storytelling-expert/
+│   ├── tech-resume-optimizer/
 │   ├── us-program-research/
 │   ├── writing-plans/
 │   └── youtube-summarizer/
@@ -173,7 +193,7 @@ npx claude-superskills
 /plugin install claude-superskills@claude-superskills
     → clones repo → copies to ~/.claude/plugins/cache/claude-superskills/
     → auto-discovers skills/ directory
-    → registers all 22+ skills as /claude-superskills:<skill-name>
+    → registers all 42+ skills as /claude-superskills:<skill-name>
 
 # NOTE: The shell command `claude plugin install ...` is currently unstable
 # due to upstream bugs in Claude Code (e.g. anthropics/claude-code#29722).
@@ -376,7 +396,7 @@ Skills that interact with project structure should include a discovery phase tha
 
 ## Version Management
 
-The package version is defined in `cli-installer/package.json` (currently **v1.14.0**).
+The package version is defined in `cli-installer/package.json` (currently **v1.15.0**).
 `.claude-plugin/plugin.json` `"version"` must always match `package.json` exactly.
 
 - `cli-installer/package.json` — source of truth for npm version
@@ -481,7 +501,7 @@ Curated skill collections:
 - **content**: `youtube-summarizer`, `audio-transcriber`, `docling-converter`
 - **developer**: `skill-creator`
 - **orchestration**: `agent-skill-discovery`, `agent-skill-orchestrator`
-- **all**: all 22 skills
+- **all**: all 42 skills
 
 ## Automation Scripts
 
