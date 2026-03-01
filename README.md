@@ -314,6 +314,17 @@ We welcome contributions! Check [CONTRIBUTING.md](./CONTRIBUTING.md) for guideli
 - Follow [Quality Standards](docs/guides/quality-standards.md)
 - Report issues and suggestions
 
+## 🔒 Privacy
+
+claude-superskills does not collect, store, transmit, or share any user data.
+
+- **No external servers** — the plugin has no backend, no telemetry, and no network requests of its own
+- **No API keys required** — all skills run entirely within Claude Code using Claude's native tools (WebSearch, WebFetch, Bash, Read/Write)
+- **No logging** — nothing is recorded outside of your local Claude Code session
+- **Open source** — all skill logic is fully auditable at [github.com/ericgandrade/claude-superskills](https://github.com/ericgandrade/claude-superskills)
+
+Any web searches or document fetches performed by skills use Claude Code's built-in tools, subject to Anthropic's own privacy policy.
+
 ## 📄 License
 
 MIT - See [LICENSE](./LICENSE) for details.
