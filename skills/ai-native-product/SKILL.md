@@ -1,7 +1,6 @@
 ---
 name: ai-native-product
 description: Build AI-native products with agency-control tradeoffs, calibration loops, and eval strategies. Use when building AI agents, LLM features, or products where AI handles user tasks autonomously. Part of the Modern Product Operating Model collection.
-author: YannickMaurice
 version: 1.0.0
 tags: product-management, ai, llm, agents, calibration, evals
 category: product
@@ -15,7 +14,6 @@ platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, c
 
 This skill covers **AI-Native Product Development** — the overlay that modifies discovery, architecture, and delivery when AI is at the core. It addresses the unique challenges of building products where AI agents perform tasks autonomously.
 
-**Part of**: [Modern Product Operating Model](https://github.com/yannickYamo/skills) — a collection of composable product skills.
 
 **Related skills**: `product-strategy`, `product-discovery`, `product-architecture`, `product-delivery`, `product-leadership`
 
@@ -401,4 +399,3 @@ Before shipping AI features:
 
 ---
 
-*Part of the Modern Product Operating Model by Yannick Maurice*

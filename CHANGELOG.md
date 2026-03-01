@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ## [1.14.0] - 2026-03-01
 
 ### Added
-- **Product Management & Strategy Bundle:** 8 new comprehensive frameworks by YannickMaurice.
+- **Product Management & Strategy Bundle:** 8 new comprehensive frameworks .
   - `abx-strategy` (v1.0.0): Account-Based Everything (ABX) GTM strategies.
   - `ai-native-product` (v1.0.0): Design AI-native product features and capabilities.
   - `product-architecture` (v1.0.0): Define scalable product architecture and modules.

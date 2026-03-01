@@ -1,7 +1,6 @@
 ---
 name: product-architecture
 description: Structure what you're building and why now. Use when organizing products into capability blocks, creating bet backlogs, building roadmaps, or writing solution briefs. Part of the Modern Product Operating Model collection.
-author: YannickMaurice
 version: 1.0.0
 tags: product-management, roadmap, backlog, solution-brief, product-architecture
 category: product
@@ -15,7 +14,6 @@ platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, c
 
 This skill covers the **Product System** — structuring what you're building and why now. It turns validated opportunities into bets, organizes work into capability blocks, and creates roadmaps that communicate strategy without false precision.
 
-**Part of**: [Modern Product Operating Model](https://github.com/yannickYamo/skills) — a collection of composable product skills.
 
 **Related skills**: `product-strategy`, `product-discovery`, `product-delivery`, `ai-native-product`, `product-leadership`
 
@@ -421,4 +419,3 @@ Before committing to a quarter:
 
 ---
 
-*Part of the Modern Product Operating Model by Yannick Maurice*

@@ -1,7 +1,6 @@
 ---
 name: abx-strategy
 description: Build Account-Based Everything (ABX) GTM strategies for complex B2B sales. Use when working on ABM strategy, ICP scoring, messaging architecture, product launches, or pipeline acceleration for companies with <500 accounts, $100K+ deals, and 6+ month sales cycles.
-author: YannickMaurice
 version: 1.0.0
 category: product
 risk: safe

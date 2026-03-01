@@ -25,7 +25,7 @@ Build product strategy that drives real choices. Use when defining where to play
 | Field | Value |
 |-------|-------|
 | Version | 1.0.0 |
-| Author | YannickMaurice |
+| Author | Eric Andrade |
 | Created | 2026-03-01 |
 | Updated | 2026-03-01 |
 | Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |

@@ -1,7 +1,6 @@
 ---
 name: product-discovery
 description: Run continuous discovery to find problems worth solving. Use when setting up weekly discovery rhythm, building Opportunity Solution Trees, creating interview snapshots, exploring solutions, or testing assumptions before committing engineering resources. Part of the Modern Product Operating Model collection.
-author: YannickMaurice
 version: 1.0.0
 tags: product-management, discovery, user-research, ost, assumption-testing
 category: product
@@ -15,7 +14,6 @@ platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, c
 
 This skill covers the **Discovery System** — continuously discovering which problems matter and which solutions might work. It maintains a living map of customer opportunities and tests solution ideas before committing engineering resources.
 
-**Part of**: [Modern Product Operating Model](https://github.com/yannickYamo/skills) — a collection of composable product skills.
 
 **Related skills**: `product-strategy`, `product-architecture`, `product-delivery`, `ai-native-product`, `product-leadership`
 
@@ -412,4 +410,3 @@ Before concluding discovery on an opportunity:
 
 ---
 
-*Part of the Modern Product Operating Model by Yannick Maurice*

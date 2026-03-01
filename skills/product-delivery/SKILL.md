@@ -1,7 +1,6 @@
 ---
 name: product-delivery
 description: Ship, measure, and learn effectively. Use when planning staged rollouts, setting up metrics hierarchies, running bet retrospectives, or executing GTM launches. Part of the Modern Product Operating Model collection.
-author: YannickMaurice
 version: 1.0.0
 tags: product-management, delivery, metrics, gtm, launch
 category: product
@@ -15,7 +14,6 @@ platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, c
 
 This skill covers the **Delivery System** — how we ship, measure, and learn. It runs discovery and delivery in parallel (dual-track), ships with staged rollouts, measures with a clear hierarchy, reflects through retrospectives, and executes GTM with precision.
 
-**Part of**: [Modern Product Operating Model](https://github.com/yannickYamo/skills) — a collection of composable product skills.
 
 **Related skills**: `product-strategy`, `product-discovery`, `product-architecture`, `ai-native-product`, `product-leadership`
 
@@ -405,4 +403,3 @@ Before GA:
 
 ---
 
-*Part of the Modern Product Operating Model by Yannick Maurice*

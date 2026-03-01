@@ -1,7 +1,6 @@
 ---
 name: product-leadership
 description: Operate as a Director or CPO leading product organizations. Use when managing product portfolios, aligning with executives, communicating to boards, designing team structures, or establishing operating rhythms. Part of the Modern Product Operating Model collection.
-author: YannickMaurice
 version: 1.0.0
 tags: product-management, leadership, portfolio, executive, cpo
 category: product
@@ -15,7 +14,6 @@ platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, c
 
 This skill covers **Product Leadership** — the overlay for operating at Director, VP, or CPO level. It addresses portfolio management, executive alignment, board communication, team structure, and the operating rhythms that scale product organizations.
 
-**Part of**: [Modern Product Operating Model](https://github.com/yannickYamo/skills) — a collection of composable product skills.
 
 **Related skills**: `product-strategy`, `product-discovery`, `product-architecture`, `product-delivery`, `ai-native-product`
 
@@ -411,4 +409,3 @@ Quarterly:
 
 ---
 
-*Part of the Modern Product Operating Model by Yannick Maurice*

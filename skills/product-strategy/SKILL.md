@@ -1,7 +1,6 @@
 ---
 name: product-strategy
 description: Build product strategy that drives real choices. Use when defining where to play and how to win, creating strategy canvases, defining ICP/Anti-ICP, positioning products, setting pricing strategy, planning GTM motions, or structuring strategic bets. Part of the Modern Product Operating Model collection.
-author: YannickMaurice
 version: 1.0.0
 tags: product-management, strategy, gtm, pricing, positioning
 category: product
@@ -15,7 +14,6 @@ platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, c
 
 This skill covers the **Strategy System** — defining where to play and how to win. It creates the guardrails that make downstream decisions coherent and forces the hard choices most teams avoid.
 
-**Part of**: [Modern Product Operating Model](https://github.com/yannickYamo/skills) — a collection of composable product skills.
 
 **Related skills**: `product-discovery`, `product-architecture`, `product-delivery`, `ai-native-product`, `product-leadership`
 
@@ -398,4 +396,3 @@ Before finalizing your strategy, verify:
 
 ---
 
-*Part of the Modern Product Operating Model by Yannick Maurice*

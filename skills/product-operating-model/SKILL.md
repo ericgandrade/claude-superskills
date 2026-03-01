@@ -1,7 +1,6 @@
 ---
 name: product-operating-model
 description: Index of the Modern Product Operating Model — a collection of composable product skills. Use when user wants an overview of all product skills, doesn't know which specific skill they need, or wants to understand how the product systems connect.
-author: YannickMaurice
 version: 1.0.0
 tags: product-management, framework, index
 category: product
@@ -23,32 +22,20 @@ This is a collection of **6 composable skills** for product leadership. Each ski
 
 ```bash
 # Strategy: Where to play and how to win
-npx skills add yannickYamo/skills/product-strategy
 
 # Discovery: What problems matter and what solutions might work
-npx skills add yannickYamo/skills/product-discovery
 
 # Architecture: What are we building and why now
-npx skills add yannickYamo/skills/product-architecture
 
 # Delivery: How do we ship, measure, and learn
-npx skills add yannickYamo/skills/product-delivery
 
 # AI-Native: Building products with AI at the core
-npx skills add yannickYamo/skills/ai-native-product
 
 # Leadership: Operating as Director/CPO
-npx skills add yannickYamo/skills/product-leadership
 ```
 
 **Install the complete collection:**
 ```bash
-npx skills add yannickYamo/skills/product-strategy
-npx skills add yannickYamo/skills/product-discovery
-npx skills add yannickYamo/skills/product-architecture
-npx skills add yannickYamo/skills/product-delivery
-npx skills add yannickYamo/skills/ai-native-product
-npx skills add yannickYamo/skills/product-leadership
 ```
 
 ---
@@ -296,7 +283,6 @@ This framework synthesizes insights from:
 
 ## About
 
-**Author:** [Yannick Maurice](https://github.com/yannickYamo)  
 **Background:** 13+ years in product leadership across semiconductors, LiDAR, autonomous vehicles, energy systems, and AI  
 **Philosophy:** Learning velocity over planning perfection
 
