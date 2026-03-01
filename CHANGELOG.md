@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.13.9] - 2026-02-28
+
+### Fixed
+
+- **`.claude-plugin/marketplace.json`**: changed plugin `source` from `{"source":"github","repo":"..."}` to relative path `"."` — eliminates double-clone during `plugin install` and fixes SSH permission error on machines without GitHub SSH keys configured
+
+---
+
 ## [1.13.8] - 2026-02-28
 
 ### Added
