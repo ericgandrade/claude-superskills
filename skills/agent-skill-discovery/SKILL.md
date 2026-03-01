@@ -3,19 +3,10 @@ name: agent-skill-discovery
 description: "This skill should be used when the user wants to see all installed plugins, agents, skills, and MCP servers, and also inspect the current repository for local agents, skills, and MCP configuration. Scans the environment and presents a structured catalog of available resources. Works across all AI CLI platforms (Claude Code, GitHub Copilot, Gemini CLI, OpenCode, OpenAI Codex)."
 version: 1.1.0
 author: Eric Andrade
-platforms: [github-copilot-cli, claude-code, codex, opencode, gemini]
+platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli]
 category: discovery
 tags: [discovery, inventory, catalog, platform-agnostic, mcp]
 risk: safe
-triggers:
-  - "what do I have installed"
-  - "list available resources"
-  - "show my agents"
-  - "show my skills"
-  - "discover plugins"
-  - "list MCP servers"
-  - "what resources are available"
-  - "show installed tools"
 ---
 
 # agent-skill-discovery

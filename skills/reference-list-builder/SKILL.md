@@ -1,3 +1,14 @@
+---
+name: reference-list-builder
+description: "This skill should be used when format professional references properly and prepare reference materials"
+version: 1.0.0
+author: Eric Andrade
+platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
+category: career
+tags: [resume, career]
+risk: safe
+---
+
 ---name: Reference List Builder
 description: Format professional references properly and prepare reference materials
 

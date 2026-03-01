@@ -1,3 +1,14 @@
+---
+name: executive-resume-writer
+description: "This skill should be used when create C-suite and VP level resumes emphasizing strategic leadership"
+version: 1.0.0
+author: Eric Andrade
+platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
+category: career
+tags: [resume, career]
+risk: safe
+---
+
 ---name: Executive Resume Writer
 description: Create C-suite and VP level resumes emphasizing strategic leadership
 

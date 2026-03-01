@@ -3,7 +3,7 @@ name: youtube-summarizer
 description: "This skill should be used when the user needs to extract transcripts from YouTube videos and generate comprehensive, detailed summaries using intelligent analysis frameworks."
 version: 1.2.1
 author: Eric Andrade
-platforms: [github-copilot-cli, claude-code, codex]
+platforms: [github-copilot-cli, claude-code, openai-codex]
 category: content
 tags: [video, summarization, transcription, youtube, content-analysis]
 risk: safe

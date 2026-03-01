@@ -1,7 +1,12 @@
 ---
 name: docling-converter
-description: This skill should be used when the user needs to convert documents into structured Markdown or JSON using Docling.
+description: "This skill should be used when the user needs to convert documents into structured Markdown or JSON using Docling."
 version: 1.0.1
+author: Eric Andrade
+platforms: [github-copilot-cli, claude-code, openai-codex]
+category: content
+tags: [document-conversion, markdown, json, pdf, docling, ocr]
+risk: safe
 ---
 
 # 📄 Docling Document Converter

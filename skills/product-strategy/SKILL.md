@@ -1,11 +1,12 @@
 ---
 name: product-strategy
-description: Build product strategy that drives real choices. Use when defining where to play and how to win, creating strategy canvases, defining ICP/Anti-ICP, positioning products, setting pricing strategy, planning GTM motions, or structuring strategic bets. Part of the Modern Product Operating Model collection.
+description: "This skill should be used when build product strategy that drives real choices. Use when defining where to play and how to win, creating strategy canvases, defining ICP/Anti-ICP, positioning products, setting pricing strategy, planning GTM motions, or structuring strategic bets. Part of the Modern Product Operating Model collection."
 version: 1.0.0
-tags: product-management, strategy, gtm, pricing, positioning
+author: Eric Andrade
+platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
 category: product
+tags: [product, strategy, framework, management]
 risk: safe
-platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
 ---
 
 # Product Strategy System

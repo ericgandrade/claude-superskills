@@ -1,3 +1,14 @@
+---
+name: resume-formatter
+description: "This skill should be used when ensure ATS-friendly formatting and create clean scannable layouts"
+version: 1.0.0
+author: Eric Andrade
+platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
+category: career
+tags: [resume, career]
+risk: safe
+---
+
 ---name: Resume Formatter
 description: Ensure ATS-friendly formatting and create clean scannable layouts
 

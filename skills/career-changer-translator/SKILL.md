@@ -1,3 +1,14 @@
+---
+name: career-changer-translator
+description: "This skill should be used when translate skills from one industry to another, identify transferable skills"
+version: 1.0.0
+author: Eric Andrade
+platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
+category: career
+tags: [resume, career]
+risk: safe
+---
+
 ---name: Career Changer Translator
 description: Translate skills from one industry to another, identify transferable skills
 

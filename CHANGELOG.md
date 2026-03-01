@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.15.1] - 2026-03-01
+
+### Fixed
+- **Standardization:** Synced metadata across all 42 skills, ensuring strict compliance with Anthropic style guides and parser compatibility.
+
+## [1.15.0] - 2026-03-01
+
+### Added
+- **Career & Professional Growth Bundle:** 20 new comprehensive frameworks for job seekers and professionals.
+- **Product Management & Strategy Bundle:** 8 new frameworks.
+
 ## [1.14.0] - 2026-03-01
 
 ### Added

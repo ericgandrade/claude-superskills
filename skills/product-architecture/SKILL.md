@@ -1,11 +1,12 @@
 ---
 name: product-architecture
-description: Structure what you're building and why now. Use when organizing products into capability blocks, creating bet backlogs, building roadmaps, or writing solution briefs. Part of the Modern Product Operating Model collection.
+description: "This skill should be used when structure what you"
 version: 1.0.0
-tags: product-management, roadmap, backlog, solution-brief, product-architecture
+author: Eric Andrade
+platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
 category: product
+tags: [product, strategy, framework, management]
 risk: safe
-platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
 ---
 
 # Product Architecture System

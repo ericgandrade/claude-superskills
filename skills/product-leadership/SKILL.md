@@ -1,11 +1,12 @@
 ---
 name: product-leadership
-description: Operate as a Director or CPO leading product organizations. Use when managing product portfolios, aligning with executives, communicating to boards, designing team structures, or establishing operating rhythms. Part of the Modern Product Operating Model collection.
+description: "This skill should be used when operate as a Director or CPO leading product organizations. Use when managing product portfolios, aligning with executives, communicating to boards, designing team structures, or establishing operating rhythms. Part of the Modern Product Operating Model collection."
 version: 1.0.0
-tags: product-management, leadership, portfolio, executive, cpo
+author: Eric Andrade
+platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
 category: product
+tags: [product, strategy, framework, management]
 risk: safe
-platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
 ---
 
 # Product Leadership

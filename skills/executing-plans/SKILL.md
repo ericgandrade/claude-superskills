@@ -3,7 +3,7 @@ name: executing-plans
 description: "This skill should be used when the user has a written implementation plan to execute in a separate session with review checkpoints."
 version: 1.0.0
 author: Eric Andrade
-platforms: [github-copilot-cli, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
+platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
 category: planning
 tags: [planning, execution, checkpoints, implementation]
 risk: safe

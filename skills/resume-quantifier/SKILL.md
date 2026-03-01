@@ -1,3 +1,14 @@
+---
+name: resume-quantifier
+description: "This skill should be used when find opportunities to add metrics and estimate numbers when exact data unavailable"
+version: 1.0.0
+author: Eric Andrade
+platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
+category: career
+tags: [resume, career]
+risk: safe
+---
+
 ---name: Resume Quantifier
 description: Find opportunities to add metrics and estimate numbers when exact data unavailable
 

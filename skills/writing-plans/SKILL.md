@@ -3,7 +3,7 @@ name: writing-plans
 description: "This skill should be used when the user has a spec or requirements for a multi-step task before touching code."
 version: 1.0.0
 author: Eric Andrade
-platforms: [github-copilot-cli, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
+platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
 category: planning
 tags: [planning, implementation-plan, task-breakdown, tdd]
 risk: safe

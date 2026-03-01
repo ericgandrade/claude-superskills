@@ -1,3 +1,14 @@
+---
+name: resume-ats-optimizer
+description: "This skill should be used when optimize resumes for Applicant Tracking Systems, check ATS compatibility, and analyze keyword match"
+version: 1.0.0
+author: Eric Andrade
+platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
+category: career
+tags: [resume, career]
+risk: safe
+---
+
 ---name: Resume ATS Optimizer
 description: Optimize resumes for Applicant Tracking Systems, check ATS compatibility, and analyze keyword match
 

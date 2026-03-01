@@ -1,3 +1,14 @@
+---
+name: creative-portfolio-resume
+description: "This skill should be used when balance visual design with ATS compatibility for creative roles"
+version: 1.0.0
+author: Eric Andrade
+platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
+category: career
+tags: [resume, career]
+risk: safe
+---
+
 ---name: Creative Portfolio Resume
 description: Balance visual design with ATS compatibility for creative roles
 

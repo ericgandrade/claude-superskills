@@ -1,3 +1,14 @@
+---
+name: portfolio-case-study-writer
+description: "This skill should be used when transform resume bullets into detailed portfolio case studies"
+version: 1.0.0
+author: Eric Andrade
+platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
+category: career
+tags: [resume, career]
+risk: safe
+---
+
 ---name: Portfolio Case Study Writer
 description: Transform resume bullets into detailed portfolio case studies
 

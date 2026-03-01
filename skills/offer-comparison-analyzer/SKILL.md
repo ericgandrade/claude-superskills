@@ -1,3 +1,14 @@
+---
+name: offer-comparison-analyzer
+description: "This skill should be used when compare multiple job offers side-by-side with total compensation analysis"
+version: 1.0.0
+author: Eric Andrade
+platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
+category: career
+tags: [resume, career]
+risk: safe
+---
+
 ---name: Offer Comparison Analyzer
 description: Compare multiple job offers side-by-side with total compensation analysis
 

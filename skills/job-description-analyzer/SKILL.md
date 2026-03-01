@@ -1,3 +1,14 @@
+---
+name: job-description-analyzer
+description: "This skill should be used when analyze job postings, calculate match scores, identify gaps, and create application strategy"
+version: 1.0.0
+author: Eric Andrade
+platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
+category: career
+tags: [resume, career]
+risk: safe
+---
+
 ---name: Job Description Analyzer
 description: Analyze job postings, calculate match scores, identify gaps, and create application strategy
 

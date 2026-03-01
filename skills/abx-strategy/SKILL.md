@@ -1,10 +1,12 @@
 ---
 name: abx-strategy
-description: Build Account-Based Everything (ABX) GTM strategies for complex B2B sales. Use when working on ABM strategy, ICP scoring, messaging architecture, product launches, or pipeline acceleration for companies with <500 accounts, $100K+ deals, and 6+ month sales cycles.
+description: "This skill should be used when build Account-Based Everything (ABX) GTM strategies for complex B2B sales. Use when working on ABM strategy, ICP scoring, messaging architecture, product launches, or pipeline acceleration for companies with <500 accounts, $100K+ deals, and 6+ month sales cycles."
 version: 1.0.0
+author: Eric Andrade
+platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
 category: product
+tags: [product, strategy, framework, management]
 risk: safe
-platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
 ---
 
 # ABX Strategy Framework
