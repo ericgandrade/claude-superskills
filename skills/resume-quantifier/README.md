@@ -11,7 +11,7 @@ Find opportunities to add metrics and estimate numbers when exact data unavailab
 ## Metadata
 | Field | Value |
 |-------|-------|
-| Version | 1.0.0 |
+| Version | 1.0.1 |
 | Author | Eric Andrade |
 | Created | 2026-03-01 |
 | Updated | 2026-03-01 |

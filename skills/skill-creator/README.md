@@ -268,10 +268,10 @@ For issues or questions:
 
 | Field | Value |
 |-------|-------|
-| Version | 1.3.1 |
+| Version | 1.3.2 |
 | Author | Eric Andrade |
 | Created | 2025-02-01 |
-| Updated | 2026-02-04 |
+| Updated | 2026-03-01 |
 | Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex |
 | Category | meta |
 | Tags | automation, scaffolding, skill-creation, meta-skill |

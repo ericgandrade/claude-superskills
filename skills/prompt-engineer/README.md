@@ -661,7 +661,7 @@ Then configure:
 
 | Field | Value |
 |-------|-------|
-| Version | 1.1.0 |
+| Version | 1.1.1 |
 | Author | Eric Andrade |
 | Created | 2025-02-01 |
 | Updated | 2026-03-01 |

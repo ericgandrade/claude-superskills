@@ -368,10 +368,10 @@ MIT License - see [LICENSE](../../../LICENSE) for details.
 
 | Field | Value |
 |-------|-------|
-| Version | 1.2.1 |
+| Version | 1.2.2 |
 | Author | Eric Andrade |
 | Created | 2025-02-01 |
-| Updated | 2026-02-04 |
+| Updated | 2026-03-01 |
 | Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex |
 | Category | content |
 | Tags | video, summarization, transcription, youtube, content-analysis |
