@@ -22,20 +22,18 @@ def extract_from_readme(readme_path):
     with open(readme_path, 'r') as f:
         content = f.read()
     
-    # Simple regex to find the Metadata table rows
-    # Format: | Field | Value |
-    matches = re.findall(r'\|\s*([^|]+?)\s*\|\s*([^|]+?)\s*\|', content)
-    for field, value in matches:
-        f_lower = field.strip().lower()
-        v_strip = value.strip()
-        if f_lower == 'version': metadata['version'] = v_strip
-        elif f_lower == 'author': metadata['author'] = v_strip
-        elif f_lower == 'category': metadata['category'] = v_strip
-        elif f_lower == 'risk': metadata['risk'] = v_strip
-        elif f_lower == 'platforms': 
-            metadata['platforms'] = [p.strip() for p in v_strip.split(',')]
-        elif f_lower == 'tags':
-            metadata['tags'] = [t.strip() for t in v_strip.split(',')]
+    for line in content.split('\n'):
+        if '|' in line:
+            parts = [p.strip() for p in line.split('|') if p.strip()]
+            if len(parts) >= 2:
+                field = parts[0].lower()
+                value = parts[1]
+                if field == 'version': metadata['version'] = value
+                elif field == 'author': metadata['author'] = value
+                elif field == 'category': metadata['category'] = value
+                elif field == 'risk': metadata['risk'] = value
+                elif field == 'platforms': metadata['platforms'] = [p.strip() for p in value.split(',')]
+                elif field == 'tags': metadata['tags'] = [t.strip() for t in value.split(',')]
             
     return metadata
 

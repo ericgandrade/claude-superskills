@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated": "2026-03-01T22:33:09.664187Z",
+  "generated": "2026-03-01T22:36:22.444224Z",
   "skills": [
     {
       "name": "abx-strategy",
@@ -50,22 +50,46 @@
     },
     {
       "name": "agent-skill-discovery",
-      "version": "1.0.0",
+      "version": "1.1.1",
       "description": "This skill should be used when the user wants to see all installed plugins, agents, skills, and MCP servers, and also inspect the current repository for local agents, skills, and MCP configuration. Scans the environment and presents a structured catalog of available resources. Works across all AI CLI platforms (Claude Code, GitHub Copilot, Gemini CLI, OpenCode, OpenAI Codex).",
-      "category": "general",
-      "tags": [],
+      "category": "discovery",
+      "tags": [
+        "discovery",
+        "inventory",
+        "catalog",
+        "platform-agnostic",
+        "mcp"
+      ],
       "risk": "safe",
-      "platforms": [],
+      "platforms": [
+        "GitHub Copilot CLI",
+        "Claude Code",
+        "OpenAI Codex",
+        "OpenCode",
+        "Gemini CLI"
+      ],
       "triggers": []
     },
     {
       "name": "agent-skill-orchestrator",
-      "version": "1.0.0",
+      "version": "1.1.1",
       "description": "This skill should be used when the user needs to solve a complex task and wants a detailed execution plan using the best available resources. Analyzes user requirements, discovers available plugins/agents/skills/MCPs, performs intelligent matching with confidence scoring, and creates strategic execution plans with alternatives. Works across all AI CLI platforms.",
-      "category": "general",
-      "tags": [],
+      "category": "orchestration",
+      "tags": [
+        "orchestration",
+        "planning",
+        "strategy",
+        "intelligent-matching",
+        "platform-agnostic"
+      ],
       "risk": "safe",
-      "platforms": [],
+      "platforms": [
+        "GitHub Copilot CLI",
+        "Claude Code",
+        "OpenAI Codex",
+        "OpenCode",
+        "Gemini CLI"
+      ],
       "triggers": []
     },
     {
@@ -912,12 +936,22 @@
     },
     {
       "name": "youtube-summarizer",
-      "version": "1.0.0",
+      "version": "1.2.2",
       "description": "This skill should be used when the user needs to extract transcripts from YouTube videos and generate comprehensive, detailed summaries using intelligent analysis frameworks.",
-      "category": "general",
-      "tags": [],
+      "category": "content",
+      "tags": [
+        "video",
+        "summarization",
+        "transcription",
+        "youtube",
+        "content-analysis"
+      ],
       "risk": "safe",
-      "platforms": [],
+      "platforms": [
+        "GitHub Copilot CLI",
+        "Claude Code",
+        "OpenAI Codex"
+      ],
       "triggers": []
     }
   ]

@@ -1,6 +1,6 @@
 # 📚 Claude Superskills Catalog
 
-**Generated:** 2026-03-01T22:33:09.847466Z  
+**Generated:** 2026-03-01T22:36:22.636879Z  
 **Total Skills:** 42  
 **Platforms:** GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI
 
@@ -12,8 +12,8 @@
 |-------|---------|----------|------|------|-----------|
 | **abx-strategy** | 1.0.1 | product | product, strategy, framework | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **academic-cv-builder** | 1.0.1 | career | resume, career | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
-| **agent-skill-discovery** | 1.0.0 | general | N/A | safe |  |
-| **agent-skill-orchestrator** | 1.0.0 | general | N/A | safe |  |
+| **agent-skill-discovery** | 1.1.1 | discovery | discovery, inventory, catalog | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI |
+| **agent-skill-orchestrator** | 1.1.1 | orchestration | orchestration, planning, strategy | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI |
 | **ai-native-product** | 1.0.1 | product | product, strategy, framework | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **audio-transcriber** | 1.2.2 | content | audio, transcription, whisper | safe | GitHub Copilot CLI Claude Code OpenAI Codex |
 | **brainstorming** | 1.0.1 | planning | brainstorming, design, requirements | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
@@ -51,7 +51,7 @@
 | **tech-resume-optimizer** | 1.0.1 | career | resume, career | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **us-program-research** | 1.0.1 | research | us-programs, university-research, rankings | medium | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **writing-plans** | 1.0.1 | planning | planning, implementation-plan, task-breakdown | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
-| **youtube-summarizer** | 1.0.0 | general | N/A | safe |  |
+| **youtube-summarizer** | 1.2.2 | content | video, summarization, transcription | safe | GitHub Copilot CLI Claude Code OpenAI Codex |
 
 ---
 
@@ -159,25 +159,27 @@
   - Description: This skill should be used when the user needs to transform ideas, presentations, speeches, or data i...
   - Tags: storytelling, narrative, presentations, speeches, frameworks
 
-### General
-
-- **agent-skill-discovery** (v1.0.0)
-  - Description: This skill should be used when the user wants to see all installed plugins, agents, skills, and MCP ...
-  - Tags: 
-
-- **agent-skill-orchestrator** (v1.0.0)
-  - Description: This skill should be used when the user needs to solve a complex task and wants a detailed execution...
-  - Tags: 
-
-- **youtube-summarizer** (v1.0.0)
+- **youtube-summarizer** (v1.2.2)
   - Description: This skill should be used when the user needs to extract transcripts from YouTube videos and generat...
-  - Tags: 
+  - Tags: video, summarization, transcription, youtube, content-analysis
+
+### Discovery
+
+- **agent-skill-discovery** (v1.1.1)
+  - Description: This skill should be used when the user wants to see all installed plugins, agents, skills, and MCP ...
+  - Tags: discovery, inventory, catalog, platform-agnostic, mcp
 
 ### Meta
 
 - **skill-creator** (v1.3.2)
   - Description: This skill should be used when the user asks to create a new skill, build a skill, make a custom ski...
   - Tags: automation, scaffolding, skill-creation, meta-skill
+
+### Orchestration
+
+- **agent-skill-orchestrator** (v1.1.1)
+  - Description: This skill should be used when the user needs to solve a complex task and wants a detailed execution...
+  - Tags: orchestration, planning, strategy, intelligent-matching, platform-agnostic
 
 ### Planning
 
