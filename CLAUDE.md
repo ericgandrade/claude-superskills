@@ -11,6 +11,27 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **GitHub**: `https://github.com/ericgandrade/claude-superskills`
 - **Old package** `cli-ai-skills` is deprecated, redirects to this one
 
+## 🚨 CRITICAL: VERSION CONSISTENCY RULE
+
+You **MUST** keep the following files synchronized at all times when changing versions or adding skills. Failure to do so will result in deployment errors and user confusion.
+
+| File | What to Update | Authority |
+|------|----------------|-----------|
+| `cli-installer/package.json` | `version` field | **Source of Truth** |
+| `.claude-plugin/plugin.json` | `version` field | Must match npm exactly |
+| `README.md` | H1 Title, Version Badge, Footer | Visual confirmation |
+| `CLAUDE.md` | Project Overview & Version Checklist | Guidance consistency |
+| `CHANGELOG.md` | New version entry | History |
+
+### 🛠️ Use the Release Script
+To avoid forgetting these files, always use the automated release command:
+```bash
+node scripts/release.js [patch|minor|major]
+```
+This script synchronizes all 5 critical files and regenerates indexes automatically. If you prefer manual updates, follow the [Fool-Proof Release Checklist](#-the-fool-proof-release-checklist) below.
+
+---
+
 ## Repository Architecture
 
 ```
