@@ -150,7 +150,9 @@
         "resume-tailor",
         "resume-version-manager",
         "salary-negotiation-prep",
-        "tech-resume-optimizer"
+        "tech-resume-optimizer",
+        "senior-solution-architect",
+        "startup-growth-strategist"
       ],
       "use_cases": [
         "Complete AI assistance",
@@ -214,6 +216,35 @@
         "Building professional portfolios and LinkedIn profiles"
       ],
       "target": "Job seekers, career changers, professionals"
+    },
+    "architecture": {
+      "name": "Software Architecture",
+      "description": "Advanced systems design, C4 modeling, and Architecture Decision Records.",
+      "skills": [
+        "senior-solution-architect",
+        "product-architecture"
+      ],
+      "use_cases": [
+        "Documenting systems",
+        "Formalizing technical decisions",
+        "Designing scalable backends"
+      ],
+      "target": "Senior Developers, Tech Leads, Architects"
+    },
+    "startup": {
+      "name": "Startup & Venture",
+      "description": "Complete toolkit for founders: market validation, financial modeling, and GTM strategy.",
+      "skills": [
+        "startup-growth-strategist",
+        "product-strategy",
+        "abx-strategy"
+      ],
+      "use_cases": [
+        "TAM/SAM/SOM calculation",
+        "Unit economics modeling",
+        "Launch strategy"
+      ],
+      "target": "Founders, Entrepreneurs, Business Analysts"
     }
   }
 }

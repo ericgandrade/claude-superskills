@@ -1,7 +1,7 @@
 # 📚 Claude Superskills Catalog
 
-**Generated:** 2026-03-01T22:36:22.636879Z  
-**Total Skills:** 42  
+**Generated:** 2026-03-02T08:34:40.673372Z  
+**Total Skills:** 44  
 **Platforms:** GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI
 
 ---
@@ -46,7 +46,9 @@
 | **resume-tailor** | 1.0.1 | career | resume, career | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **resume-version-manager** | 1.0.1 | career | resume, career | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **salary-negotiation-prep** | 1.0.1 | career | resume, career | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
+| **senior-solution-architect** | 1.0.0 | architecture | architecture, c4-model, adr | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **skill-creator** | 1.3.2 | meta | automation, scaffolding, skill-creation | safe | GitHub Copilot CLI Claude Code OpenAI Codex |
+| **startup-growth-strategist** | 1.0.0 | strategy | startup, growth, marketing | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **storytelling-expert** | 1.0.1 | content | storytelling, narrative, presentations | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **tech-resume-optimizer** | 1.0.1 | career | resume, career | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **us-program-research** | 1.0.1 | research | us-programs, university-research, rankings | medium | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
@@ -56,6 +58,12 @@
 ---
 
 ## 🎯 Skills by Category
+
+### Architecture
+
+- **senior-solution-architect** (v1.0.0)
+  - Description: This skill should be used when you need to design, review, or document complex software architecture...
+  - Tags: architecture, c4-model, adr, systems-design, clean-architecture
 
 ### Automation
 
@@ -244,6 +252,10 @@
 - **mckinsey-strategist** (v1.0.1)
   - Description: This skill should be used when the user needs structured strategic analysis and high-impact executiv...
   - Tags: consulting, strategy, mece, frameworks, business-analysis
+
+- **startup-growth-strategist** (v1.0.0)
+  - Description: This skill should be used when you need to validate a business idea, calculate market size (TAM/SAM/...
+  - Tags: startup, growth, marketing, gtm, unit-economics, tam-sam-som
 
 
 ---
