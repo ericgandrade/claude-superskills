@@ -1,12 +1,7 @@
 ---
 name: interview-prep-generator
-description: "This skill should be used when generate STAR stories, practice questions, and talking points from resume"
-version: 1.0.0
-author: Eric Andrade
-platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
-category: career
-tags: [resume, career]
-risk: safe
+description: This skill should be used when generate STAR stories, practice questions, and talking points from resume
+license: MIT
 ---
 
 ---name: Interview Prep Generator

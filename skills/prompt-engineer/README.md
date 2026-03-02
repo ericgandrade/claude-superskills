@@ -664,8 +664,8 @@ Then configure:
 | Version | 1.1.0 |
 | Author | Eric Andrade |
 | Created | 2025-02-01 |
-| Updated | 2026-02-04 |
-| Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex |
+| Updated | 2026-03-01 |
+| Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | automation |
 | Tags | prompt-engineering, optimization, frameworks, ai-enhancement |
 | Risk | safe |

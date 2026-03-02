@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **claude-superskills** is a reusable AI skills library for **8 AI platforms**: GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, and AdaL CLI. Skills are Markdown-based workflow specifications (`SKILL.md`) that teach AI agents how to perform specific tasks.
 
-- **npm package**: `claude-superskills` (v1.15.1) — `npx claude-superskills`
+- **npm package**: `claude-superskills` (v1.15.2) — `npx claude-superskills`
 - **Claude Code plugin**: `claude --plugin-dir ./claude-superskills` — native plugin, no npm needed
 - **GitHub**: `https://github.com/ericgandrade/claude-superskills`
 - **Old package** `cli-ai-skills` is deprecated, redirects to this one
@@ -343,27 +343,21 @@ Each skill directory contains:
 
 ### SKILL.md Frontmatter Requirements
 
+> 🚨 **CRITICAL FOR CLAUDE CODE:** To avoid `malformed YAML frontmatter` errors, the frontmatter in `SKILL.md` must be **minimal**. The Claude Code parser is extremely strict and only supports specific fields.
+
 ```yaml
 ---
 name: kebab-case-name        # Required, lowercase with hyphens only
-description: "This skill should be used when..."  # Required, third-person
-version: 1.0.0              # Required, SemVer
-author: Name Surname         # Optional, plain string — safe in YAML
-platforms: [platform-a, platform-b]  # Optional, array of strings
-category: category-name      # Optional, plain string
-tags: [tag1, tag2]           # Optional, array of strings
-risk: safe                   # Optional: safe | medium | high
-triggers:                    # Optional, recommended for specific invocations
-  - "trigger phrase"
+description: Transform raw prompts into optimized prompts... # Required, no quotes unless needed, single line
+license: MIT                # Required
 ---
 ```
 
-> ⛔ **NEVER add `created:` or `updated:` date fields to SKILL.md frontmatter.**
-> Bare `YYYY-MM-DD` values (e.g. `created: 2026-02-20`) are parsed as **Date objects**
-> by js-yaml (the YAML parser used by Claude Code v2+), NOT as strings. This causes
-> Claude Code to throw `malformed YAML frontmatter in SKILL.md` and refuse to load
-> the skill entirely. **Move creation and update dates to the `README.md` Metadata
-> section** as plain text strings in a Markdown table — they are safe there.
+**Mandatory Rules:**
+1. **NO EXTRA FIELDS:** Never add `version`, `author`, `platforms`, `category`, `tags`, `risk`, `created`, or `updated` to the `SKILL.md` frontmatter. These fields cause loading failures in Claude Code.
+2. **MOVE METADATA TO README:** All extra metadata (Version, Author, Dates, etc.) must live **exclusively** in the `## Metadata` table of the `README.md` file.
+3. **SINGLE LINE DESCRIPTION:** Keep the description on a single line. Avoid complex characters or lists inside the YAML block.
+4. **LICENSE FIELD:** Always include the `license` field in the frontmatter.
 
 ### Required Sections
 
@@ -396,7 +390,7 @@ Skills that interact with project structure should include a discovery phase tha
 
 ## Version Management
 
-The package version is defined in `cli-installer/package.json` (currently **v1.15.1**).
+The package version is defined in `cli-installer/package.json` (currently **v1.15.2**).
 `.claude-plugin/plugin.json` `"version"` must always match `package.json` exactly.
 
 - `cli-installer/package.json` — source of truth for npm version

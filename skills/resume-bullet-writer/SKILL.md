@@ -1,12 +1,7 @@
 ---
 name: resume-bullet-writer
-description: "This skill should be used when transform weak resume bullets into achievement-focused statements with metrics and impact"
-version: 1.0.0
-author: Eric Andrade
-platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
-category: career
-tags: [resume, career]
-risk: safe
+description: This skill should be used when transform weak resume bullets into achievement-focused statements with metrics and impact
+license: MIT
 ---
 
 ---name: Resume Bullet Writer

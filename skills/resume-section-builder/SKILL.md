@@ -1,12 +1,7 @@
 ---
 name: resume-section-builder
-description: "This skill should be used when create targeted resume sections optimized for different experience levels and roles"
-version: 1.0.0
-author: Eric Andrade
-platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
-category: career
-tags: [resume, career]
-risk: safe
+description: This skill should be used when create targeted resume sections optimized for different experience levels and roles
+license: MIT
 ---
 
 ---name: Resume Section Builder

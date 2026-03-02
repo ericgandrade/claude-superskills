@@ -1,12 +1,7 @@
 ---
 name: ai-native-product
-description: "This skill should be used when build AI-native products with agency-control tradeoffs, calibration loops, and eval strategies. Use when building AI agents, LLM features, or products where AI handles user tasks autonomously. Part of the Modern Product Operating Model collection."
-version: 1.0.0
-author: Eric Andrade
-platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
-category: product
-tags: [product, strategy, framework, management]
-risk: safe
+description: This skill should be used when build AI-native products with agency-control tradeoffs, calibration loops, and eval strategies. Use when building AI agents, LLM features, or products where AI handles user tasks autonomously. Part of the Modern Product Operating Model collection.
+license: MIT
 ---
 
 # AI-Native Product Development

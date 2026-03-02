@@ -1,12 +1,7 @@
 ---
 name: us-program-research
-description: "This skill should be used when the user needs structured research and ranking of US academic programs (PhD, Master"
-version: 1.0.0
-author: Eric Andrade
-platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
-category: research
-tags: [us-programs, university-research, rankings, admissions, scorecards]
-risk: medium
+description: This skill should be used when the user needs structured research and ranking of US academic programs (PhD, Master
+license: MIT
 ---
 
 # US Academic Program Research — Complete Workflow

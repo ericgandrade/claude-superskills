@@ -1,12 +1,7 @@
 ---
 name: product-delivery
-description: "This skill should be used when ship, measure, and learn effectively. Use when planning staged rollouts, setting up metrics hierarchies, running bet retrospectives, or executing GTM launches. Part of the Modern Product Operating Model collection."
-version: 1.0.0
-author: Eric Andrade
-platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
-category: product
-tags: [product, strategy, framework, management]
-risk: safe
+description: This skill should be used when ship, measure, and learn effectively. Use when planning staged rollouts, setting up metrics hierarchies, running bet retrospectives, or executing GTM launches. Part of the Modern Product Operating Model collection.
+license: MIT
 ---
 
 # Product Delivery System

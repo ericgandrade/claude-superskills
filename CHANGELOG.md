@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.15.2] - 2026-03-01
+
+### Fixed
+- **Claude Code Compatibility:** Adopted minimal YAML frontmatter across all skills to fix "malformed YAML frontmatter" errors.
+- **Metadata Management:** Moved detailed metadata (version, author, tags) to README.md files.
+
 ## [1.15.1] - 2026-03-01
 
 ### Fixed

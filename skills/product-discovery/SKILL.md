@@ -1,12 +1,7 @@
 ---
 name: product-discovery
-description: "This skill should be used when run continuous discovery to find problems worth solving. Use when setting up weekly discovery rhythm, building Opportunity Solution Trees, creating interview snapshots, exploring solutions, or testing assumptions before committing engineering resources. Part of the Modern Product Operating Model collection."
-version: 1.0.0
-author: Eric Andrade
-platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
-category: product
-tags: [product, strategy, framework, management]
-risk: safe
+description: This skill should be used when run continuous discovery to find problems worth solving. Use when setting up weekly discovery rhythm, building Opportunity Solution Trees, creating interview snapshots, exploring solutions, or testing assumptions before committing engineering resources. Part of the Modern Product Operating Model collection.
+license: MIT
 ---
 
 # Product Discovery System

@@ -1,12 +1,7 @@
 ---
 name: product-operating-model
-description: "This skill should be used when index of the Modern Product Operating Model — a collection of composable product skills. Use when user wants an overview of all product skills, doesn"
-version: 1.0.0
-author: Eric Andrade
-platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
-category: product
-tags: [product, strategy, framework, management]
-risk: safe
+description: This skill should be used when index of the Modern Product Operating Model — a collection of composable product skills. Use when user wants an overview of all product skills, doesn
+license: MIT
 ---
 
 # Modern Product Operating Model

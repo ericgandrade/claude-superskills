@@ -35,38 +35,30 @@ Each skill lives in a platform-specific directory:
 
 ### 1. YAML Frontmatter (Required)
 
-Every SKILL.md file starts with YAML metadata:
+Every SKILL.md file starts with a **minimal** YAML metadata block. This is critical for compatibility with the Claude Code parser.
 
 ```yaml
 ---
-name: skill-creator
-description: "This skill should be used when creating new skills, building a skill, 
-  making a custom skill, developing a CLI skill, or wants to extend the CLI with 
-  new capabilities. Automates the entire skill creation workflow from brainstorming 
-  to installation."
-triggers: ["create a new skill", "build a skill", "make a custom skill", "develop a CLI skill"]
-version: 1.3.0
-category: meta
-tags: ["automation", "scaffolding", "skill-creation", "meta-skill"]
-risk: safe
-platforms: ["github-copilot-cli", "claude-code", "codex"]
+name: skill-name
+description: This skill should be used when you need to [clear use case]...
+license: MIT
 ---
 ```
 
-### 2. Metadata Fields
+> 🚨 **IMPORTANT:** Never add fields like `version`, `author`, `category`, or `tags` to the `SKILL.md` frontmatter. These fields will cause `malformed YAML frontmatter` errors in Claude Code. All detailed metadata belongs in the `README.md` file.
 
-#### **Required Fields**
+### 2. Metadata Fields (README.md only)
+
+All detailed metadata must be placed in a Markdown table under the `## Metadata` section of the skill's `README.md` file.
 
 | Field | Type | Example | Purpose |
 |-------|------|---------|---------|
-| `name` | string | `skill-creator` | Unique identifier for the skill |
-| `description` | string | "This skill should be used when..." | What the skill does (2-3 sentences) |
-| `triggers` | array | `["create a new skill"]` | Keywords/phrases that invoke the skill |
-| `version` | string | `1.3.0` | Semantic version (MAJOR.MINOR.PATCH) |
-| `category` | string | `meta` | Skill category (see categories below) |
-| `tags` | array | `["automation", "scaffolding"]` | Keywords for search/discovery |
-| `risk` | string | `safe` | Safety level (see risk levels below) |
-| `platforms` | array | `["github-copilot-cli"]` | Supported platforms |
+| `Version` | string | `1.3.0` | Semantic version |
+| `Author` | string | `Eric Andrade` | Original author |
+| `Platforms` | array | `Claude Code, Gemini CLI` | Supported environments |
+| `Category` | string | `automation` | Organizational category |
+| `Tags` | array | `prompt, optimization` | Discovery tags |
+| `Risk` | string | `safe` | Execution risk level |
 
 #### **Category Values**
 

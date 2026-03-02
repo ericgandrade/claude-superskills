@@ -1,12 +1,7 @@
 ---
 name: prompt-engineer
-description: "This skill should be used when the user needs to transform raw prompts into optimized prompts using frameworks (RTF, RISEN, Chain of Thought, RODES, Chain of Density, RACE, RISE, STAR, SOAP, CLEAR, GROW)."
-version: 1.1.0
-author: Eric Andrade
-platforms: [github-copilot-cli, claude-code, openai-codex]
-category: automation
-tags: [prompt-engineering, optimization, frameworks, ai-enhancement]
-risk: safe
+description: Transform raw prompts into optimized prompts using established frameworks like RTF, RISEN, Chain of Thought, RODES, Chain of Density, RACE, RISE, STAR, SOAP, CLEAR, and GROW. Use this skill when the user provides vague prompts, needs help articulating complex ideas, or wants to improve the effectiveness of their AI interactions.
+license: MIT
 ---
 
 ## Purpose

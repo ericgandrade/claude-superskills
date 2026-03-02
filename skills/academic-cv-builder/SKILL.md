@@ -1,12 +1,7 @@
 ---
 name: academic-cv-builder
-description: "This skill should be used when format CVs for academic positions with publications, grants, and teaching"
-version: 1.0.0
-author: Eric Andrade
-platforms: [github-copilot-cli, claude-code, openai-codex, opencode, gemini-cli, antigravity, cursor-ide, adal-cli]
-category: career
-tags: [resume, career]
-risk: safe
+description: This skill should be used when format CVs for academic positions with publications, grants, and teaching
+license: MIT
 ---
 
 ---name: Academic CV Builder
