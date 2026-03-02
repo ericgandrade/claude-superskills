@@ -418,9 +418,14 @@ Do not skip any of these steps when bumping the version.
    - Change the footer: `*Version X.Y.Z | Month Year*`
 4. **Update the Changelog:**
    - Add a new section `## [X.Y.Z] - YYYY-MM-DD` in `CHANGELOG.md` with release notes.
-5. **Regenerate Indexes (Just in case):**
+5. **Regenerate Indexes & Update GitHub Metadata:**
    ```bash
+   # Regenerate internal catalogs
    npm run generate-all --prefix cli-installer
+   
+   # Update GitHub About & Topics (if new skills or categories were added)
+   gh repo edit --description "42+ Universal AI Skills for Claude Code & GitHub Copilot. Standardized workflows for Software Engineering, Product Strategy, Career Growth, and Deep Research."
+   gh repo edit --add-topic "claude-code,github-copilot,ai-skills,skills,prompt-engineering,product-strategy,career-development,cli,automation,generative-ai,agents,productivity,llm,anthropic,openai-codex,cursor-ide,gemini-cli,workflow-automation,tech-leadership,ats-optimization"
    ```
 6. **Commit, Tag, and Push:**
    ```bash
