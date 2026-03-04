@@ -6,6 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.17.0] - 2026-03-04
+
+### Added
+- **`pptx-to-markdown` (v1.0.0):** Deep PowerPoint-to-Markdown converter using a 4-pass pipeline — python-pptx text extraction, Apache POI 5.3.0 high-fidelity slide rendering, and dual AI vision passes (explicit + implicit visual content). Features real-time progress gauges, 12 eval gates, 3-level error handling (FATAL/WARN/INFO), and guaranteed temp cleanup via `try/finally`.
+
+---
+
+## [1.16.0] - 2026-03-04
+
+### Added
+- **`senior-solution-architect` (v1.0.0):** Unified authority for C4 modeling, Architecture Decision Records (ADRs), and system design reviews. Combines Clean Architecture, Hexagonal, and DDD patterns.
+- **`startup-growth-strategist` (v1.0.0):** Integrated authority for market sizing (TAM/SAM/SOM), unit economics, competitive analysis, and Go-To-Market strategy for founders.
+- **Architecture bundle:** New curated bundle grouping `senior-solution-architect` and `product-architecture`.
+- **Startup bundle:** New curated bundle grouping `startup-growth-strategist`, `product-strategy`, and `abx-strategy`.
+
+### Changed
+- **Release automation:** Added `scripts/release.js` to synchronize all 5 critical version files atomically.
+- **CLAUDE.md:** Updated architecture tree and Skill Types to reflect all 44 skills.
+
 ## [1.15.4] - 2026-03-01
 
 ### Fixed

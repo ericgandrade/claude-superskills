@@ -2,9 +2,9 @@
 
 Scale AI-assisted engineering with a reusable skill platform that turns ad-hoc prompting into standardized, high-impact workflows. Install once and deliver consistent planning, research, orchestration, and content automation across your entire multi-tool AI stack.
 
-![Version](https://img.shields.io/badge/version-1.16.0-blue.svg)
+![Version](https://img.shields.io/badge/version-1.17.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
-![Skills](https://img.shields.io/badge/skills-44-brightgreen.svg)
+![Skills](https://img.shields.io/badge/skills-45-brightgreen.svg)
 ![Platforms](https://img.shields.io/badge/platforms-8-orange.svg)
 
 ## 🚀 Quick Install
@@ -212,6 +212,7 @@ To be notified when the plugin is available on claude.ai, watch this repository.
 | **audio-transcriber** | v1.2.1 | Transform audio recordings into professional Markdown documentation |
 | **docling-converter** | v1.0.0 | Convert PDF/Office/image documents to Markdown/JSON/HTML with optional OCR |
 | **storytelling-expert** | v1.0.0 | Transform ideas into engaging narratives using 8 elite storytelling frameworks |
+| **pptx-to-markdown** | v1.0.0 | Deep PPTX to Markdown via python-pptx + Apache POI rendering + dual AI vision passes |
 
 ## 🎯 Curated Bundles
 
@@ -381,14 +382,14 @@ MIT - See [LICENSE](./LICENSE) for details.
 
 **Built with ❤️ by [Eric Andrade](https://github.com/ericgandrade)**
 
-*Version 1.16.0 | March 2026*
+*Version 1.17.0 | March 2026*
 
 ## 🎁 Get Started
 
 Choose a bundle that fits your workflow:
 
 - **[Essential](docs/bundles/bundles.md#-essential-bundle)** - skill-creator, prompt-engineer
-- **[Content](docs/bundles/bundles.md#-content-creation-bundle)** - youtube-summarizer, audio-transcriber, docling-converter, storytelling-expert  
+- **[Content](docs/bundles/bundles.md#-content-creation-bundle)** - youtube-summarizer, audio-transcriber, docling-converter, storytelling-expert, pptx-to-markdown  
 - **[Planning](docs/bundles/bundles.md#-planning--execution-bundle)** - brainstorming, writing-plans, executing-plans, mckinsey-strategist
 - **[Product](docs/bundles/bundles.md#-product--strategy-bundle)** - abx-strategy, ai-native-product, product-strategy, and more
 - **[Career](docs/bundles/bundles.md#-career--professional-growth-bundle)** - resume-ats-optimizer, interview-prep, salary-negotiation, and more
