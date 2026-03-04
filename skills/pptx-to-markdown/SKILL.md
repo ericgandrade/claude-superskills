@@ -23,7 +23,12 @@ Transform PowerPoint presentations into comprehensive Markdown documents that ca
 - Generate a comprehensive text summary of a presentation without losing visual context
 - Prepare presentation content for RAG pipelines or LLM processing
 
-> **⚠️ Prerequisite:** Java 11+ must be installed before running this skill. If Java is absent the skill will abort immediately — no alternative renderer will be used. Install with `brew install openjdk@17` (macOS) or `sudo apt install default-jdk` (Ubuntu).
+> **⚠️ Prerequisites — all must be installed before running:**
+> - **Python 3**: `brew install python3` / `sudo apt install python3`
+> - **python-pptx**: `pip install python-pptx`
+> - **Java 11+**: `brew install openjdk@17` / `sudo apt install default-jdk`
+>
+> The skill will abort immediately if any dependency is missing — no auto-install or alternative renderer will be attempted.
 
 **Trigger phrases:**
 - "convert this presentation to markdown: slides.pptx"
@@ -67,19 +72,30 @@ fi
 echo "  ✅ eval Step 0a OK — Arquivo encontrado: $PPTX_FILE"
 ```
 
-**EVAL 0b — Python + python-pptx:**
+**EVAL 0b — Python 3 + python-pptx (hard dependencies, no auto-install):**
 ```bash
-python3 -c "import pptx" 2>/dev/null || {
-    echo "  🟢 INFO: python-pptx não encontrado. Instalando..."
-    pip install python-pptx --quiet --break-system-packages || \
-    pip install python-pptx --quiet
-}
-python3 -c "import pptx" 2>/dev/null || {
-    echo "❌ ERRO FATAL — Step 0: Não foi possível instalar python-pptx"
-    echo "   💡 Solução: pip install python-pptx"
+# Stage 1: verify python3 binary exists
+if ! command -v python3 &>/dev/null; then
+    echo "❌ ERRO FATAL — Step 0: python3 not found on PATH"
+    echo "   python3 is a hard dependency — no alternative will be attempted."
+    echo "   💡 Install Python 3:"
+    echo "      macOS  : brew install python3"
+    echo "      Ubuntu : sudo apt install python3"
+    echo "      Windows: https://python.org/downloads"
+    rm -rf "$TMP_DIR"
     exit 1
-}
-echo "  ✅ eval Step 0b OK — python-pptx disponível"
+fi
+
+# Stage 2: verify python-pptx is installed
+if ! python3 -c "import pptx" 2>/dev/null; then
+    echo "❌ ERRO FATAL — Step 0: python-pptx not found"
+    echo "   python-pptx is a hard dependency — no alternative will be attempted."
+    echo "   💡 Install python-pptx:"
+    echo "      pip install python-pptx"
+    rm -rf "$TMP_DIR"
+    exit 1
+fi
+echo "  ✅ eval Step 0b OK — python3 + python-pptx available"
 ```
 
 **EVAL 0c — Java 11+ (hard dependency, no fallback):**
@@ -668,8 +684,9 @@ echo "   🧹 Temporários removidos"
 - NEVER leave the `.<stem>_tmp/` directory behind — cleanup runs in `finally` regardless of errors
 - NEVER reference temporary PNG files in the final Markdown output
 - NEVER skip the EVAL gates — each validation exists to catch silent failures
-- NEVER proceed past Step 0 if Java is not available (it is a hard dependency with no fallback)
-- NEVER attempt alternative renderers (LibreOffice, pptx2pdf, python-pptx image export) if Java is absent — fail fast with install instructions
+- NEVER proceed past Step 0 if any dependency is missing (python3, python-pptx, Java 11+) — all are hard dependencies with no fallback
+- NEVER auto-install or auto-upgrade any dependency — fail fast with install instructions instead
+- NEVER attempt alternative renderers (LibreOffice, pptx2pdf, python-pptx image export) if Java is absent — fail fast
 - NEVER run `npm publish` or any publish command as part of this skill
 
 **ALWAYS:**

@@ -88,22 +88,29 @@ Cleanup (`rm -rf .<stem>_tmp/`) always runs inside a `try/finally` block.
 
 ## Dependencies
 
-| Dependency | How it's obtained |
-|------------|------------------|
-| `python-pptx` | Auto-installed via `pip install python-pptx` |
-| Java JDK 11+ | Must be installed — see hints below |
-| Apache POI 5.3.0 JARs | Auto-downloaded from Maven Central |
+All dependencies must be installed **before** running the skill. The skill will abort with a FATAL error if any are missing — no auto-install or alternative path will be attempted.
 
-**Java installation:**
+| Dependency | Required | How to install |
+|------------|----------|----------------|
+| `python3` | ✅ Hard | `brew install python3` / `sudo apt install python3` |
+| `python-pptx` | ✅ Hard | `pip install python-pptx` |
+| Java JDK 11+ | ✅ Hard | `brew install openjdk@17` / `sudo apt install default-jdk` |
+| Apache POI 5.3.0 JARs | ✅ Hard | Auto-downloaded from Maven Central on first run |
+
+**Full setup (run once before first use):**
 ```bash
 # macOS
-brew install openjdk@17
+brew install python3 openjdk@17
+pip install python-pptx
 
 # Ubuntu / Debian
-sudo apt install default-jdk
+sudo apt install python3 python3-pip default-jdk
+pip install python-pptx
 
 # Windows
-# https://adoptium.net
+# python3: https://python.org/downloads
+# java:    https://adoptium.net
+# then:    pip install python-pptx
 ```
 
 ## Metadata
