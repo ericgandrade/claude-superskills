@@ -23,6 +23,8 @@ Transform PowerPoint presentations into comprehensive Markdown documents that ca
 - Generate a comprehensive text summary of a presentation without losing visual context
 - Prepare presentation content for RAG pipelines or LLM processing
 
+> **⚠️ Prerequisite:** Java 11+ must be installed before running this skill. If Java is absent the skill will abort immediately — no alternative renderer will be used. Install with `brew install openjdk@17` (macOS) or `sudo apt install default-jdk` (Ubuntu).
+
 **Trigger phrases:**
 - "convert this presentation to markdown: slides.pptx"
 - "extract all content from: quarterly-review.pptx"
@@ -80,18 +82,33 @@ python3 -c "import pptx" 2>/dev/null || {
 echo "  ✅ eval Step 0b OK — python-pptx disponível"
 ```
 
-**EVAL 0c — Java 11+:**
+**EVAL 0c — Java 11+ (hard dependency, no fallback):**
 ```bash
-JAVA_VERSION=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}' | cut -d. -f1)
-if [ -z "$JAVA_VERSION" ] || [ "$JAVA_VERSION" -lt 11 ] 2>/dev/null; then
-    echo "❌ ERRO FATAL — Step 0: Java 11+ não encontrado"
-    echo "   💡 Solução:"
+# Stage 1: verify java binary exists
+if ! command -v java &>/dev/null; then
+    echo "❌ ERRO FATAL — Step 0: Java not found on PATH"
+    echo "   Java 11+ is a hard dependency — no alternative renderer will be attempted."
+    echo "   💡 Install Java 11+:"
     echo "      macOS  : brew install openjdk@17"
     echo "      Ubuntu : sudo apt install default-jdk"
     echo "      Windows: https://adoptium.net"
+    rm -rf "$TMP_DIR"
     exit 1
 fi
-echo "  ✅ eval Step 0c OK — Java $JAVA_VERSION detectado"
+
+# Stage 2: verify version >= 11
+JAVA_VERSION=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}' | cut -d. -f1)
+if [ -z "$JAVA_VERSION" ] || ! [ "$JAVA_VERSION" -ge 11 ] 2>/dev/null; then
+    echo "❌ ERRO FATAL — Step 0: Java 11+ required, detected version: ${JAVA_VERSION:-unknown}"
+    echo "   Java 11+ is a hard dependency — no alternative renderer will be attempted."
+    echo "   💡 Upgrade Java:"
+    echo "      macOS  : brew install openjdk@17"
+    echo "      Ubuntu : sudo apt install default-jdk"
+    echo "      Windows: https://adoptium.net"
+    rm -rf "$TMP_DIR"
+    exit 1
+fi
+echo "  ✅ eval Step 0c OK — Java $JAVA_VERSION detected"
 ```
 
 **EVAL 0d — Apache POI JARs (download automático se ausentes):**
@@ -651,7 +668,8 @@ echo "   🧹 Temporários removidos"
 - NEVER leave the `.<stem>_tmp/` directory behind — cleanup runs in `finally` regardless of errors
 - NEVER reference temporary PNG files in the final Markdown output
 - NEVER skip the EVAL gates — each validation exists to catch silent failures
-- NEVER proceed past Step 0 if Java is not available (it is a hard dependency)
+- NEVER proceed past Step 0 if Java is not available (it is a hard dependency with no fallback)
+- NEVER attempt alternative renderers (LibreOffice, pptx2pdf, python-pptx image export) if Java is absent — fail fast with install instructions
 - NEVER run `npm publish` or any publish command as part of this skill
 
 **ALWAYS:**
