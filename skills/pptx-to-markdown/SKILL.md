@@ -47,6 +47,7 @@ STEM=$(basename "$PPTX_FILE" .pptx)
 PPTX_DIR=$(dirname "$PPTX_FILE")
 TMP_DIR="${PPTX_DIR}/.${STEM}_tmp"
 SLIDES_DIR="${TMP_DIR}/slides"
+WARN_COUNT=0
 
 mkdir -p "$SLIDES_DIR"
 ```
@@ -130,7 +131,7 @@ echo "  ✅ eval Step 0d OK — ${#JARS[@]} JARs do Apache POI disponíveis"
 
 ---
 
-### Step 1: Extração de Texto (python-pptx)
+### Step 1: Text Extraction (python-pptx)
 
 **Gauge:** `[████░░░░░░░░░░░░░░░░] 14% - Step 1/7: Extraindo texto dos slides...`
 
@@ -236,7 +237,7 @@ echo "  ✅ eval Step 1 OK — $N_SLIDES slides extraídos"
 
 ---
 
-### Step 2a: Renderização de Slides (Apache POI)
+### Step 2a: Slide Rendering (Apache POI)
 
 **Gauge:** `[████████░░░░░░░░░░░░] 29% - Step 2/7: Renderizando slides com Apache POI...`
 
@@ -245,8 +246,25 @@ echo "  ✅ eval Step 1 OK — $N_SLIDES slides extraídos"
 **Actions:**
 
 ```bash
-# Copy render_slides.java to tmp dir and compile
-SKILL_SCRIPTS_DIR="$(dirname "$0")/../scripts"
+# Locate render_slides.java (installed alongside this skill)
+SKILL_SCRIPTS_DIR=""
+for d in \
+    "$HOME/.github/skills/pptx-to-markdown/scripts" \
+    "$HOME/.claude/skills/pptx-to-markdown/scripts" \
+    "$HOME/.codex/skills/pptx-to-markdown/scripts" \
+    "$HOME/.gemini/skills/pptx-to-markdown/scripts" \
+    "$HOME/.cursor/skills/pptx-to-markdown/scripts"; do
+    if [ -f "${d}/render_slides.java" ]; then
+        SKILL_SCRIPTS_DIR="$d"
+        break
+    fi
+done
+if [ -z "$SKILL_SCRIPTS_DIR" ]; then
+    echo "❌ ERRO FATAL — Step 2a: render_slides.java not found in any installed skill path"
+    echo "   💡 Reinstall the skill: npx claude-superskills"
+    rm -rf "$TMP_DIR"
+    exit 1
+fi
 cp "${SKILL_SCRIPTS_DIR}/render_slides.java" "${TMP_DIR}/RenderSlides.java"
 
 javac -cp "$CLASSPATH" "${TMP_DIR}/RenderSlides.java" -d "${TMP_DIR}" 2>&1
@@ -270,6 +288,7 @@ if [ "$PNG_COUNT" -eq 0 ]; then
     exit 1
 elif [ "$PNG_COUNT" -lt "$N_SLIDES" ]; then
     echo "  ⚠️  WARN Step 2a: $PNG_COUNT/$N_SLIDES PNGs gerados (parcial)"
+    WARN_COUNT=$((WARN_COUNT + 1))
 else
     echo "  ✅ eval Step 2a OK — $PNG_COUNT/$N_SLIDES PNGs gerados"
 fi
@@ -280,12 +299,12 @@ for png in "${SLIDES_DIR}"/slide_*.png; do
     size=$(wc -c < "$png")
     [ "$size" -lt 5120 ] && BLANK_COUNT=$((BLANK_COUNT + 1))
 done
-[ "$BLANK_COUNT" -gt 0 ] && echo "  ⚠️  WARN Step 2a: $BLANK_COUNT slides possivelmente em branco (< 5KB)"
+[ "$BLANK_COUNT" -gt 0 ] && { echo "  ⚠️  WARN Step 2a: $BLANK_COUNT slides possivelmente em branco (< 5KB)"; WARN_COUNT=$((WARN_COUNT + 1)); }
 ```
 
 ---
 
-### Step 2b: Análise Visual Explícita (Visão IA — 1ª passada)
+### Step 2b: Explicit Visual Analysis (AI Vision — Pass 1)
 
 **Gauge:** `[████████████░░░░░░░░] 43% - Step 3/7: Análise visual explícita...`
 
@@ -325,6 +344,7 @@ Save to `${TMP_DIR}/visual_explicit.json`.
 EXPLICIT_COUNT=$(python3 -c "import json; d=json.load(open('${TMP_DIR}/visual_explicit.json')); print(len(d['slides']))" 2>/dev/null)
 if [ "$EXPLICIT_COUNT" -lt "$PNG_COUNT" ]; then
     echo "  ⚠️  WARN Step 2b: Análise explícita parcial ($EXPLICIT_COUNT/$PNG_COUNT slides)"
+    WARN_COUNT=$((WARN_COUNT + 1))
 else
     echo "  ✅ eval Step 2b OK — $EXPLICIT_COUNT slides analisados (explícito)"
 fi
@@ -332,7 +352,7 @@ fi
 
 ---
 
-### Step 2c: Análise Visual Implícita (Visão IA — 2ª passada)
+### Step 2c: Implicit Visual Analysis (AI Vision — Pass 2)
 
 **Gauge:** `[████████████████░░░░] 57% - Step 4/7: Análise visual implícita...`
 
@@ -378,6 +398,7 @@ Save to `${TMP_DIR}/visual_implicit.json`.
 IMPLICIT_COUNT=$(python3 -c "import json; d=json.load(open('${TMP_DIR}/visual_implicit.json')); print(len(d['slides']))" 2>/dev/null)
 if [ "$IMPLICIT_COUNT" -lt "$PNG_COUNT" ]; then
     echo "  ⚠️  WARN Step 2c: Análise implícita parcial ($IMPLICIT_COUNT/$PNG_COUNT slides)"
+    WARN_COUNT=$((WARN_COUNT + 1))
 else
     echo "  ✅ eval Step 2c OK — $IMPLICIT_COUNT slides analisados (implícito)"
 fi
@@ -385,9 +406,9 @@ fi
 
 ---
 
-### Step 3: Enriquecimento e Geração do Markdown
+### Step 3: Enrichment & Markdown Generation
 
-**Gauge:** `[████████████████████] 71% - Step 5/7: Gerando Markdown enriquecido...`
+**Gauge:** `[██████████████░░░░░░] 71% - Step 5/7: Gerando Markdown enriquecido...`
 
 **Objective:** Combine all three data sources into a single, rich Markdown document.
 
@@ -575,6 +596,7 @@ echo "  ✅ eval Step 3a OK — Markdown gerado: $OUTPUT_MD ($MD_SIZE bytes)"
 SECTION_COUNT=$(grep -c "^## Slide" "$OUTPUT_MD" 2>/dev/null || echo 0)
 if [ "$SECTION_COUNT" -lt "$N_SLIDES" ]; then
     echo "  ⚠️  WARN Step 3b: $SECTION_COUNT/$N_SLIDES seções de slide no MD"
+    WARN_COUNT=$((WARN_COUNT + 1))
 else
     echo "  ✅ eval Step 3b OK — $SECTION_COUNT seções de slide geradas"
 fi
@@ -585,6 +607,7 @@ fi
 WORD_COUNT=$(wc -w < "$OUTPUT_MD" 2>/dev/null || echo 0)
 if [ "$WORD_COUNT" -lt 100 ]; then
     echo "  ⚠️  WARN Step 3c: Markdown com poucos termos ($WORD_COUNT palavras) — apresentação pode ser muito visual"
+    WARN_COUNT=$((WARN_COUNT + 1))
 else
     echo "  ✅ eval Step 3c OK — $WORD_COUNT palavras no documento final"
 fi
@@ -592,9 +615,9 @@ fi
 
 ---
 
-### Step 4: Limpeza
+### Step 4: Cleanup
 
-**Gauge:** `[████████████████████] 86% - Step 6/7: Removendo arquivos temporários...`
+**Gauge:** `[█████████████████░░░] 86% - Step 6/7: Removendo arquivos temporários...`
 
 **Objective:** Remove all temporary files. Always runs, even if a previous step failed.
 
