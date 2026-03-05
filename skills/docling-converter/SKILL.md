@@ -1,6 +1,6 @@
 ---
 name: docling-converter
-description: This skill should be used when the user needs to convert documents into structured Markdown or JSON using Docling.
+description: This skill should be used when the user needs to convert documents (PDF, DOCX, PPTX, XLSX, HTML, images) into structured Markdown or JSON using Docling. Also use when the user wants to convert a PowerPoint presentation (.pptx) to Markdown.
 license: MIT
 ---
 
@@ -38,6 +38,10 @@ copilot> convert this pdf to markdown: report.pdf
 copilot> extract tables from: data.xlsx
 copilot> docling convert: presentation.pptx
 copilot> process document: scanned-contract.pdf --ocr
+copilot> convert this pptx to markdown: deck.pptx
+copilot> pptx to markdown: strategy-2026.pptx
+claude> convert this presentation to markdown: roadmap.pptx
+claude> pptx to markdown: proposal.pptx
 ```
 
 ---
