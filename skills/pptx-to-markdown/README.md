@@ -1,6 +1,6 @@
 # pptx-to-markdown
 
-Convert PowerPoint presentations into rich, structured Markdown using a 4-pass deep analysis pipeline: text extraction (python-pptx), high-fidelity slide rendering (Apache POI), and dual AI vision passes for explicit and implicit visual content.
+Convert PowerPoint presentations into rich, structured Markdown using a 4-pass deep analysis pipeline: text extraction (python-pptx), slide rendering (pptx2png), and dual AI vision passes for explicit and implicit visual content.
 
 ## When to use
 
@@ -13,7 +13,6 @@ Convert PowerPoint presentations into rich, structured Markdown using a 4-pass d
 
 - `SKILL.md` — Full 7-step workflow with progress gauges, error handling, and eval gates
 - `README.md` — This documentation file
-- `scripts/render_slides.java` — Apache POI 5.3.0 utility to render slides as PNGs
 
 ## Pipeline overview
 
@@ -23,8 +22,8 @@ Convert PowerPoint presentations into rich, structured Markdown using a 4-pass d
   ├── Step 1: python-pptx ──────────► text_pass.json
   │                                   (titles, bullets, notes, tables)
   │
-  ├── Step 2a: Apache POI ──────────► slide_001.png … slide_NNN.png
-  │                                   (high-fidelity rendering)
+  ├── Step 2a: pptx2png ────────────► slide_001.png … slide_NNN.png
+  │                                   (2× resolution rendering)
   │
   ├── Step 2b: AI Vision (pass 1) ──► visual_explicit.json
   │                                   (WordArt, layout, icons)
@@ -68,7 +67,7 @@ The skill prints real-time progress at two levels:
 
 **Step-level (macro):**
 ```
-[████████░░░░░░░░░░░░] 29% - Step 2/7: Renderizando slides com Apache POI...
+[████████░░░░░░░░░░░░] 29% - Step 2/7: Rendering slides with pptx2png...
 ```
 
 **Slide-level (micro, in-place):**
@@ -80,9 +79,8 @@ The skill prints real-time progress at two levels:
 
 | Severity | Examples | Behaviour |
 |----------|----------|-----------|
-| 🔴 FATAL | Java absent, PPTX not found, 0 PNGs generated | Aborts, cleans temp dir, shows fix hint |
+| 🔴 FATAL | pptx2png absent, PPTX not found, 0 PNGs generated | Aborts, cleans temp dir, shows fix hint |
 | 🟡 WARN | Partial PNG render, empty slide, vision incomplete | Continues, marks slide `⚠️`, reports in summary |
-| 🟢 INFO | python-pptx missing, JAR missing | Auto-installs/downloads and continues |
 
 Cleanup (`rm -rf .<stem>_tmp/`) always runs inside a `try/finally` block.
 
@@ -94,23 +92,21 @@ All dependencies must be installed **before** running the skill. The skill will 
 |------------|----------|----------------|
 | `python3` | ✅ Hard | `brew install python3` / `sudo apt install python3` |
 | `python-pptx` | ✅ Hard | `pip install python-pptx` |
-| Java JDK 11+ | ✅ Hard | `brew install openjdk@17` / `sudo apt install default-jdk` |
-| Apache POI 5.3.0 JARs | ✅ Hard | Auto-downloaded from Maven Central on first run |
+| `pptx2png` | ✅ Hard | `pip install pptx2png` |
 
 **Full setup (run once before first use):**
 ```bash
 # macOS
-brew install python3 openjdk@17
-pip install python-pptx
+brew install python3
+pip install python-pptx pptx2png
 
 # Ubuntu / Debian
-sudo apt install python3 python3-pip default-jdk
-pip install python-pptx
+sudo apt install python3 python3-pip
+pip install python-pptx pptx2png
 
 # Windows
 # python3: https://python.org/downloads
-# java:    https://adoptium.net
-# then:    pip install python-pptx
+# then:    pip install python-pptx pptx2png
 ```
 
 ## Metadata
@@ -123,5 +119,5 @@ pip install python-pptx
 | Updated | 2026-03-04 |
 | Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, Gemini CLI, Cursor IDE |
 | Category | content |
-| Tags | pptx, powerpoint, markdown, apache-poi, vision, document-conversion, presentation |
+| Tags | pptx, powerpoint, markdown, pptx2png, vision, document-conversion, presentation |
 | Risk | safe |

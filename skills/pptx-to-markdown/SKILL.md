@@ -1,6 +1,6 @@
 ---
 name: pptx-to-markdown
-description: This skill should be used when you need to convert a PowerPoint (.pptx) presentation into a rich, structured Markdown document using multi-pass analysis that combines structural text extraction via python-pptx, high-fidelity slide rendering via Apache POI, and AI vision analysis for both explicit and implicit visual content such as charts, timelines, and diagrams.
+description: This skill should be used when you need to convert a PowerPoint (.pptx) presentation into a rich, structured Markdown document using multi-pass analysis that combines structural text extraction via python-pptx, slide rendering via pptx2png, and AI vision analysis for both explicit and implicit visual content such as charts, timelines, and diagrams.
 license: MIT
 ---
 
@@ -12,7 +12,7 @@ Convert any `.pptx` presentation into a rich, structured Markdown document using
 
 ## Purpose
 
-Transform PowerPoint presentations into comprehensive Markdown documents that capture not only the explicit text content, but also the visual intelligence embedded in slides — charts, timelines, diagrams, images, color coding, and layout semantics — using Apache POI for high-fidelity rendering and AI vision for deep analysis.
+Transform PowerPoint presentations into comprehensive Markdown documents that capture not only the explicit text content, but also the visual intelligence embedded in slides — charts, timelines, diagrams, images, color coding, and layout semantics — using pptx2png for slide rendering and AI vision for deep analysis.
 
 ---
 
@@ -26,7 +26,7 @@ Transform PowerPoint presentations into comprehensive Markdown documents that ca
 > **⚠️ Prerequisites — all must be installed before running:**
 > - **Python 3**: `brew install python3` / `sudo apt install python3`
 > - **python-pptx**: `pip install python-pptx`
-> - **Java 11+**: `brew install openjdk@17` / `sudo apt install default-jdk`
+> - **pptx2png**: `pip install pptx2png`
 >
 > The skill will abort immediately if any dependency is missing — no auto-install or alternative renderer will be attempted.
 
@@ -72,7 +72,7 @@ fi
 echo "  ✅ eval Step 0a OK — Arquivo encontrado: $PPTX_FILE"
 ```
 
-**EVAL 0b — Python 3 + python-pptx (hard dependencies, no auto-install):**
+**EVAL 0b — Python 3 + python-pptx + pptx2png (hard dependencies, no auto-install):**
 ```bash
 # Stage 1: verify python3 binary exists
 if ! command -v python3 &>/dev/null; then
@@ -95,71 +95,17 @@ if ! python3 -c "import pptx" 2>/dev/null; then
     rm -rf "$TMP_DIR"
     exit 1
 fi
-echo "  ✅ eval Step 0b OK — python3 + python-pptx available"
-```
 
-**EVAL 0c — Java 11+ (hard dependency, no fallback):**
-```bash
-# Stage 1: verify java binary exists
-if ! command -v java &>/dev/null; then
-    echo "❌ ERRO FATAL — Step 0: Java not found on PATH"
-    echo "   Java 11+ is a hard dependency — no alternative renderer will be attempted."
-    echo "   💡 Install Java 11+:"
-    echo "      macOS  : brew install openjdk@17"
-    echo "      Ubuntu : sudo apt install default-jdk"
-    echo "      Windows: https://adoptium.net"
+# Stage 3: verify pptx2png is installed
+if ! python3 -c "import pptx2png" 2>/dev/null; then
+    echo "❌ ERRO FATAL — Step 0: pptx2png not found"
+    echo "   pptx2png is a hard dependency — no alternative will be attempted."
+    echo "   💡 Install pptx2png:"
+    echo "      pip install pptx2png"
     rm -rf "$TMP_DIR"
     exit 1
 fi
-
-# Stage 2: verify version >= 11
-JAVA_VERSION=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}' | cut -d. -f1)
-if [ -z "$JAVA_VERSION" ] || ! [ "$JAVA_VERSION" -ge 11 ] 2>/dev/null; then
-    echo "❌ ERRO FATAL — Step 0: Java 11+ required, detected version: ${JAVA_VERSION:-unknown}"
-    echo "   Java 11+ is a hard dependency — no alternative renderer will be attempted."
-    echo "   💡 Upgrade Java:"
-    echo "      macOS  : brew install openjdk@17"
-    echo "      Ubuntu : sudo apt install default-jdk"
-    echo "      Windows: https://adoptium.net"
-    rm -rf "$TMP_DIR"
-    exit 1
-fi
-echo "  ✅ eval Step 0c OK — Java $JAVA_VERSION detected"
-```
-
-**EVAL 0d — Apache POI JARs (download automático se ausentes):**
-```bash
-POI_VERSION="5.3.0"
-POI_DIR="${TMP_DIR}/poi_jars"
-mkdir -p "$POI_DIR"
-
-JARS=(
-    "poi-${POI_VERSION}.jar|https://repo1.maven.org/maven2/org/apache/poi/poi/${POI_VERSION}/poi-${POI_VERSION}.jar"
-    "poi-ooxml-${POI_VERSION}.jar|https://repo1.maven.org/maven2/org/apache/poi/poi-ooxml/${POI_VERSION}/poi-ooxml-${POI_VERSION}.jar"
-    "poi-ooxml-full-${POI_VERSION}.jar|https://repo1.maven.org/maven2/org/apache/poi/poi-ooxml-full/${POI_VERSION}/poi-ooxml-full-${POI_VERSION}.jar"
-    "xmlbeans-5.2.1.jar|https://repo1.maven.org/maven2/org/apache/xmlbeans/xmlbeans/5.2.1/xmlbeans-5.2.1.jar"
-    "commons-collections4-4.4.jar|https://repo1.maven.org/maven2/org/apache/commons/commons-collections4/4.4/commons-collections4-4.4.jar"
-    "commons-compress-1.26.1.jar|https://repo1.maven.org/maven2/org/apache/commons/commons-compress/1.26.1/commons-compress-1.26.1.jar"
-    "log4j-api-2.23.1.jar|https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-api/2.23.1/log4j-api-2.23.1.jar"
-    "log4j-core-2.23.1.jar|https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.23.1/log4j-core-2.23.1.jar"
-)
-
-for entry in "${JARS[@]}"; do
-    jar_name="${entry%%|*}"
-    jar_url="${entry##*|}"
-    jar_path="${POI_DIR}/${jar_name}"
-    if [ ! -f "$jar_path" ]; then
-        echo "  🟢 INFO: Baixando ${jar_name}..."
-        curl -sSL "$jar_url" -o "$jar_path" || {
-            echo "❌ ERRO FATAL — Step 0: Falha ao baixar ${jar_name}"
-            echo "   💡 Verifique conexão com Maven Central: repo1.maven.org"
-            exit 1
-        }
-    fi
-done
-
-CLASSPATH=$(ls "${POI_DIR}"/*.jar | tr '\n' ':')
-echo "  ✅ eval Step 0d OK — ${#JARS[@]} JARs do Apache POI disponíveis"
+echo "  ✅ eval Step 0b OK — python3 + python-pptx + pptx2png available"
 ```
 
 ---
@@ -270,53 +216,38 @@ echo "  ✅ eval Step 1 OK — $N_SLIDES slides extraídos"
 
 ---
 
-### Step 2a: Slide Rendering (Apache POI)
+### Step 2a: Slide Rendering (pptx2png)
 
-**Gauge:** `[████████░░░░░░░░░░░░] 29% - Step 2/7: Renderizando slides com Apache POI...`
+**Gauge:** `[████████░░░░░░░░░░░░] 29% - Step 2/7: Rendering slides with pptx2png...`
 
-**Objective:** Render each slide as a high-fidelity PNG using the bundled `render_slides.java`.
+**Objective:** Render each slide as a PNG using pptx2png at 2× resolution.
 
 **Actions:**
 
 ```bash
-# Locate render_slides.java (installed alongside this skill)
-SKILL_SCRIPTS_DIR=""
-for d in \
-    "$HOME/.github/skills/pptx-to-markdown/scripts" \
-    "$HOME/.claude/skills/pptx-to-markdown/scripts" \
-    "$HOME/.codex/skills/pptx-to-markdown/scripts" \
-    "$HOME/.gemini/skills/pptx-to-markdown/scripts" \
-    "$HOME/.cursor/skills/pptx-to-markdown/scripts"; do
-    if [ -f "${d}/render_slides.java" ]; then
-        SKILL_SCRIPTS_DIR="$d"
-        break
-    fi
-done
-if [ -z "$SKILL_SCRIPTS_DIR" ]; then
-    echo "❌ ERRO FATAL — Step 2a: render_slides.java not found in any installed skill path"
-    echo "   💡 Reinstall the skill: npx claude-superskills"
-    rm -rf "$TMP_DIR"
-    exit 1
-fi
-cp "${SKILL_SCRIPTS_DIR}/render_slides.java" "${TMP_DIR}/RenderSlides.java"
+cat > "${TMP_DIR}/render_slides.py" << 'PYEOF'
+#!/usr/bin/env python3
+import sys, os, pptx2png
 
-javac -cp "$CLASSPATH" "${TMP_DIR}/RenderSlides.java" -d "${TMP_DIR}" 2>&1
-if [ $? -ne 0 ]; then
-    echo "❌ ERRO FATAL — Step 2a: Falha na compilação do RenderSlides.java"
-    echo "   💡 Verifique se o Java JDK (não apenas JRE) está instalado"
-    rm -rf "$TMP_DIR"
-    exit 1
-fi
+pptx_file = sys.argv[1]
+slides_dir = sys.argv[2]
 
-# Execute rendering with per-slide gauge printed by Java
-java -cp "${TMP_DIR}:${CLASSPATH}" RenderSlides "$PPTX_FILE" "$SLIDES_DIR" "$N_SLIDES"
+os.makedirs(slides_dir, exist_ok=True)
+pptx2png.topng(pptx=pptx_file, output_dir=slides_dir, scale=2)
+
+pngs = sorted([f for f in os.listdir(slides_dir) if f.endswith('.png')])
+print(f"RENDERED:{len(pngs)}")
+PYEOF
+
+python3 "${TMP_DIR}/render_slides.py" "$PPTX_FILE" "$SLIDES_DIR"
 ```
 
 **EVAL 2a — PNGs gerados:**
 ```bash
-PNG_COUNT=$(ls "${SLIDES_DIR}"/slide_*.png 2>/dev/null | wc -l | tr -d ' ')
+PNG_COUNT=$(ls "${SLIDES_DIR}"/*.png 2>/dev/null | wc -l | tr -d ' ')
 if [ "$PNG_COUNT" -eq 0 ]; then
     echo "❌ ERRO FATAL — Step 2a: Nenhum PNG gerado"
+    echo "   💡 Verifique se o arquivo .pptx não está corrompido"
     rm -rf "$TMP_DIR"
     exit 1
 elif [ "$PNG_COUNT" -lt "$N_SLIDES" ]; then
@@ -328,7 +259,7 @@ fi
 
 # Check for blank slides (< 5KB)
 BLANK_COUNT=0
-for png in "${SLIDES_DIR}"/slide_*.png; do
+for png in "${SLIDES_DIR}"/*.png; do
     size=$(wc -c < "$png")
     [ "$size" -lt 5120 ] && BLANK_COUNT=$((BLANK_COUNT + 1))
 done
@@ -345,7 +276,7 @@ done
 
 **Actions:**
 
-For each file `slide_001.png` through `slide_NNN.png` in `SLIDES_DIR`:
+For each file in `SLIDES_DIR` (`*.png`) in sorted order:
 
 1. Print slide gauge: `slide NN/NN  [███░░░░░░░░░░░░] XX%  Analisando (explícito)...`
 2. Read the image and analyze it, focusing on:
@@ -393,7 +324,7 @@ fi
 
 **Actions:**
 
-For each slide PNG:
+For each slide PNG (sorted order):
 
 1. Print slide gauge: `slide NN/NN  [███░░░░░░░░░░░░] XX%  Analisando (implícito)...`
 2. Read the image and analyze deeply, focusing on:
@@ -684,9 +615,9 @@ echo "   🧹 Temporários removidos"
 - NEVER leave the `.<stem>_tmp/` directory behind — cleanup runs in `finally` regardless of errors
 - NEVER reference temporary PNG files in the final Markdown output
 - NEVER skip the EVAL gates — each validation exists to catch silent failures
-- NEVER proceed past Step 0 if any dependency is missing (python3, python-pptx, Java 11+) — all are hard dependencies with no fallback
+- NEVER proceed past Step 0 if any dependency is missing (python3, python-pptx, pptx2png) — all are hard dependencies with no fallback
 - NEVER auto-install or auto-upgrade any dependency — fail fast with install instructions instead
-- NEVER attempt alternative renderers (LibreOffice, pptx2pdf, python-pptx image export) if Java is absent — fail fast
+- NEVER attempt alternative renderers (LibreOffice, Apache POI, pptx2pdf) if pptx2png is absent — fail fast
 - NEVER run `npm publish` or any publish command as part of this skill
 
 **ALWAYS:**
