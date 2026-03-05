@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.17.1] - 2026-03-05
+
+### Removed
+- **`pptx-to-markdown`**: Removed due to excessive dependency footprint (python-pptx, pptx2png, Apache POI). Complexity and install burden outweighed the value. Alternatives: use `docling-converter` for PowerPoint content extraction.
+
+---
+
 ## [1.17.0] - 2026-03-04
 
 ### Added

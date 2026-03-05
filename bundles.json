@@ -66,8 +66,7 @@
         "youtube-summarizer",
         "audio-transcriber",
         "docling-converter",
-        "storytelling-expert",
-        "pptx-to-markdown"
+        "storytelling-expert"
       ],
       "use_cases": [
         "Summarizing YouTube videos",
@@ -153,8 +152,7 @@
         "salary-negotiation-prep",
         "tech-resume-optimizer",
         "senior-solution-architect",
-        "startup-growth-strategist",
-        "pptx-to-markdown"
+        "startup-growth-strategist"
       ],
       "use_cases": [
         "Complete AI assistance",
