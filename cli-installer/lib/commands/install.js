@@ -208,56 +208,82 @@ async function installCommand(skillNames, options) {
             const requirements = await requirementsInstaller.detectRequirements(skillPath);
             
             if (requirements.hasRequirements) {
-              console.log(chalk.blue('\n  📦 This skill requires Python dependencies'));
-              
+              console.log(chalk.blue('\n  📦 This skill has dependencies'));
+
               // Check Python availability
               const pythonCheck = await requirementsInstaller.verifyPython();
-              
               if (!pythonCheck.available) {
                 console.log(chalk.yellow('  ⚠️  Python 3 not found'));
-                console.log(chalk.dim('     Please install Python 3.8+ to use this skill'));
-                console.log(chalk.dim('     Download: https://www.python.org/downloads/'));
+                console.log(chalk.dim('     Please install Python 3.8+: https://www.python.org/downloads/'));
                 continue;
               }
-              
               console.log(chalk.green(`  ✅ Python detected: ${pythonCheck.version}`));
-              
-              // Ask user if they want to install requirements
-              let installRequirements = options.yes;
-              
-              if (!options.yes) {
-                const inquirer = require('inquirer');
-                const answer = await inquirer.prompt([
-                  {
-                    type: 'confirm',
-                    name: 'install',
-                    message: 'Install Python requirements now?',
-                    default: true
-                  }
-                ]);
-                installRequirements = answer.install;
-              }
-              
-              if (installRequirements) {
-                const installResult = await requirementsInstaller.installRequirements(requirements, {
-                  verbose: options.verbose
-                });
-                
-                if (!installResult.success) {
-                  console.log(chalk.yellow('\n  💡 You can install requirements later:'));
-                  if (requirements.type === 'bash') {
-                    console.log(chalk.dim(`     bash ${requirements.scriptPath}`));
-                  } else if (requirements.type === 'pip') {
-                    console.log(chalk.dim(`     pip install --user ${requirements.packages.join(' ')}`));
+
+              if (requirements.type === 'pip') {
+                // Check individual package statuses
+                const statuses = await requirementsInstaller.checkPackageStatuses(requirements.packages);
+                const alreadyInstalled = statuses.filter(s => s.installed);
+                const missing = statuses.filter(s => !s.installed);
+
+                if (alreadyInstalled.length > 0) {
+                  console.log(chalk.green(`  ✅ Already installed: ${alreadyInstalled.map(s => s.name).join(', ')}`));
+                }
+
+                if (missing.length === 0) {
+                  console.log(chalk.green('  ✅ All dependencies already installed'));
+                } else if (options.yes) {
+                  // --yes flag: install all missing without prompting
+                  await requirementsInstaller.installPackages(missing.map(s => s.name), { verbose: options.verbose });
+                } else {
+                  // Interactive: let user select which packages to install
+                  const inquirer = require('inquirer');
+                  const { selectedPackages } = await inquirer.prompt([
+                    {
+                      type: 'checkbox',
+                      name: 'selectedPackages',
+                      message: 'Select packages to install:',
+                      choices: statuses.map(s => ({
+                        name: s.installed
+                          ? `${s.name} ${chalk.green('(already installed)')}`
+                          : s.name,
+                        value: s.name,
+                        checked: !s.installed
+                      }))
+                    }
+                  ]);
+
+                  if (selectedPackages.length === 0) {
+                    console.log(chalk.blue('\n  ℹ️  No packages selected — skipped'));
+                    console.log(chalk.dim(`     Install later: pip install ${requirements.packages.join(' ')}`));
+                  } else {
+                    const installResult = await requirementsInstaller.installPackages(selectedPackages, { verbose: options.verbose });
+                    if (!installResult.success) {
+                      console.log(chalk.dim(`     pip install ${selectedPackages.join(' ')}`));
+                    }
                   }
                 }
-              } else {
-                console.log(chalk.blue('\n  ℹ️  Skipped requirements installation'));
-                console.log(chalk.dim('     You can install later:'));
-                if (requirements.type === 'bash') {
-                  console.log(chalk.dim(`     bash ${path.relative(process.cwd(), requirements.scriptPath)}`));
-                } else if (requirements.type === 'pip') {
-                  console.log(chalk.dim(`     pip install --user ${requirements.packages.join(' ')}`));
+
+              } else if (requirements.type === 'bash') {
+                // Bash script: single confirm (can't split individual items)
+                let runScript = options.yes;
+                if (!options.yes) {
+                  const inquirer = require('inquirer');
+                  const answer = await inquirer.prompt([{
+                    type: 'confirm',
+                    name: 'install',
+                    message: 'Install dependencies via setup script?',
+                    default: true
+                  }]);
+                  runScript = answer.install;
+                }
+                if (runScript) {
+                  const installResult = await requirementsInstaller.installRequirements(requirements, { verbose: options.verbose });
+                  if (!installResult.success) {
+                    console.log(chalk.dim(`     bash ${requirements.scriptPath}`));
+                  }
+                } else {
+                  console.log(chalk.blue('\n  ℹ️  Skipped — run later:'));
+                  console.log(chalk.dim(`     bash ${requirements.scriptPath}`));
                 }
               }
             }

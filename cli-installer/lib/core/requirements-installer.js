@@ -75,6 +75,49 @@ class RequirementsInstaller {
   }
 
   /**
+   * Check installation status of each package individually
+   * @param {string[]} packages - pip package names
+   * @returns {Promise<Array<{name, installed}>>}
+   */
+  async checkPackageStatuses(packages) {
+    return Promise.all(
+      packages.map(async (pkg) => ({
+        name: pkg.trim(),
+        installed: await this.isPipPackageInstalled(pkg.trim())
+      }))
+    );
+  }
+
+  /**
+   * Install a specific subset of pip packages
+   * @param {string[]} packages - packages to install
+   * @param {Object} options
+   * @returns {Promise<Object>} result
+   */
+  async installPackages(packages, options = {}) {
+    if (!packages || packages.length === 0) {
+      return { success: true, skipped: true };
+    }
+
+    const spinner = ora(`Installing: ${packages.join(', ')}...`).start();
+
+    try {
+      const packagesStr = packages.join(' ');
+      execSync(
+        `${this.pythonCmd} -m pip install --user --break-system-packages ${packagesStr}`,
+        { stdio: options.verbose ? 'inherit' : 'pipe' }
+      );
+      spinner.succeed(chalk.green(`Installed: ${packages.join(', ')}`));
+      return { success: true, installed: packages };
+    } catch (error) {
+      spinner.fail(chalk.red(`Failed to install: ${packages.join(', ')}`));
+      console.error(chalk.gray(`   Error: ${error.message}`));
+      console.error(chalk.yellow(`\n💡 Install manually: pip install ${packages.join(' ')}`));
+      return { success: false, error: error.message };
+    }
+  }
+
+  /**
    * Install requirements for a skill
    * @param {Object} requirements - Requirements object from detectRequirements()
    * @param {Object} options - Installation options
