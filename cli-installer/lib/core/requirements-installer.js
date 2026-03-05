@@ -145,6 +145,20 @@ class RequirementsInstaller {
   }
 
   /**
+   * Check if a pip package is installed (by package name, not import name)
+   * @param {string} packageName - pip package name (e.g. 'python-pptx')
+   * @returns {Promise<boolean>}
+   */
+  async isPipPackageInstalled(packageName) {
+    try {
+      execSync(`${this.pythonCmd} -m pip show ${packageName}`, { stdio: 'pipe' });
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  /**
    * Check status of requirements for installed skills
    * @param {string} skillPath - Path to skill directory
    * @returns {Promise<Object>} Status info
@@ -156,9 +170,9 @@ class RequirementsInstaller {
       return { hasRequirements: false, status: 'n/a' };
     }
 
-    // For audio-transcriber, check if Whisper is installed
     const skillName = path.basename(skillPath);
-    
+
+    // audio-transcriber uses a bash script — check whisper + ffmpeg manually
     if (skillName === 'audio-transcriber') {
       const whisperInstalled = await this.isPackageInstalled('whisper');
       const fasterWhisperInstalled = await this.isPackageInstalled('faster_whisper');
@@ -174,7 +188,6 @@ class RequirementsInstaller {
         details.push('openai-whisper');
       }
       
-      // Check ffmpeg
       try {
         execSync('which ffmpeg', { stdio: 'pipe' });
         details.push('ffmpeg');
@@ -189,13 +202,30 @@ class RequirementsInstaller {
         packages: fasterWhisperInstalled || whisperInstalled ? details : []
       };
     }
-    
-    // For other Python skills in the future
-    return {
-      hasRequirements: true,
-      status: 'unknown',
-      details: []
-    };
+
+    // For requirements.txt skills: check each package via pip show
+    if (requirements.type === 'pip' && requirements.packages) {
+      const results = await Promise.all(
+        requirements.packages.map(async (pkg) => ({
+          name: pkg,
+          installed: await this.isPipPackageInstalled(pkg)
+        }))
+      );
+
+      const allInstalled = results.every(r => r.installed);
+      const installedList = results.filter(r => r.installed).map(r => r.name);
+      const missingList = results.filter(r => !r.installed).map(r => r.name);
+
+      return {
+        hasRequirements: true,
+        status: allInstalled ? 'installed' : missingList.length === results.length ? 'not-installed' : 'partial',
+        details: installedList,
+        missing: missingList,
+        packages: requirements.packages
+      };
+    }
+
+    return { hasRequirements: true, status: 'unknown', details: [] };
   }
 }
 
