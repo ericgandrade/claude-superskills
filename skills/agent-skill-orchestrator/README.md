@@ -15,7 +15,7 @@ Think of it as your strategic advisor—it tells you **how** to use **what** you
 - **📊 Confidence Scoring** - Scores resources 0-100% with transparent reasoning
 - **🎯 Strategic Planning** - Generates multiple execution options with alternatives
 - **✅ Approval Required** - Never executes without explicit user consent
-- **🌐 Platform-Agnostic** - Works on all 5 AI CLI platforms
+- **🌐 Platform-Agnostic** - Works on all 8 AI CLI platforms
 - **🔄 Fallback Strategies** - Includes alternatives if primary plan fails
 
 ## When to Use
@@ -197,6 +197,9 @@ Bonus for MCPs when external integration needed
 | Gemini CLI | ✅ Supported | Yes |
 | OpenCode | ✅ Supported | Yes |
 | OpenAI Codex | ✅ Supported | Yes |
+| Antigravity | ✅ Supported | Yes |
+| Cursor IDE | ✅ Supported | Yes |
+| AdaL CLI | ✅ Supported | Yes |
 
 ## Dependencies
 
@@ -368,7 +371,20 @@ Improve the orchestrator:
 
 MIT License - See [LICENSE](../../LICENSE)
 
+## What's New in v2.0
+
+- **Progress Tracking** — 6-phase gauge bar (Discovery → Analysis → Matching → Plan Generation → Approval → Execution) displayed during orchestration
+- **EVals** — `evals/evals.json` with 3 realistic test cases; `evals/trigger-eval.json` with 20 queries (10 trigger / 10 no-trigger) for description optimization
+- **Standardized description** — SKILL.md description updated to Anthropic skill-creator format
+- **All 8 platforms** — Antigravity, Cursor IDE, and AdaL CLI added to platform support matrix
+
 ## Version History
+
+### v2.0.0 (2026-03-06)
+- Added Progress Tracking gauge bars to SKILL.md
+- Added evals/evals.json and evals/trigger-eval.json
+- Extended platform support to all 8 AI CLI platforms
+- Standardized SKILL.md description to Anthropic skill-creator format
 
 ### v1.0.0 (2026-02-07)
 - Initial release
@@ -390,11 +406,11 @@ MIT License - See [LICENSE](../../LICENSE)
 
 | Field | Value |
 |-------|-------|
-| Version | 1.1.1 |
+| Version | 2.0.0 |
 | Author | Eric Andrade |
 | Created | 2026-02-07 |
-| Updated | 2026-03-01 |
-| Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI |
+| Updated | 2026-03-06 |
+| Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | orchestration |
 | Tags | orchestration, planning, strategy, intelligent-matching, platform-agnostic |
 | Risk | safe |

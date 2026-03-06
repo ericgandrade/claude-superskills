@@ -2,6 +2,14 @@
 
 Transform audio recordings into professional Markdown documentation with **intelligent atas/summaries using LLM integration** (Claude/Copilot CLI) and automatic prompt engineering.
 
+## What's New in v2.0
+
+- **Progress Tracking** — 4-phase gauge bar (Audio Validation → Transcription → Summary Generation → Markdown Export) displayed during execution
+- **Error Handling** — Handles missing transcription engine, unsupported formats, LLM unavailability, and corrupt audio files with clear recovery steps
+- **EVals** — `evals/evals.json` with 3 realistic test cases; `evals/trigger-eval.json` with 20 queries (10 trigger / 10 no-trigger) for description optimization
+- **Standardized description** — SKILL.md description updated to Anthropic skill-creator format
+- **All 8 platforms** — Now supported on all 8 AI CLI platforms
+
 ## 🆕 What's New in v1.2.1
 
 - **🧠 LLM Integration** - Claude CLI (primary) or GitHub Copilot CLI (fallback) for intelligent processing
@@ -339,11 +347,11 @@ Open an issue in the [claude-superskills repository](https://github.com/youruser
 
 | Field | Value |
 |-------|-------|
-| Version | 1.2.2 |
+| Version | 2.0.0 |
 | Author | Eric Andrade |
 | Created | 2025-02-01 |
-| Updated | 2026-03-01 |
-| Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex |
+| Updated | 2026-03-06 |
+| Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | content |
 | Tags | audio, transcription, whisper, meeting-minutes, speech-to-text |
 | Risk | safe |

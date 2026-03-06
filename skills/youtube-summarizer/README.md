@@ -364,15 +364,24 @@ MIT License - see [LICENSE](../../../LICENSE) for details.
 
 ---
 
+## What's New in v2.0
+
+- **Progress Tracking** — 4-phase gauge bar (URL Validation → Transcript Extraction → Summary Generation → Save Options) already present; now standardized across all platforms
+- **EVals** — `evals/evals.json` with 3 realistic test cases; `evals/trigger-eval.json` with 20 queries (10 trigger / 10 no-trigger) for description optimization
+- **Standardized description** — SKILL.md description updated to Anthropic skill-creator format
+- **All 8 platforms** — Extended from 3 to all 8 AI CLI platforms
+
+---
+
 ## Metadata
 
 | Field | Value |
 |-------|-------|
-| Version | 1.2.2 |
+| Version | 2.0.0 |
 | Author | Eric Andrade |
 | Created | 2025-02-01 |
-| Updated | 2026-03-01 |
-| Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex |
+| Updated | 2026-03-06 |
+| Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | content |
 | Tags | video, summarization, transcription, youtube, content-analysis |
 | Risk | safe |

@@ -653,7 +653,11 @@ Then configure:
 
 ---
 
-## 📄 Version
+## What's New in v2.0
+
+- **Progress Tracking** — 4-phase gauge bar (Intent Analysis → Framework Selection → Prompt Generation → Output) displayed during execution
+- **EVals** — `evals/evals.json` with 3 realistic test cases; `evals/trigger-eval.json` with 20 queries (10 trigger / 10 no-trigger) for description optimization
+- **Standardized description** — SKILL.md description updated to Anthropic skill-creator format
 
 ---
 
@@ -661,10 +665,10 @@ Then configure:
 
 | Field | Value |
 |-------|-------|
-| Version | 1.1.1 |
+| Version | 2.0.0 |
 | Author | Eric Andrade |
 | Created | 2025-02-01 |
-| Updated | 2026-03-01 |
+| Updated | 2026-03-06 |
 | Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | automation |
 | Tags | prompt-engineering, optimization, frameworks, ai-enhancement |

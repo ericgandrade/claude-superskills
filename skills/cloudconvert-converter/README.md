@@ -6,7 +6,7 @@ Convert files between 200+ formats and perform PDF operations using the CloudCon
 
 | Field     | Value                                                                 |
 |-----------|-----------------------------------------------------------------------|
-| Version   | 1.0.0                                                                 |
+| Version   | 2.0.0                                                                 |
 | Author    | Eric Andrade                                                          |
 | Created   | 2026-03-06                                                            |
 | Updated   | 2026-03-06                                                            |
@@ -86,6 +86,12 @@ The skill handles all CloudConvert error scenarios:
 | `cloudconvert_download_file` | Download result |
 | `cloudconvert_list_formats` | List supported formats (free) |
 | `cloudconvert_pdf_operations` | OCR, merge, split, rotate, encrypt, decrypt |
+
+## What's New in v2.0
+
+- **Progress Tracking** — 4-phase gauge bar (Job Creation → Upload → Conversion → Download) displayed during execution
+- **EVals** — `evals/evals.json` with 3 realistic test cases; `evals/trigger-eval.json` with 20 queries (10 trigger / 10 no-trigger) for description optimization
+- **Standardized description** — SKILL.md description updated to Anthropic skill-creator format
 
 ## Links
 

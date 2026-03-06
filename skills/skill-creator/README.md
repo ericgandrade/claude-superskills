@@ -142,6 +142,15 @@ See `references/claude-superskills-conventions.md` for the complete rules.
 
 This skill is built on the [Anthropic official skill-creator](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator) — the same scripts, agents, and eval-viewer are included verbatim. The SKILL.md has been adapted to add claude-superskills conventions (all-8-platforms coverage, frontmatter rules, skill output path, version management checklist) while keeping the full Anthropic workflow intact.
 
+## What's New in v2.0
+
+- **Full Anthropic EVals Framework** — major rewrite incorporating the official skill-creator framework with with-skill + baseline subagent runs, grader/analyzer/comparator agents, benchmark.json, and eval-viewer browser UI
+- **Description Optimization loop** — `scripts/run_loop.py` with 60/40 train/test split, Claude extended thinking, max 5 iterations
+- **Blind A/B comparison** — `agents/comparator.md` for independent rubric scoring between skill versions
+- **Eval review UI** — `assets/eval_review.html` for editing and toggling trigger/not-trigger query sets
+- **Progress Tracking** — 4-phase gauge bar (Draft/Load → Eval Runs → Grading → Optimization) displayed during execution
+- **EVals** — `evals/evals.json` with 3 realistic test cases; `evals/trigger-eval.json` with 20 queries
+
 ---
 
 ## Metadata

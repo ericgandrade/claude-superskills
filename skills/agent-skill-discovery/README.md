@@ -8,7 +8,7 @@ Scans installed resources and the current repository for plugins, agents, skills
 
 ## Features
 
-- **🌐 Platform-Agnostic** - Works identically on all 5 AI CLI platforms
+- **🌐 Platform-Agnostic** - Works identically on all 8 AI CLI platforms
 - **🔍 Comprehensive Discovery** - Finds plugins, agents, skills, and MCP servers
 - **📁 Repository-Aware Scan** - Checks the current repository for local agents, skills, and MCP configs
 - **📊 Structured Output** - Clean markdown catalog with resource counts
@@ -152,6 +152,9 @@ gemini  # or: opencode, codex
 | Gemini CLI | ✅ Supported | Yes |
 | OpenCode | ✅ Supported | Yes |
 | OpenAI Codex | ✅ Supported | Yes |
+| Antigravity | ✅ Supported | Yes |
+| Cursor IDE | ✅ Supported | Yes |
+| AdaL CLI | ✅ Supported | Yes |
 
 ## How It Works
 
@@ -266,7 +269,20 @@ Found a bug or want to improve discovery?
 
 MIT License - See [LICENSE](../../LICENSE) for details.
 
+## What's New in v2.0
+
+- **Progress Tracking** — 4-phase gauge bar (Platform Detection → Installed Scan → Repository Scan → Catalog Generation) displayed during execution
+- **EVals** — `evals/evals.json` with 3 realistic test cases; `evals/trigger-eval.json` with 20 queries (10 trigger / 10 no-trigger) for description optimization
+- **Standardized description** — SKILL.md description updated to Anthropic skill-creator format
+- **All 8 platforms** — Antigravity, Cursor IDE, and AdaL CLI added to platform support matrix
+
 ## Version History
+
+### v2.0.0 (2026-03-06)
+- Added Progress Tracking gauge bars to SKILL.md
+- Added evals/evals.json and evals/trigger-eval.json
+- Extended platform support to all 8 AI CLI platforms
+- Standardized SKILL.md description to Anthropic skill-creator format
 
 ### v1.1.0 (2026-02-07)
 - Added current repository scan for local agents, skills, and MCP servers
@@ -293,11 +309,11 @@ MIT License - See [LICENSE](../../LICENSE) for details.
 
 | Field | Value |
 |-------|-------|
-| Version | 1.1.1 |
+| Version | 2.0.0 |
 | Author | Eric Andrade |
 | Created | 2026-02-07 |
-| Updated | 2026-03-01 |
-| Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI |
+| Updated | 2026-03-06 |
+| Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | discovery |
 | Tags | discovery, inventory, catalog, platform-agnostic, mcp |
 | Risk | safe |
