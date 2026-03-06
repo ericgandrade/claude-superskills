@@ -7,7 +7,7 @@ license: MIT
 ---name: Interview Prep Generator
 description: Generate STAR stories, practice questions, and talking points from resume
 
-version: 1.0.0
+version: 2.0.0
 author: Eric Andrade
 category: career
 risk: safe

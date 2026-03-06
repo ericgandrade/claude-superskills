@@ -7,7 +7,7 @@ license: MIT
 ---name: Executive Resume Writer
 description: Create C-suite and VP level resumes emphasizing strategic leadership
 
-version: 1.0.0
+version: 2.0.0
 author: Eric Andrade
 category: career
 risk: safe

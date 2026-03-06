@@ -7,7 +7,7 @@ license: MIT
 ---name: Resume Section Builder
 description: Create targeted resume sections optimized for different experience levels and roles
 
-version: 1.0.0
+version: 2.0.0
 author: Eric Andrade
 category: career
 risk: safe

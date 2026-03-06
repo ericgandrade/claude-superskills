@@ -7,7 +7,7 @@ license: MIT
 ---name: Resume Tailor
 description: Customize resume for specific job postings while maintaining truthfulness
 
-version: 1.0.0
+version: 2.0.0
 author: Eric Andrade
 category: career
 risk: safe

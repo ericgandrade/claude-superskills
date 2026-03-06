@@ -7,7 +7,7 @@ license: MIT
 ---name: Portfolio Case Study Writer
 description: Transform resume bullets into detailed portfolio case studies
 
-version: 1.0.0
+version: 2.0.0
 author: Eric Andrade
 category: career
 risk: safe

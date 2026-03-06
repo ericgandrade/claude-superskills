@@ -7,7 +7,7 @@ license: MIT
 ---name: Salary Negotiation Prep
 description: Research market rates, build negotiation strategy, and create counter-offer scripts
 
-version: 1.0.0
+version: 2.0.0
 author: Eric Andrade
 category: career
 risk: safe

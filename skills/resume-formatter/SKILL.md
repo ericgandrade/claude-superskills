@@ -7,7 +7,7 @@ license: MIT
 ---name: Resume Formatter
 description: Ensure ATS-friendly formatting and create clean scannable layouts
 
-version: 1.0.0
+version: 2.0.0
 author: Eric Andrade
 category: career
 risk: safe

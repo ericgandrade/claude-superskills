@@ -7,7 +7,7 @@ license: MIT
 ---name: Academic CV Builder
 description: Format CVs for academic positions with publications, grants, and teaching
 
-version: 1.0.0
+version: 2.0.0
 author: Eric Andrade
 category: career
 risk: safe

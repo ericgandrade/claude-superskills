@@ -7,7 +7,7 @@ license: MIT
 ---name: Offer Comparison Analyzer
 description: Compare multiple job offers side-by-side with total compensation analysis
 
-version: 1.0.0
+version: 2.0.0
 author: Eric Andrade
 category: career
 risk: safe

@@ -7,7 +7,7 @@ license: MIT
 ---name: Resume Version Manager
 description: Track different resume versions, maintain master resume, manage tailored versions
 
-version: 1.0.0
+version: 2.0.0
 author: Eric Andrade
 category: career
 risk: safe
