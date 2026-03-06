@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.19.1] - 2026-03-06
+
+### Changed
+- **All 45 skill READMEs** updated to Skill 2.0 — each README now reflects actual skill functionality, includes a `## What's New in v2.0` section (Progress Tracking, EVals, Error Handling, Standardized description), bumps skill version to `2.0.0`, and lists all 8 AI CLI platforms
+- **Tier 1 rewrites** (8 skills): `ai-native-product`, `product-architecture`, `product-delivery`, `product-discovery`, `product-leadership`, `product-operating-model`, `product-strategy` — replaced generic "Strategic planning and execution" placeholder content with accurate, skill-specific documentation
+- **Tier 2 expansions** (20 skills): all career skills plus `brainstorming`, `creative-portfolio-resume`, `career-changer-translator` — expanded minimal 21-line READMEs to full documentation with When to Use, What is Included, Typical Invocations, and What's New in v2.0
+- **Tier 3 updates** (17 skills): all other skills — added evals references, What's New in v2.0, version bump to 2.0.0, and all-8-platform coverage
+
+---
+
 ## [1.19.0] - 2026-03-06
 
 ### Added
