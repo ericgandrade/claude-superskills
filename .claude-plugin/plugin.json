@@ -1,7 +1,19 @@
 {
   "name": "claude-superskills",
-  "version": "1.17.1",
-  "description": "44 universal AI skills for Claude Code — skill creation, deep research, strategic planning, product management, content processing, and orchestration workflows",
+  "version": "1.18.0",
+  "description": "45 universal AI skills + CloudConvert MCP server for Claude Code — skill creation, deep research, strategic planning, product management, content processing, file conversion, and orchestration workflows",
+  "mcpServers": {
+    "cloudconvert": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-servers/cloudconvert/server.py"],
+      "env": {
+        "CLOUDCONVERT_API_KEY": "${CLOUDCONVERT_API_KEY}",
+        "CLOUDCONVERT_SANDBOX": "${CLOUDCONVERT_SANDBOX:-false}"
+      },
+      "description": "CloudConvert — convert 200+ formats, PDF ops (OCR, merge, split, rotate, encrypt/decrypt), upload/download"
+    }
+  },
   "author": {
     "name": "Eric Andrade",
     "url": "https://github.com/ericgandrade"

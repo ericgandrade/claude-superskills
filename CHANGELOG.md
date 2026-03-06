@@ -6,6 +6,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.18.0] - 2026-03-06
+
+### Added
+- **CloudConvert MCP Server** (`mcp-servers/cloudconvert/`) — 8 MCP tools covering file conversion (200+ formats), PDF operations (OCR, merge, split, rotate, encrypt/decrypt), upload/download, and format discovery. Integrates with all 8 platforms via auto-generated MCP config files.
+- **`cloudconvert-converter` skill** — orchestration skill for CloudConvert with full error handling (quota limits, invalid API key, unsupported formats, timeouts, network errors), free tier warnings, sandbox guidance, and comparison with pandoc/docling.
+- **`cli-installer/lib/mcp-installer.js`** — shared MCP config writer: merges server entries into each platform's JSON config without overwriting other tools.
+- **EVals** (`skills/cloudconvert-converter/evals/evals.json`) — 5 test cases with assertions for trigger accuracy and workflow correctness.
+
+### Changed
+- `cli-installer/lib/commands/install.js` — calls `registerMcpServers` after skill installation to auto-register the CloudConvert MCP for all detected platforms.
+- `.claude-plugin/plugin.json` — added `mcpServers.cloudconvert` entry for Claude Code native plugin.
+- `bundles.json` — added `cloudconvert-converter` to `content` and `all` bundles.
+
+### Notes
+- CloudConvert API key must be configured manually post-install (no installer prompt).
+  See `mcp-servers/cloudconvert/README.md` for setup instructions.
+- Free tier: 10 conversion minutes/day. Use `CLOUDCONVERT_SANDBOX=true` for testing.
+
+---
+
 ## [1.17.1] - 2026-03-05
 
 ### Removed

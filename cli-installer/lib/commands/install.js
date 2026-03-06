@@ -7,6 +7,7 @@ const SkillInstaller = require('../core/installer');
 const RequirementsInstaller = require('../core/requirements-installer');
 const InstallationPrompts = require('../ui/prompts');
 const ProgressGauge = require('../ui/progress-gauge');
+const { registerMcpServers } = require('../mcp-installer');
 const path = require('path');
 
 // Read version dynamically from package.json
@@ -299,7 +300,12 @@ async function installCommand(skillNames, options) {
       }
     }
 
-    // STEP 5: Complete
+    // STEP 5: Register MCP servers for all selected platforms
+    gauge.setStep(5, 'Registering MCP servers');
+    const pluginRoot = path.resolve(__dirname, '..', '..', '..');
+    await registerMcpServers(selectedPlatforms, pluginRoot, options.quiet);
+
+    // STEP 6: Complete
     console.log(); // Spacing
     gauge.complete('Installation complete!');
 

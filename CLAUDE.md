@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **claude-superskills** is a reusable AI skills library for **8 AI platforms**: GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, and AdaL CLI. Skills are Markdown-based workflow specifications (`SKILL.md`) that teach AI agents how to perform specific tasks.
 
-- **npm package**: `claude-superskills` (v1.17.1) — `npx claude-superskills` — **44 skills**
+- **npm package**: `claude-superskills` (v1.18.0) — `npx claude-superskills` — **45 skills**
 - **Claude Code plugin**: `claude --plugin-dir ./claude-superskills` — native plugin, no npm needed
 - **GitHub**: `https://github.com/ericgandrade/claude-superskills`
 - **Old package** `cli-ai-skills` is deprecated, redirects to this one
@@ -52,6 +52,7 @@ claude-superskills/
 │   ├── cover-letter-generator/
 │   ├── creative-portfolio-resume/
 │   ├── deep-research/
+│   ├── cloudconvert-converter/
 │   ├── docling-converter/
 │   ├── executing-plans/
 │   ├── executive-resume-writer/
@@ -85,6 +86,13 @@ claude-superskills/
 │   ├── us-program-research/
 │   ├── writing-plans/
 │   └── youtube-summarizer/
+│
+├── mcp-servers/                   # MCP server implementations
+│   └── cloudconvert/
+│       ├── server.py              # FastMCP entry point (8 tools)
+│       ├── tools/                 # Per-tool modules + shared error handler
+│       ├── requirements.txt       # cloudconvert, mcp, python-dotenv
+│       └── README.md              # Setup, API key config, free tier warning
 │
 ├── cli-installer/             # NPM package (claude-superskills)
 │   ├── bin/cli.js            # Main CLI entry point (commands, flags, install flow)
@@ -427,7 +435,7 @@ Skills that interact with project structure should include a discovery phase tha
 
 ## Version Management
 
-The package version is defined in `cli-installer/package.json` (currently **v1.17.1**).
+The package version is defined in `cli-installer/package.json` (currently **v1.18.0**).
 `.claude-plugin/plugin.json` `"version"` must always match `package.json` exactly.
 
 - `cli-installer/package.json` — source of truth for npm version
@@ -557,7 +565,7 @@ Curated skill collections:
 - **Planning** — Pre-implementation design and execution (`brainstorming`, `writing-plans`, `executing-plans`)
 - **Product & Strategy** — Frameworks for product management, discovery, and GTM (`product-strategy`, `product-discovery`, `abx-strategy`, etc.)
 - **Research** — Deep research and academic analysis (`deep-research`, `us-program-research`)
-- **Content** — Media and document processing (`youtube-summarizer`, `audio-transcriber`, `docling-converter`)
+- **Content** — Media and document processing (`youtube-summarizer`, `audio-transcriber`, `docling-converter`, `cloudconvert-converter`)
 - **Architecture** — System design, C4 modeling, and ADRs (`senior-solution-architect`, `product-architecture`)
 - **Startup** — Market sizing, unit economics, and GTM for founders (`startup-growth-strategist`, `product-strategy`, `abx-strategy`)
 
