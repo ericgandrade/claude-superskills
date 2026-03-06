@@ -55,6 +55,17 @@ copilot> strategic analysis for: fashion e-commerce with a 15% sales drop last q
 
 ---
 
+## Progress Tracking
+
+Display progress during strategic analysis:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Problem Structuring & MECE Framing
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Analysis & Framework Application
+[████████████░░░░░░░░] 75% — Phase 3/4: Insight Synthesis & So What Test
+[████████████████████] 100% — Phase 4/4: Recommendations & Executive Summary
+```
+
 ## 🛠️ Instructions (System Directives)
 
 ### Role & Mindset

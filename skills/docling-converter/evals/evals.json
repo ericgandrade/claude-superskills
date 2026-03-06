@@ -1,0 +1,29 @@
+{
+  "skill_name": "docling-converter",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Convert this PDF annual report to Markdown so I can process it programmatically. The file is at /tmp/annual-report-2025.pdf",
+      "expected_output": "Markdown conversion of the PDF with preserved structure, headings, and tables",
+      "expectations": [
+        "Output checks for Docling installation before proceeding",
+        "Output runs the conversion and produces a .md file",
+        "Output preserves document structure (headings, sections)",
+        "Output handles tables in the PDF appropriately",
+        "Output reports any conversion warnings or quality issues"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I have a batch of 15 contract PDFs in /tmp/contracts/ that I need converted to JSON for our contract management system. Convert them all and output structured JSON.",
+      "expected_output": "Batch conversion of all PDFs to JSON format with structured output",
+      "expectations": [
+        "Output detects all PDF files in the specified directory",
+        "Output converts each file to JSON format",
+        "Output reports progress during the batch process",
+        "Output handles any conversion errors gracefully per file",
+        "Output provides a summary of successful/failed conversions"
+      ]
+    }
+  ]
+}

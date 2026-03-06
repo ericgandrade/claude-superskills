@@ -1,0 +1,29 @@
+{
+  "skill_name": "executive-resume-writer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write an executive resume for a CFO candidate. Background: 15 years in finance leadership, currently SVP Finance at a $500M public SaaS company, previously VP Finance at two startups (one successful exit, one Series C), CPA, MBA from Wharton. Achievements include leading a $120M Series D, improving gross margin from 62% to 74%, and building the finance function from 5 to 28 people. Targeting CFO roles at $200-500M growth-stage companies.",
+      "expected_output": "A polished executive resume with impact-focused metrics, executive summary, and appropriate C-suite positioning",
+      "expectations": [
+        "Output begins with a powerful executive summary (not an objective statement)",
+        "Output leads with metrics and financial impact ($120M Series D, margin improvement)",
+        "Output positions the candidate as CFO-ready, not VP Finance",
+        "Output is 1.5-2 pages appropriate for executive level",
+        "Output formats the education (Wharton MBA, CPA) appropriately for senior level"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Create a VP of Engineering resume for a candidate who is currently Director of Engineering at a 400-person tech company. They have led 3 major platform migrations, grown engineering from 15 to 65 engineers, improved deployment frequency from monthly to daily, and have 10 years of engineering leadership experience. Targeting VP Engineering and CTO roles at Series B-D startups.",
+      "expected_output": "A VP/CTO-positioned executive resume emphasizing engineering leadership, organizational scale, and technical strategy",
+      "expectations": [
+        "Output includes a leadership-focused executive summary",
+        "Output quantifies team growth (15 → 65 engineers) prominently",
+        "Output frames platform migrations as strategic transformations, not technical projects",
+        "Output highlights deployment frequency improvement as a business outcome",
+        "Output positions the candidate for both VP Eng and CTO roles"
+      ]
+    }
+  ]
+}

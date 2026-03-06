@@ -1,0 +1,31 @@
+{
+  "skill_name": "deep-research",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Research the current state of AI regulation in the European Union. I need to understand the AI Act requirements, which companies are most affected, implementation timelines, and how it compares to US approaches. This is for a board presentation.",
+      "expected_output": "A comprehensive research report on EU AI regulation with current facts, timelines, affected companies, and US comparison",
+      "expectations": [
+        "Output uses WebSearch and WebFetch to gather current information",
+        "Output covers the EU AI Act's key requirements and risk categories",
+        "Output includes specific implementation timelines",
+        "Output compares EU vs US regulatory approaches",
+        "Output cites sources for major claims",
+        "Output is structured for executive/board readability"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I need deep research on the competitive landscape for B2B expense management software. Who are the top 5-7 players, what are their pricing models, key differentiators, recent funding rounds, and what are customers saying about them on review sites?",
+      "expected_output": "A competitive landscape report with player profiles, pricing, differentiators, funding data, and customer sentiment",
+      "expectations": [
+        "Output identifies at least 5 key players in expense management",
+        "Output researches pricing models for each (or notes where pricing is not public)",
+        "Output includes recent funding information where available",
+        "Output includes customer review insights from G2, Capterra, or similar",
+        "Output structures the competitive comparison in a readable format (table or profiles)",
+        "Output draws conclusions about market positioning and white space"
+      ]
+    }
+  ]
+}

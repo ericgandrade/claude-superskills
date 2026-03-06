@@ -1,6 +1,6 @@
 ---
 name: career-changer-translator
-description: This skill should be used when translate skills from one industry to another, identify transferable skills
+description: This skill should be used when the user needs to translate skills from one industry to another or identify transferable experience for a career pivot. Use when switching careers, repositioning experience for a new field, bridging skill gaps, or rewriting resume bullets in target industry language.
 license: MIT
 ---
 
@@ -313,6 +313,17 @@ Google Digital Marketing Certificate | 2023
 - Healthcare industry knowledge
 - Volunteer at hospitals
 
+## Progress Tracking
+
+Display progress before each translation phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Mapping Current to Target Industry
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Identifying Transferable Skills
+[████████████░░░░░░░░] 75% — Phase 3/4: Translating Experience & Language
+[████████████████████] 100% — Phase 4/4: Delivering Transition Strategy
+```
+
 ## Output Format
 
 When helping a career changer:
@@ -367,6 +378,16 @@ When helping a career changer:
 ## Recommended Resume Structure
 [Guidance on format and organization]
 ```
+
+## Error Handling
+
+| Error | Likely Cause | Action |
+|-------|-------------|--------|
+| Source and target industries not specified | User asks for career change help without naming industries | Ask for current industry/role and target industry/role before translating |
+| Experience too limited to translate | Very early career with minimal transferable experience | Focus on skills, education, and bridge activities; be honest about gap |
+| Target role too different | Career change so large that little transfers directly | Flag the gap; recommend building bridge experience first; provide realistic timeline |
+| No transferable skills identified | All experience is highly specialized to current industry | Identify universal skills (communication, management, analysis); recommend gap-filling strategy |
+| User unclear on target role | Wants career change but doesn't know to what | Help user explore options first; suggest career assessment or informational interviews |
 
 ## Key Reminders
 

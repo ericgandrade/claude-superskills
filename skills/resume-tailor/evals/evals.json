@@ -1,0 +1,29 @@
+{
+  "skill_name": "resume-tailor",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Tailor my resume for this specific job. Job: Senior Data Engineer at Databricks. Requirements: Spark, Delta Lake, Python, dbt, data pipeline architecture, cross-functional collaboration. My resume focuses on Hadoop, Hive, Scala, and ETL work. Make targeted modifications to match this role.",
+      "expected_output": "A tailored resume version with specific modifications that bridge the candidate's background to Databricks requirements",
+      "expectations": [
+        "Output identifies the gap between Hadoop/Hive/Scala background and Spark/Delta Lake/Python requirements",
+        "Output suggests how to frame Hadoop experience as transferable to Spark",
+        "Output recommends adding any relevant Spark/Python experience even if secondary",
+        "Output tailors the summary/headline for this specific role",
+        "Output provides specific rewritten bullets, not just general advice"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I'm applying to two different types of PM roles: one at a PLG SaaS startup and one at a large enterprise tech company. I have one master resume. Create two tailored versions emphasizing different aspects of my background for each context.",
+      "expected_output": "Two distinct tailored resumes emphasizing PLG/startup vs. enterprise PM skills respectively",
+      "expectations": [
+        "Output creates two clearly differentiated versions",
+        "Output emphasizes growth, experimentation, and autonomy for the PLG startup version",
+        "Output emphasizes stakeholder management, scale, and enterprise processes for the enterprise version",
+        "Output adjusts the professional summary for each version",
+        "Output recommends which experiences to lead with for each audience"
+      ]
+    }
+  ]
+}

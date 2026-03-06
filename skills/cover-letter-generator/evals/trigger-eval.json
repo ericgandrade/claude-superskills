@@ -1,0 +1,26 @@
+{
+  "skill_name": "cover-letter-generator",
+  "description": "Triggers for personalized cover letter creation for job applications",
+  "queries": [
+    {"id": 1, "query": "Write a cover letter for a product manager role at Stripe", "should_trigger": true},
+    {"id": 2, "query": "Generate a personalized cover letter based on my resume and this job description", "should_trigger": true},
+    {"id": 3, "query": "Help me write a compelling cover letter for this marketing director position", "should_trigger": true},
+    {"id": 4, "query": "Create a cover letter that explains my career transition into data science", "should_trigger": true},
+    {"id": 5, "query": "I need a cover letter for a senior engineering role at a startup", "should_trigger": true},
+    {"id": 6, "query": "Write a cover letter that addresses this qualification gap I have", "should_trigger": true},
+    {"id": 7, "query": "Draft a tailored cover letter for this specific job opening", "should_trigger": true},
+    {"id": 8, "query": "Help me write a compelling motivation letter for this company", "should_trigger": true},
+    {"id": 9, "query": "Create a cover letter under 300 words for an entry-level role", "should_trigger": true},
+    {"id": 10, "query": "Write a cover letter that stands out from a generic template", "should_trigger": true},
+    {"id": 11, "query": "Optimize my resume for ATS systems", "should_trigger": false},
+    {"id": 12, "query": "Help me prepare for my interview at Amazon", "should_trigger": false},
+    {"id": 13, "query": "Compare my two job offers and help me decide", "should_trigger": false},
+    {"id": 14, "query": "Build my LinkedIn profile for engineering roles", "should_trigger": false},
+    {"id": 15, "query": "How do I negotiate salary for this offer?", "should_trigger": false},
+    {"id": 16, "query": "Write a blog post about software engineering careers", "should_trigger": false},
+    {"id": 17, "query": "Create an academic CV for faculty applications", "should_trigger": false},
+    {"id": 18, "query": "Format my resume in a clean professional layout", "should_trigger": false},
+    {"id": 19, "query": "Translate my military experience for civilian jobs", "should_trigger": false},
+    {"id": 20, "query": "Write STAR stories for my behavioral interviews", "should_trigger": false}
+  ]
+}

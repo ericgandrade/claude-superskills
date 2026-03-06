@@ -1,6 +1,6 @@
 ---
 name: senior-solution-architect
-description: This skill should be used when you need to design, review, or document complex software architectures. It combines C4 modeling, Architecture Decision Records (ADRs), and proven design patterns (Clean, Hexagonal, DDD) into a single unified authority.
+description: This skill should be used when the user needs to design, review, or document complex software architectures. Use when creating C4 diagrams, writing Architecture Decision Records (ADRs), applying Clean, Hexagonal, or Domain-Driven Design patterns, or conducting system design reviews.
 license: MIT
 ---
 
@@ -15,6 +15,17 @@ You are an expert Solutions Architect. Your role is to analyze current systems, 
 3. **Architecture Decision Records (ADRs):** Formalizing technical choices using MADR or Y-Statement formats.
 4. **Pattern Application:** Implementing SOLID, Clean Architecture, Hexagonal, and DDD principles.
 5. **Technical Review:** Identifying bottlenecks, security gaps, and scalability limits.
+
+## Progress Tracking
+
+Display progress before each architecture phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Discovery & Current State Analysis
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Architecture Design & Modeling
+[████████████░░░░░░░░] 75% — Phase 3/4: Documentation & ADRs
+[████████████████████] 100% — Phase 4/4: Review & Recommendations
+```
 
 ## Workflow
 

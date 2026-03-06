@@ -1,0 +1,26 @@
+{
+  "skill_name": "product-architecture",
+  "description": "Triggers for organizing capability blocks, writing bets, and creating product roadmaps",
+  "queries": [
+    {"id": 1, "query": "Organize my product into capability blocks for better roadmap communication", "should_trigger": true},
+    {"id": 2, "query": "Convert this discovery opportunity into a structured bet with hypothesis and metrics", "should_trigger": true},
+    {"id": 3, "query": "Build a Now/Next/Later roadmap from our prioritized bets", "should_trigger": true},
+    {"id": 4, "query": "Write a solution brief for the onboarding bet we've committed to", "should_trigger": true},
+    {"id": 5, "query": "Prioritize our bet backlog using ICE scoring for Q2 planning", "should_trigger": true},
+    {"id": 6, "query": "Review this roadmap for date-commitment and feature-factory anti-patterns", "should_trigger": true},
+    {"id": 7, "query": "Design quarterly themes for our product organization", "should_trigger": true},
+    {"id": 8, "query": "Create a bet backlog from our discovery opportunities with kill criteria", "should_trigger": true},
+    {"id": 9, "query": "Help me organize features into customer-value-oriented blocks (not technical ones)", "should_trigger": true},
+    {"id": 10, "query": "Build an outcome-based roadmap for our product for the next 4 quarters", "should_trigger": true},
+    {"id": 11, "query": "Run customer interviews to validate this product opportunity", "should_trigger": false},
+    {"id": 12, "query": "Set up a weekly discovery rhythm for our product team", "should_trigger": false},
+    {"id": 13, "query": "Design a staged rollout plan for our new feature", "should_trigger": false},
+    {"id": 14, "query": "Run a bet retrospective and decide scale/iterate/kill", "should_trigger": false},
+    {"id": 15, "query": "Help me coach a PM who is struggling with stakeholder management", "should_trigger": false},
+    {"id": 16, "query": "Build an agency-control tradeoff for our AI feature", "should_trigger": false},
+    {"id": 17, "query": "Write a 1-page strategy canvas for our product", "should_trigger": false},
+    {"id": 18, "query": "Design our team operating rhythm and meeting cadences", "should_trigger": false},
+    {"id": 19, "query": "Set up metrics hierarchy with leading and lagging indicators", "should_trigger": false},
+    {"id": 20, "query": "Create GTM plan for our product launch", "should_trigger": false}
+  ]
+}

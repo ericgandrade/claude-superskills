@@ -1,6 +1,6 @@
 ---
 name: tech-resume-optimizer
-description: This skill should be used when optimize resumes for software engineering, PM, and technical roles
+description: This skill should be used when the user needs to optimize a resume for software engineering, product management, or technical roles. Use when tailoring a tech resume to emphasize engineering contributions, open-source work, system design, or technical leadership for software and product positions.
 license: MIT
 ---
 
@@ -325,6 +325,17 @@ Tech resumes should support your interview:
 - Know the architecture of systems you've built
 - Have stories ready for each bullet
 
+## Progress Tracking
+
+Display progress before each optimization phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Analyzing Technical Background & Target Role
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Identifying Tech Stack & Keyword Gaps
+[████████████░░░░░░░░] 75% — Phase 3/4: Rewriting Technical Bullets & Projects
+[████████████████████] 100% — Phase 4/4: Delivering Optimized Tech Resume
+```
+
 ## Output Format
 
 When optimizing a tech resume:
@@ -364,6 +375,16 @@ Cloud/Tools: [Ordered list]
 ## Technical Gaps to Address
 - [Missing skill] → [How to address in resume/cover letter]
 ```
+
+## Error Handling
+
+| Error | Likely Cause | Action |
+|-------|-------------|--------|
+| No resume provided | User asks to optimize without sharing content | Ask user to paste current resume text or key experience sections |
+| No target role specified | Can't optimize tech keywords without knowing position | Ask for target role (SWE, PM, DevOps, etc.) and experience level before optimizing |
+| GitHub or portfolio links not provided | User has relevant projects but no online presence | Note the gap; recommend creating/updating GitHub profile; include placeholder |
+| Missing technical stack details | Resume describes projects without naming specific technologies | Ask user to identify key technologies used; suggest adding stack to each project |
+| Conflicting seniority signals | Resume mixes senior-level scope with junior-level language | Ask user to confirm target level; adjust narrative to match consistently |
 
 ## ATS + Tech Recruiter Balance
 

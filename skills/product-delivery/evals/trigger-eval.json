@@ -1,0 +1,26 @@
+{
+  "skill_name": "product-delivery",
+  "description": "Triggers for staged rollouts, metrics hierarchy, bet retrospectives, and GTM execution",
+  "queries": [
+    {"id": 1, "query": "Design a staged rollout plan for our new payment feature with 100K users", "should_trigger": true},
+    {"id": 2, "query": "Build a metrics hierarchy — leading, core, lagging, and guardrail metrics", "should_trigger": true},
+    {"id": 3, "query": "Run a bet retrospective and decide whether to scale, iterate, or kill", "should_trigger": true},
+    {"id": 4, "query": "Set up dual-track discovery and delivery rhythm for our team", "should_trigger": true},
+    {"id": 5, "query": "Design a GTM launch plan for our Tier 1 feature release", "should_trigger": true},
+    {"id": 6, "query": "What rollback triggers should I define for this feature rollout?", "should_trigger": true},
+    {"id": 7, "query": "Create success criteria — what metrics define scale vs iterate vs kill for this bet", "should_trigger": true},
+    {"id": 8, "query": "Set up feature flags strategy for our staged rollout", "should_trigger": true},
+    {"id": 9, "query": "Help me define what a Tier 2 launch means vs Tier 1 for our GTM process", "should_trigger": true},
+    {"id": 10, "query": "Our metrics show mixed results post-launch — help me analyze and decide next steps", "should_trigger": true},
+    {"id": 11, "query": "Convert this opportunity to a bet with hypothesis and metrics", "should_trigger": false},
+    {"id": 12, "query": "Organize our product into capability blocks", "should_trigger": false},
+    {"id": 13, "query": "Build the Opportunity Solution Tree for our retention outcome", "should_trigger": false},
+    {"id": 14, "query": "Write a 1-page product strategy canvas", "should_trigger": false},
+    {"id": 15, "query": "Coach my PM who struggles with executive communication", "should_trigger": false},
+    {"id": 16, "query": "Help me run customer interviews this week", "should_trigger": false},
+    {"id": 17, "query": "Design an eval strategy for our AI product feature", "should_trigger": false},
+    {"id": 18, "query": "Build a portfolio management process across our product lines", "should_trigger": false},
+    {"id": 19, "query": "Create a Now/Next/Later roadmap", "should_trigger": false},
+    {"id": 20, "query": "Define our ICP and anti-ICP for product strategy", "should_trigger": false}
+  ]
+}

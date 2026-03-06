@@ -1,0 +1,29 @@
+{
+  "skill_name": "product-operating-model",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm a new CPO at a 150-person B2B SaaS company. The product team has no real process, builds whatever sales asks, and has never done structured discovery. Where do I start? Which parts of the Modern Product Operating Model should I introduce first?",
+      "expected_output": "A prioritized guidance on which product operating model components to introduce first, with sequencing rationale",
+      "expectations": [
+        "Output maps the challenge to the relevant system(s) in the operating model",
+        "Output recommends a starting sequence based on the described situation",
+        "Output identifies which specific skills address the described problems",
+        "Output provides practical sequencing advice for introducing the operating model",
+        "Output connects all recommended skills back to the operating model overview"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "My team is asking which product skill to use for different situations. Give me a quick reference guide for when to use product-strategy vs product-discovery vs product-architecture vs product-delivery vs product-leadership.",
+      "expected_output": "A clear decision guide mapping situations to the appropriate product skill",
+      "expectations": [
+        "Output provides a clear decision matrix or guide for each skill",
+        "Output gives specific example situations for each skill",
+        "Output explains how the skills connect and feed into each other",
+        "Output is quick-reference format (not a long narrative)",
+        "Output helps users select the right skill without reading all of them"
+      ]
+    }
+  ]
+}

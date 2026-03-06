@@ -1,6 +1,6 @@
 ---
 name: resume-ats-optimizer
-description: This skill should be used when optimize resumes for Applicant Tracking Systems, check ATS compatibility, and analyze keyword match
+description: This skill should be used when the user needs to optimize a resume for Applicant Tracking Systems, check ATS compatibility, and analyze keyword match against a job description. Use when a resume is failing screening filters, keyword density is low, or formatting is causing ATS parsing errors.
 license: MIT
 ---
 
@@ -152,6 +152,17 @@ Target: 80%+ for strong match
 - Important keywords: Appear 1-2 times
 - Don't keyword stuff - keep it natural
 - Vary phrasing (e.g., "led team" and "team leadership")
+
+## Progress Tracking
+
+Display progress before each ATS optimization phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Scanning for ATS Issues
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Keyword Matching & Gap Analysis
+[████████████░░░░░░░░] 75% — Phase 3/4: Applying Optimizations
+[████████████████████] 100% — Phase 4/4: Delivering ATS-Optimized Resume
+```
 
 ## Analysis Output Format
 

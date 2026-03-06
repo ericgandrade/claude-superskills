@@ -1,0 +1,26 @@
+{
+  "skill_name": "resume-tailor",
+  "description": "Triggers for tailoring a resume to a specific job description or company",
+  "queries": [
+    {"id": 1, "query": "Tailor my resume specifically for this job description at Stripe", "should_trigger": true},
+    {"id": 2, "query": "Create a customized version of my resume for this PM role", "should_trigger": true},
+    {"id": 3, "query": "Adapt my general resume to match the requirements of this specific posting", "should_trigger": true},
+    {"id": 4, "query": "Help me create two different versions of my resume for startup vs enterprise roles", "should_trigger": true},
+    {"id": 5, "query": "Customize my resume's language and emphasis for this data science role", "should_trigger": true},
+    {"id": 6, "query": "Modify my resume to highlight the most relevant experience for this JD", "should_trigger": true},
+    {"id": 7, "query": "Reorder and adjust my resume sections to better match this job's priorities", "should_trigger": true},
+    {"id": 8, "query": "Make targeted changes to my resume based on this specific company's values", "should_trigger": true},
+    {"id": 9, "query": "Create a tailored resume version that matches the seniority level of this posting", "should_trigger": true},
+    {"id": 10, "query": "Bridge the language gap between my background and what this JD is looking for", "should_trigger": true},
+    {"id": 11, "query": "Fix the ATS keyword gaps in my resume", "should_trigger": false},
+    {"id": 12, "query": "Write strong resume bullet points from scratch", "should_trigger": false},
+    {"id": 13, "query": "Format my resume with consistent styling", "should_trigger": false},
+    {"id": 14, "query": "Quantify my resume achievements", "should_trigger": false},
+    {"id": 15, "query": "Build a skills section for my resume", "should_trigger": false},
+    {"id": 16, "query": "Manage multiple versions of my resume in a version system", "should_trigger": false},
+    {"id": 17, "query": "Write an executive resume for a C-suite role", "should_trigger": false},
+    {"id": 18, "query": "Build a creative portfolio resume for my design career", "should_trigger": false},
+    {"id": 19, "query": "Write a cover letter for this specific job", "should_trigger": false},
+    {"id": 20, "query": "Prepare me for the interview at this company", "should_trigger": false}
+  ]
+}

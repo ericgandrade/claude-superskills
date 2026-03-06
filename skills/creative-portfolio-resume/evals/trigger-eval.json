@@ -1,0 +1,26 @@
+{
+  "skill_name": "creative-portfolio-resume",
+  "description": "Triggers for creative professionals needing resumes that balance visual design with content",
+  "queries": [
+    {"id": 1, "query": "I'm a UX designer — help me create a resume that showcases my design thinking", "should_trigger": true},
+    {"id": 2, "query": "Build a creative resume for my graphic design portfolio applications", "should_trigger": true},
+    {"id": 3, "query": "Help me create a visually distinctive resume as a brand strategist", "should_trigger": true},
+    {"id": 4, "query": "My resume needs to show I'm a creative professional, not just list jobs", "should_trigger": true},
+    {"id": 5, "query": "Create a portfolio-integrated resume for an art director role", "should_trigger": true},
+    {"id": 6, "query": "Design a resume concept that reflects my personal brand as a creative director", "should_trigger": true},
+    {"id": 7, "query": "Help me build a resume that showcases my process, not just my deliverables", "should_trigger": true},
+    {"id": 8, "query": "I need a resume that balances creative expression with professional credibility", "should_trigger": true},
+    {"id": 9, "query": "Create a resume for a product designer that includes my case study links", "should_trigger": true},
+    {"id": 10, "query": "My resume as a filmmaker/creative director needs to tell a story — help me design it", "should_trigger": true},
+    {"id": 11, "query": "Write an ATS-optimized resume for a software engineer role", "should_trigger": false},
+    {"id": 12, "query": "Create an executive resume for a CFO position", "should_trigger": false},
+    {"id": 13, "query": "Format my resume with consistent fonts and spacing", "should_trigger": false},
+    {"id": 14, "query": "Build an academic CV for postdoctoral applications", "should_trigger": false},
+    {"id": 15, "query": "Help me write bullet points that highlight my quantitative impact", "should_trigger": false},
+    {"id": 16, "query": "Optimize my LinkedIn profile for product management roles", "should_trigger": false},
+    {"id": 17, "query": "Compare my two job offers", "should_trigger": false},
+    {"id": 18, "query": "Write a cover letter for a marketing manager job", "should_trigger": false},
+    {"id": 19, "query": "Help me negotiate my salary offer", "should_trigger": false},
+    {"id": 20, "query": "Prepare me for my Google interview", "should_trigger": false}
+  ]
+}

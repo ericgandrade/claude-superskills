@@ -17,6 +17,20 @@ Use this skill when:
 - Work must be executed with periodic review checkpoints
 - Risk of regressions requires strict plan adherence and verification
 
+## Progress Tracking
+
+Display plan execution progress before each batch:
+
+```
+[████░░░░░░░░░░░░░░░░] 20% — Phase 1: Loading & Reviewing Plan
+[████████░░░░░░░░░░░░] 40% — Phase 2: Executing Batch N
+[████████████░░░░░░░░] 60% — Phase 3: Reporting & Verification
+[████████████████░░░░] 80% — Phase 4: Awaiting Feedback
+[████████████████████] 100% — Phase 5: Final Verification Complete
+```
+
+For plans with many tasks, adapt the gauge to reflect actual task completion: `X/Y tasks done (N%)`.
+
 ## Workflow
 
 1. Load and review plan critically
@@ -108,6 +122,17 @@ After all tasks complete and verified:
 - Stop immediately on blockers and ask for clarification.
 - Do not skip verification commands defined in the plan.
 - Do not continue to the next batch without reporting and waiting for feedback.
+
+## Error Handling
+
+| Error | Likely Cause | Action |
+|-------|-------------|--------|
+| Plan file not found | Path provided doesn't exist or file was moved | Ask user to confirm file path; list available plan files in `docs/plans/` |
+| Ambiguous task description | Step in plan is unclear or underspecified | Stop and ask user for clarification before proceeding |
+| Task depends on failed prerequisite | Earlier task failed or was skipped | Report the dependency failure; do not continue until resolved |
+| Verification command fails | Tests or checks defined in plan are failing | Stop immediately, report full error output, wait for user instruction |
+| Blocker encountered mid-execution | Unexpected state, conflicting files, or missing context | Pause, report the exact blocker, and ask user how to proceed |
+| Batch completed with partial failures | Some tasks in batch failed | Report which succeeded and which failed; ask user whether to retry or skip |
 
 ## Example Usage
 

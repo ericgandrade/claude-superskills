@@ -1,0 +1,26 @@
+{
+  "skill_name": "executive-resume-writer",
+  "description": "Triggers for C-suite, VP, and senior executive resume writing",
+  "queries": [
+    {"id": 1, "query": "Write a CFO resume for executive search firms", "should_trigger": true},
+    {"id": 2, "query": "Create a VP of Engineering resume for C-suite level positions", "should_trigger": true},
+    {"id": 3, "query": "I need a Chief Product Officer resume for board and investor audiences", "should_trigger": true},
+    {"id": 4, "query": "Build a senior executive resume highlighting P&L ownership and org scale", "should_trigger": true},
+    {"id": 5, "query": "Create a CEO resume for my next leadership role", "should_trigger": true},
+    {"id": 6, "query": "Help me write a CTO resume targeting Series C and public company roles", "should_trigger": true},
+    {"id": 7, "query": "Write an executive-level resume with board experience and M&A background", "should_trigger": true},
+    {"id": 8, "query": "I'm a General Manager with $200M P&L — create my executive resume", "should_trigger": true},
+    {"id": 9, "query": "Build a VP Sales resume targeting enterprise software companies", "should_trigger": true},
+    {"id": 10, "query": "Create a Director/VP level resume with proper executive framing and metrics", "should_trigger": true},
+    {"id": 11, "query": "Help me write resume bullet points for my data analyst position", "should_trigger": false},
+    {"id": 12, "query": "Create an entry-level software engineer resume for new grads", "should_trigger": false},
+    {"id": 13, "query": "Build an academic CV for a professor", "should_trigger": false},
+    {"id": 14, "query": "Format my resume for ATS compatibility", "should_trigger": false},
+    {"id": 15, "query": "Help me translate my military experience to civilian roles", "should_trigger": false},
+    {"id": 16, "query": "Write a cover letter for a marketing manager role", "should_trigger": false},
+    {"id": 17, "query": "Optimize my LinkedIn for software engineer jobs", "should_trigger": false},
+    {"id": 18, "query": "Prepare me for my PM interview at Google", "should_trigger": false},
+    {"id": 19, "query": "Compare these two job offers I received", "should_trigger": false},
+    {"id": 20, "query": "Negotiate my salary for this offer", "should_trigger": false}
+  ]
+}

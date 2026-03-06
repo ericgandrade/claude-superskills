@@ -1,6 +1,6 @@
 ---
 name: product-discovery
-description: This skill should be used when run continuous discovery to find problems worth solving. Use when setting up weekly discovery rhythm, building Opportunity Solution Trees, creating interview snapshots, exploring solutions, or testing assumptions before committing engineering resources. Part of the Modern Product Operating Model collection.
+description: This skill should be used when the user needs to run continuous discovery to find problems worth solving. Use when setting up weekly discovery rhythm, building Opportunity Solution Trees, creating interview snapshots, exploring solutions, or testing assumptions before committing engineering resources.
 license: MIT
 ---
 
@@ -60,6 +60,17 @@ The Discovery System creates a weekly rhythm that keeps you close to customers a
 - Waiting for perfect data before deciding
 
 ---
+
+## Progress Tracking
+
+Display progress during discovery sessions:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Setting Up Discovery Rhythm
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Customer Interviews & Opportunity Mapping
+[████████████░░░░░░░░] 75% — Phase 3/4: Solution Exploration & Assumption Testing
+[████████████████████] 100% — Phase 4/4: Synthesizing Insights & Prioritizing
+```
 
 ## Framework Components
 

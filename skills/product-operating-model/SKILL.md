@@ -1,6 +1,6 @@
 ---
 name: product-operating-model
-description: This skill should be used when index of the Modern Product Operating Model — a collection of composable product skills. Use when user wants an overview of all product skills, doesn
+description: This skill should be used when the user wants an overview of the Modern Product Operating Model — a collection of 6 composable product skills covering strategy, discovery, architecture, delivery, AI-native development, and leadership. Use when unsure which product skill to invoke or when exploring the full operating system.
 license: MIT
 ---
 
@@ -32,6 +32,19 @@ This is a collection of **6 composable skills** for product leadership. Each ski
 
 **Install the complete collection:**
 ```bash
+```
+
+---
+
+## Progress Tracking
+
+Display progress when navigating the operating model:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Diagnosing Your Current Challenge
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Selecting the Right Skill(s)
+[████████████░░░░░░░░] 75% — Phase 3/4: Applying the Framework
+[████████████████████] 100% — Phase 4/4: Connecting Skills into Operating Rhythm
 ```
 
 ---

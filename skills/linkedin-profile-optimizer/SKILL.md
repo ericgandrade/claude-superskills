@@ -1,6 +1,6 @@
 ---
 name: linkedin-profile-optimizer
-description: This skill should be used when optimize LinkedIn profile for searchability, recruiter visibility, and engagement
+description: This skill should be used when the user needs to optimize a LinkedIn profile for recruiter searchability, visibility, and engagement. Use when rewriting LinkedIn headlines, About sections, or experience entries, or when improving profile keyword density and completeness for target roles.
 license: MIT
 ---
 
@@ -317,6 +317,17 @@ Ensure these are ON:
 - Optimal: 3-5x per week
 - Comment/engage: Daily
 
+## Progress Tracking
+
+Display progress before each optimization phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Analyzing Current Profile
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Keyword & SEO Research
+[████████████░░░░░░░░] 75% — Phase 3/4: Rewriting Sections
+[████████████████████] 100% — Phase 4/4: Delivering Optimized Profile
+```
+
 ## Output Format
 
 When optimizing a LinkedIn profile:
@@ -359,6 +370,16 @@ When optimizing a LinkedIn profile:
 6. [ ] Add featured content
 7. [ ] Upload professional photo
 ```
+
+## Error Handling
+
+| Error | Likely Cause | Action |
+|-------|-------------|--------|
+| No current LinkedIn content provided | User asks to optimize but provides no profile text | Ask user to paste current headline, About, and 1-2 experience entries to work with |
+| No target role specified | Unclear who the profile should attract | Ask user for target role or personas (recruiters, investors, clients) before optimizing |
+| Profile in non-English language | LinkedIn content in Portuguese or other language | Proceed in that language; flag if English optimization was intended |
+| Industry-specific keywords unknown | User is in a niche field | Ask user for 5-10 keywords competitors or peers use in their profiles |
+| Profile has very limited history | New professional or sparse profile | Note limitations; build strongest possible version from available content |
 
 ## Resume-to-LinkedIn Sync
 

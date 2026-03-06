@@ -100,6 +100,17 @@ Whenever receiving a request, the skill strictly follows these steps:
 
 ---
 
+## Progress Tracking
+
+Display progress during story development:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Understanding Audience & Purpose
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Selecting Framework & Structure
+[████████████░░░░░░░░] 75% — Phase 3/4: Crafting Narrative
+[████████████████████] 100% — Phase 4/4: Refining & Delivering Story
+```
+
 ## 📄 Version
 
 **v1.0.0** | Expert Storytelling | Context-Aware

@@ -182,6 +182,18 @@ fi
 
 ---
 
+## Error Handling
+
+| Error | Likely Cause | Action |
+|-------|-------------|--------|
+| Docling not installed | `docling` Python package missing | Offer to install with `pip install docling`; show manual instructions |
+| Unsupported file format | File type not in supported list | Inform user of supported formats (PDF, DOCX, PPTX, XLSX, HTML, images); suggest CloudConvert for other formats |
+| File not found or access denied | Path incorrect or insufficient permissions | Show exact error; ask user to verify path and file permissions |
+| OCR required but unavailable | Scanned PDF with no text layer; `docling[ocr]` not installed | Offer to install OCR extras with `pip install "docling[ocr]"`; explain what OCR does |
+| Conversion output empty | File has no extractable text (image-only PDF without OCR) | Suggest enabling OCR option; explain cause |
+| Memory error on large file | File too large for available RAM | Suggest processing in smaller chunks; warn about file size |
+| Corrupted file | Input file is damaged or incomplete | Inform user the file may be corrupted; ask for a valid copy |
+
 ## 📄 Version
 
 **v1.0.1** | Agentic Workflow | Auto-Install

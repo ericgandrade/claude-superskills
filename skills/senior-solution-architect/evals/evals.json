@@ -1,0 +1,29 @@
+{
+  "skill_name": "senior-solution-architect",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Design a system architecture for a real-time ride-sharing platform. It needs to handle 100K concurrent drivers, match riders to drivers within 3 seconds, process 1M trips per day, and maintain 99.9% uptime. Include the data model, key services, and technology choices.",
+      "expected_output": "A comprehensive system architecture with C4 models, technology choices, trade-off analysis, and data model",
+      "expectations": [
+        "Output covers the high-level system components (matching service, location service, payment, etc.)",
+        "Output addresses the real-time matching requirement with specific technology approach",
+        "Output discusses scaling strategy for 100K concurrent drivers",
+        "Output includes data model for trips, drivers, and riders",
+        "Output analyzes key architectural trade-offs"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Review this architecture decision: our team wants to move from a monolith to microservices for our 3-year-old e-commerce platform. We have 5 engineers, 50K daily active users, and the main complaint is deployment speed — releases take 4 hours and happen monthly. Is microservices the right answer?",
+      "expected_output": "An architecture review with honest trade-off analysis, alternative options, and a recommendation",
+      "expectations": [
+        "Output challenges whether microservices is the right solution for the stated problem",
+        "Output identifies that slow deployments may be a CI/CD problem, not an architecture problem",
+        "Output presents alternative approaches (modular monolith, strangler fig, CI/CD improvement)",
+        "Output analyzes the cost of microservices for a 5-engineer team",
+        "Output provides a clear recommendation with rationale"
+      ]
+    }
+  ]
+}

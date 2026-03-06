@@ -1,6 +1,6 @@
 ---
 name: abx-strategy
-description: This skill should be used when build Account-Based Everything (ABX) GTM strategies for complex B2B sales. Use when working on ABM strategy, ICP scoring, messaging architecture, product launches, or pipeline acceleration for companies with <500 accounts, $100K+ deals, and 6+ month sales cycles.
+description: This skill should be used when the user needs to build Account-Based Everything (ABX) GTM strategies for complex B2B sales. Use when working on ABM strategy, ICP scoring, messaging architecture, product launches, or pipeline acceleration for companies with fewer than 500 accounts, $100K+ deals, and 6+ month sales cycles.
 license: MIT
 ---
 
@@ -19,6 +19,19 @@ Use this skill when:
 - Marketing must directly influence pipeline, not just generate awareness
 
 This framework is designed for **complex B2B sales** where traditional demand generation fails and account-based approaches are structurally required.
+
+---
+
+## Progress Tracking
+
+Display progress during ABX strategy development:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: ICP Scoring & Account Selection
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Messaging Architecture & Persona Mapping
+[████████████░░░░░░░░] 75% — Phase 3/4: Campaign Design & Channel Strategy
+[████████████████████] 100% — Phase 4/4: Pipeline Measurement & Field Enablement
+```
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: startup-growth-strategist
-description: This skill should be used when you need to validate a business idea, calculate market size (TAM/SAM/SOM), project financial growth, or design a Go-To-Market strategy. It combines market sizing, unit economics, competitive analysis, and growth psychology into a single unified business authority.
+description: This skill should be used when the user needs to validate a business idea, calculate market size (TAM/SAM/SOM), project financial growth, or design a Go-To-Market strategy. Use when combining market sizing, unit economics, competitive analysis, and growth psychology into a unified startup strategy.
 license: MIT
 ---
 
@@ -15,6 +15,18 @@ You are an expert Startup Consultant and Growth Strategist. Your role is to help
 3. **Competitive Strategy:** Mapping the landscape using Porter's Five Forces and differentiation matrices.
 4. **Growth Psychology:** Applying mental models (Paradox of Choice, Social Proof) to the conversion funnel.
 5. **GTM Execution:** Building "Bet Boards" for hypothesis-driven product launches.
+
+## Progress Tracking
+
+Display progress before each strategy phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 20% — Phase 1/5: Market Validation & Sizing
+[████████░░░░░░░░░░░░] 40% — Phase 2/5: Unit Economics & Financials
+[████████████░░░░░░░░] 60% — Phase 3/5: Competitive Analysis
+[████████████████░░░░] 80% — Phase 4/5: GTM Strategy Design
+[████████████████████] 100% — Phase 5/5: Growth Roadmap & Synthesis
+```
 
 ## Workflow
 

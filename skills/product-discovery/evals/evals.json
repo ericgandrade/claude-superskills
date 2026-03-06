@@ -1,0 +1,29 @@
+{
+  "skill_name": "product-discovery",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Help me build an Opportunity Solution Tree for the outcome: 'Improve 30-day retention from 35% to 50% for new users of our project management tool.' I have notes from 8 customer interviews. Key themes: users don't know how to invite teammates, templates are hard to find, and users get confused after creating their first project.",
+      "expected_output": "A structured OST with the outcome node, opportunity branches from interview themes, and initial solution ideas for each opportunity",
+      "expectations": [
+        "Output creates a structured OST with outcome at top",
+        "Output frames the 3 themes as opportunity nodes (problems, not solutions)",
+        "Output generates at least 2-3 solution ideas per opportunity",
+        "Output follows the OST rules (opportunities are problems, not solutions)",
+        "Output identifies which opportunity to target first based on evidence strength"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Design an assumption test for this solution idea: 'Show a contextual tooltip on day 3 prompting users to invite teammates.' This is for a collaboration feature where we believe users who invite teammates retain at 70% vs 35% for solo users. What's the fastest way to test the riskiest assumption?",
+      "expected_output": "An assumption test design with the riskiest assumption identified, test method selected, success/failure criteria, and timebox",
+      "expectations": [
+        "Output identifies the riskiest assumption (likely: will users act on the prompt? or does inviting teammates cause retention, not just correlate?)",
+        "Output selects an appropriate fast test method (fake door, concierge, etc.)",
+        "Output specifies clear success and failure criteria",
+        "Output defines a timebox in days, not weeks",
+        "Output uses the assumption test format template"
+      ]
+    }
+  ]
+}

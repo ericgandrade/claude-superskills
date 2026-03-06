@@ -1,6 +1,6 @@
 ---
 name: cover-letter-generator
-description: This skill should be used when create personalized, compelling cover letters from resume and job description
+description: This skill should be used when the user needs to create a personalized, compelling cover letter from a resume and job description. Use when writing job application letters, addressing specific role requirements, handling career change narratives, or structuring persuasive arguments for candidacy.
 license: MIT
 ---
 
@@ -239,6 +239,17 @@ Explain your motivation:
 "While my background is in [Previous Field], I've been actively building [New Field] skills through [courses, projects, etc.]. My experience in [transferable skill] translates directly to [new role] through [specific connection]."
 ```
 
+## Progress Tracking
+
+Display progress before each letter phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Analyzing Job & Company
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Matching Experience to Requirements
+[████████████░░░░░░░░] 75% — Phase 3/4: Writing Cover Letter
+[████████████████████] 100% — Phase 4/4: Reviewing & Delivering Final Letter
+```
+
 ## Output Format
 
 When generating a cover letter, provide:
@@ -271,6 +282,16 @@ When generating a cover letter, provide:
 - [Point 2]
 - [Point 3]
 ```
+
+## Error Handling
+
+| Error | Likely Cause | Action |
+|-------|-------------|--------|
+| No job description provided | User requests letter without sharing role details | Ask for full job description or at minimum company name, role title, and key requirements |
+| No resume or experience provided | Can't write compelling letter without background | Request resume or summary of relevant experience and achievements |
+| Company information not findable | Private company or very new startup | Write based on available context; flag that company-specific details couldn't be verified |
+| Significant qualification gap | Experience doesn't meet key requirements | Acknowledge gap; focus letter on transferable skills and growth trajectory |
+| Career change narrative needed | Moving between industries | Ask user for their "why change" story; build bridge narrative around transferable skills |
 
 ## Quality Checklist
 

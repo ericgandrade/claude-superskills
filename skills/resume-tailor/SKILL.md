@@ -1,6 +1,6 @@
 ---
 name: resume-tailor
-description: This skill should be used when customize resume for specific job postings while maintaining truthfulness
+description: This skill should be used when the user needs to customize a resume for a specific job posting while maintaining truthfulness. Use when adapting an existing resume to match a job description, repositioning experience for a new role, or aligning resume language with target role keywords and requirements.
 license: MIT
 ---
 
@@ -279,6 +279,17 @@ Before submitting any resume:
 9. ✅ ATS formatting maintained
 10. ✅ Saved for interview prep reference
 
+## Progress Tracking
+
+Display progress before each tailoring phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Analyzing Job Description
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Identifying Gaps & Matches
+[████████████░░░░░░░░] 75% — Phase 3/4: Rewriting & Adapting Resume
+[████████████████████] 100% — Phase 4/4: Delivering Tailored Version
+```
+
 ## Output Format
 
 When tailoring a resume, provide:
@@ -313,6 +324,16 @@ When tailoring a resume, provide:
 - Sections reordered: Yes/No
 - Estimated new match score: Z%
 ```
+
+## Error Handling
+
+| Error | Likely Cause | Action |
+|-------|-------------|--------|
+| No job description provided | User wants to tailor but hasn't shared the job posting | Ask user to provide the full job description before tailoring |
+| No resume content provided | User asks to tailor but provides no current resume | Request current resume or experience summary before proceeding |
+| Job requirements don't match experience | Large skills gap between resume and role | Flag the gap clearly; tailor what transfers and add honest framing for gaps |
+| Job description too vague | Posting lacks specific requirements or keywords | Work with available signals; suggest user research the company's similar roles for keywords |
+| Resume already highly tailored | User submits pre-tailored version for another role | Confirm the base document; proceed from current state |
 
 ## Implementation Notes
 

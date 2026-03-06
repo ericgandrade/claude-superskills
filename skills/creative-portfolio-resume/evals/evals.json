@@ -1,0 +1,29 @@
+{
+  "skill_name": "creative-portfolio-resume",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm a UX designer with 5 years of experience applying to lead designer roles at tech companies. I need a resume that showcases my visual thinking and design process, not just job titles. I've worked on consumer apps (Spotify, food delivery startup), won 2 design awards, and have a portfolio at behance.net/myprofile. Create a creative resume that stands out.",
+      "expected_output": "A visually-oriented resume concept with design process emphasis, portfolio integration, and creative structure",
+      "expectations": [
+        "Output suggests a visual layout or structure different from standard chronological format",
+        "Output includes a way to feature the portfolio link prominently",
+        "Output recommends showcasing design process, not just outputs",
+        "Output includes the design awards in a prominent way",
+        "Output balances ATS readability with creative differentiation"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I'm a brand strategist and creative director pivoting to in-house brand leadership roles. 8 years at agencies, worked with Nike, Airbnb, and Apple. Need a resume that demonstrates strategic thinking AND creative vision — something that reads differently from a standard PM or marketing resume.",
+      "expected_output": "A hybrid strategic-creative resume that positions agency experience for in-house brand leadership",
+      "expectations": [
+        "Output structures experience to show strategic impact, not just campaign execution",
+        "Output features notable client names (Nike, Airbnb, Apple) prominently",
+        "Output includes a personal brand statement or creative summary",
+        "Output recommends including a 'philosophy' or 'approach' section",
+        "Output distinguishes between creative and strategic contributions in experience bullets"
+      ]
+    }
+  ]
+}

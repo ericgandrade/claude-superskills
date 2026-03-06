@@ -17,6 +17,17 @@ Use this skill when:
 - Work is multi-step and requires coordination across files and tests
 - A handoff-ready plan is needed for another session or engineer
 
+## Progress Tracking
+
+Display progress at each planning phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Gathering Context & Constraints
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Decomposing Into Tasks
+[████████████░░░░░░░░] 75% — Phase 3/4: Specifying Files & Commands
+[████████████████████] 100% — Phase 4/4: Writing & Saving Plan
+```
+
 ## Workflow
 
 1. Gather context and constraints

@@ -1,0 +1,26 @@
+{
+  "skill_name": "agent-skill-orchestrator",
+  "description": "Triggers for complex multi-skill task orchestration and execution planning",
+  "queries": [
+    {"id": 1, "query": "I have a complex task — create an execution plan using the best available resources", "should_trigger": true},
+    {"id": 2, "query": "Orchestrate the right skills to help me prepare for a job interview at Google", "should_trigger": true},
+    {"id": 3, "query": "I need to do market research, build a strategy, and create a presentation — plan it all out", "should_trigger": true},
+    {"id": 4, "query": "What's the best combination of skills and agents to help me launch a product?", "should_trigger": true},
+    {"id": 5, "query": "Create a strategic execution plan for this multi-step project", "should_trigger": true},
+    {"id": 6, "query": "Analyze my requirements and suggest the best available resources with confidence scoring", "should_trigger": true},
+    {"id": 7, "query": "I need primary and alternative plans for completing this complex task", "should_trigger": true},
+    {"id": 8, "query": "Match my task requirements to the available skills and create an execution plan", "should_trigger": true},
+    {"id": 9, "query": "Build me an orchestrated workflow for comprehensive competitive analysis", "should_trigger": true},
+    {"id": 10, "query": "Plan a multi-skill approach to help me with my job search strategy", "should_trigger": true},
+    {"id": 11, "query": "Write a function to parse JSON in Python", "should_trigger": false},
+    {"id": 12, "query": "Format my resume as a PDF", "should_trigger": false},
+    {"id": 13, "query": "What is machine learning?", "should_trigger": false},
+    {"id": 14, "query": "Fix this bug in my React component", "should_trigger": false},
+    {"id": 15, "query": "Transcribe this audio file", "should_trigger": false},
+    {"id": 16, "query": "Write a cover letter for this job", "should_trigger": false},
+    {"id": 17, "query": "Explain the OSI model", "should_trigger": false},
+    {"id": 18, "query": "Generate a brainstorm for product features", "should_trigger": false},
+    {"id": 19, "query": "Help me understand my equity offer", "should_trigger": false},
+    {"id": 20, "query": "Create a SQL query for my database", "should_trigger": false}
+  ]
+}

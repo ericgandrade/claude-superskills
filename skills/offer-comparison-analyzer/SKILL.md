@@ -1,6 +1,6 @@
 ---
 name: offer-comparison-analyzer
-description: This skill should be used when compare multiple job offers side-by-side with total compensation analysis
+description: This skill should be used when the user needs to compare multiple job offers side-by-side with total compensation analysis. Use when evaluating competing offers, calculating equity value and benefits, scoring offers against personal priorities, or deciding between roles with different salary and compensation structures.
 license: MIT
 ---
 
@@ -305,6 +305,17 @@ Result: Company A scores higher (7.70 vs 7.10)
 - Which failure would I regret more?
 - What's my backup plan for each?
 
+## Progress Tracking
+
+Display progress before each comparison phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Collecting Offer Details
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Calculating Total Compensation
+[████████████░░░░░░░░] 75% — Phase 3/4: Scoring Against Priorities
+[████████████████████] 100% — Phase 4/4: Delivering Recommendation
+```
+
 ## Output Format
 
 When comparing offers:
@@ -362,6 +373,17 @@ Based on your stated priorities of [X, Y, Z], **Offer [A/B]** appears to be the 
 - [Opportunity 1]
 - [Opportunity 2]
 ```
+
+## Error Handling
+
+| Error | Likely Cause | Action |
+|-------|-------------|--------|
+| Only one offer provided | User asks to compare but shares only one option | Proceed as single-offer analysis; ask if user has other offers or is considering staying in current role |
+| Incomplete offer details | Missing salary, equity, or benefits information | Flag gaps explicitly; ask user to fill in what they know; estimate where possible and flag estimates |
+| Non-standard equity structure | RSUs vs. options vs. profit sharing vs. warrants | Ask for clarification on equity type, cliff, vesting schedule, and last valuation |
+| High uncertainty in startup equity | Private company with no known valuation | Calculate a range using conservative and optimistic scenarios; explain assumptions |
+| Offers in different currencies | One offer in USD, another in EUR or BRL | Convert to common currency at current exchange rate; note exchange rate risk |
+| Non-monetary factors hard to compare | Culture, commute, growth potential are subjective | Create scoring rubric with user-defined weights; let user rate each factor |
 
 ## Comparison Checklist
 

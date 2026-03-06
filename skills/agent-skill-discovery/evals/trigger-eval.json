@@ -1,0 +1,26 @@
+{
+  "skill_name": "agent-skill-discovery",
+  "description": "Triggers for discovering installed skills, agents, MCPs, and plugins",
+  "queries": [
+    {"id": 1, "query": "Show me all installed skills and agents available to me", "should_trigger": true},
+    {"id": 2, "query": "What plugins and MCP servers do I have?", "should_trigger": true},
+    {"id": 3, "query": "Scan my environment and give me a catalog of everything available", "should_trigger": true},
+    {"id": 4, "query": "What skills can I use in this project?", "should_trigger": true},
+    {"id": 5, "query": "List all the AI tools installed on my system", "should_trigger": true},
+    {"id": 6, "query": "What agents are available for me to run?", "should_trigger": true},
+    {"id": 7, "query": "Discover all MCP servers configured in this repository", "should_trigger": true},
+    {"id": 8, "query": "What resources do I have access to for research tasks?", "should_trigger": true},
+    {"id": 9, "query": "Show me what's installed globally vs locally in this repo", "should_trigger": true},
+    {"id": 10, "query": "I want to see all available capabilities before I start my task", "should_trigger": true},
+    {"id": 11, "query": "Write a Python script to sort a list", "should_trigger": false},
+    {"id": 12, "query": "Help me prepare for my job interview", "should_trigger": false},
+    {"id": 13, "query": "Explain how Kubernetes works", "should_trigger": false},
+    {"id": 14, "query": "Write a marketing email for our product launch", "should_trigger": false},
+    {"id": 15, "query": "Design a database schema for my application", "should_trigger": false},
+    {"id": 16, "query": "Summarize this YouTube video", "should_trigger": false},
+    {"id": 17, "query": "Help me write a cover letter", "should_trigger": false},
+    {"id": 18, "query": "Create a product roadmap for our SaaS", "should_trigger": false},
+    {"id": 19, "query": "Optimize this SQL query for performance", "should_trigger": false},
+    {"id": 20, "query": "Build an ABX marketing strategy", "should_trigger": false}
+  ]
+}

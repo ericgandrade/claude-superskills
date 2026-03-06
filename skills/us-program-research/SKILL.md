@@ -18,6 +18,20 @@ Use this skill when the task requires:
 - Application strategy based on profile, budget, and timeline
 - A final consolidated document for decision-making and execution
 
+## Progress Tracking
+
+Display progress before each research phase:
+
+```
+[███░░░░░░░░░░░░░░░░░] 15% — Phase 0: Program Type Detection & Input Collection
+[██████░░░░░░░░░░░░░░] 30% — Phase 1: Profile & Credential Analysis
+[█████████░░░░░░░░░░░] 45% — Phase 2: Parallel Discovery (4 subagents)
+[████████████░░░░░░░░] 60% — Phase 3: Parallel Deep Research (4 subagents)
+[███████████████░░░░░] 75% — Phase 4: Adaptive Scorecards & Ranking
+[█████████████████░░░] 85% — Phase 5: Document Generation
+[████████████████████] 100% — Phase 6: Inline Report & Recommendations
+```
+
 ## Workflow
 
 Follow the phases defined below in sequence, maintaining source traceability and separating facts from inferences.
@@ -234,6 +248,17 @@ Consult as needed during execution:
 - Do not skip credential analysis before scoring/ranking.
 - Do not present a final recommendation without citing sources and criteria.
 - Clearly differentiate confirmed data, assumptions, and recommendations.
+
+## Error Handling
+
+| Error | Likely Cause | Action |
+|-------|-------------|--------|
+| Program URL unavailable (404) | University program page moved or removed | Note inaccessibility; use cached data or alternative sources for that program |
+| No funding data found | Program doesn't publish funding info publicly | Mark as "funding data unavailable"; recommend user contact program directly |
+| Insufficient programs match criteria | Filters too restrictive (budget, location, ranking) | Relax constraints and explain tradeoffs to user |
+| Budget eliminates all options | Target budget below typical program tuition | Inform user of realistic cost ranges; suggest funded programs or assistantships |
+| Credential gap detected | User credentials unlikely to meet minimum requirements | Flag disqualifiers; recommend strengthening credentials before applying |
+| WebFetch blocked by university site | Bot-blocking or requires login | Use alternate sources (US News, Grad Cafe, QS rankings) for that program's data |
 
 ## Example Usage
 

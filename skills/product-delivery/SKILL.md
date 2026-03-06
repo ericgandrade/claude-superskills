@@ -1,6 +1,6 @@
 ---
 name: product-delivery
-description: This skill should be used when ship, measure, and learn effectively. Use when planning staged rollouts, setting up metrics hierarchies, running bet retrospectives, or executing GTM launches. Part of the Modern Product Operating Model collection.
+description: This skill should be used when the user needs to ship, measure, and learn effectively. Use when planning staged rollouts, setting up metrics hierarchies, running bet retrospectives, or executing GTM launches. Part of the Modern Product Operating Model collection.
 license: MIT
 ---
 
@@ -61,6 +61,17 @@ The Delivery System ensures **shipping is the beginning of learning, not the end
 - Throwing features over the wall to marketing
 
 ---
+
+## Progress Tracking
+
+Display progress during delivery planning:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Rollout Planning & Risk Assessment
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Metrics Hierarchy & GTM Coordination
+[████████████░░░░░░░░] 75% — Phase 3/4: Launch Execution & Monitoring
+[████████████████████] 100% — Phase 4/4: Bet Retrospective & Learning Loop
+```
 
 ## Framework Components
 

@@ -1,6 +1,6 @@
 ---
 name: job-description-analyzer
-description: This skill should be used when analyze job postings, calculate match scores, identify gaps, and create application strategy
+description: This skill should be used when the user needs to analyze a job posting, calculate resume-to-job match scores, identify skill gaps, and create an application strategy. Use when evaluating fit for a specific role, extracting key requirements, or preparing targeted resume and cover letter materials.
 license: MIT
 ---
 
@@ -148,6 +148,17 @@ Scan for warning signs:
 - "Equity-heavy" (low cash compensation)
 - "Commission-based" (no base salary)
 - "DOE" with no range
+
+## Progress Tracking
+
+Display progress before each analysis phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Parsing Job Description
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Calculating Match Score
+[████████████░░░░░░░░] 75% — Phase 3/4: Identifying Gaps & Strategy
+[████████████████████] 100% — Phase 4/4: Delivering Analysis Report
+```
 
 ## Match Score Output Format
 
@@ -428,6 +439,16 @@ You meet 80% of required skills and 67% of preferred skills. Your developer tool
 - "Preferred" degree you don't have
 - Nice-to-have tools/skills you can learn
 - Industry experience when you have transferable skills
+
+## Error Handling
+
+| Error | Likely Cause | Action |
+|-------|-------------|--------|
+| No job description provided | User asks to analyze without sharing the posting | Ask user to paste the full job description; accept URL or text |
+| Job description too short or vague | Posting lacks specifics (just a title and 3 bullets) | Work with available signals; flag that analysis may be incomplete |
+| No resume to match against | User wants match score but hasn't shared their background | Ask for resume or work history before calculating match score |
+| Job description in non-English language | Posting in Portuguese, Spanish, or other language | Analyze in the posting's language; note if translation was applied |
+| Role requires unlisted qualifications | Company uses job description as minimum bar, not full picture | Flag known patterns (e.g., "10 years of experience" for new tech) |
 
 ## Implementation Checklist
 

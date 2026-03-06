@@ -1,6 +1,6 @@
 ---
 name: resume-quantifier
-description: This skill should be used when find opportunities to add metrics and estimate numbers when exact data unavailable
+description: This skill should be used when the user needs to find opportunities to add metrics to a resume and estimate numbers when exact data is unavailable. Use when resume bullets lack quantification, when the user needs help estimating impact figures, or when strengthening achievement statements with data.
 license: MIT
 ---
 
@@ -291,6 +291,17 @@ Example:
 **Example:**
 - "Entered data" →
 - "Processed 200+ records daily with 99.5% accuracy rate, exceeding team average by 15%"
+
+## Progress Tracking
+
+Display progress before each quantification phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Scanning for Quantification Opportunities
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Estimating Figures from Context
+[████████████░░░░░░░░] 75% — Phase 3/4: Adding Metrics to Bullets
+[████████████████████] 100% — Phase 4/4: Delivering Quantified Resume
+```
 
 ## Output Format
 

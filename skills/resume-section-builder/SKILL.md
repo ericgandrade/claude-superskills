@@ -1,6 +1,6 @@
 ---
 name: resume-section-builder
-description: This skill should be used when create targeted resume sections optimized for different experience levels and roles
+description: This skill should be used when the user needs to create targeted resume sections optimized for different experience levels and roles. Use when building a professional summary, skills section, education block, or any specific resume section tailored to a job target or career stage.
 license: MIT
 ---
 
@@ -350,6 +350,17 @@ English (Native) | Spanish (Professional) | Mandarin (Conversational)
 4. Experience (reframed)
 5. Bridge Experience
 6. Education
+
+## Progress Tracking
+
+Display progress before each section-building phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Analyzing Target Role & Experience Level
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Drafting Section Content
+[████████████░░░░░░░░] 75% — Phase 3/4: Optimizing for ATS & Readability
+[████████████████████] 100% — Phase 4/4: Delivering Complete Section
+```
 
 ## Output Format
 

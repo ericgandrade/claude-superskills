@@ -1,0 +1,26 @@
+{
+  "skill_name": "ai-native-product",
+  "description": "Triggers for AI-native product development, agency-control tradeoffs, evals, and calibration",
+  "queries": [
+    {"id": 1, "query": "Help me design the agency-control tradeoff for our AI agent product", "should_trigger": true},
+    {"id": 2, "query": "We're building an LLM-powered feature — how do we set up evals and calibration?", "should_trigger": true},
+    {"id": 3, "query": "How much autonomy should we give our AI assistant in our product?", "should_trigger": true},
+    {"id": 4, "query": "Design discovery and research approach for a product where AI handles user tasks", "should_trigger": true},
+    {"id": 5, "query": "Our AI feature is hallucinating 5% of the time — build a calibration loop", "should_trigger": true},
+    {"id": 6, "query": "What makes product management different when AI is at the core?", "should_trigger": true},
+    {"id": 7, "query": "Set up an eval strategy for our LLM-based summarization feature", "should_trigger": true},
+    {"id": 8, "query": "How do we test and measure quality for an AI agent that acts autonomously?", "should_trigger": true},
+    {"id": 9, "query": "Design a trust-building roadmap for our AI-powered product", "should_trigger": true},
+    {"id": 10, "query": "We need a framework for human-AI interaction patterns in our new product", "should_trigger": true},
+    {"id": 11, "query": "Write a Python class for a REST API client", "should_trigger": false},
+    {"id": 12, "query": "Help me optimize my resume for machine learning roles", "should_trigger": false},
+    {"id": 13, "query": "How do I train a neural network from scratch?", "should_trigger": false},
+    {"id": 14, "query": "Create a product roadmap for a traditional SaaS product", "should_trigger": false},
+    {"id": 15, "query": "What is fine-tuning vs RAG for LLMs?", "should_trigger": false},
+    {"id": 16, "query": "Help me write a job description for an ML engineer", "should_trigger": false},
+    {"id": 17, "query": "Optimize my SQL query performance", "should_trigger": false},
+    {"id": 18, "query": "Summarize this research paper about transformers", "should_trigger": false},
+    {"id": 19, "query": "Set up a CI/CD pipeline for my Python project", "should_trigger": false},
+    {"id": 20, "query": "Write a marketing strategy for our SaaS product", "should_trigger": false}
+  ]
+}

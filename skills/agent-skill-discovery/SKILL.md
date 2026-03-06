@@ -34,6 +34,19 @@ Works identically on all AI CLI platforms:
 - **OpenCode** (`opencode`)
 - **OpenAI Codex** (`codex`)
 
+## Progress Tracking
+
+Display a progress gauge before each step to keep the user informed:
+
+```
+[████░░░░░░░░░░░░░░░░] 15% — Step 1/6: Scanning Plugins
+[████████░░░░░░░░░░░░] 30% — Step 2/6: Scanning Skills
+[████████████░░░░░░░░] 45% — Step 3/6: Scanning MCP Servers
+[████████████████░░░░] 60% — Step 4/6: Scanning Repository
+[██████████████████░░] 75% — Step 5/6: Applying Filters
+[████████████████████] 100% — Step 6/6: Generating Catalog
+```
+
 ## Workflow
 
 ### Step 0: Platform Detection

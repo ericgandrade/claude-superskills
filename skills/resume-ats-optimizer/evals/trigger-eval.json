@@ -1,0 +1,26 @@
+{
+  "skill_name": "resume-ats-optimizer",
+  "description": "Triggers for ATS compatibility analysis and keyword optimization",
+  "queries": [
+    {"id": 1, "query": "Analyze my resume for ATS compatibility and fix keyword gaps", "should_trigger": true},
+    {"id": 2, "query": "My resume keeps getting rejected by ATS systems — optimize it", "should_trigger": true},
+    {"id": 3, "query": "Score my resume's keyword match for this job description", "should_trigger": true},
+    {"id": 4, "query": "What keywords from this JD am I missing in my resume?", "should_trigger": true},
+    {"id": 5, "query": "Optimize my resume to pass Workday and Greenhouse screening", "should_trigger": true},
+    {"id": 6, "query": "Fix the ATS formatting issues in my resume", "should_trigger": true},
+    {"id": 7, "query": "My resume has a two-column layout — will it pass ATS? Fix it if not", "should_trigger": true},
+    {"id": 8, "query": "Check if my resume abbreviations will match the full-form keywords in ATS", "should_trigger": true},
+    {"id": 9, "query": "Give me an ATS pass rate estimate and optimization plan for this resume", "should_trigger": true},
+    {"id": 10, "query": "I'm using 'k8s' on my resume — should I spell out Kubernetes for ATS?", "should_trigger": true},
+    {"id": 11, "query": "Help me write strong resume bullet points", "should_trigger": false},
+    {"id": 12, "query": "Create a creative visual resume for my design portfolio", "should_trigger": false},
+    {"id": 13, "query": "Write a tailored resume for this specific company", "should_trigger": false},
+    {"id": 14, "query": "Quantify my resume achievements with better metrics", "should_trigger": false},
+    {"id": 15, "query": "Build a professional summary section for my resume", "should_trigger": false},
+    {"id": 16, "query": "Format my resume with consistent fonts and spacing", "should_trigger": false},
+    {"id": 17, "query": "Write an executive resume for a VP Engineering role", "should_trigger": false},
+    {"id": 18, "query": "Help me manage multiple versions of my resume", "should_trigger": false},
+    {"id": 19, "query": "Create a cover letter for this job application", "should_trigger": false},
+    {"id": 20, "query": "Optimize my LinkedIn profile for the same job I'm applying for", "should_trigger": false}
+  ]
+}

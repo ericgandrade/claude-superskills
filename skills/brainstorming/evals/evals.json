@@ -1,0 +1,41 @@
+{
+  "skill_name": "brainstorming",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need to brainstorm features for a B2B expense management SaaS product targeting mid-market companies. We want to differentiate from Expensify and Concur. Generate ideas across multiple creative directions.",
+      "expected_output": "A structured brainstorm with diverse feature ideas across multiple directions, with divergent and convergent phases",
+      "expectations": [
+        "Output uses a structured brainstorming process (not just a flat list)",
+        "Output generates ideas across at least 3 different strategic directions or angles",
+        "Output includes both obvious and non-obvious ideas",
+        "Output references the competitive context (Expensify, Concur) in the framing",
+        "Output converges on top candidates with brief rationale"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Brainstorm names and positioning concepts for a new AI-powered legal contract review tool targeting in-house legal teams at mid-size companies. We need name ideas, taglines, and brand positioning directions.",
+      "expected_output": "A creative brainstorm of name options, taglines, and positioning concepts with evaluation criteria",
+      "expectations": [
+        "Output generates at least 8-10 name options",
+        "Output includes tagline options for key name candidates",
+        "Output proposes at least 3 distinct positioning directions",
+        "Output evaluates names against criteria (memorability, domain availability, legal clarity, etc.)",
+        "Output identifies a recommended direction for further exploration"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I'm building a new employee onboarding experience for a fully remote tech company. Brainstorm ways to make the first 90 days exceptional — covering both digital tools and human touchpoints.",
+      "expected_output": "A divergent brainstorm of onboarding experience ideas spanning digital and human dimensions, converging on a shortlist of highest-impact concepts",
+      "expectations": [
+        "Output covers both digital/tool ideas and human/social ideas",
+        "Output structures ideas by time period (Day 1, Week 1, Month 1, etc.) or theme",
+        "Output includes at least one unconventional or unexpected idea",
+        "Output identifies the top 3-5 highest-impact ideas",
+        "Output considers remote-specific challenges and opportunities"
+      ]
+    }
+  ]
+}

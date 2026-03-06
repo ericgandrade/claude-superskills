@@ -1,0 +1,26 @@
+{
+  "skill_name": "academic-cv-builder",
+  "description": "Triggers for academic CV creation for academic job market",
+  "queries": [
+    {"id": 1, "query": "Help me build an academic CV for faculty job applications", "should_trigger": true},
+    {"id": 2, "query": "I'm a PhD student applying for postdoc positions — how should I format my CV?", "should_trigger": true},
+    {"id": 3, "query": "Create a curriculum vitae for a professor applying for tenure promotion", "should_trigger": true},
+    {"id": 4, "query": "Format my publications list for an academic CV", "should_trigger": true},
+    {"id": 5, "query": "I need to organize my grants, teaching experience, and research for an academic application", "should_trigger": true},
+    {"id": 6, "query": "What sections does an academic CV need vs a regular resume?", "should_trigger": true},
+    {"id": 7, "query": "Build my curriculum vitae for a lecturer position at a UK university", "should_trigger": true},
+    {"id": 8, "query": "How should I list dissertation committee, conferences, and fellowships on my CV?", "should_trigger": true},
+    {"id": 9, "query": "Transitioning from industry to academia — how do I create an academic CV?", "should_trigger": true},
+    {"id": 10, "query": "Format my research publications and presentations for a faculty application CV", "should_trigger": true},
+    {"id": 11, "query": "Help me write a resume for a software engineering job at Amazon", "should_trigger": false},
+    {"id": 12, "query": "How do I optimize my LinkedIn profile?", "should_trigger": false},
+    {"id": 13, "query": "Write a cover letter for a product manager role", "should_trigger": false},
+    {"id": 14, "query": "What is the difference between a CV and a resume for industry jobs?", "should_trigger": false},
+    {"id": 15, "query": "Help me build an ABM marketing strategy", "should_trigger": false},
+    {"id": 16, "query": "Transcribe this audio recording of a meeting", "should_trigger": false},
+    {"id": 17, "query": "Create a data science resume for machine learning roles", "should_trigger": false},
+    {"id": 18, "query": "Write a personal statement for my MBA application", "should_trigger": false},
+    {"id": 19, "query": "How do I negotiate a job offer?", "should_trigger": false},
+    {"id": 20, "query": "Design a system architecture for a web application", "should_trigger": false}
+  ]
+}

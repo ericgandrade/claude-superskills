@@ -51,6 +51,19 @@ If `CLOUDCONVERT_API_KEY` is not set:
 
 If the target format is unclear, call `cloudconvert_list_formats` first — it never consumes credits.
 
+## Progress Tracking
+
+Display progress before each conversion phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Validating File & Format Support
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Uploading & Converting
+[████████████░░░░░░░░] 75% — Phase 3/4: Downloading Result
+[████████████████████] 100% — Phase 4/4: Confirming & Cleaning Up
+```
+
+For batch operations: `[N/M files converted — X%]`
+
 ## Workflow
 
 ### Standard File Conversion (most common case)

@@ -1,0 +1,26 @@
+{
+  "skill_name": "salary-negotiation-prep",
+  "description": "Triggers for salary negotiation preparation including scripts, market data, and strategy",
+  "queries": [
+    {"id": 1, "query": "Help me negotiate this job offer — I think it's below market", "should_trigger": true},
+    {"id": 2, "query": "Prepare me to counter-offer this salary with scripts and strategy", "should_trigger": true},
+    {"id": 3, "query": "I have two competing offers — help me use them to negotiate higher compensation", "should_trigger": true},
+    {"id": 4, "query": "What should I say when they ask me what salary I expect?", "should_trigger": true},
+    {"id": 5, "query": "Build my salary negotiation strategy for this executive offer", "should_trigger": true},
+    {"id": 6, "query": "I got an offer but I'm uncomfortable negotiating — give me word-for-word scripts", "should_trigger": true},
+    {"id": 7, "query": "Negotiate not just base salary but also equity, bonus, and signing bonus", "should_trigger": true},
+    {"id": 8, "query": "Research market rates for this role and help me determine my ask", "should_trigger": true},
+    {"id": 9, "query": "The recruiter said the salary is fixed — how do I still negotiate?", "should_trigger": true},
+    {"id": 10, "query": "Help me respond to a lowball offer without losing the opportunity", "should_trigger": true},
+    {"id": 11, "query": "Compare my two job offers to decide which to take", "should_trigger": false},
+    {"id": 12, "query": "Write a cover letter for this position", "should_trigger": false},
+    {"id": 13, "query": "Optimize my LinkedIn profile for job searching", "should_trigger": false},
+    {"id": 14, "query": "Prepare me for the behavioral interview at this company", "should_trigger": false},
+    {"id": 15, "query": "Tailor my resume for this specific job description", "should_trigger": false},
+    {"id": 16, "query": "Help me understand the equity structure in my offer letter", "should_trigger": false},
+    {"id": 17, "query": "Build a reference list for my applications", "should_trigger": false},
+    {"id": 18, "query": "Analyze this job description for fit with my background", "should_trigger": false},
+    {"id": 19, "query": "Write resume bullets for my engineering experience", "should_trigger": false},
+    {"id": 20, "query": "Build my LinkedIn profile for product management roles", "should_trigger": false}
+  ]
+}

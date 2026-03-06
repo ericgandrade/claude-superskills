@@ -1,0 +1,29 @@
+{
+  "skill_name": "writing-plans",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write a detailed implementation plan for adding OAuth 2.0 authentication (Google and GitHub) to our existing Next.js application. We currently use custom JWT auth. The plan will be executed in a separate session. Include all steps, dependencies, testing, and rollback strategy.",
+      "expected_output": "A comprehensive, executable implementation plan document covering all phases of the OAuth migration",
+      "expectations": [
+        "Output produces a written plan document (not executable code)",
+        "Output covers all phases: dependencies, implementation, testing, migration, rollback",
+        "Output includes specific file paths and components to modify",
+        "Output defines acceptance criteria for each major step",
+        "Output is structured for execution in a separate session (clear checkpoints)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Create a migration plan for moving our PostgreSQL database from a self-hosted server to AWS RDS. We have 50GB of data, ~200 concurrent connections at peak, and cannot afford more than 30 minutes of downtime. Include the step-by-step plan with timing estimates.",
+      "expected_output": "A detailed database migration plan with phased approach, timing estimates, and minimal downtime strategy",
+      "expectations": [
+        "Output phases the migration to minimize downtime (prep, sync, cutover, validation)",
+        "Output addresses the 30-minute downtime constraint with a specific strategy",
+        "Output includes specific AWS RDS configuration choices for 50GB / 200 connections",
+        "Output includes a rollback plan",
+        "Output provides timing estimates for each major phase"
+      ]
+    }
+  ]
+}

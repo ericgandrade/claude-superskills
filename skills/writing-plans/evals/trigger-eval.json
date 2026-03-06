@@ -1,0 +1,26 @@
+{
+  "skill_name": "writing-plans",
+  "description": "Triggers for writing detailed implementation or migration plans before touching code",
+  "queries": [
+    {"id": 1, "query": "Write a detailed implementation plan before I start building the authentication system", "should_trigger": true},
+    {"id": 2, "query": "I need a step-by-step migration plan for moving to AWS — don't execute yet, just plan", "should_trigger": true},
+    {"id": 3, "query": "Create a written spec and plan for adding multi-tenancy to our SaaS app", "should_trigger": true},
+    {"id": 4, "query": "Write a plan document for the database schema redesign I need to execute later", "should_trigger": true},
+    {"id": 5, "query": "Help me plan this feature before we start building it — I'll execute it separately", "should_trigger": true},
+    {"id": 6, "query": "Design a detailed plan for our microservices migration that someone else will execute", "should_trigger": true},
+    {"id": 7, "query": "Write a technical plan with steps, dependencies, and rollback strategy for this change", "should_trigger": true},
+    {"id": 8, "query": "Create an implementation blueprint that I can review before any code is written", "should_trigger": true},
+    {"id": 9, "query": "I have requirements — write the full plan before any execution happens", "should_trigger": true},
+    {"id": 10, "query": "Build a pre-implementation design document with all dependencies mapped", "should_trigger": true},
+    {"id": 11, "query": "Execute this plan I have written in Plan.md", "should_trigger": false},
+    {"id": 12, "query": "Fix the bug in my authentication middleware", "should_trigger": false},
+    {"id": 13, "query": "Write the code for user registration with email verification", "should_trigger": false},
+    {"id": 14, "query": "Brainstorm approaches to this problem before I implement", "should_trigger": false},
+    {"id": 15, "query": "Review my pull request and suggest improvements", "should_trigger": false},
+    {"id": 16, "query": "Set up a CI/CD pipeline for my project", "should_trigger": false},
+    {"id": 17, "query": "Debug why my tests are failing", "should_trigger": false},
+    {"id": 18, "query": "Refactor this component to use React hooks", "should_trigger": false},
+    {"id": 19, "query": "Create a product roadmap for Q3 planning", "should_trigger": false},
+    {"id": 20, "query": "Help me design the API contract for our new service", "should_trigger": false}
+  ]
+}

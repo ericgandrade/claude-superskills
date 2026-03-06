@@ -1,6 +1,6 @@
 ---
 name: resume-bullet-writer
-description: This skill should be used when transform weak resume bullets into achievement-focused statements with metrics and impact
+description: This skill should be used when the user needs to transform weak resume bullets into achievement-focused statements with metrics and impact. Use when rewriting job descriptions on a resume, converting duties to accomplishments, or adding quantified results to career experience bullets.
 license: MIT
 ---
 
@@ -371,6 +371,17 @@ Every bullet should have:
 - ✅ 1-2 lines maximum
 - ✅ Reads as an achievement, not a duty
 - ✅ Relevant to target role
+
+## Progress Tracking
+
+Display progress before each writing phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Auditing Existing Bullets
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Identifying Achievement Opportunities
+[████████████░░░░░░░░] 75% — Phase 3/4: Rewriting with Metrics & Impact
+[████████████████████] 100% — Phase 4/4: Delivering Improved Bullets
+```
 
 ## Output Format
 

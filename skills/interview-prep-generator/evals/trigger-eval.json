@@ -1,0 +1,26 @@
+{
+  "skill_name": "interview-prep-generator",
+  "description": "Triggers for interview preparation including STAR stories, question prep, and company research",
+  "queries": [
+    {"id": 1, "query": "Help me prepare for my PM interview at Google next week", "should_trigger": true},
+    {"id": 2, "query": "Generate STAR stories from my background for behavioral interviews", "should_trigger": true},
+    {"id": 3, "query": "I have a final round at Netflix — create comprehensive interview prep", "should_trigger": true},
+    {"id": 4, "query": "Prepare me for the system design round in my engineering interview", "should_trigger": true},
+    {"id": 5, "query": "Create practice questions and answers for my sales director interview", "should_trigger": true},
+    {"id": 6, "query": "Help me prepare STAR examples from my resume for a leadership interview", "should_trigger": true},
+    {"id": 7, "query": "Generate common interview questions for a data science role and help me answer them", "should_trigger": true},
+    {"id": 8, "query": "Prep me for a 5-interview loop at Amazon for a Senior SWE role", "should_trigger": true},
+    {"id": 9, "query": "I need interview preparation that covers behavioral, technical, and culture fit rounds", "should_trigger": true},
+    {"id": 10, "query": "Create a prep guide for my VP Engineering interview including executive presence tips", "should_trigger": true},
+    {"id": 11, "query": "Write a cover letter for a software engineer job", "should_trigger": false},
+    {"id": 12, "query": "Optimize my resume for ATS systems", "should_trigger": false},
+    {"id": 13, "query": "Compare my two job offers", "should_trigger": false},
+    {"id": 14, "query": "Help me negotiate my salary", "should_trigger": false},
+    {"id": 15, "query": "Update my LinkedIn profile for engineering roles", "should_trigger": false},
+    {"id": 16, "query": "Analyze this job description for fit with my background", "should_trigger": false},
+    {"id": 17, "query": "Create a reference list for my applications", "should_trigger": false},
+    {"id": 18, "query": "Write bullet points for my resume", "should_trigger": false},
+    {"id": 19, "query": "Build an academic CV for faculty applications", "should_trigger": false},
+    {"id": 20, "query": "Explain what dynamic programming is", "should_trigger": false}
+  ]
+}

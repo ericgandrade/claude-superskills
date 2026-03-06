@@ -1,0 +1,30 @@
+{
+  "skill_name": "product-delivery",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Design a staged rollout plan for our new AI-powered search feature. We have 50,000 users. The feature uses a new LLM backend and has potential latency risks. Walk me through the complete rollout stages with criteria to advance and rollback triggers.",
+      "expected_output": "A complete staged rollout plan with defined stages, progression criteria, and rollback triggers",
+      "expectations": [
+        "Output defines at least 4 stages (internal, alpha, beta, GA)",
+        "Output specifies audience size for each stage",
+        "Output includes progression criteria for advancing between stages",
+        "Output defines rollback triggers (error rate, latency thresholds, etc.)",
+        "Output recommends feature flags for this rollout",
+        "Output addresses the LLM latency risk specifically"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We shipped a bet to improve onboarding 6 weeks ago. Target was to improve 7-day activation from 40% to 55%. Actual result: activation is now 47%. Error rate held steady. Support tickets down 15%. Run a bet retrospective and make the Scale/Iterate/Kill decision.",
+      "expected_output": "A complete bet retrospective with metrics review, key learnings, and explicit Scale/Iterate/Kill decision with rationale",
+      "expectations": [
+        "Output uses the bet retrospective format (hypothesis review, metrics table, learnings, decision)",
+        "Output analyzes the 47% result vs 55% target as partial success",
+        "Output considers the positive secondary signals (support tickets down 15%)",
+        "Output makes an explicit Scale, Iterate, or Kill decision",
+        "Output provides rationale for the decision and defines next steps"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "skill_name": "product-architecture",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Help me organize our project management SaaS product into capability blocks. We have features spread across: task creation/management, project templates, team permissions, reporting dashboards, integrations (Slack, Jira, GitHub), time tracking, and billing. Create a block structure.",
+      "expected_output": "A structured product block portfolio organized by customer value, not technical architecture",
+      "expectations": [
+        "Output groups features into customer-value-oriented blocks (not tech-oriented)",
+        "Output creates a block portfolio table with owner, maturity, and priority dimensions",
+        "Output assigns the listed features to appropriate blocks",
+        "Output explains the rationale for the block structure",
+        "Output identifies which blocks are core vs adjacent vs emerging"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I have this validated discovery opportunity: 'New users don't know what to do after signup — 60% churn in the first week without ever completing a project.' Convert this into a proper bet with hypothesis, metrics, timebox, and kill criteria. Target outcome is improving 7-day activation rate from 40% to 60%.",
+      "expected_output": "A fully formatted bet with all required fields: hypothesis, target metric, timebox, block, kill criteria, and scale criteria",
+      "expectations": [
+        "Output uses the bet format template with all required fields",
+        "Output writes a clear hypothesis statement (We believe that... will result in...)",
+        "Output specifies the target metric (40% → 60% 7-day activation)",
+        "Output defines a timebox (specific duration)",
+        "Output includes clear kill criteria and scale criteria",
+        "Output links to the discovery opportunity"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "skill_name": "docling-converter",
+  "description": "Triggers for converting documents to Markdown or JSON using Docling",
+  "queries": [
+    {"id": 1, "query": "Convert this PDF to Markdown using Docling", "should_trigger": true},
+    {"id": 2, "query": "Transform this Word document into structured Markdown", "should_trigger": true},
+    {"id": 3, "query": "Use Docling to extract and convert my PDF report", "should_trigger": true},
+    {"id": 4, "query": "Convert this batch of PDFs to JSON format", "should_trigger": true},
+    {"id": 5, "query": "I need to process this scanned document — convert it to text using OCR", "should_trigger": true},
+    {"id": 6, "query": "Convert this PowerPoint to Markdown so I can edit it programmatically", "should_trigger": true},
+    {"id": 7, "query": "Run Docling on this document and output structured JSON", "should_trigger": true},
+    {"id": 8, "query": "Extract text and structure from this complex PDF with tables", "should_trigger": true},
+    {"id": 9, "query": "Convert all documents in this folder to Markdown format", "should_trigger": true},
+    {"id": 10, "query": "I need this PDF converted to a format I can process with code", "should_trigger": true},
+    {"id": 11, "query": "Summarize the contents of this PDF document", "should_trigger": false},
+    {"id": 12, "query": "Transcribe this audio recording", "should_trigger": false},
+    {"id": 13, "query": "Create a PDF from this Markdown file", "should_trigger": false},
+    {"id": 14, "query": "Compress this PDF to reduce file size", "should_trigger": false},
+    {"id": 15, "query": "Translate this document from French to English", "should_trigger": false},
+    {"id": 16, "query": "Extract just the images from this PDF", "should_trigger": false},
+    {"id": 17, "query": "Write a Python script to parse CSV files", "should_trigger": false},
+    {"id": 18, "query": "Convert this YouTube video to text", "should_trigger": false},
+    {"id": 19, "query": "Format my resume as a clean PDF", "should_trigger": false},
+    {"id": 20, "query": "Convert Markdown to HTML", "should_trigger": false}
+  ]
+}

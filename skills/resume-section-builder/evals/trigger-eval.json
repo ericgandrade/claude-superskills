@@ -1,0 +1,26 @@
+{
+  "skill_name": "resume-section-builder",
+  "description": "Triggers for building specific resume sections like skills, summary, or education",
+  "queries": [
+    {"id": 1, "query": "Build a skills section for my software engineer resume", "should_trigger": true},
+    {"id": 2, "query": "Write a professional summary section for my resume", "should_trigger": true},
+    {"id": 3, "query": "Create an education section that properly shows my non-traditional background", "should_trigger": true},
+    {"id": 4, "query": "Build the certifications and awards section for my resume", "should_trigger": true},
+    {"id": 5, "query": "Help me create a targeted skills section for a data analyst resume", "should_trigger": true},
+    {"id": 6, "query": "Write a personal statement or headline for the top of my resume", "should_trigger": true},
+    {"id": 7, "query": "Create a languages and tools section organized by proficiency level", "should_trigger": true},
+    {"id": 8, "query": "Build a volunteer work and activities section that adds professional value", "should_trigger": true},
+    {"id": 9, "query": "Create a publications section for a technical resume", "should_trigger": true},
+    {"id": 10, "query": "Help me write a compelling 3-sentence summary that positions me for director roles", "should_trigger": true},
+    {"id": 11, "query": "Rewrite my existing resume bullets with stronger action verbs", "should_trigger": false},
+    {"id": 12, "query": "Tailor my entire resume for this specific job application", "should_trigger": false},
+    {"id": 13, "query": "Fix the formatting and visual inconsistencies in my resume", "should_trigger": false},
+    {"id": 14, "query": "Add metrics and quantification to my experience bullets", "should_trigger": false},
+    {"id": 15, "query": "Optimize my resume for ATS keyword matching", "should_trigger": false},
+    {"id": 16, "query": "Write an executive-level resume for a VP Engineering role", "should_trigger": false},
+    {"id": 17, "query": "Manage multiple resume versions for different applications", "should_trigger": false},
+    {"id": 18, "query": "Create a creative visual resume for my design portfolio", "should_trigger": false},
+    {"id": 19, "query": "Build a professional reference list", "should_trigger": false},
+    {"id": 20, "query": "Write a cover letter for this job posting", "should_trigger": false}
+  ]
+}

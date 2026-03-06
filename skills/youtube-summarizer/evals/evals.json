@@ -1,0 +1,29 @@
+{
+  "skill_name": "youtube-summarizer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Summarize this YouTube video for me: https://www.youtube.com/watch?v=dQw4w9WgXcQ — I need a comprehensive summary with key points, timestamps for important sections, and actionable takeaways.",
+      "expected_output": "A comprehensive video summary with transcript extraction, key points, timestamps, and takeaways",
+      "expectations": [
+        "Output extracts the transcript from the YouTube URL",
+        "Output produces a structured summary with clearly labeled sections",
+        "Output includes key points as a bulleted list",
+        "Output includes relevant timestamps for major sections",
+        "Output includes actionable takeaways if the content supports them"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I have a 2-hour conference talk from YouTube. Summarize it into a 5-minute read for my team who didn't watch it. Focus on: the main argument, key evidence, and what we should do differently based on it.",
+      "expected_output": "A concise 5-minute-read summary focused on the main argument, evidence, and action implications",
+      "expectations": [
+        "Output extracts the transcript from the provided YouTube link",
+        "Output is appropriately concise for a '5-minute read' (roughly 800-1000 words)",
+        "Output clearly states the main argument or thesis of the talk",
+        "Output presents key evidence or supporting points",
+        "Output includes a 'So what — what should we do?' section"
+      ]
+    }
+  ]
+}

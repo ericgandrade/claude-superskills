@@ -1,0 +1,29 @@
+{
+  "skill_name": "resume-ats-optimizer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Analyze my resume for ATS compatibility for this Software Engineer job. The JD requires: Python, AWS, Kubernetes, CI/CD, microservices, distributed systems. My resume mentions: Python (multiple times), Amazon Web Services, k8s, Jenkins pipelines, SOA architecture, large-scale systems. What do I need to change?",
+      "expected_output": "An ATS analysis identifying keyword mismatches and providing specific rewrites to improve ATS pass rate",
+      "expectations": [
+        "Output identifies 'Amazon Web Services' vs 'AWS' as a potential mismatch to fix",
+        "Output flags 'k8s' as potentially not matching 'Kubernetes' — recommend spelling out",
+        "Output identifies 'SOA architecture' as not matching 'microservices'",
+        "Output flags 'large-scale systems' as not matching 'distributed systems'",
+        "Output provides specific text replacements for each issue"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Score my resume's ATS compatibility for a Product Manager role and give me a detailed optimization plan. The job is at a Series B startup focused on developer tools. Key requirements: product strategy, user research, data-driven, cross-functional, developer experience.",
+      "expected_output": "An ATS compatibility score with detailed optimization recommendations for each key requirement area",
+      "expectations": [
+        "Output provides an ATS compatibility score or rating",
+        "Output analyzes keyword coverage for each key requirement",
+        "Output identifies missing keywords and where to add them",
+        "Output provides formatting recommendations for ATS parsing",
+        "Output prioritizes the most impactful changes"
+      ]
+    }
+  ]
+}

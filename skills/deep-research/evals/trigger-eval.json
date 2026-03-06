@@ -1,0 +1,26 @@
+{
+  "skill_name": "deep-research",
+  "description": "Triggers for multi-step deep research using native web tools",
+  "queries": [
+    {"id": 1, "query": "Research the competitive landscape for B2B project management software", "should_trigger": true},
+    {"id": 2, "query": "Do a deep dive into the current state of EU AI regulation", "should_trigger": true},
+    {"id": 3, "query": "Research recent funding rounds and market trends in climate tech", "should_trigger": true},
+    {"id": 4, "query": "Comprehensive research report on remote work productivity statistics", "should_trigger": true},
+    {"id": 5, "query": "Deep research on the top ML frameworks and their adoption trends in 2025", "should_trigger": true},
+    {"id": 6, "query": "Research and synthesize what experts say about product-led growth vs sales-led", "should_trigger": true},
+    {"id": 7, "query": "Investigate the market for mental health apps — players, funding, user trends", "should_trigger": true},
+    {"id": 8, "query": "Multi-source research on emerging supply chain technologies", "should_trigger": true},
+    {"id": 9, "query": "Research how different companies have approached pricing strategy for APIs", "should_trigger": true},
+    {"id": 10, "query": "Do a thorough investigation into customer success best practices for SaaS", "should_trigger": true},
+    {"id": 11, "query": "Write a Python script to scrape this website", "should_trigger": false},
+    {"id": 12, "query": "Summarize this YouTube video I'll share", "should_trigger": false},
+    {"id": 13, "query": "Help me write a cover letter for a data analyst role", "should_trigger": false},
+    {"id": 14, "query": "Transcribe my voice memo from this morning", "should_trigger": false},
+    {"id": 15, "query": "Create a product roadmap for Q2", "should_trigger": false},
+    {"id": 16, "query": "Fix the bug in my API endpoint", "should_trigger": false},
+    {"id": 17, "query": "Write a blog post about machine learning", "should_trigger": false},
+    {"id": 18, "query": "Explain how neural networks work conceptually", "should_trigger": false},
+    {"id": 19, "query": "Create a resume for a software engineering role", "should_trigger": false},
+    {"id": 20, "query": "Help me prepare for my upcoming presentation", "should_trigger": false}
+  ]
+}

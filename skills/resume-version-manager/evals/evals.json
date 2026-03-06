@@ -1,0 +1,29 @@
+{
+  "skill_name": "resume-version-manager",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Help me set up a resume version management system. I have applied to 8 companies with 3 different resume versions and I can't remember which version I sent to which company. I need a system to track versions, tailored applications, and which version was sent where.",
+      "expected_output": "A structured resume version management system with tracking approach and retrospective organization",
+      "expectations": [
+        "Output recommends a naming convention for resume versions",
+        "Output creates a tracking system (table or log format) for applications",
+        "Output helps retrospectively organize the existing 3 versions",
+        "Output includes fields for: company, role, version sent, date, status",
+        "Output recommends file storage organization"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I have a master resume and 5 tailored versions for different job families: startup PM, enterprise PM, consulting, product operations, and general management. Design a version control workflow so I can easily update all versions when my master changes.",
+      "expected_output": "A version control workflow with update process and master-to-tailored sync strategy",
+      "expectations": [
+        "Output documents the master → tailored relationship clearly",
+        "Output creates an update checklist for when the master changes",
+        "Output defines which sections are 'always tailored' vs 'synced from master'",
+        "Output recommends a version history log format",
+        "Output addresses how to track what was changed between versions"
+      ]
+    }
+  ]
+}

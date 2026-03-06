@@ -1,0 +1,26 @@
+{
+  "skill_name": "senior-solution-architect",
+  "description": "Triggers for system design, architecture review, and technical decision-making",
+  "queries": [
+    {"id": 1, "query": "Design the system architecture for a real-time messaging platform", "should_trigger": true},
+    {"id": 2, "query": "Review our proposed microservices architecture and identify issues", "should_trigger": true},
+    {"id": 3, "query": "Should we move from monolith to microservices? Review the trade-offs", "should_trigger": true},
+    {"id": 4, "query": "Create C4 architecture diagrams for our e-commerce platform", "should_trigger": true},
+    {"id": 5, "query": "Write an Architecture Decision Record for switching to PostgreSQL", "should_trigger": true},
+    {"id": 6, "query": "Design a scalable system for 1M concurrent users with 99.9% uptime", "should_trigger": true},
+    {"id": 7, "query": "Review this technical design and identify scalability risks", "should_trigger": true},
+    {"id": 8, "query": "Help me design the data model and service boundaries for our platform", "should_trigger": true},
+    {"id": 9, "query": "What technology choices should we make for our event-driven system?", "should_trigger": true},
+    {"id": 10, "query": "Architecture review: is our current approach going to scale to 10x traffic?", "should_trigger": true},
+    {"id": 11, "query": "Fix the bug in my API endpoint code", "should_trigger": false},
+    {"id": 12, "query": "Set up a CI/CD pipeline with GitHub Actions", "should_trigger": false},
+    {"id": 13, "query": "Write unit tests for my Python service", "should_trigger": false},
+    {"id": 14, "query": "Create a product roadmap for our SaaS application", "should_trigger": false},
+    {"id": 15, "query": "Help me negotiate a senior architect job offer", "should_trigger": false},
+    {"id": 16, "query": "Optimize this SQL query for better performance", "should_trigger": false},
+    {"id": 17, "query": "Build a Kubernetes deployment manifest for my service", "should_trigger": false},
+    {"id": 18, "query": "Create a resume for a solutions architect role", "should_trigger": false},
+    {"id": 19, "query": "Research market trends in cloud infrastructure", "should_trigger": false},
+    {"id": 20, "query": "Set up monitoring and alerting for my production service", "should_trigger": false}
+  ]
+}

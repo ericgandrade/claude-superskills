@@ -1,6 +1,6 @@
 ---
 name: resume-formatter
-description: This skill should be used when ensure ATS-friendly formatting and create clean scannable layouts
+description: This skill should be used when the user needs to ensure ATS-friendly formatting and create a clean, scannable resume layout. Use when fixing resume structure, standardizing fonts and spacing, checking for parsing-breaking elements, or converting a resume to ATS-compatible format.
 license: MIT
 ---
 
@@ -316,6 +316,17 @@ JohnSmith_Resume_ProductManager.pdf
 - resume (1).pdf
 - Untitled document.docx
 
+## Progress Tracking
+
+Display progress before each formatting phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Auditing Current Format
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Identifying ATS Issues
+[████████████░░░░░░░░] 75% — Phase 3/4: Applying Format Fixes
+[████████████████████] 100% — Phase 4/4: Delivering Reformatted Resume
+```
+
 ## Output Format
 
 When formatting a resume:
@@ -355,6 +366,16 @@ When formatting a resume:
 ### After:
 [Description or example of improved formatting]
 ```
+
+## Error Handling
+
+| Error | Likely Cause | Action |
+|-------|-------------|--------|
+| No resume content provided | User asks to format without sharing the document | Ask user to paste resume text or describe current format and structure |
+| Resume has complex layout | Tables, columns, text boxes that AI cannot directly modify | Describe required changes; provide reformatted text version for user to apply |
+| Custom fonts unavailable | Resume uses fonts not standard in Markdown/text output | Recommend standard ATS-safe fonts; provide equivalent alternatives |
+| No target role or ATS system | Can't optimize keywords without knowing the target | Apply general ATS best practices; ask for job description for keyword optimization |
+| Very long resume (5+ pages) | Executive with 20+ years experience | Apply condensing strategies; ask user which sections are most critical |
 
 ## Quick Formatting Checklist
 

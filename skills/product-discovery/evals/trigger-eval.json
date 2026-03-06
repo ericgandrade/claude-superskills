@@ -1,0 +1,26 @@
+{
+  "skill_name": "product-discovery",
+  "description": "Triggers for continuous product discovery: interviews, OSTs, assumption testing",
+  "queries": [
+    {"id": 1, "query": "Help me set up a weekly discovery rhythm for our product trio", "should_trigger": true},
+    {"id": 2, "query": "Build an Opportunity Solution Tree for our 30-day retention outcome", "should_trigger": true},
+    {"id": 3, "query": "Create an interview snapshot from the notes I took in this customer call", "should_trigger": true},
+    {"id": 4, "query": "Design an assumption test for this solution we want to build", "should_trigger": true},
+    {"id": 5, "query": "Generate 5 solution approaches for this customer opportunity we've validated", "should_trigger": true},
+    {"id": 6, "query": "What's the thin-slice MVP for testing this onboarding solution hypothesis?", "should_trigger": true},
+    {"id": 7, "query": "Create an interview guide to understand why users churn in week 1", "should_trigger": true},
+    {"id": 8, "query": "Synthesize patterns across these 8 interview snapshots I've collected", "should_trigger": true},
+    {"id": 9, "query": "Help me design an Opportunity Council meeting with this week's discovery findings", "should_trigger": true},
+    {"id": 10, "query": "I'm framing these opportunities as solutions — help me reframe as problems", "should_trigger": true},
+    {"id": 11, "query": "Design a staged rollout plan for our new feature", "should_trigger": false},
+    {"id": 12, "query": "Build a bet backlog and roadmap for next quarter", "should_trigger": false},
+    {"id": 13, "query": "Run a bet retrospective — scale, iterate, or kill?", "should_trigger": false},
+    {"id": 14, "query": "Create a 1-page product strategy canvas", "should_trigger": false},
+    {"id": 15, "query": "Coach a struggling PM on executive communication", "should_trigger": false},
+    {"id": 16, "query": "Define ICP and anti-ICP for our B2B product", "should_trigger": false},
+    {"id": 17, "query": "Build an agency-control tradeoff for our AI agent feature", "should_trigger": false},
+    {"id": 18, "query": "Create a GTM plan for our feature launch", "should_trigger": false},
+    {"id": 19, "query": "Design operating rhythm for a VP of Product organization", "should_trigger": false},
+    {"id": 20, "query": "Set up a portfolio review process across our product lines", "should_trigger": false}
+  ]
+}

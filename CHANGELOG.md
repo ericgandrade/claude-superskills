@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.19.0] - 2026-03-06
+
+### Added
+- **`evals/evals.json`** for all 45 skills — 2-3 realistic test cases per skill with concrete prompts, expected outputs, and verifiable assertions, following the Anthropic skill-creator EVals schema
+- **`evals/trigger-eval.json`** for all 45 skills — 20 queries per skill (10 should-trigger / 10 should-not-trigger) for description optimization and trigger accuracy benchmarking
+- **`scripts/optimize-all-skills.sh`** — batch eval runner that scans all skills, validates evals presence, and reports readiness status
+
+### Changed
+- **Progress Tracking sections** added to all 45 `SKILL.md` files — 4-phase gauge bars (`[████░░░░░░░░░░░░░░░░] N% — Phase X/Y: Description`) show workflow progress during skill execution
+- **All SKILL.md descriptions** standardized to the required format: `"This skill should be used when the user [verb]..."` — fixed grammar, truncation, and broken phrasing across all 45 skills
+- **Error Handling tables** (`| Error | Likely Cause | Action |`) added to 19 skills with external dependencies or complex workflows: `youtube-summarizer`, `audio-transcriber`, `docling-converter`, `executing-plans`, `deep-research`, `us-program-research`, `executive-resume-writer`, `resume-tailor`, `linkedin-profile-optimizer`, `interview-prep-generator`, `salary-negotiation-prep`, `job-description-analyzer`, `cover-letter-generator`, `academic-cv-builder`, `career-changer-translator`, `tech-resume-optimizer`, `resume-formatter`, `resume-version-manager`, `offer-comparison-analyzer`
+
+---
+
 ## [1.18.1] - 2026-03-06
 
 ### Changed

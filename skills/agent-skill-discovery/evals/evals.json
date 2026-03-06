@@ -1,0 +1,29 @@
+{
+  "skill_name": "agent-skill-discovery",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Show me everything that's installed and available — skills, agents, MCP servers, plugins. I want a full catalog of what I can use.",
+      "expected_output": "A structured catalog of all installed skills, agents, MCP servers, and plugins across global and local scopes",
+      "expectations": [
+        "Output scans global skill directories (~/.claude/skills/, ~/.github/skills/, etc.)",
+        "Output scans the current repository for local agents, skills, and MCP config",
+        "Output is organized into categories (skills, agents, MCPs, plugins)",
+        "Output includes the source/platform for each resource",
+        "Output is readable and actionable — user can see what's available at a glance"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I need to know what research-related skills are available to me. Scan my environment and show me only research and information-gathering tools.",
+      "expected_output": "A filtered catalog showing only research-relevant skills and tools from the user's installed resources",
+      "expectations": [
+        "Output filters results to show research-relevant skills",
+        "Output includes skill names and brief descriptions",
+        "Output distinguishes between locally installed and globally installed skills",
+        "Output indicates which platform each skill is available on",
+        "Output suggests the most relevant skill for research tasks if multiple options exist"
+      ]
+    }
+  ]
+}

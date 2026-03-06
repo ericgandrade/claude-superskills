@@ -33,6 +33,19 @@ Works identically on all AI CLI platforms:
 - **OpenCode** (`opencode`)
 - **OpenAI Codex** (`codex`)
 
+## Progress Tracking
+
+Display progress before each orchestration phase:
+
+```
+[██░░░░░░░░░░░░░░░░░░] 15% — Step 0: Discovering Available Resources
+[████░░░░░░░░░░░░░░░░] 25% — Step 1: Analyzing User Request
+[████████░░░░░░░░░░░░] 45% — Step 2: Intelligent Matching & Scoring
+[████████████░░░░░░░░] 65% — Step 3: Generating Execution Plan
+[██████████████████░░] 85% — Step 4: Presenting Plan for Approval
+[████████████████████] 100% — Step 5: Plan Approved / Execution Ready
+```
+
 ## Workflow
 
 ### Step -1: Prompt Quality Check (Pre-Analysis)

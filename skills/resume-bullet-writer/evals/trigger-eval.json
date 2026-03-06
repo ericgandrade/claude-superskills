@@ -1,0 +1,26 @@
+{
+  "skill_name": "resume-bullet-writer",
+  "description": "Triggers for writing strong, impact-focused resume bullet points",
+  "queries": [
+    {"id": 1, "query": "Rewrite these weak resume bullets with strong action verbs and impact", "should_trigger": true},
+    {"id": 2, "query": "Write 5 resume bullets for my software engineering experience", "should_trigger": true},
+    {"id": 3, "query": "My bullets are task-focused — help me make them outcome-focused", "should_trigger": true},
+    {"id": 4, "query": "I have generic bullets like 'responsible for X' — rewrite them", "should_trigger": true},
+    {"id": 5, "query": "Write compelling resume bullet points that will impress hiring managers", "should_trigger": true},
+    {"id": 6, "query": "Turn these job responsibilities into achievement-focused bullets", "should_trigger": true},
+    {"id": 7, "query": "Write bullets that highlight both technical depth and business impact", "should_trigger": true},
+    {"id": 8, "query": "My bullets don't show leadership — help me rewrite them", "should_trigger": true},
+    {"id": 9, "query": "Help me write 3-4 bullets per role that stand out to recruiters", "should_trigger": true},
+    {"id": 10, "query": "Rewrite 'worked on the product' into a strong, specific resume bullet", "should_trigger": true},
+    {"id": 11, "query": "Add metrics and percentages to my resume achievements", "should_trigger": false},
+    {"id": 12, "query": "Organize my resume into proper sections with the right order", "should_trigger": false},
+    {"id": 13, "query": "Fix the ATS keyword gaps in my resume", "should_trigger": false},
+    {"id": 14, "query": "Format my resume for consistent visual appearance", "should_trigger": false},
+    {"id": 15, "query": "Tailor my resume for this specific PM role at Stripe", "should_trigger": false},
+    {"id": 16, "query": "Write a professional summary for my resume", "should_trigger": false},
+    {"id": 17, "query": "Write an executive resume for a CFO role", "should_trigger": false},
+    {"id": 18, "query": "Help me manage multiple resume versions", "should_trigger": false},
+    {"id": 19, "query": "Optimize my LinkedIn profile for engineering roles", "should_trigger": false},
+    {"id": 20, "query": "Write a cover letter for a product manager position", "should_trigger": false}
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "skill_name": "product-strategy",
+  "description": "Triggers for product strategy: ICP, positioning, pricing, GTM motion, and strategic bets",
+  "queries": [
+    {"id": 1, "query": "Help me build a 1-page product strategy canvas", "should_trigger": true},
+    {"id": 2, "query": "Define our ICP and Anti-ICP for our B2B SaaS product", "should_trigger": true},
+    {"id": 3, "query": "Run a Porter's 5 Forces analysis for our market", "should_trigger": true},
+    {"id": 4, "query": "Should we go PLG or SLG? Help me think through our GTM motion", "should_trigger": true},
+    {"id": 5, "query": "Develop our positioning statement vs our main competitors", "should_trigger": true},
+    {"id": 6, "query": "Help me think through value metrics and pricing strategy", "should_trigger": true},
+    {"id": 7, "query": "Create 3 strategic bets with hypotheses and kill criteria for next year", "should_trigger": true},
+    {"id": 8, "query": "What moat opportunities exist for our product?", "should_trigger": true},
+    {"id": 9, "query": "Map our Jobs to Be Done — functional, emotional, and social jobs", "should_trigger": true},
+    {"id": 10, "query": "Our strategy is vague — help us make hard choices about what not to do", "should_trigger": true},
+    {"id": 11, "query": "Set up weekly customer interviews and OST for discovery", "should_trigger": false},
+    {"id": 12, "query": "Build a bet backlog and Now/Next/Later roadmap", "should_trigger": false},
+    {"id": 13, "query": "Design a staged rollout for our next feature", "should_trigger": false},
+    {"id": 14, "query": "Run a bet retrospective and decide scale/iterate/kill", "should_trigger": false},
+    {"id": 15, "query": "Design team structure for my growing product org", "should_trigger": false},
+    {"id": 16, "query": "Build agency-control tradeoffs for our LLM features", "should_trigger": false},
+    {"id": 17, "query": "Help me write an executive resume for CPO roles", "should_trigger": false},
+    {"id": 18, "query": "Create an ABX account-based marketing campaign", "should_trigger": false},
+    {"id": 19, "query": "Use McKinsey structured analysis on our churn problem", "should_trigger": false},
+    {"id": 20, "query": "Set up discovery rhythm and customer interview cadence", "should_trigger": false}
+  ]
+}

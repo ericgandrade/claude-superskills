@@ -1,6 +1,6 @@
 ---
 name: reference-list-builder
-description: This skill should be used when format professional references properly and prepare reference materials
+description: This skill should be used when the user needs to format professional references properly and prepare reference materials for job applications. Use when creating reference sheets, selecting appropriate references, preparing referees with talking points, or structuring reference documentation for job applications.
 license: MIT
 ---
 
@@ -285,6 +285,17 @@ References available upon request for additional contacts.
 3. **Final Rounds:** "Can you provide references?" → Share list
 4. **Reference Check:** Company contacts your references
 5. **Offer:** Follow up with references, thank them
+
+## Progress Tracking
+
+Display progress before each reference phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Selecting Appropriate References
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Structuring Reference Sheet
+[████████████░░░░░░░░] 75% — Phase 3/4: Preparing Referee Talking Points
+[████████████████████] 100% — Phase 4/4: Delivering Reference Package
+```
 
 ## Output Format
 

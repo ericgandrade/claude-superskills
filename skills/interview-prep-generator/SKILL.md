@@ -1,6 +1,6 @@
 ---
 name: interview-prep-generator
-description: This skill should be used when generate STAR stories, practice questions, and talking points from resume
+description: This skill should be used when the user needs to generate STAR stories, behavioral practice questions, and talking points from a resume or job description. Use when preparing for job interviews, practicing competency-based questions, or building structured answers for behavioral and situational interview scenarios.
 license: MIT
 ---
 
@@ -310,6 +310,17 @@ Each story should have:
 "Based on my research and experience, I'm looking for something in the range of $X-$Y, but I'm open to discussing the full compensation package."
 ```
 
+## Progress Tracking
+
+Display progress before each prep phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Analyzing Resume & Job Description
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Generating STAR Stories
+[████████████░░░░░░░░] 75% — Phase 3/4: Creating Practice Questions
+[████████████████████] 100% — Phase 4/4: Delivering Interview Kit
+```
+
 ## Output Format
 
 When generating interview prep:
@@ -370,6 +381,16 @@ When generating interview prep:
 - Don't criticize: [Past employer aspects]
 - Watch out for: [Potential trap questions]
 ```
+
+## Error Handling
+
+| Error | Likely Cause | Action |
+|-------|-------------|--------|
+| No resume or experience provided | User requests interview prep without background | Ask for resume, LinkedIn, or bullet-point summary of experience before generating |
+| No job description provided | Can't create targeted questions without role context | Generate general behavioral questions; ask for job description to tailor further |
+| Behavioral examples too generic | User experience lacks specific measurable outcomes | Work with available content; add placeholders for user to fill with real data |
+| STAR story incomplete | User can't recall full situation-action-result detail | Walk through story step-by-step with prompting questions; suggest user notes key details |
+| Company research unavailable | Company is private or very small | Note limited public info; focus on role-based prep rather than company-specific questions |
 
 ## Implementation Checklist
 

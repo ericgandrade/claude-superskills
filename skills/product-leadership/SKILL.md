@@ -1,6 +1,6 @@
 ---
 name: product-leadership
-description: This skill should be used when operate as a Director or CPO leading product organizations. Use when managing product portfolios, aligning with executives, communicating to boards, designing team structures, or establishing operating rhythms. Part of the Modern Product Operating Model collection.
+description: This skill should be used when the user needs to operate as a Director or CPO leading product organizations. Use when managing product portfolios, aligning with executives, communicating to boards, designing team structures, or establishing operating rhythms across product teams.
 license: MIT
 ---
 
@@ -50,6 +50,17 @@ Use this skill when:
 3. **Remove Obstacles** — Unblock teams, align executives, navigate politics
 
 ---
+
+## Progress Tracking
+
+Display progress during leadership work:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Portfolio Assessment & Team Structure
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Executive Alignment & Communication
+[████████████░░░░░░░░] 75% — Phase 3/4: Operating Rhythm Design
+[████████████████████] 100% — Phase 4/4: Board/Stakeholder Readout
+```
 
 ## Framework Components
 

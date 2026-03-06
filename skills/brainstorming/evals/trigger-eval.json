@@ -1,0 +1,26 @@
+{
+  "skill_name": "brainstorming",
+  "description": "Triggers for creative ideation before implementation for features, names, concepts",
+  "queries": [
+    {"id": 1, "query": "Brainstorm feature ideas for our mobile productivity app", "should_trigger": true},
+    {"id": 2, "query": "Generate creative name ideas for our new SaaS product", "should_trigger": true},
+    {"id": 3, "query": "I need a brainstorm session before we start building the onboarding flow", "should_trigger": true},
+    {"id": 4, "query": "What are 10 different ways we could approach this product problem?", "should_trigger": true},
+    {"id": 5, "query": "Help me ideate on how to differentiate our product from Slack", "should_trigger": true},
+    {"id": 6, "query": "Brainstorm tagline and positioning concepts for our B2B tool", "should_trigger": true},
+    {"id": 7, "query": "I want to explore multiple creative directions before committing to one", "should_trigger": true},
+    {"id": 8, "query": "Generate a wide range of ideas for our employee engagement program", "should_trigger": true},
+    {"id": 9, "query": "Brainstorm how we could solve the user onboarding drop-off problem", "should_trigger": true},
+    {"id": 10, "query": "Give me divergent ideas for our company hackathon theme", "should_trigger": true},
+    {"id": 11, "query": "Write the code for the onboarding feature we discussed", "should_trigger": false},
+    {"id": 12, "query": "Implement a new user registration flow with email verification", "should_trigger": false},
+    {"id": 13, "query": "Fix the bug in our checkout component", "should_trigger": false},
+    {"id": 14, "query": "Create a detailed technical specification for the search feature", "should_trigger": false},
+    {"id": 15, "query": "Set up a React project with TypeScript", "should_trigger": false},
+    {"id": 16, "query": "Write a SQL query to find users who churned last month", "should_trigger": false},
+    {"id": 17, "query": "Help me write a cover letter for a PM role", "should_trigger": false},
+    {"id": 18, "query": "Transcribe this meeting recording", "should_trigger": false},
+    {"id": 19, "query": "Analyze our product metrics for Q1", "should_trigger": false},
+    {"id": 20, "query": "Create an implementation plan for the dashboard redesign", "should_trigger": false}
+  ]
+}

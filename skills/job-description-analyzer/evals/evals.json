@@ -1,0 +1,29 @@
+{
+  "skill_name": "job-description-analyzer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Analyze this job description for a Senior Data Scientist role at Netflix and score my fit. Job requires: 5+ years experience, PhD preferred, expertise in Python and ML frameworks, experience with A/B testing at scale, recommendation systems background, and strong communication skills. My background: 4 years experience, MS in Statistics, strong Python, 3 years A/B testing at an e-commerce company, no recommendation systems experience, published 2 papers.",
+      "expected_output": "A detailed match analysis with percentage fit score, requirement-by-requirement breakdown, gap analysis, and application strategy",
+      "expectations": [
+        "Output provides an overall match score (percentage or rating)",
+        "Output analyzes each key requirement against the candidate's background",
+        "Output identifies the recommendation systems gap as a significant miss",
+        "Output flags the degree requirement (PhD preferred vs MS actual) as a potential concern",
+        "Output recommends whether to apply and how to address the gaps in the application"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I have a job description for a Marketing Director role at a Series B SaaS startup. Extract the must-have vs. nice-to-have requirements, identify what the company is really looking for between the lines, and flag any red flags in the JD.",
+      "expected_output": "Structured JD analysis with must-haves vs nice-to-haves, between-the-lines insights, and red flag identification",
+      "expectations": [
+        "Output separates requirements into must-have and nice-to-have categories",
+        "Output includes 'reading between the lines' analysis of unstated needs",
+        "Output identifies at least 1-2 red flags or caution points if present",
+        "Output notes what the company seems to value culturally based on JD language",
+        "Output suggests what to research before applying"
+      ]
+    }
+  ]
+}

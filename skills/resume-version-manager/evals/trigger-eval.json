@@ -1,0 +1,26 @@
+{
+  "skill_name": "resume-version-manager",
+  "description": "Triggers for managing multiple resume versions across different applications",
+  "queries": [
+    {"id": 1, "query": "Help me set up a system to track which resume version I sent to each company", "should_trigger": true},
+    {"id": 2, "query": "Manage my 4 different resume versions — I can't keep track of them", "should_trigger": true},
+    {"id": 3, "query": "Create a version control system for my master resume and tailored versions", "should_trigger": true},
+    {"id": 4, "query": "Design a naming convention and tracking method for my resume versions", "should_trigger": true},
+    {"id": 5, "query": "I have multiple resumes for different roles — help me organize and track them", "should_trigger": true},
+    {"id": 6, "query": "When I update my master resume, how do I sync changes to all my tailored versions?", "should_trigger": true},
+    {"id": 7, "query": "Build a tracking log for my job applications that includes which resume was sent", "should_trigger": true},
+    {"id": 8, "query": "Help me recall which resume version a company received after I applied", "should_trigger": true},
+    {"id": 9, "query": "Create a resume update workflow for when my experience changes", "should_trigger": true},
+    {"id": 10, "query": "Set up a master resume plus tailored version system for my job search", "should_trigger": true},
+    {"id": 11, "query": "Tailor my resume specifically for this job description", "should_trigger": false},
+    {"id": 12, "query": "Fix the formatting inconsistencies in my resume", "should_trigger": false},
+    {"id": 13, "query": "Write stronger bullet points for my experience section", "should_trigger": false},
+    {"id": 14, "query": "Add metrics to my resume achievements", "should_trigger": false},
+    {"id": 15, "query": "Optimize my resume for ATS keyword matching", "should_trigger": false},
+    {"id": 16, "query": "Create a professional summary section", "should_trigger": false},
+    {"id": 17, "query": "Write an executive resume for leadership roles", "should_trigger": false},
+    {"id": 18, "query": "Build a cover letter for this job", "should_trigger": false},
+    {"id": 19, "query": "Create a reference list for my applications", "should_trigger": false},
+    {"id": 20, "query": "Prepare me for job interviews at tech companies", "should_trigger": false}
+  ]
+}

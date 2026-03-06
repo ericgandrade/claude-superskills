@@ -399,6 +399,18 @@ Welcome to this comprehensive tutorial on machine learning fundamentals. In toda
 ```
 
 
+## Error Handling
+
+| Error | Likely Cause | Action |
+|-------|-------------|--------|
+| Invalid YouTube URL format | URL is not a recognized youtube.com or youtu.be pattern | Show valid URL formats, ask user to provide correct URL |
+| Video not found or private | Video was removed, made private, or URL is wrong | Inform user, ask for a public video URL |
+| Transcripts disabled | Creator disabled transcripts on this video | Inform user transcripts are unavailable; suggest manual transcription |
+| No transcript found | Video has no auto-generated or manual transcript | Inform user; suggest trying a different video or using audio-transcriber |
+| `youtube-transcript-api` not installed | Python dependency missing | Offer to install with `pip install youtube-transcript-api` |
+| Network error / timeout | Internet connectivity issue or YouTube rate-limiting | Retry once; if it persists, inform user and ask to try again later |
+| Transcript in unexpected language | Video is in a language not supported by the analyzer | Report detected language; proceed with available transcript |
+
 **Version:** 1.2.0
 **Last Updated:** 2026-02-02
 **Maintained By:** Eric Andrade

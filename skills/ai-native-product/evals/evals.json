@@ -1,0 +1,41 @@
+{
+  "skill_name": "ai-native-product",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're building an AI agent that automatically triages and responds to customer support tickets. We need to decide how much autonomy to give it — should it auto-respond without human review, draft responses for approval, or just categorize tickets? Help us design the agency-control tradeoff and set up an eval strategy.",
+      "expected_output": "An agency-control tradeoff analysis with recommended autonomy level, failure modes, and an eval strategy for the support triage agent",
+      "expectations": [
+        "Output analyzes the agency spectrum from fully automated to human-in-the-loop",
+        "Output identifies key failure modes for each autonomy level",
+        "Output recommends a specific starting point on the autonomy spectrum with rationale",
+        "Output designs an eval strategy with specific metrics (accuracy rate, false positive rate, user override rate)",
+        "Output includes a calibration loop plan for improving the agent over time"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We've shipped an LLM-powered document summarization feature. Users are complaining that summaries miss key details 20% of the time and hallucinate facts 5% of the time. Design a calibration process to improve reliability, including what evals to run and how to measure improvement.",
+      "expected_output": "A calibration plan addressing hallucination and detail-missing failure modes with specific eval designs",
+      "expectations": [
+        "Output identifies distinct failure mode types (hallucination vs. missing details) and treats them separately",
+        "Output designs evals with specific test cases and pass/fail criteria",
+        "Output recommends calibration techniques (prompt engineering, retrieval augmentation, guardrails)",
+        "Output includes measurement metrics and success targets",
+        "Output defines a feedback loop for continuous improvement"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We're in early discovery for an AI scheduling assistant product. How should we adapt our discovery process for an AI product compared to traditional software? What assumptions do we need to test differently, and what discovery methods work best?",
+      "expected_output": "AI-native product discovery framework with adapted methods, assumption categories specific to AI products, and recommended test approaches",
+      "expectations": [
+        "Output identifies AI-specific assumptions to test (model capability, user trust, error tolerance)",
+        "Output adapts discovery methods for AI products (wizard-of-oz, shadow mode testing, etc.)",
+        "Output addresses the determinism vs. probabilistic behavior challenge in discovery",
+        "Output recommends specific prototype and test approaches appropriate for AI features",
+        "Output distinguishes which traditional discovery methods still apply and which need adaptation"
+      ]
+    }
+  ]
+}

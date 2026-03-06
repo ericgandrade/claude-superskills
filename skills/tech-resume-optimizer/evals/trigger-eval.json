@@ -1,0 +1,26 @@
+{
+  "skill_name": "tech-resume-optimizer",
+  "description": "Triggers for optimizing resumes specifically for software engineering and technical roles",
+  "queries": [
+    {"id": 1, "query": "Optimize my resume for a Staff Software Engineer role at a FAANG company", "should_trigger": true},
+    {"id": 2, "query": "I'm a frontend engineer — help me optimize my resume for senior and tech lead roles", "should_trigger": true},
+    {"id": 3, "query": "Make my engineering resume stand out to technical hiring managers and recruiters", "should_trigger": true},
+    {"id": 4, "query": "Optimize my resume for ML Engineer roles — show both research depth and engineering", "should_trigger": true},
+    {"id": 5, "query": "Fix my tech resume so it balances ATS readability with human appeal", "should_trigger": true},
+    {"id": 6, "query": "I'm a backend engineer applying for senior roles — optimize for scale and system design", "should_trigger": true},
+    {"id": 7, "query": "Make my software resume show open source contributions effectively", "should_trigger": true},
+    {"id": 8, "query": "Help me optimize a DevOps/SRE resume for site reliability roles", "should_trigger": true},
+    {"id": 9, "query": "I'm a data engineer — optimize my resume for both data roles and software engineering roles", "should_trigger": true},
+    {"id": 10, "query": "My tech resume has no impact metrics — optimize it for quantifiable engineering achievements", "should_trigger": true},
+    {"id": 11, "query": "Write a cover letter for a software engineering position", "should_trigger": false},
+    {"id": 12, "query": "Optimize my LinkedIn profile for engineering manager roles", "should_trigger": false},
+    {"id": 13, "query": "Prepare me for technical interviews at Google", "should_trigger": false},
+    {"id": 14, "query": "Design a system architecture for a distributed system", "should_trigger": false},
+    {"id": 15, "query": "Build an executive resume for a CTO position", "should_trigger": false},
+    {"id": 16, "query": "Format my resume with consistent styling", "should_trigger": false},
+    {"id": 17, "query": "Translate my military engineering experience for software roles", "should_trigger": false},
+    {"id": 18, "query": "Write a product manager resume for technical PM roles", "should_trigger": false},
+    {"id": 19, "query": "Compare my two job offers in terms of compensation and growth", "should_trigger": false},
+    {"id": 20, "query": "Negotiate my salary for this FAANG offer", "should_trigger": false}
+  ]
+}

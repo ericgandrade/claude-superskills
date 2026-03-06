@@ -1,0 +1,29 @@
+{
+  "skill_name": "skill-creator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create a new skill called 'competitive-intel' that helps product managers run systematic competitive intelligence research, track competitor moves, and structure findings into actionable reports.",
+      "expected_output": "A complete skill creation workflow producing a valid SKILL.md with proper frontmatter, README.md, and optionally evals",
+      "expectations": [
+        "Output creates skills/competitive-intel/SKILL.md with valid frontmatter (name, description, license only)",
+        "Output writes a description starting with 'This skill should be used when the user...'",
+        "Output creates skills/competitive-intel/README.md with metadata table",
+        "Output includes required sections: When to Use, Workflow, Critical Rules, Example Usage",
+        "Output validates the skill before completing"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Improve the existing 'brainstorming' skill. Run evals, identify where it underperforms, and optimize the description and workflow to improve trigger accuracy and output quality.",
+      "expected_output": "An improvement cycle for the brainstorming skill with eval results, identified weaknesses, and optimized skill content",
+      "expectations": [
+        "Output reads the existing brainstorming SKILL.md",
+        "Output runs or simulates evals to identify weaknesses",
+        "Output identifies specific improvement areas in the description or workflow",
+        "Output produces an improved version of the skill",
+        "Output compares before/after and explains what was changed and why"
+      ]
+    }
+  ]
+}

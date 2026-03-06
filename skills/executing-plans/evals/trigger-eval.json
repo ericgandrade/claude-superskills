@@ -1,0 +1,26 @@
+{
+  "skill_name": "executing-plans",
+  "description": "Triggers for executing a pre-written implementation plan step by step with checkpoints",
+  "queries": [
+    {"id": 1, "query": "Execute this implementation plan I've written — it's in Plan.md", "should_trigger": true},
+    {"id": 2, "query": "I have a step-by-step plan to follow — execute it with checkpoints after each step", "should_trigger": true},
+    {"id": 3, "query": "Run through this written migration plan one step at a time", "should_trigger": true},
+    {"id": 4, "query": "Execute the plan in /docs/implementation-plan.md and pause for my review after each task", "should_trigger": true},
+    {"id": 5, "query": "I've already designed the plan — now I need you to execute it systematically", "should_trigger": true},
+    {"id": 6, "query": "Follow this 7-step deployment plan and verify each step before proceeding", "should_trigger": true},
+    {"id": 7, "query": "Carry out the tasks in my plan document, checking in between steps", "should_trigger": true},
+    {"id": 8, "query": "Execute this pre-approved plan with review checkpoints", "should_trigger": true},
+    {"id": 9, "query": "Work through the implementation tasks I've documented in this file", "should_trigger": true},
+    {"id": 10, "query": "I have a written spec — execute it step by step, stopping if anything fails", "should_trigger": true},
+    {"id": 11, "query": "Write me an implementation plan for adding authentication to my app", "should_trigger": false},
+    {"id": 12, "query": "Fix the bug in my login component", "should_trigger": false},
+    {"id": 13, "query": "Brainstorm approaches before I implement this feature", "should_trigger": false},
+    {"id": 14, "query": "Design the architecture for our microservices migration", "should_trigger": false},
+    {"id": 15, "query": "Help me plan a database migration from PostgreSQL to MySQL", "should_trigger": false},
+    {"id": 16, "query": "Write code to implement user authentication with JWT", "should_trigger": false},
+    {"id": 17, "query": "Review my pull request and suggest improvements", "should_trigger": false},
+    {"id": 18, "query": "Create a project roadmap for Q2", "should_trigger": false},
+    {"id": 19, "query": "Debug why my tests are failing", "should_trigger": false},
+    {"id": 20, "query": "Refactor this code to use TypeScript", "should_trigger": false}
+  ]
+}

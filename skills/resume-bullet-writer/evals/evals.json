@@ -1,0 +1,29 @@
+{
+  "skill_name": "resume-bullet-writer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Rewrite these weak resume bullets for a product manager role: 1) 'Worked on the mobile app' 2) 'Led team to launch new features' 3) 'Improved user engagement' 4) 'Responsible for the product roadmap'",
+      "expected_output": "Four rewritten, strong resume bullets using action verbs, metrics, and specific impact",
+      "expectations": [
+        "Output rewrites all 4 bullets",
+        "Output starts each bullet with a strong action verb (not 'Worked', 'Led', 'Improved', 'Responsible')",
+        "Output adds specificity and quantification where possible or prompts for metrics",
+        "Output focuses on impact and outcomes, not tasks",
+        "Output notes where metrics are needed and asks follow-up questions"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Write 5 strong resume bullets for a data scientist who: built a fraud detection model that reduced fraud losses by $2.1M annually, presented findings to the board, trained 3 junior data scientists, worked with Python/SQL/Spark, and led the ML infrastructure migration to AWS.",
+      "expected_output": "Five polished resume bullets that convey technical depth and business impact",
+      "expectations": [
+        "Output writes exactly 5 bullets",
+        "Output leads the fraud detection bullet with the $2.1M financial impact",
+        "Output includes the board presentation as a communication/influence accomplishment",
+        "Output conveys technical skills (Python, SQL, Spark, AWS) in context",
+        "Output quantifies the mentorship (3 junior data scientists)"
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 ---
 name: prompt-engineer
-description: Transform raw prompts into optimized prompts using established frameworks like RTF, RISEN, Chain of Thought, RODES, Chain of Density, RACE, RISE, STAR, SOAP, CLEAR, and GROW. Use this skill when the user provides vague prompts, needs help articulating complex ideas, or wants to improve the effectiveness of their AI interactions.
+description: This skill should be used when the user needs to transform raw prompts into optimized prompts using frameworks (RTF, RISEN, Chain of Thought, RODES, Chain of Density, RACE, RISE, STAR, SOAP, CLEAR, GROW). Use when the user provides vague prompts, needs help articulating complex ideas, or wants to improve the effectiveness of AI interactions.
 license: MIT
 ---
 
@@ -23,6 +23,17 @@ Invoke this skill when:
 - User needs a prompt for a specific AI task but doesn't know prompting frameworks
 - User wants to improve an existing prompt's effectiveness
 - User asks variations of "how do I ask AI to..." or "create a prompt for..."
+
+## Progress Tracking
+
+Display progress before each step:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Step 1/4: Analyzing Intent & Context
+[████████░░░░░░░░░░░░] 50% — Step 2/4: Selecting Framework
+[████████████░░░░░░░░] 75% — Step 3/4: Constructing Optimized Prompt
+[████████████████████] 100% — Step 4/4: Presenting & Explaining Output
+```
 
 ## Workflow
 

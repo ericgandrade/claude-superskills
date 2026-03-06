@@ -1,0 +1,26 @@
+{
+  "skill_name": "resume-formatter",
+  "description": "Triggers for resume formatting, layout cleanup, and structural consistency",
+  "queries": [
+    {"id": 1, "query": "My resume formatting is inconsistent — clean it up", "should_trigger": true},
+    {"id": 2, "query": "Standardize the date formats and bullet styles in my resume", "should_trigger": true},
+    {"id": 3, "query": "Convert my two-column resume layout to single-column ATS-friendly format", "should_trigger": true},
+    {"id": 4, "query": "Fix the spacing and visual inconsistencies in my resume", "should_trigger": true},
+    {"id": 5, "query": "My resume has mixed fonts and inconsistent bold — format it professionally", "should_trigger": true},
+    {"id": 6, "query": "Audit my resume formatting and give me a corrected version", "should_trigger": true},
+    {"id": 7, "query": "Remove the graphics and tables from my resume for ATS compatibility", "should_trigger": true},
+    {"id": 8, "query": "My resume is 3 pages — help me format it to fit into 1-2 pages properly", "should_trigger": true},
+    {"id": 9, "query": "Ensure my resume has consistent section headers and visual hierarchy", "should_trigger": true},
+    {"id": 10, "query": "Format my resume for submission to a conservative financial services firm", "should_trigger": true},
+    {"id": 11, "query": "Rewrite my resume bullets to show impact and metrics", "should_trigger": false},
+    {"id": 12, "query": "Optimize my resume keywords for ATS screening", "should_trigger": false},
+    {"id": 13, "query": "Tailor my resume for a specific PM role", "should_trigger": false},
+    {"id": 14, "query": "Add a professional summary section to my resume", "should_trigger": false},
+    {"id": 15, "query": "Quantify my resume achievements with better numbers", "should_trigger": false},
+    {"id": 16, "query": "Write an executive resume for a VP Engineering role", "should_trigger": false},
+    {"id": 17, "query": "Create a creative visual resume for my design portfolio", "should_trigger": false},
+    {"id": 18, "query": "Manage multiple resume versions for different applications", "should_trigger": false},
+    {"id": 19, "query": "Translate my skills from military to civilian language", "should_trigger": false},
+    {"id": 20, "query": "Write a cover letter for this job application", "should_trigger": false}
+  ]
+}

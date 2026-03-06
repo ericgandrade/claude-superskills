@@ -1,0 +1,26 @@
+{
+  "skill_name": "audio-transcriber",
+  "description": "Triggers for audio transcription and intelligent summary generation",
+  "queries": [
+    {"id": 1, "query": "Transcribe this meeting recording and summarize the key points", "should_trigger": true},
+    {"id": 2, "query": "Convert this MP3 audio file to text with a structured summary", "should_trigger": true},
+    {"id": 3, "query": "I have a voice memo I need transcribed and turned into action items", "should_trigger": true},
+    {"id": 4, "query": "Transcribe my podcast episode and create show notes", "should_trigger": true},
+    {"id": 5, "query": "Transform this audio recording into a professional document", "should_trigger": true},
+    {"id": 6, "query": "Convert my interview recording to text and extract key insights", "should_trigger": true},
+    {"id": 7, "query": "Transcribe and summarize this customer call recording", "should_trigger": true},
+    {"id": 8, "query": "Process this M4A audio file and create meeting minutes", "should_trigger": true},
+    {"id": 9, "query": "I have a 2-hour conference recording — transcribe it and give me the highlights", "should_trigger": true},
+    {"id": 10, "query": "Turn this voice note into a written document with an intelligent summary", "should_trigger": true},
+    {"id": 11, "query": "Summarize this YouTube video for me", "should_trigger": false},
+    {"id": 12, "query": "Convert this PDF document to Markdown", "should_trigger": false},
+    {"id": 13, "query": "Write a meeting agenda for tomorrow's standup", "should_trigger": false},
+    {"id": 14, "query": "Help me create action items from my notes", "should_trigger": false},
+    {"id": 15, "query": "Translate this text from Spanish to English", "should_trigger": false},
+    {"id": 16, "query": "Record the key decisions from this Slack thread", "should_trigger": false},
+    {"id": 17, "query": "How do I set up speech-to-text in Python?", "should_trigger": false},
+    {"id": 18, "query": "Write a script for a podcast interview", "should_trigger": false},
+    {"id": 19, "query": "Analyze this dataset and give me insights", "should_trigger": false},
+    {"id": 20, "query": "Create a marketing presentation about our product", "should_trigger": false}
+  ]
+}

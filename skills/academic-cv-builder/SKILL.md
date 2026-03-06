@@ -1,6 +1,6 @@
 ---
 name: academic-cv-builder
-description: This skill should be used when format CVs for academic positions with publications, grants, and teaching
+description: This skill should be used when the user needs to format a curriculum vitae for academic positions including faculty, research, or postdoc roles. Use when organizing publications, grants, teaching experience, presentations, and service for tenure-track, lecturer, or research scientist applications.
 license: MIT
 ---
 
@@ -382,6 +382,17 @@ Phi Beta Kappa, 2013
 
 **Rule:** Your CV grows throughout your career. Don't pad, but don't artificially constrain length.
 
+## Progress Tracking
+
+Display progress before each CV-building phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Analyzing Academic Background & Target Role
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Structuring Sections & Order
+[████████████░░░░░░░░] 75% — Phase 3/4: Formatting Publications & Grants
+[████████████████████] 100% — Phase 4/4: Delivering Complete Academic CV
+```
+
 ## Output Format
 
 When creating an academic CV:
@@ -417,6 +428,16 @@ When creating an academic CV:
 - [ ] [Missing item]
 - [ ] [Item needing update]
 ```
+
+## Error Handling
+
+| Error | Likely Cause | Action |
+|-------|-------------|--------|
+| No academic history provided | User requests CV without sharing background | Ask for degree history, institution names, dissertation titles, and advisor names |
+| Publications list empty | Early career or no publications yet | Note publications section will be minimal; suggest listing works in progress or under review |
+| Discipline format unknown | User doesn't specify their academic field | Ask for field; formatting differs significantly (Sciences vs. Humanities vs. Social Sciences) |
+| Missing grant or funding information | User hasn't provided funding history | Include section header with placeholder; note that grants should be added when available |
+| Target role type unclear | Faculty vs. postdoc vs. lecturer position | Ask for target role type; section order and emphasis differ significantly by role |
 
 ## Academic CV Checklist
 

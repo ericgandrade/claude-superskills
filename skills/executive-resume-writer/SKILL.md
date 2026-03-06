@@ -1,6 +1,6 @@
 ---
 name: executive-resume-writer
-description: This skill should be used when create C-suite and VP level resumes emphasizing strategic leadership
+description: This skill should be used when the user needs to create a C-suite or VP-level resume emphasizing strategic leadership, board-level impact, and P&L ownership. Use when writing resumes for CEO, COO, CTO, CFO, VP, or Director positions that require executive positioning and achievement-driven narrative.
 license: MIT
 ---
 
@@ -258,6 +258,17 @@ Unlike individual contributor resumes, executive resumes should hint at **how** 
 - ❌ Generic statements without proof
 - ❌ Too much humility (take credit appropriately)
 
+## Progress Tracking
+
+Display progress before each resume phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Analyzing Career History & Scope
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Crafting Executive Profile & Narrative
+[████████████░░░░░░░░] 75% — Phase 3/4: Writing Experience & Achievements
+[████████████████████] 100% — Phase 4/4: Delivering Final Resume
+```
+
 ## Output Format
 
 When writing an executive resume:
@@ -295,6 +306,16 @@ When writing an executive resume:
 - Leadership brand: [What you're known for]
 - Differentiator: [What sets you apart]
 ```
+
+## Error Handling
+
+| Error | Likely Cause | Action |
+|-------|-------------|--------|
+| No experience content provided | User asks to create resume without any background information | Request current resume, LinkedIn profile, or summary of career history before proceeding |
+| Metrics not available | User has no quantified achievements | Work with available context to estimate ranges; flag bullets that need user-supplied data |
+| Career gap requiring explanation | Multi-year gap in executive history | Ask user for context; incorporate gap into narrative strategically (advisory, consulting, etc.) |
+| Non-standard title mapping | User has unusual title not matching standard C-suite nomenclature | Ask clarifying questions about actual scope and responsibilities to map correctly |
+| Conflicting dates or tenure | Resume shows overlapping roles or inconsistent dates | Flag the conflict; ask user to clarify before proceeding |
 
 ## Executive Search Considerations
 

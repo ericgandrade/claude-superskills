@@ -18,6 +18,18 @@ Use this skill when:
 - Trade-off analysis is needed before implementation
 - A design document must be approved before coding
 
+## Progress Tracking
+
+Display a progress gauge before each major phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 20% — Phase 1/5: Exploring Project Context
+[████████░░░░░░░░░░░░] 40% — Phase 2/5: Clarifying Requirements
+[████████████░░░░░░░░] 60% — Phase 3/5: Proposing Approaches
+[████████████████░░░░] 80% — Phase 4/5: Presenting Design
+[████████████████████] 100% — Phase 5/5: Writing Design Doc
+```
+
 ## Workflow
 
 1. Explore project context

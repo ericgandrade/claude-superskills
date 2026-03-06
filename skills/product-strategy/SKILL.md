@@ -1,6 +1,6 @@
 ---
 name: product-strategy
-description: This skill should be used when build product strategy that drives real choices. Use when defining where to play and how to win, creating strategy canvases, defining ICP/Anti-ICP, positioning products, setting pricing strategy, planning GTM motions, or structuring strategic bets. Part of the Modern Product Operating Model collection.
+description: This skill should be used when the user needs to build a product strategy that drives real choices. Use when defining where to play and how to win, creating strategy canvases, defining ICP and Anti-ICP, positioning products, setting pricing strategy, planning GTM motions, or structuring strategic bets.
 license: MIT
 ---
 
@@ -51,6 +51,17 @@ Use this skill when:
 - Strategy without non-goals
 
 ---
+
+## Progress Tracking
+
+Display progress during strategy development:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Market Context & Strategic Intent
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Where to Play & How to Win
+[████████████░░░░░░░░] 75% — Phase 3/4: GTM & Positioning
+[████████████████████] 100% — Phase 4/4: Strategic Bets & Roadmap
+```
 
 ## Framework Components
 

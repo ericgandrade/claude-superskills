@@ -1,0 +1,29 @@
+{
+  "skill_name": "cover-letter-generator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Generate a cover letter for a Senior Product Manager role at Notion. I'm currently a PM at Figma with 4 years of experience, have led two major product launches (design systems and collaboration features), and am passionate about productivity tools. The job requires experience with PLG, cross-functional leadership, and 0-to-1 product building.",
+      "expected_output": "A tailored, compelling cover letter that connects the candidate's Figma experience to Notion's requirements",
+      "expectations": [
+        "Output is 3-4 paragraphs, not a generic template",
+        "Output specifically references Notion and its product/mission",
+        "Output connects Figma experience (design systems, collaboration) to Notion's context",
+        "Output addresses PLG experience from the job requirements",
+        "Output has a strong opening that is not 'I am writing to express my interest'"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Write a cover letter for an engineering manager role at a startup called Vercel. The job description emphasizes distributed systems experience, leading teams of 8-12 engineers, and strong written communication. I have 6 years of experience, currently manage a team of 10 at AWS, and have a background in distributed systems. Keep it under 300 words.",
+      "expected_output": "A concise, targeted cover letter under 300 words that addresses all key job requirements",
+      "expectations": [
+        "Output is under 300 words",
+        "Output references Vercel specifically (not generic company name)",
+        "Output highlights distributed systems background",
+        "Output mentions team management experience (10 engineers) relevant to the 8-12 requirement",
+        "Output includes a specific, engaging opening hook"
+      ]
+    }
+  ]
+}

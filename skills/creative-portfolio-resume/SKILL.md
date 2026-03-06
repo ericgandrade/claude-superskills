@@ -1,6 +1,6 @@
 ---
 name: creative-portfolio-resume
-description: This skill should be used when balance visual design with ATS compatibility for creative roles
+description: This skill should be used when the user needs to balance visual design with ATS compatibility for a creative role resume. Use when building portfolio resumes for design, marketing, writing, or other creative fields, and when deciding between a designed version versus an ATS-safe version.
 license: MIT
 ---
 
@@ -278,6 +278,17 @@ Portfolio: yourname.com
 - PowerPoint/Keynote (not designed for this)
 - Random online resume builders
 - Heavy templates that obscure content
+
+## Progress Tracking
+
+Display progress before each creative resume phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Assessing Creative Field & Target Role
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Defining Design Strategy (ATS vs. Designed)
+[████████████░░░░░░░░] 75% — Phase 3/4: Creating Content for Both Versions
+[████████████████████] 100% — Phase 4/4: Delivering Creative Resume Strategy
+```
 
 ## Output Format
 

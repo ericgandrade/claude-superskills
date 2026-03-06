@@ -1,6 +1,6 @@
 ---
 name: resume-version-manager
-description: This skill should be used when track different resume versions, maintain master resume, manage tailored versions
+description: This skill should be used when the user needs to track different resume versions, maintain a master resume, and manage tailored versions for multiple applications. Use when juggling multiple job targets, tracking which version was sent where, or maintaining a centralized resume source of truth.
 license: MIT
 ---
 
@@ -312,6 +312,17 @@ Resume/
 - ❌ Have multiple "master" files
 - ❌ Delete old versions (archive instead)
 
+## Progress Tracking
+
+Display progress before each version management phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Inventorying Existing Versions
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Establishing Master Resume
+[████████████░░░░░░░░] 75% — Phase 3/4: Organizing & Naming Versions
+[████████████████████] 100% — Phase 4/4: Delivering Version Management System
+```
+
 ## Output Format
 
 When managing resume versions:
@@ -347,6 +358,16 @@ When managing resume versions:
 1. [Action 1]
 2. [Action 2]
 ```
+
+## Error Handling
+
+| Error | Likely Cause | Action |
+|-------|-------------|--------|
+| No master resume found | User asks to manage versions but has no base document | Ask user to designate one version as the master; help establish the base first |
+| Multiple conflicting versions with no clear master | Several tailored versions and user can't identify the original | Review all versions; identify the most complete one; propose it as master |
+| Version history too incomplete to track | All versions look similar or are undated | Help user establish a naming convention and versioning system going forward |
+| Version sent to employer needs update | User was offered an interview and needs to recall which version was sent | Ask for employer name; help reconstruct which version based on tailoring clues |
+| No version tracking system in place | User manages resumes manually with no structure | Establish version naming convention; create master + tailored structure |
 
 ## Version Management Checklist
 

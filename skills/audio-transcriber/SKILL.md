@@ -443,6 +443,19 @@ echo "  3. Track action items to completion"
 ```
 
 
+## Error Handling
+
+| Error | Likely Cause | Action |
+|-------|-------------|--------|
+| Transcription tool not found | `faster-whisper` and `openai-whisper` not installed | Offer to auto-install with `pip install faster-whisper`; show manual instructions |
+| Unsupported audio format | File extension not in supported list (MP3/WAV/M4A/OGG/FLAC/WEBM) | If ffmpeg available, convert automatically; otherwise prompt to install ffmpeg |
+| File not found | Path is incorrect or file was moved | Show exact path error; ask user to verify and provide correct path |
+| File too large (>1 GB) | Very long recordings | Warn about processing time; offer to split file with ffmpeg |
+| Low quality / garbled transcript | Poor audio quality, background noise, or multiple speakers | Report confidence issues; suggest re-recording or using a better audio source |
+| ffmpeg not found | ffmpeg not installed on system | Inform user; show install command for their OS (brew/apt/choco) |
+| LLM processing timeout | AI model took too long on very large transcripts | Chunk transcript into smaller sections; retry with smaller input |
+| Permission denied | File is locked or requires elevated access | Ask user to check file permissions or copy file to accessible location |
+
 ## Example Usage
 
 ### **Example 1: Basic Transcription**

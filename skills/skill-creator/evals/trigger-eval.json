@@ -1,0 +1,26 @@
+{
+  "skill_name": "skill-creator",
+  "description": "Triggers for creating new skills, improving existing skills, and running evals",
+  "queries": [
+    {"id": 1, "query": "Create a new skill for running database migrations", "should_trigger": true},
+    {"id": 2, "query": "Build a custom skill that helps with code review", "should_trigger": true},
+    {"id": 3, "query": "I want to create a skill for my team's deployment workflow", "should_trigger": true},
+    {"id": 4, "query": "Make a new CLI skill for generating API documentation", "should_trigger": true},
+    {"id": 5, "query": "Improve the existing brainstorming skill — run evals and optimize it", "should_trigger": true},
+    {"id": 6, "query": "Develop a skill that helps with incident postmortem writing", "should_trigger": true},
+    {"id": 7, "query": "Create a skill to help with sprint planning and estimation", "should_trigger": true},
+    {"id": 8, "query": "Run evals on the resume-tailor skill and benchmark its performance", "should_trigger": true},
+    {"id": 9, "query": "Build a custom skill for our internal code generation workflow", "should_trigger": true},
+    {"id": 10, "query": "Extend the AI platform with a new skill for security review", "should_trigger": true},
+    {"id": 11, "query": "Use the deep-research skill to investigate market trends", "should_trigger": false},
+    {"id": 12, "query": "Optimize my resume with ATS keywords", "should_trigger": false},
+    {"id": 13, "query": "Set up a CI/CD pipeline for my project", "should_trigger": false},
+    {"id": 14, "query": "Help me prepare for my software engineering interview", "should_trigger": false},
+    {"id": 15, "query": "Write a cover letter for a product manager role", "should_trigger": false},
+    {"id": 16, "query": "Build an ABX strategy for our enterprise product", "should_trigger": false},
+    {"id": 17, "query": "Design a system architecture for my application", "should_trigger": false},
+    {"id": 18, "query": "Create a product strategy canvas for our SaaS", "should_trigger": false},
+    {"id": 19, "query": "Transcribe my meeting recording and summarize it", "should_trigger": false},
+    {"id": 20, "query": "Analyze my job offer and compare it to alternatives", "should_trigger": false}
+  ]
+}

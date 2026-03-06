@@ -1,0 +1,26 @@
+{
+  "skill_name": "prompt-engineer",
+  "description": "Triggers for transforming raw prompts into optimized prompts using frameworks",
+  "queries": [
+    {"id": 1, "query": "Optimize this prompt I'm using — it's giving me mediocre results", "should_trigger": true},
+    {"id": 2, "query": "Transform this raw prompt into a better version using RTF framework", "should_trigger": true},
+    {"id": 3, "query": "My prompt produces generic outputs — help me engineer a better one", "should_trigger": true},
+    {"id": 4, "query": "Apply chain-of-thought prompting to improve this reasoning task", "should_trigger": true},
+    {"id": 5, "query": "Write a system prompt for a customer support AI assistant", "should_trigger": true},
+    {"id": 6, "query": "Use the RISEN framework to improve this content creation prompt", "should_trigger": true},
+    {"id": 7, "query": "Help me write a better prompt for data extraction from legal contracts", "should_trigger": true},
+    {"id": 8, "query": "My LLM keeps giving wrong answers — let's fix the prompt", "should_trigger": true},
+    {"id": 9, "query": "Engineer a few-shot prompt for classifying customer feedback", "should_trigger": true},
+    {"id": 10, "query": "Build a structured prompt template for my content generation workflow", "should_trigger": true},
+    {"id": 11, "query": "Write me a Python function to call the OpenAI API", "should_trigger": false},
+    {"id": 12, "query": "Fine-tune a model on my custom dataset", "should_trigger": false},
+    {"id": 13, "query": "Explain how transformers work architecturally", "should_trigger": false},
+    {"id": 14, "query": "Set up a RAG pipeline with vector embeddings", "should_trigger": false},
+    {"id": 15, "query": "Create a product strategy for an AI startup", "should_trigger": false},
+    {"id": 16, "query": "Help me write a cover letter", "should_trigger": false},
+    {"id": 17, "query": "Debug this Python script", "should_trigger": false},
+    {"id": 18, "query": "Create a blog post about AI trends", "should_trigger": false},
+    {"id": 19, "query": "Set up monitoring for my ML model in production", "should_trigger": false},
+    {"id": 20, "query": "Design a customer interview guide for product discovery", "should_trigger": false}
+  ]
+}

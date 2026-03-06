@@ -1,0 +1,26 @@
+{
+  "skill_name": "mckinsey-strategist",
+  "description": "Triggers for McKinsey-style structured strategic analysis and business problem solving",
+  "queries": [
+    {"id": 1, "query": "Help me structure a complex business problem using a hypothesis tree", "should_trigger": true},
+    {"id": 2, "query": "Run a MECE analysis of why our churn rate increased last quarter", "should_trigger": true},
+    {"id": 3, "query": "Create an executive-ready recommendation for our board on whether to enter Europe", "should_trigger": true},
+    {"id": 4, "query": "Apply the McKinsey issue tree approach to this pricing problem", "should_trigger": true},
+    {"id": 5, "query": "Build a structured analysis of our market positioning relative to competitors", "should_trigger": true},
+    {"id": 6, "query": "Help me think through this strategic decision using a structured consulting framework", "should_trigger": true},
+    {"id": 7, "query": "Diagnose why our sales funnel is underperforming using a top-down analysis", "should_trigger": true},
+    {"id": 8, "query": "Create a pyramid principle presentation structure for this strategic recommendation", "should_trigger": true},
+    {"id": 9, "query": "What's the MECE breakdown of our customer retention problem?", "should_trigger": true},
+    {"id": 10, "query": "Structure a business case for this investment decision using consulting frameworks", "should_trigger": true},
+    {"id": 11, "query": "Build an ABX marketing strategy for our enterprise product", "should_trigger": false},
+    {"id": 12, "query": "Help me write a resume for a consulting role", "should_trigger": false},
+    {"id": 13, "query": "Set up my product discovery process with OSTs", "should_trigger": false},
+    {"id": 14, "query": "Create a product strategy canvas for our SaaS", "should_trigger": false},
+    {"id": 15, "query": "Transcribe this stakeholder meeting recording", "should_trigger": false},
+    {"id": 16, "query": "Help me design the architecture for our new service", "should_trigger": false},
+    {"id": 17, "query": "Write a cover letter for a McKinsey application", "should_trigger": false},
+    {"id": 18, "query": "Build an Opportunity Solution Tree for user retention", "should_trigger": false},
+    {"id": 19, "query": "Fix this bug in my Python script", "should_trigger": false},
+    {"id": 20, "query": "Optimize my resume for strategy consulting roles", "should_trigger": false}
+  ]
+}

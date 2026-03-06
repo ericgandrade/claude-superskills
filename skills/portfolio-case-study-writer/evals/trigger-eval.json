@@ -1,0 +1,26 @@
+{
+  "skill_name": "portfolio-case-study-writer",
+  "description": "Triggers for transforming project experience into portfolio case studies",
+  "queries": [
+    {"id": 1, "query": "Write a portfolio case study for my UX design project", "should_trigger": true},
+    {"id": 2, "query": "Transform these resume bullets into a compelling product case study", "should_trigger": true},
+    {"id": 3, "query": "Create a case study for my portfolio from this project I worked on", "should_trigger": true},
+    {"id": 4, "query": "Help me write a PM portfolio case study covering my process and outcomes", "should_trigger": true},
+    {"id": 5, "query": "I need to turn this project into a 3-paragraph case study for my portfolio site", "should_trigger": true},
+    {"id": 6, "query": "Write a design case study covering problem, process, solution, and results", "should_trigger": true},
+    {"id": 7, "query": "Build a case study showing my decision-making process for this feature launch", "should_trigger": true},
+    {"id": 8, "query": "Turn my project experience into a compelling narrative for a design portfolio", "should_trigger": true},
+    {"id": 9, "query": "Create a portfolio story from this product launch I led", "should_trigger": true},
+    {"id": 10, "query": "Write a case study for my software engineering portfolio showcasing this project", "should_trigger": true},
+    {"id": 11, "query": "Write resume bullets for my product manager experience", "should_trigger": false},
+    {"id": 12, "query": "Optimize my LinkedIn profile for design roles", "should_trigger": false},
+    {"id": 13, "query": "Create a cover letter for a UX designer position", "should_trigger": false},
+    {"id": 14, "query": "Format my portfolio as a PDF", "should_trigger": false},
+    {"id": 15, "query": "Prepare me for the design interview process", "should_trigger": false},
+    {"id": 16, "query": "Write a product manager resume", "should_trigger": false},
+    {"id": 17, "query": "Build a creative resume for my design background", "should_trigger": false},
+    {"id": 18, "query": "Help me quantify my resume achievements", "should_trigger": false},
+    {"id": 19, "query": "Write a reference list for my portfolio applications", "should_trigger": false},
+    {"id": 20, "query": "Translate my agency experience to in-house language", "should_trigger": false}
+  ]
+}

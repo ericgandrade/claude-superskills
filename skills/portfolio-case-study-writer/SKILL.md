@@ -1,6 +1,6 @@
 ---
 name: portfolio-case-study-writer
-description: This skill should be used when transform resume bullets into detailed portfolio case studies
+description: This skill should be used when the user needs to transform resume bullets into detailed portfolio case studies. Use when building a project portfolio, documenting design thinking processes, writing UX or product case studies, or showcasing problem-solving approaches for creative, product, or technical roles.
 license: MIT
 ---
 
@@ -309,6 +309,17 @@ Added security badges, money-back guarantee, and customer service contact throug
 - Add captions explaining each image
 - Blur sensitive data if needed
 - Ensure mobile-friendly image sizes
+
+## Progress Tracking
+
+Display progress before each case study phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Selecting & Understanding the Project
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Structuring Problem-Solution-Impact
+[████████████░░░░░░░░] 75% — Phase 3/4: Writing Case Study Sections
+[████████████████████] 100% — Phase 4/4: Delivering Portfolio-Ready Case Study
+```
 
 ## Output Format
 

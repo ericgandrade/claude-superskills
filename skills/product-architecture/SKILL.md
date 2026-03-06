@@ -1,6 +1,6 @@
 ---
 name: product-architecture
-description: This skill should be used when structure what you
+description: This skill should be used when the user needs to structure what to build and when by converting discovery opportunities into prioritized bets and roadmaps. Use when organizing product capability blocks, writing solution briefs, planning quarterly cycles, or communicating product direction without false precision.
 license: MIT
 ---
 
@@ -60,6 +60,17 @@ The Product Architecture System creates a **clear hierarchy**: Strategy → Bets
 - Tech-driven architecture (organizing by system, not customer)
 
 ---
+
+## Progress Tracking
+
+Display progress during architecture work:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Mapping Capability Blocks
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Converting Opportunities to Bets
+[████████████░░░░░░░░] 75% — Phase 3/4: Writing Solution Briefs & Roadmap
+[████████████████████] 100% — Phase 4/4: Communicating Product Direction
+```
 
 ## Framework Components
 

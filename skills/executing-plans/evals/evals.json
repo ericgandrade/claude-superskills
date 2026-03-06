@@ -1,0 +1,29 @@
+{
+  "skill_name": "executing-plans",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Execute this implementation plan: Plan.md is in the current directory and outlines a 5-step process to add authentication to our Express.js API using JWT tokens. Start with step 1.",
+      "expected_output": "Systematic execution of the plan file with checkpoint verification between steps",
+      "expectations": [
+        "Output reads and confirms understanding of the plan before starting",
+        "Output executes steps sequentially, not all at once",
+        "Output verifies completion of each step before proceeding",
+        "Output pauses for user review at defined checkpoints",
+        "Output reports what was done and what comes next at each checkpoint"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I have a 7-step database migration plan in /docs/migration-plan.md. Execute it but pause after each step to show me what changed before proceeding. If any step fails, stop and tell me what went wrong.",
+      "expected_output": "Careful step-by-step execution with explicit pauses, change summaries, and error handling",
+      "expectations": [
+        "Output reads the migration plan from the specified location",
+        "Output executes exactly one step at a time",
+        "Output shows what changed after each step before asking to continue",
+        "Output would stop and report clearly if a step failed",
+        "Output tracks which steps are complete and which are remaining"
+      ]
+    }
+  ]
+}

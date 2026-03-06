@@ -1,6 +1,6 @@
 ---
 name: ai-native-product
-description: This skill should be used when build AI-native products with agency-control tradeoffs, calibration loops, and eval strategies. Use when building AI agents, LLM features, or products where AI handles user tasks autonomously. Part of the Modern Product Operating Model collection.
+description: This skill should be used when the user needs to build AI-native products with agency-control tradeoffs, calibration loops, and eval strategies. Use when building AI agents, LLM features, or products where AI handles user tasks autonomously. Part of the Modern Product Operating Model collection.
 license: MIT
 ---
 
@@ -26,6 +26,19 @@ Use this skill when:
 - Managing the "agency-control tradeoff"
 
 **Not needed for**: Traditional software products, ML models used only for backend optimization (no user-facing autonomy)
+
+---
+
+## Progress Tracking
+
+Display progress during AI-native product work:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Agency-Control Tradeoff Design
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Discovery & Assumption Mapping
+[████████████░░░░░░░░] 75% — Phase 3/4: Eval Strategy & Calibration Loop
+[████████████████████] 100% — Phase 4/4: Delivery, Monitoring & Trust-Building
+```
 
 ---
 

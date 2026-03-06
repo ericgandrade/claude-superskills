@@ -1,0 +1,29 @@
+{
+  "skill_name": "us-program-research",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Research and rank the top 10 PhD programs in Machine Learning / AI in the US for me. I have a 3.8 GPA from a top-20 engineering school, 2 publications (one at NeurIPS), research experience in NLP, and I'm looking for strong funding and advisor match in LLMs and multi-modal AI.",
+      "expected_output": "A ranked list of top ML/AI PhD programs with advisor matching, funding information, and application strategy",
+      "expectations": [
+        "Output researches and ranks at least 8-10 programs",
+        "Output includes advisor recommendations aligned with LLMs and multi-modal AI",
+        "Output covers funding/stipend information for each program",
+        "Output categorizes programs by reach/match/safety based on the candidate profile",
+        "Output includes application deadlines and specific tips for each program"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I need to find Master's programs in Human-Computer Interaction (HCI) in the US. My budget is max $40K per year total cost. I'm an international student (Indian citizen), have 2 years work experience in UX design, and want programs with good industry placement.",
+      "expected_output": "A curated list of HCI Master's programs that fit the budget constraint, with visa/international student considerations",
+      "expectations": [
+        "Output researches HCI-specific Master's programs (not just CS programs with HCI tracks)",
+        "Output filters for programs within the $40K/year total cost budget",
+        "Output addresses international student considerations (visa, OPT, scholarships)",
+        "Output includes industry placement rates or employer partnerships where available",
+        "Output ranks programs by overall fit for the candidate's profile"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "skill_name": "agent-skill-orchestrator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need to prepare for a job interview at Stripe for a Senior Product Manager role. I have my resume, the job description, and I want to do comprehensive preparation including researching the company, tailoring my resume, preparing STAR stories, and practicing interview questions. Create an execution plan.",
+      "expected_output": "A detailed execution plan mapping available skills to each preparation task with confidence scores and sequencing",
+      "expectations": [
+        "Output discovers and lists available skills before planning",
+        "Output maps specific skills to each task (e.g., deep-research for company research, resume-tailor for resume, interview-prep-generator for practice)",
+        "Output provides confidence scores for each skill-to-task match",
+        "Output sequences the tasks in a logical order",
+        "Output presents the plan and asks for user approval before proceeding"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I want to build a comprehensive market entry strategy for a B2B SaaS product targeting mid-market healthcare companies. I need competitive analysis, ICP definition, GTM strategy, and a product roadmap framework. Orchestrate the best resources to help me.",
+      "expected_output": "An orchestrated execution plan using multiple strategy-related skills with clear task assignments and alternatives",
+      "expectations": [
+        "Output identifies relevant skills for each component (mckinsey-strategist, abx-strategy, product-strategy, product-architecture, etc.)",
+        "Output includes confidence scoring for each resource match",
+        "Output provides primary and alternative execution paths",
+        "Output generates a structured plan covering all four requested areas",
+        "Output waits for approval before executing the plan"
+      ]
+    }
+  ]
+}

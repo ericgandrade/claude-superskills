@@ -28,6 +28,18 @@ Use this skill when:
 
 No external API key is required.
 
+## Progress Tracking
+
+Display a progress gauge at each research phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 20% — Phase 1/5: Defining Objective & Scope
+[████████░░░░░░░░░░░░] 40% — Phase 2/5: Collecting Sources
+[████████████░░░░░░░░] 60% — Phase 3/5: Deep Analysis & Synthesis
+[████████████████░░░░] 80% — Phase 4/5: Drafting Output
+[████████████████████] 100% — Phase 5/5: Quality Review & Citations
+```
+
 ## Workflow
 
 ## Research Protocol
@@ -100,6 +112,17 @@ Choose one based on request:
 - Always include citations for material claims.
 - Always separate facts from interpretations and recommendations.
 - Always mark uncertainty explicitly when evidence is weak or conflicting.
+
+## Error Handling
+
+| Error | Likely Cause | Action |
+|-------|-------------|--------|
+| WebSearch returns no results | Query too specific, misspelled, or topic very niche | Broaden query, try alternate phrasing, report low-coverage finding |
+| WebFetch times out or blocked | Site is down, bot-blocking, or paywalled | Skip that source, note it as inaccessible, continue with other sources |
+| Insufficient sources found | Topic has limited public information | Report coverage gaps; recommend user provide domain-specific sources |
+| Conflicting information across sources | Different sources cite different facts | Flag the conflict explicitly; present both sides with sources |
+| Query too broad | Research question covers too many sub-topics | Ask user to narrow the scope or prioritize specific dimensions |
+| Paywalled content | Article requires subscription | Note the source as paywalled; use abstract/preview if available |
 
 ## Example Usage
 

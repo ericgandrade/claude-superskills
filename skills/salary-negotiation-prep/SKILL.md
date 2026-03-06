@@ -1,6 +1,6 @@
 ---
 name: salary-negotiation-prep
-description: This skill should be used when research market rates, build negotiation strategy, and create counter-offer scripts
+description: This skill should be used when the user needs to research market rates, build a salary negotiation strategy, and create counter-offer scripts. Use when preparing to negotiate a job offer, requesting a raise, evaluating compensation packages, or responding to lowball offers with data-backed confidence.
 license: MIT
 ---
 
@@ -321,6 +321,17 @@ Day 10+: Resolution
 - Sign and celebrate!
 ```
 
+## Progress Tracking
+
+Display progress before each negotiation phase:
+
+```
+[████░░░░░░░░░░░░░░░░] 25% — Phase 1/4: Analyzing Offer Details
+[████████░░░░░░░░░░░░] 50% — Phase 2/4: Researching Market Rates
+[████████████░░░░░░░░] 75% — Phase 3/4: Building Negotiation Strategy
+[████████████████████] 100% — Phase 4/4: Delivering Scripts & Talking Points
+```
+
 ## Output Format
 
 When preparing salary negotiation:
@@ -374,6 +385,17 @@ When preparing salary negotiation:
 - [Bonus guaranteed?]
 - [Review cycle timeline?]
 ```
+
+## Error Handling
+
+| Error | Likely Cause | Action |
+|-------|-------------|--------|
+| No offer details provided | User wants negotiation help without sharing the offer | Ask for base salary, bonus, equity, benefits, and location before building strategy |
+| No market data found | Niche role, unusual location, or very new field | Use available proxies (adjacent roles, city adjustments); flag data limitations |
+| Non-standard compensation structure | Equity-heavy, commission-only, or deferred comp offer | Break down each component separately; explain total compensation methodology |
+| User uncomfortable with negotiation | Anxiety about asking for more | Provide scripted language and psychological framing; normalize negotiation |
+| Offer is already above market | Initial offer exceeds typical range | Acknowledge; focus on other levers (equity, flexibility, signing bonus, growth) |
+| No competing offers | User has no leverage from alternatives | Suggest ways to build leverage (market data, cost of living, role value to company) |
 
 ## Implementation Checklist
 
