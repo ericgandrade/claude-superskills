@@ -140,7 +140,7 @@ To be notified when the plugin is available on claude.ai, watch this repository.
 
 ## ✨ Features
 
-- **44 Universal Skills** - Work on all platforms
+- **45 Universal Skills** - Work on all platforms
 - **Zero-Config Install** - Run once, works everywhere
 - **Curated Bundles** - Install exactly what you need
 - **Smart Search** - Find skills by keyword
@@ -154,65 +154,85 @@ To be notified when the plugin is available on claude.ai, watch this repository.
 ### 💼 Career & Professional Growth
 | Skill | Version | Purpose |
 |-------|---------|---------|
-| **resume-ats-optimizer** | v1.0.0 | Optimize resumes for Applicant Tracking Systems |
-| **resume-bullet-writer** | v1.0.0 | Transform weak bullets into achievement-focused statements |
-| **job-description-analyzer** | v1.0.0 | Analyze job postings and calculate match scores |
-| **resume-tailor** | v1.0.0 | Customize resume for specific job postings |
-| **interview-prep-generator** | v1.0.0 | Generate STAR stories and practice questions |
-| **linkedin-profile-optimizer** | v1.0.0 | Sync resume with LinkedIn and optimize for searchability |
-| **salary-negotiation-prep** | v1.0.0 | Research market rates and build negotiation strategy |
-| **tech-resume-optimizer** | v1.0.0 | Optimize resumes for technical and PM roles |
-| ... | ... | (20 total in career bundle) |
+| **resume-ats-optimizer** | v2.0.0 | Optimize resumes for Applicant Tracking Systems |
+| **resume-bullet-writer** | v2.0.0 | Transform weak bullets into achievement-focused statements |
+| **resume-tailor** | v2.0.0 | Customize resume for specific job postings |
+| **resume-formatter** | v2.0.0 | Ensure ATS-friendly formatting and clean scannable layouts |
+| **resume-quantifier** | v2.0.0 | Add metrics and quantifiable results to resume bullets |
+| **resume-section-builder** | v2.0.0 | Create targeted resume sections for different experience levels |
+| **resume-version-manager** | v2.0.0 | Track and manage multiple resume versions during a job search |
+| **job-description-analyzer** | v2.0.0 | Analyze job postings and calculate match scores |
+| **interview-prep-generator** | v2.0.0 | Generate STAR stories and practice questions |
+| **linkedin-profile-optimizer** | v2.0.0 | Optimize LinkedIn profile for recruiter searchability |
+| **salary-negotiation-prep** | v2.0.0 | Research market rates and build negotiation strategy |
+| **tech-resume-optimizer** | v2.0.0 | Optimize resumes for technical and PM roles |
+| **executive-resume-writer** | v2.0.0 | Create C-suite and VP-level resumes emphasizing strategic leadership |
+| **cover-letter-generator** | v2.0.0 | Create personalized cover letters from resume and job description |
+| **career-changer-translator** | v2.0.0 | Translate skills from one industry to another |
+| **creative-portfolio-resume** | v2.0.0 | Balance visual design with ATS compatibility for creative roles |
+| **academic-cv-builder** | v2.0.0 | Build and format CVs for academic positions |
+| **offer-comparison-analyzer** | v2.0.0 | Compare multiple job offers with total compensation analysis |
+| **portfolio-case-study-writer** | v2.0.0 | Transform resume bullets into detailed portfolio case studies |
+| **reference-list-builder** | v2.0.0 | Format professional references and prepare reference materials |
 
 ### 🔍 Discovery & Orchestration
 | Skill | Version | Purpose |
 |-------|---------|---------|
-| **agent-skill-discovery** | v1.1.0 | Scan installed resources and current repository resources (agents, skills, MCPs) |
-| **agent-skill-orchestrator** | v1.1.0 | Intelligent task planning with automatic prompt optimization and resource matching |
+| **agent-skill-discovery** | v2.0.0 | Scan installed resources and current repository resources (agents, skills, MCPs) |
+| **agent-skill-orchestrator** | v2.0.0 | Intelligent task planning with automatic prompt optimization and resource matching |
 
 ### 🛠️ Development & Automation
 | Skill | Version | Purpose |
 |-------|---------|---------|
-| **skill-creator** | v1.3.1 | Automate skill creation with guided workflow |
-| **prompt-engineer** | v1.1.0 | Optimize prompts using 11 frameworks (RTF, RISEN, Chain of Thought, etc.) |
+| **skill-creator** | v2.0.0 | Automate skill creation with guided workflow |
+| **prompt-engineer** | v2.0.0 | Optimize prompts using 11 frameworks (RTF, RISEN, Chain of Thought, etc.) |
 
 ### 🧭 Planning & Execution
 | Skill | Version | Purpose |
 |-------|---------|---------|
-| **brainstorming** | v1.0.0 | Mandatory pre-implementation design clarification workflow |
-| **writing-plans** | v1.0.0 | Build detailed, actionable implementation plans before coding |
-| **executing-plans** | v1.0.0 | Execute plans in batches with checkpoints and review gates |
-| **mckinsey-strategist** | v1.0.0 | Senior strategy consulting with SWOT, VRIO, 7S and First Principles analysis |
+| **brainstorming** | v2.0.0 | Mandatory pre-implementation design clarification workflow |
+| **writing-plans** | v2.0.0 | Build detailed, actionable implementation plans before coding |
+| **executing-plans** | v2.0.0 | Execute plans in batches with checkpoints and review gates |
+| **mckinsey-strategist** | v2.0.0 | Senior strategy consulting with SWOT, VRIO, 7S and First Principles analysis |
 
 ### 🏛️ Software Architecture
 | Skill | Version | Purpose |
 |-------|---------|---------|
-| **senior-solution-architect** | v1.0.0 | Unified authority for C4 modeling, ADRs, and system reviews |
-| **product-architecture** | v1.0.1 | Define scalable product architecture and modules |
+| **senior-solution-architect** | v2.0.0 | Unified authority for C4 modeling, ADRs, and system reviews |
+| **product-architecture** | v2.0.0 | Define scalable product architecture and modules |
 
 ### 🚀 Startup & Venture
 | Skill | Version | Purpose |
 |-------|---------|---------|
-| **startup-growth-strategist** | v1.0.0 | Integrated authority for market sizing, unit economics, and GTM |
-| **product-strategy** | v1.0.1 | Craft cohesive product strategy and roadmaps |
-| **abx-strategy** | v1.0.1 | Build Account-Based Everything (ABX) GTM strategies |
+| **startup-growth-strategist** | v2.0.0 | Integrated authority for market sizing, unit economics, and GTM |
+| **product-strategy** | v2.0.0 | Craft cohesive product strategy and roadmaps |
+| **abx-strategy** | v2.0.0 | Build Account-Based Everything (ABX) GTM strategies |
 
 ### 📈 Product Management & Strategy
+| Skill | Version | Purpose |
+|-------|---------|---------|
+| **product-operating-model** | v2.0.0 | Index and entry point for the Modern Product Operating Model |
+| **product-strategy** | v2.0.0 | Build product strategy defining where to play and how to win |
+| **product-discovery** | v2.0.0 | Run continuous discovery using OSTs, interviews, and assumption testing |
+| **product-architecture** | v2.0.0 | Convert discovery opportunities into roadmaps and solution briefs |
+| **product-delivery** | v2.0.0 | Ship, measure, and learn with staged rollouts and metrics hierarchies |
+| **product-leadership** | v2.0.0 | Operate as Director or CPO managing portfolios and org design |
+| **ai-native-product** | v2.0.0 | Build AI-native products with agency-control tradeoffs and eval strategies |
 
 ### 🔬 Research & Analysis
 | Skill | Version | Purpose |
 |-------|---------|---------|
-| **deep-research** | v1.0.0 | Multi-step research workflow with citations using native web tools (no Google API required) |
-| **us-program-research** | v1.0.0 | Structured US academic program research, ranking, and application action-plan generation |
+| **deep-research** | v2.0.0 | Multi-step research workflow with citations using native web tools (no Google API required) |
+| **us-program-research** | v2.0.0 | Structured US academic program research, ranking, and application action-plan generation |
 
 ### 📝 Content Processing
 | Skill | Version | Purpose |
 |-------|---------|---------|
-| **youtube-summarizer** | v1.2.1 | Extract YouTube transcripts and generate comprehensive summaries |
-| **audio-transcriber** | v1.2.1 | Transform audio recordings into professional Markdown documentation |
-| **docling-converter** | v1.0.0 | Convert PDF/Office/image documents to Markdown/JSON/HTML with optional OCR |
-| **cloudconvert-converter** | v1.0.0 | Convert 200+ file formats (docs, images, video, audio) and PDF operations (OCR, merge, split, rotate) via CloudConvert MCP |
-| **storytelling-expert** | v1.0.0 | Transform ideas into engaging narratives using 8 elite storytelling frameworks |
+| **youtube-summarizer** | v2.0.0 | Extract YouTube transcripts and generate comprehensive summaries |
+| **audio-transcriber** | v2.0.0 | Transform audio recordings into professional Markdown documentation |
+| **docling-converter** | v2.0.0 | Convert PDF/Office/image documents to Markdown/JSON/HTML with optional OCR |
+| **cloudconvert-converter** | v2.0.0 | Convert 200+ file formats (docs, images, video, audio) and PDF operations (OCR, merge, split, rotate) via CloudConvert MCP |
+| **storytelling-expert** | v2.0.0 | Transform ideas into engaging narratives using 8 elite storytelling frameworks |
 
 ## 🎯 Curated Bundles
 
