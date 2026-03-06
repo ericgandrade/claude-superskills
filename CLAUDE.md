@@ -49,10 +49,10 @@ claude-superskills/
 │   ├── audio-transcriber/
 │   ├── brainstorming/
 │   ├── career-changer-translator/
+│   ├── cloudconvert-converter/
 │   ├── cover-letter-generator/
 │   ├── creative-portfolio-resume/
 │   ├── deep-research/
-│   ├── cloudconvert-converter/
 │   ├── docling-converter/
 │   ├── executing-plans/
 │   ├── executive-resume-writer/
@@ -153,6 +153,7 @@ claude-superskills/
 │   ├── generate-catalog.js        # JS: alternative catalog generator
 │   ├── generate-skills-index.py   # Python: generates skills index
 │   ├── generate-skills-index.js   # JS: alternative index generator
+│   ├── package-plugin.sh          # Generates plugin-output/claude-superskills-vX.Y.Z.zip for Claude Desktop
 │   └── pre-publish-check.sh
 │
 └── docs/
@@ -238,7 +239,7 @@ npx claude-superskills
 /plugin install claude-superskills@claude-superskills
     → clones repo → copies to ~/.claude/plugins/cache/claude-superskills/
     → auto-discovers skills/ directory
-    → registers all 44 skills as /claude-superskills:<skill-name>
+    → registers all 45 skills as /claude-superskills:<skill-name>
 
 # NOTE: The shell command `claude plugin install ...` is currently unstable
 # due to upstream bugs in Claude Code (e.g. anthropics/claude-code#29722).
@@ -279,7 +280,7 @@ claude --plugin-dir ./ --print "/claude-superskills:<skill-name>"
 
 Every new skill added to `skills/` **must** trigger the following updates before committing:
 
-1. **`skills/<skill-name>/SKILL.md`** — create with valid frontmatter: `name` (kebab-case), `description` ("This skill should be used when..."), `version` (1.0.0), `author`, `platforms`, `category`, `tags`, `risk`. No bare date fields.
+1. **`skills/<skill-name>/SKILL.md`** — create with valid frontmatter: `name` (kebab-case), `description` ("This skill should be used when..."), `license` (MIT). No other fields — `version`, `author`, `platforms`, `category`, `tags`, `risk`, `created`, `updated` all cause Claude Code loading failures. No bare date fields.
 2. **`skills/<skill-name>/README.md`** — create with `## Metadata` table (Version, Author, Created, Updated, Platforms, Category, Tags, Risk). Dates go here, NOT in SKILL.md.
 3. **`README.md`** — add skill to the relevant category table; bump the `skills-N` badge count.
 4. **`CLAUDE.md`** — add skill to the architecture tree (`skills/`) and to the Skill Types section; update the skills badge count note.
@@ -467,12 +468,19 @@ Do not skip any of these steps when bumping the version.
    ```bash
    # Regenerate internal catalogs
    npm run generate-all --prefix cli-installer
-   
+
    # Update GitHub About & Topics (if new skills or categories were added)
    gh repo edit --description "42+ Universal AI Skills for Claude Code & GitHub Copilot. Standardized workflows for Software Engineering, Product Strategy, Career Growth, and Deep Research."
    gh repo edit --add-topic "claude-code,github-copilot,ai-skills,skills,prompt-engineering,product-strategy,career-development,cli,automation,generative-ai,agents,productivity,llm,anthropic,openai-codex,cursor-ide,gemini-cli,workflow-automation,tech-leadership,ats-optimization"
    ```
-6. **Commit, Tag, and Push:**
+6. **Generate Claude Desktop Plugin Package:**
+   ```bash
+   ./scripts/package-plugin.sh
+   ```
+   Output: `plugin-output/claude-superskills-vX.Y.Z.zip` (gitignored — not committed).
+   Upload manually at: Claude Desktop → Organization Settings → Plugins → Add plugins → Upload a file.
+   > This step is mandatory on every version bump. The zip must reflect the current version before the commit.
+7. **Commit, Tag, and Push:**
    ```bash
    git add cli-installer/package.json cli-installer/package-lock.json \
            .claude-plugin/plugin.json \
@@ -545,7 +553,7 @@ Curated skill collections:
 - **content**: `youtube-summarizer`, `audio-transcriber`, `docling-converter`
 - **developer**: `skill-creator`
 - **orchestration**: `agent-skill-discovery`, `agent-skill-orchestrator`
-- **all**: all 44 skills
+- **all**: all 45 skills
 
 ## Automation Scripts
 
