@@ -34,3 +34,8 @@ AGENTS.md
 
 # NPM bundled skills (no longer shipped with the package)
 cli-installer/skills/
+
+# Local working files (presentations, media, output artifacts)
+output/
+proposta-media/
+Proposta*
