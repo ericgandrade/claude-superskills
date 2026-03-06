@@ -1,266 +1,146 @@
 # skill-creator
 
-**Automate CLI skill creation with best practices built-in.**
+**Create new skills, improve existing skills, and measure skill performance using Anthropic's full EVals framework.**
+
+Built on top of and fully compatible with the [official Anthropic skill-creator](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator), adapted for the claude-superskills package and all 8 AI platforms.
 
 ## What It Does
 
-The skill-creator automates the entire workflow of creating new CLI skills for GitHub Copilot CLI and Claude Code. It guides you through brainstorming, applies standardized templates, validates content quality, and handles installation—all while following Anthropic's official best practices.
+The skill-creator automates the entire lifecycle of creating and improving CLI skills:
+
+- **Create new skills** from scratch — interview, draft SKILL.md, run test cases, iterate
+- **Improve existing skills** — load an existing skill, run evals against it, benchmark, optimize
+- **Measure skill performance** — quantitative benchmarks with pass rate, time, and token variance
+- **Optimize trigger accuracy** — description optimization loop using Claude with extended thinking
+- **Blind A/B comparison** — independent agent compares two skill versions with rubric scoring
 
 ## Key Features
 
-- **🎯 Interactive Brainstorming** - Collaborative session to define skill purpose and scope
-- **✨ Template Automation** - Automatic file generation with zero manual configuration
-- **🔍 Quality Validation** - Built-in checks for YAML, content quality, and writing style
-- **📦 Flexible Installation** - Choose repository-only, global, or hybrid installation
-- **📊 Visual Progress Bar** - Real-time progress indicator showing completion status (e.g., `[████████████░░░░░░] 60% - Step 3/5`)
-- **🔗 Prompt Engineer Integration** - Optional enhancement using prompt-engineer skill
+- **Full EVals Framework** — spawn with-skill and baseline subagents in parallel, grade with assertions, aggregate into benchmark.json
+- **Interactive Viewer** — browser-based review UI (Outputs + Benchmark tabs) via `eval-viewer/generate_review.py`
+- **Description Optimization** — `scripts/run_loop.py` runs up to 5 iterations with 60/40 train/test split, outputs `best_description` via test score (not train, to prevent overfitting)
+- **Eval Review HTML** — `assets/eval_review.html` lets users edit, toggle, and export trigger/not-trigger query sets
+- **Grader Agent** — `agents/grader.md` evaluates assertions against transcripts + output files
+- **Analyzer Agent** — `agents/analyzer.md` surfaces benchmark patterns and post-hoc blind comparison analysis
+- **Comparator Agent** — `agents/comparator.md` does blind A/B rubric scoring (content + structure, 1-5 scale)
+- **Packaging** — `scripts/package_skill.py` creates distributable `.skill` files
 
 ## When to Use
 
 Use this skill when you want to:
 - Create a new CLI skill following official standards
-- Extend CLI functionality with custom capabilities
-- Package domain knowledge into a reusable skill format
-- Automate repetitive CLI tasks with a custom skill
-- Install skills locally or globally across your system
+- Improve or optimize an existing skill
+- Run evals to test whether a skill is working
+- Benchmark skill performance with quantitative metrics
+- Optimize the skill's description for better triggering accuracy
+- Compare two versions of a skill with blind A/B analysis
 
-## Installation
-
-### Prerequisites
-
-This skill is part of the `claude-superskills` repository. To use it:
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/claude-superskills.git
-cd claude-superskills
-```
-
-### Install Globally (Recommended)
-
-Install via symlinks to make the skill available everywhere:
-
-```bash
-# For GitHub Copilot CLI
-ln -sf "$(pwd)/.github/skills/skill-creator" ~/.copilot/skills/skill-creator
-
-# For Claude Code
-ln -sf "$(pwd)/.claude/skills/skill-creator" ~/.claude/skills/skill-creator
-```
-
-**Benefits of global installation:**
-- Works in any directory
-- Auto-updates when you `git pull` the repository
-- No configuration files needed
-
-### Repository-Only Installation
-
-If you prefer to use the skill only within this repository, no installation is needed. The skill will be available when working in the `claude-superskills` directory.
-
-## Usage
-
-### Basic Skill Creation
-
-Simply ask the CLI to create a new skill:
-
-```bash
-# GitHub Copilot CLI
-gh copilot "create a new skill for debugging Python errors"
-
-# Claude Code
-claude "create a skill that helps with git workflows"
-```
-
-The skill will guide you through with visual progress tracking:
-1. **Brainstorming** (20%) - Define purpose, triggers, and type
-2. **Prompt Enhancement** (40%, optional) - Enhance with prompt-engineer skill
-3. **File Generation** (60%) - Create files from templates
-4. **Validation** (80%) - Check quality and standards
-5. **Installation** (100%) - Choose local, global, or both
-
-Each phase displays a progress bar:
-```
-[████████████░░░░░░] 60% - Step 3/5: File Generation
-```
-
-### Advanced Usage
-
-#### Create Code Generation Skill
-
-```bash
-"Create a code skill that generates React components from descriptions"
-```
-
-The skill will:
-- Use the specialized `code-skill-template.md`
-- Ask about specific frameworks (React, Vue, etc.)
-- Include code examples in the `examples/` folder
-
-#### Create Documentation Skill
-
-```bash
-"Build a skill that writes API documentation from code"
-```
-
-The skill will:
-- Use `documentation-skill-template.md`
-- Ask about documentation formats
-- Set up references for style guides
-
-#### Install for Specific Platform
-
-```bash
-"Create a skill for Copilot only that analyzes TypeScript errors"
-```
-
-The skill will:
-- Generate files only in `.github/skills/`
-- Skip Claude-specific installation
-- Validate against Copilot requirements
-
-## Example Walkthrough
-
-Here's what creating a skill looks like:
+## Core Loop
 
 ```
-You: "create a skill for database schema migrations"
-
-[████░░░░░░░░░░░░░░] 20% - Step 1/5: Brainstorming & Planning
-
-What should this skill do?
-> Helps users create and manage database schema migrations safely
-
-When should it trigger? (3-5 phrases)
-> "create migration", "generate schema change", "migrate database"
-
-What type of skill?
-> [×] General purpose
-
-Which platforms?
-> [×] Both (Copilot + Claude)
-
-[... continues through all phases ...]
-
-🎉 Skill created successfully!
-
-📦 Skill Name: database-migration
-📁 Location: .github/skills/database-migration/
-🔗 Installed: Global (Copilot + Claude)
+Draft/Load skill
+      ↓
+Write test cases → evals/evals.json
+      ↓
+Spawn subagents in parallel:
+  with_skill run + baseline run (per test case)
+      ↓
+Draft assertions while runs complete
+      ↓
+Grade with agents/grader.md → grading.json
+      ↓
+Aggregate → benchmark.json + benchmark.md
+      ↓
+Analyst pass → agents/analyzer.md
+      ↓
+Launch eval-viewer/generate_review.py → browser
+      ↓
+User reviews outputs + benchmark tabs
+      ↓
+Read feedback.json → improve skill
+      ↓
+Repeat (next iteration-N/)
+      ↓
+Offer description optimization (scripts/run_loop.py)
+      ↓
+Optional: blind comparison (agents/comparator.md)
+      ↓
+Package (scripts/package_skill.py)
 ```
 
 ## File Structure
 
-When you create a skill, this structure is generated:
-
 ```
-.github/skills/your-skill-name/
-├── SKILL.md              # Main skill instructions (1.5-2k words)
-├── README.md             # User-facing documentation (this file)
-├── references/           # Detailed guides (2k-5k words each)
-│   └── (empty, ready for extended docs)
-├── examples/             # Working code samples
-│   └── (empty, ready for examples)
-└── scripts/              # Executable utilities
-    └── (empty, ready for automation)
+skill-creator/
+├── SKILL.md                          # Main workflow instructions
+├── README.md                         # This file
+├── agents/
+│   ├── grader.md                     # Grades assertions against transcripts
+│   ├── analyzer.md                   # Benchmark analysis + blind comparison analysis
+│   └── comparator.md                 # Blind A/B rubric scoring
+├── references/
+│   ├── schemas.md                    # JSON schemas (evals, grading, benchmark, etc.)
+│   └── claude-superskills-conventions.md  # Rules for contributing to claude-superskills
+├── scripts/
+│   ├── run_loop.py                   # Description optimization loop (main script)
+│   ├── run_eval.py                   # Trigger eval runner (claude -p subprocess)
+│   ├── improve_description.py        # Claude extended thinking description improver
+│   ├── aggregate_benchmark.py        # Aggregates grading.json → benchmark.json + .md
+│   ├── generate_report.py            # HTML report generator for optimization loop
+│   ├── package_skill.py              # Creates .skill zip package
+│   ├── quick_validate.py             # Validates SKILL.md frontmatter
+│   └── utils.py                      # Shared helpers (parse_skill_md, etc.)
+├── eval-viewer/
+│   ├── generate_review.py            # Serves browser review UI (Outputs + Benchmark tabs)
+│   └── viewer.html                   # Viewer HTML template (embedded data)
+└── assets/
+    └── eval_review.html              # Trigger eval review/edit UI template
 ```
 
-## Configuration
+## Description Optimization
 
-**No configuration needed!** This skill uses runtime discovery to:
-- Detect installed platforms (Copilot CLI, Claude Code)
-- Find repository root automatically
-- Extract author info from git config
-- Determine optimal file locations
-
-## Validation
-
-Every skill created is automatically validated for:
-- ✅ **YAML Frontmatter** - Required fields and format
-- ✅ **Description Format** - Third-person, trigger phrases
-- ✅ **Word Count** - 1,500-2,000 ideal, under 5,000 max
-- ✅ **Writing Style** - Imperative form, no second-person
-- ✅ **Progressive Disclosure** - Proper content organization
-
-## Frameworks Used
-
-This skill leverages several established methodologies:
-
-- **Progressive Disclosure** - 3-level content hierarchy (metadata → SKILL.md → bundled resources)
-- **Bundled Resources Pattern** - References, examples, and scripts as separate files
-- **Anthropic Best Practices** - Official skill development standards
-- **Zero-Config Design** - Runtime discovery, no hardcoded values
-- **Template-Driven Generation** - Consistent structure across all skills
-
-## Troubleshooting
-
-### "Template not found" Error
-
-Ensure you're in the `claude-superskills` repository or have cloned it:
+The `scripts/run_loop.py` script optimizes the `description` field in SKILL.md frontmatter — the primary mechanism that determines when Claude invokes a skill.
 
 ```bash
-git clone https://github.com/yourusername/claude-superskills.git
-cd claude-superskills
+python -m scripts.run_loop \
+  --eval-set /path/to/trigger-eval.json \
+  --skill-path /path/to/skill \
+  --model claude-sonnet-4-6 \
+  --max-iterations 5 \
+  --verbose
 ```
 
-### "Platform not detected" Warning
+The loop:
+1. Splits 20 eval queries into 60% train / 40% test (stratified by should_trigger)
+2. Runs each query 3 times (`claude -p`) to get a reliable trigger rate
+3. Calls Claude with extended thinking to propose an improved description based on failures
+4. Re-evaluates and repeats up to 5 times
+5. Returns `best_description` selected by **test** score to avoid overfitting
+6. Opens live HTML report in browser with auto-refresh during optimization
 
-If platforms aren't detected:
-1. Choose "Repository only" installation
-2. Manually specify platform during setup
-3. Install globally later using provided commands
+## Quick Validate
 
-### Validation Failures
+Before packaging, validate the SKILL.md frontmatter:
 
-If validation finds issues:
-- Review suggestions in the output
-- Choose automatic fixes for common problems
-- Manually edit files for complex issues
-- Re-run validation: `scripts/validate-skill-yaml.sh .github/skills/your-skill`
-
-## Advanced Features
-
-### Prompt Engineer Integration
-
-Enhance your skill descriptions with AI:
-1. Enable during Phase 2 (Prompt Refinement)
-2. Skill will invoke `prompt-engineer` automatically
-3. Review enhanced output before proceeding
-
-### Bundled Resources
-
-For complex skills, use bundled resources:
-- **references/** - Detailed documentation (no word limit)
-- **examples/** - Working code samples users can run
-- **scripts/** - Automation utilities loaded on demand
-
-### Version Management
-
-Update existing skills:
 ```bash
-scripts/update-skill-version.sh your-skill-name 1.1.0
+python -m scripts.quick_validate skills/my-skill
 ```
 
-## Contributing
+Checks: kebab-case name, description under 1024 chars, no unexpected frontmatter keys (only name/description/license/allowed-tools/metadata/compatibility are allowed).
 
-Created a useful skill? Share it:
-1. Ensure validation passes
-2. Add usage examples
-3. Update main README.md
-4. Submit a pull request
+## claude-superskills-specific Notes
 
-## Resources
+When creating skills for the claude-superskills package:
+- Place skills in `skills/<name>/` — never in platform directories (all gitignored)
+- SKILL.md frontmatter must be minimal: only `name`, `description`, `license`
+- After creating, update `bundles.json`, `README.md` badge count, `CLAUDE.md`
+- Run `node scripts/release.js patch` to bump version atomically across all 5 files
 
-- **Writing Style Guide:** `resources/templates/writing-style-guide.md`
-- **Anthropic Official Guide:** https://github.com/anthropics/claude-plugins-official
-- **Templates Directory:** `resources/templates/`
-- **Validation Scripts:** `scripts/validate-*.sh`
+See `references/claude-superskills-conventions.md` for the complete rules.
 
-## Support
+## Based On
 
-For issues or questions:
-- Check existing skills in `.github/skills/` for examples
-- Review `resources/skills-development.md` for methodology
-- Open an issue in the repository
+This skill is built on the [Anthropic official skill-creator](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator) — the same scripts, agents, and eval-viewer are included verbatim. The SKILL.md has been adapted to add claude-superskills conventions (all-8-platforms coverage, frontmatter rules, skill output path, version management checklist) while keeping the full Anthropic workflow intact.
 
 ---
 
@@ -268,11 +148,11 @@ For issues or questions:
 
 | Field | Value |
 |-------|-------|
-| Version | 1.3.2 |
+| Version | 2.0.0 |
 | Author | Eric Andrade |
 | Created | 2025-02-01 |
-| Updated | 2026-03-01 |
-| Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex |
+| Updated | 2026-03-06 |
+| Platforms | All 8 platforms |
 | Category | meta |
-| Tags | automation, scaffolding, skill-creation, meta-skill |
+| Tags | automation, scaffolding, skill-creation, evals, benchmarking, description-optimization |
 | Risk | safe |

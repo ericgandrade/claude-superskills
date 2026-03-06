@@ -6,6 +6,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.18.1] - 2026-03-06
+
+### Changed
+- **`skill-creator` (v2.0.0):** Major rewrite incorporating the full Anthropic official skill-creator framework. Now supports both creating new skills AND improving existing ones. Added: EVals framework (with-skill + baseline subagent runs, grader/analyzer/comparator agents, benchmark.json, eval-viewer browser UI), Description Optimization loop (`scripts/run_loop.py` with 60/40 train/test split, Claude extended thinking, max 5 iterations), Blind A/B comparison, and packaging. All scripts, agents, and eval-viewer copied verbatim from the Anthropic official skill-creator plugin. SKILL.md adapted with claude-superskills-specific conventions (frontmatter rules, skill output path, 8-platform coverage, version checklist).
+
+### Added
+- `skills/skill-creator/agents/grader.md` — evaluates assertions against execution transcripts
+- `skills/skill-creator/agents/analyzer.md` — benchmark pattern analysis + blind comparison post-hoc analysis
+- `skills/skill-creator/agents/comparator.md` — blind A/B rubric scoring (content + structure, 1-5 scale)
+- `skills/skill-creator/references/schemas.md` — JSON schemas for evals.json, grading.json, benchmark.json, etc.
+- `skills/skill-creator/references/claude-superskills-conventions.md` — rules for contributing to claude-superskills
+- `skills/skill-creator/scripts/` — 9 Python scripts: run_loop.py, run_eval.py, improve_description.py, aggregate_benchmark.py, generate_report.py, package_skill.py, quick_validate.py, utils.py, __init__.py
+- `skills/skill-creator/eval-viewer/generate_review.py` — browser review server (Outputs + Benchmark tabs)
+- `skills/skill-creator/eval-viewer/viewer.html` — viewer HTML template
+- `skills/skill-creator/assets/eval_review.html` — trigger eval review/edit UI
+
+### Notes
+- Based on [Anthropic official skill-creator](https://github.com/anthropics/claude-plugins-official/tree/main/plugins/skill-creator) — scripts and agents included verbatim
+
+---
+
 ## [1.18.0] - 2026-03-06
 
 ### Added
