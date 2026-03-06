@@ -6,6 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.19.2] - 2026-03-06
+
+### Fixed
+- **SKILL.md version alignment** — Updated `version` field in 20 career skill `SKILL.md` frontmatter files from `1.0.0` to `2.0.0` to match each skill's `README.md` Metadata table
+- **Main README skill table** — All 45 skills now listed with `v2.0.0`; 12 missing career skills added; empty Product Management & Strategy section populated with 7 skills; skill count badge corrected to 45
+
+### Closed
+- GitHub Roadmap issues #2, #3, #4 — Gemini CLI, OpenCode, and Codex platform support confirmed implemented since v1.13.x
+
+---
+
 ## [1.19.1] - 2026-03-06
 
 ### Changed
