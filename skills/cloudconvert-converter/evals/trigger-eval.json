@@ -1,0 +1,26 @@
+{
+  "skill_name": "cloudconvert-converter",
+  "description": "Triggers for file conversion and PDF operations via CloudConvert MCP",
+  "queries": [
+    {"id": 1, "query": "Convert my presentation.pptx to PDF", "should_trigger": true},
+    {"id": 2, "query": "Convert this .mov video to mp4 for uploading", "should_trigger": true},
+    {"id": 3, "query": "Merge these 3 PDFs into a single file", "should_trigger": true},
+    {"id": 4, "query": "Run OCR on this scanned PDF to extract the text", "should_trigger": true},
+    {"id": 5, "query": "Convert this Word document to PDF", "should_trigger": true},
+    {"id": 6, "query": "Split this 50-page PDF into individual pages", "should_trigger": true},
+    {"id": 7, "query": "Convert logo.png to WebP format for my website", "should_trigger": true},
+    {"id": 8, "query": "Compress this PDF — it's too large to email", "should_trigger": true},
+    {"id": 9, "query": "Convert this audio .wav file to mp3", "should_trigger": true},
+    {"id": 10, "query": "What file formats can CloudConvert handle for video?", "should_trigger": true},
+    {"id": 11, "query": "Help me write a Python script to call the CloudConvert API directly", "should_trigger": false},
+    {"id": 12, "query": "Translate this PowerPoint to Spanish", "should_trigger": false},
+    {"id": 13, "query": "Summarize the content of this PDF document", "should_trigger": false},
+    {"id": 14, "query": "Convert this Markdown file to a well-structured document", "should_trigger": false},
+    {"id": 15, "query": "Edit the text inside this PDF", "should_trigger": false},
+    {"id": 16, "query": "Transcribe this audio recording into text", "should_trigger": false},
+    {"id": 17, "query": "Extract tables from this Excel file into JSON", "should_trigger": false},
+    {"id": 18, "query": "Create a new PDF from scratch with my content", "should_trigger": false},
+    {"id": 19, "query": "Sign this PDF document digitally", "should_trigger": false},
+    {"id": 20, "query": "Optimize my images for SEO with better alt tags", "should_trigger": false}
+  ]
+}
