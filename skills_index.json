@@ -558,7 +558,7 @@
     },
     {
       "name": "pptx-translator",
-      "version": "2.4.0",
+      "version": "2.5.0",
       "description": "This skill should be used when the user needs to translate PowerPoint presentations (.pptx) between languages, preserving formatting and layout. Supports parallel slide-by-slide translation with per-slide validation and retry. Default languages are Portuguese and English but any language pair is supported.",
       "category": "content",
       "tags": [

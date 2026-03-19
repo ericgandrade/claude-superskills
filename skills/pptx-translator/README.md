@@ -2,7 +2,7 @@
 
 > Translate PowerPoint presentations between languages with parallel slide-by-slide translation, formatting preservation, and full validation
 
-**Version:** 2.4.0
+**Version:** 2.5.0
 **Status:** ✨ Zero-Config | 🌍 Universal
 **Platforms:** GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI
 
@@ -280,6 +280,19 @@ Please close PowerPoint and try again.
 
 ---
 
+## What's New in v2.5
+
+- **Removed `langdetect` dependency** — no longer installed or used anywhere in the pipeline; the skill now requires only `python-pptx`
+- **Source language detection updated in Step 1** — no longer uses `langdetect`; source language inferred from user request or determined by the AI classifier
+- **Classifier prompt now explicit about output file** — agent is told to save to `/tmp/pptx_classify_output.json`; no longer relies on inference; also prints confirmation line on completion
+- **Classifier fallback on failure** — if the classifier agent fails or returns invalid JSON, skill falls back to translate-all-with-text (conservative) instead of crashing
+- **Batching note for large presentations** — classifier warns to batch slides in groups of 50 when presentation has >50 slides to avoid context overflow
+- **Table cell multiline write-back fixed** — table cells with multiple paragraphs now preserved correctly (same fix applied to speaker notes in v2.3)
+- **Unused imports removed** — `from pptx.util import Pt` and `from lxml import etree` removed from notes write-back
+- **Classifier temp files cleaned up** — `/tmp/pptx_classify_input.json` and `/tmp/pptx_classify_output.json` now included in Step 5 cleanup
+- **Example 3 updated** — no longer says "Detects Spanish via langdetect"; now says "AI classifier determines which slides are in Spanish"
+- **Classifier failure added to error table** — documented fallback behavior
+
 ## What's New in v2.4
 
 - **AI-native language classification** — replaced all hardcoded regex patterns and `langdetect` library calls with a dedicated AI classifier sub-agent; the model receives all slide texts and returns `needs_translation` per slide using its own language understanding; works for any language pair with zero hardcoded patterns
@@ -316,10 +329,10 @@ Please close PowerPoint and try again.
 
 | Field | Value |
 |-------|-------|
-| Version | 2.4.0 |
+| Version | 2.5.0 |
 | Author | Eric Andrade |
 | Created | 2026-03-19 |
-| Updated | 2026-03-19 (v2.4.0) |
+| Updated | 2026-03-19 (v2.5.0) |
 | Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | content |
 | Tags | translation, pptx, powerpoint, multilingual, presentation |

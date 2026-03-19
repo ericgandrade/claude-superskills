@@ -24,7 +24,6 @@ Check dependencies silently. Do NOT ask for confirmation — install automatical
 
 ```bash
 python3 -c "import pptx" 2>/dev/null || pip install --user python-pptx -q && echo "Installed python-pptx"
-python3 -c "import langdetect" 2>/dev/null || pip install --user langdetect -q && echo "Installed langdetect"
 ```
 
 If installation fails (e.g. no pip, restricted environment), ask the user once: "python-pptx is required. Preferred install method: (a) pip install --user, (b) existing venv path, (c) manual?"
@@ -35,9 +34,9 @@ Infer all parameters from the user's request. Ask only for what is truly ambiguo
 
 Parameters to infer or confirm:
 1. **Source file path** — validate it exists and has `.pptx` extension
-2. **Source language** — auto-detect from first 3 slides using `langdetect`; confirm if ambiguous
+2. **Source language** — infer from user's request (e.g. "translate from Portuguese"); if not stated, the AI classifier sub-agent (Step 2) will determine it automatically
 3. **Target language** — infer from request; ask if not specified
-4. **Backup mode** — default Safe (timestamped backup); YOLO only if user explicitly says so
+4. **Backup mode** — default Safe (output saved as new file); YOLO only if user explicitly says so
 5. **Speaker notes** — default Yes (translate alongside slides)
 
 ```
@@ -143,6 +142,8 @@ Save manifest to `/tmp/pptx_manifest_{timestamp}.json`.
 
 ### Classification Sub-Agent Prompt
 
+> **Note on large presentations:** If the presentation has more than 50 slides, split the input into batches of 50 and launch one classifier agent per batch — large payloads can exceed model context limits. Merge all results before proceeding.
+
 ```
 You are a language classifier. For each slide below, determine whether its text is written (fully or partially) in {SOURCE_LANGUAGE}.
 
@@ -155,12 +156,14 @@ Rules:
 Slides to classify:
 {SLIDE_TEXTS_JSON}
 
-Return ONLY valid JSON, no explanation:
+Save your result to /tmp/pptx_classify_output.json as a JSON array (no explanation, no markdown fences):
 [
   {"slide_num": 1, "needs_translation": true, "language": "pt", "reason": "Title contains Portuguese: 'A nova era das empresas'"},
   {"slide_num": 2, "needs_translation": false, "language": "en", "reason": "All text is in English"},
   ...
 ]
+
+After saving, print: "✅ Classification complete: {N} slides need translation, {M} already in target language"
 ```
 
 Where `{SLIDE_TEXTS_JSON}` is built from the manifest:
@@ -184,11 +187,24 @@ with open("/tmp/pptx_classify_input.json", "w") as f:
     json.dump(slide_texts, f, ensure_ascii=False, indent=2)
 ```
 
-The classifier agent saves its result to `/tmp/pptx_classify_output.json`. After it completes, apply the decisions:
+The classifier agent saves its result to `/tmp/pptx_classify_output.json`. The classifier prompt must explicitly instruct the agent to save output there — do NOT rely on the agent inferring it. After it completes, apply the decisions with a fallback for parse failures:
 
 ```python
-with open("/tmp/pptx_classify_output.json") as f:
-    decisions = {d["slide_num"]: d for d in json.load(f)}
+import json, os
+
+try:
+    with open("/tmp/pptx_classify_output.json") as f:
+        decisions = {d["slide_num"]: d for d in json.load(f)}
+except (FileNotFoundError, json.JSONDecodeError, KeyError):
+    # Fallback: if classifier failed or returned invalid JSON, translate all slides with text
+    print("⚠️  Classifier output invalid — falling back to translate-all-with-text strategy")
+    decisions = {}
+    for slide in manifest:
+        if slide["text_blocks"]:
+            slide["needs_translation"] = True
+            slide["detected_language"] = "unknown"
+        else:
+            slide["needs_translation"] = False
 
 for slide in manifest:
     decision = decisions.get(slide["slide_num"])
@@ -384,12 +400,19 @@ def write_translations(pptx_path, output_path, trans_dir):
                     for col_idx, cell in enumerate(row.cells):
                         key = (parent_id, shape.shape_id, row_idx, col_idx)
                         if key in cell_map:
-                            # Preserve cell formatting — replace paragraph text only
-                            if cell.text_frame.paragraphs:
-                                for para in cell.text_frame.paragraphs:
+                            translated_cell_text = cell_map[key]
+                            tf = cell.text_frame
+                            if tf.paragraphs:
+                                # Split by newline to preserve multi-paragraph cells
+                                cell_lines = translated_cell_text.split("\n")
+                                for para_idx, para in enumerate(tf.paragraphs):
                                     for run in para.runs:
                                         run.text = ""
-                                cell.text_frame.paragraphs[0].add_run().text = cell_map[key]
+                                    if para_idx < len(cell_lines):
+                                        if para.runs:
+                                            para.runs[0].text = cell_lines[para_idx]
+                                        else:
+                                            para.add_run().text = cell_lines[para_idx]
                             cells_updated += 1
 
         # Write speaker notes — preserve paragraph structure for multiline notes
@@ -412,9 +435,7 @@ def write_translations(pptx_path, output_path, trans_dir):
                             para.add_run().text = translated_lines[para_idx]
 
                 # If translated text has MORE lines than existing paragraphs, append extras
-                from pptx.util import Pt
                 from copy import deepcopy
-                from lxml import etree
                 if len(translated_lines) > len(existing_paras):
                     # Use the last paragraph as a template for new ones
                     last_para_xml = existing_paras[-1]._p
@@ -461,7 +482,9 @@ except Exception as e:
 
 ```python
 import glob, os
-for f in glob.glob("/tmp/pptx_manifest_*.json") + glob.glob("/tmp/trans_slide_*.json"):
+for f in (glob.glob("/tmp/pptx_manifest_*.json") +
+          glob.glob("/tmp/trans_slide_*.json") +
+          glob.glob("/tmp/pptx_classify_*.json")):
     os.remove(f)
 ```
 
@@ -493,6 +516,7 @@ for f in glob.glob("/tmp/pptx_manifest_*.json") + glob.glob("/tmp/trans_slide_*.
 | File not found | Wrong path | Ask user to verify the path |
 | Invalid .pptx | Corrupted file | Inform user; suggest repairing in PowerPoint |
 | Empty slide | Images/charts only | Skip silently; report as "no text content" in summary |
+| Classifier agent fails or returns invalid JSON | Model/network error | Fall back to translate-all-with-text strategy; warn user |
 | Sub-agent translation fails | Model/network error | Retry once automatically; if still failing, skip slide and report |
 | Backup creation fails | Disk full / read-only | Abort before any modification; inform user |
 | GROUP shape ID collision | Two groups with same child shape_id | Use `(parent_id, shape_id)` composite key — always, never shape_id alone |
@@ -549,7 +573,7 @@ Skill: [Config confirmation shows ⚠️ YOLO — original will be overwritten]
 ```
 User: Translate ~/projects/pitch_es.pptx from Spanish to French
 
-Skill: [Detects Spanish via langdetect]
+Skill: [AI classifier determines which slides are in Spanish]
        [Launches parallel agents for all non-French slides]
        ✅ Saved: ~/projects/pitch_es_fr.pptx
 ```
