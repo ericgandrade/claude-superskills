@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.20.4] - 2026-03-19
+
+### Fixed
+- **detector: Gemini CLI not detected on macOS Homebrew** — `detectGemini()` now falls back to common install paths (`/opt/homebrew/bin/gemini`, `/usr/local/bin/gemini`, `~/.local/bin/gemini`, `~/go/bin/gemini`) when `gemini` is not in the npx PATH; final fallback checks `~/.gemini` directory for real Gemini CLI content (excluding antigravity-only installs)
+
+
+
 ## [1.20.3] - 2026-03-19
 
 ### Fixed

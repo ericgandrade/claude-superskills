@@ -1,17 +1,22 @@
 {
   "version": "1.0.0",
-  "generated": "2026-03-02T08:34:40.485044Z",
+  "generated": "2026-03-19T15:10:32.694824Z",
   "skills": [
     {
       "name": "abx-strategy",
-      "version": "1.0.1",
-      "description": "This skill should be used when build Account-Based Everything (ABX) GTM strategies for complex B2B sales. Use when working on ABM strategy, ICP scoring, messaging architecture, product launches, or pipeline acceleration for companies with <500 accounts, $100K+ deals, and 6+ month sales cycles.",
-      "category": "product",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to build Account-Based Everything (ABX) GTM strategies for complex B2B sales. Use when working on ABM strategy, ICP scoring, messaging architecture, product launches, or pipeline acceleration for companies with fewer than 500 accounts, $100K+ deals, and 6+ month sales cycles.",
+      "category": "gtm",
       "tags": [
-        "product",
-        "strategy",
-        "framework",
-        "management"
+        "abx",
+        "abm",
+        "account-based",
+        "b2b",
+        "gtm",
+        "sales",
+        "marketing",
+        "icp",
+        "enterprise"
       ],
       "risk": "safe",
       "platforms": [
@@ -28,12 +33,17 @@
     },
     {
       "name": "academic-cv-builder",
-      "version": "1.0.1",
-      "description": "This skill should be used when format CVs for academic positions with publications, grants, and teaching",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to format a curriculum vitae for academic positions including faculty, research, or postdoc roles. Use when organizing publications, grants, teaching experience, presentations, and service for tenure-track, lecturer, or research scientist applications.",
       "category": "career",
       "tags": [
-        "resume",
-        "career"
+        "academic",
+        "cv",
+        "curriculum-vitae",
+        "faculty",
+        "postdoc",
+        "publications",
+        "tenure"
       ],
       "risk": "safe",
       "platforms": [
@@ -50,7 +60,7 @@
     },
     {
       "name": "agent-skill-discovery",
-      "version": "1.1.1",
+      "version": "2.0.0",
       "description": "This skill should be used when the user wants to see all installed plugins, agents, skills, and MCP servers, and also inspect the current repository for local agents, skills, and MCP configuration. Scans the environment and presents a structured catalog of available resources. Works across all AI CLI platforms (Claude Code, GitHub Copilot, Gemini CLI, OpenCode, OpenAI Codex).",
       "category": "discovery",
       "tags": [
@@ -66,13 +76,16 @@
         "Claude Code",
         "OpenAI Codex",
         "OpenCode",
-        "Gemini CLI"
+        "Gemini CLI",
+        "Antigravity",
+        "Cursor IDE",
+        "AdaL CLI"
       ],
       "triggers": []
     },
     {
       "name": "agent-skill-orchestrator",
-      "version": "1.1.1",
+      "version": "2.0.0",
       "description": "This skill should be used when the user needs to solve a complex task and wants a detailed execution plan using the best available resources. Analyzes user requirements, discovers available plugins/agents/skills/MCPs, performs intelligent matching with confidence scoring, and creates strategic execution plans with alternatives. Works across all AI CLI platforms.",
       "category": "orchestration",
       "tags": [
@@ -88,20 +101,27 @@
         "Claude Code",
         "OpenAI Codex",
         "OpenCode",
-        "Gemini CLI"
+        "Gemini CLI",
+        "Antigravity",
+        "Cursor IDE",
+        "AdaL CLI"
       ],
       "triggers": []
     },
     {
       "name": "ai-native-product",
-      "version": "1.0.1",
-      "description": "This skill should be used when build AI-native products with agency-control tradeoffs, calibration loops, and eval strategies. Use when building AI agents, LLM features, or products where AI handles user tasks autonomously. Part of the Modern Product Operating Model collection.",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to build AI-native products with agency-control tradeoffs, calibration loops, and eval strategies. Use when building AI agents, LLM features, or products where AI handles user tasks autonomously. Part of the Modern Product Operating Model collection.",
       "category": "product",
       "tags": [
+        "ai-native",
         "product",
-        "strategy",
-        "framework",
-        "management"
+        "llm",
+        "agents",
+        "agency-control",
+        "calibration",
+        "evals",
+        "human-ai"
       ],
       "risk": "safe",
       "platforms": [
@@ -118,7 +138,7 @@
     },
     {
       "name": "audio-transcriber",
-      "version": "1.2.2",
+      "version": "2.0.0",
       "description": "This skill should be used when the user needs to transform audio recordings into professional Markdown documentation with intelligent summaries using LLM integration.",
       "category": "content",
       "tags": [
@@ -132,13 +152,18 @@
       "platforms": [
         "GitHub Copilot CLI",
         "Claude Code",
-        "OpenAI Codex"
+        "OpenAI Codex",
+        "OpenCode",
+        "Gemini CLI",
+        "Antigravity",
+        "Cursor IDE",
+        "AdaL CLI"
       ],
       "triggers": []
     },
     {
       "name": "brainstorming",
-      "version": "1.0.1",
+      "version": "2.0.0",
       "description": "This skill should be used when the user needs pre-implementation ideation for creative work, such as creating features, building components, adding functionality, or modifying behavior.",
       "category": "planning",
       "tags": [
@@ -162,12 +187,16 @@
     },
     {
       "name": "career-changer-translator",
-      "version": "1.0.1",
-      "description": "This skill should be used when translate skills from one industry to another, identify transferable skills",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to translate skills from one industry to another or identify transferable experience for a career pivot. Use when switching careers, repositioning experience for a new field, bridging skill gaps, or rewriting resume bullets in target industry language.",
       "category": "career",
       "tags": [
+        "career-change",
+        "transferable-skills",
+        "career-pivot",
         "resume",
-        "career"
+        "industry-translation",
+        "professional-growth"
       ],
       "risk": "safe",
       "platforms": [
@@ -183,13 +212,45 @@
       "triggers": []
     },
     {
+      "name": "cloudconvert-converter",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to convert files between formats (documents, images, video, audio, PDFs, presentations), perform PDF operations (OCR, merge, split, rotate, encrypt, decrypt), or process files that pandoc and docling do not support. Trigger when the user says \"convert this file\", \"transform to PDF\", \"extract text with OCR\", \"merge PDFs\", \"compress video\", \"convert pptx to pdf\", \"convert image to webp\", or mentions CloudConvert explicitly. Use this skill whenever format conversion or PDF manipulation is needed, even if the user does not name the tool.",
+      "category": "Content",
+      "tags": [
+        "conversion",
+        "cloudconvert",
+        "pdf",
+        "ocr",
+        "video",
+        "audio",
+        "documents",
+        "mcp"
+      ],
+      "risk": "low",
+      "platforms": [
+        "Claude Code",
+        "GitHub Copilot",
+        "Gemini CLI",
+        "OpenCode",
+        "Codex",
+        "Cursor",
+        "Antigravity",
+        "AdaL"
+      ],
+      "triggers": []
+    },
+    {
       "name": "cover-letter-generator",
-      "version": "1.0.1",
-      "description": "This skill should be used when create personalized, compelling cover letters from resume and job description",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to create a personalized, compelling cover letter from a resume and job description. Use when writing job application letters, addressing specific role requirements, handling career change narratives, or structuring persuasive arguments for candidacy.",
       "category": "career",
       "tags": [
+        "cover-letter",
+        "job-application",
         "resume",
-        "career"
+        "career",
+        "personalization",
+        "job-search"
       ],
       "risk": "safe",
       "platforms": [
@@ -206,12 +267,18 @@
     },
     {
       "name": "creative-portfolio-resume",
-      "version": "1.0.1",
-      "description": "This skill should be used when balance visual design with ATS compatibility for creative roles",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to balance visual design with ATS compatibility for a creative role resume. Use when building portfolio resumes for design, marketing, writing, or other creative fields, and when deciding between a designed version versus an ATS-safe version.",
       "category": "career",
       "tags": [
         "resume",
-        "career"
+        "creative",
+        "portfolio",
+        "design",
+        "ats",
+        "ux",
+        "art-director",
+        "creative-roles"
       ],
       "risk": "safe",
       "platforms": [
@@ -228,7 +295,7 @@
     },
     {
       "name": "deep-research",
-      "version": "1.0.1",
+      "version": "2.0.0",
       "description": "This skill should be used when the user needs deep, multi-step research using native web tools (WebSearch/WebFetch) without external API keys.",
       "category": "research",
       "tags": [
@@ -253,8 +320,8 @@
     },
     {
       "name": "docling-converter",
-      "version": "1.0.2",
-      "description": "This skill should be used when the user needs to convert documents into structured Markdown or JSON using Docling.",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to convert documents (PDF, DOCX, PPTX, XLSX, HTML, images) into structured Markdown or JSON using Docling. Also use when the user wants to convert a PowerPoint presentation (.pptx) to Markdown.",
       "category": "content",
       "tags": [
         "document-conversion",
@@ -268,13 +335,18 @@
       "platforms": [
         "GitHub Copilot CLI",
         "Claude Code",
-        "OpenAI Codex"
+        "OpenAI Codex",
+        "OpenCode",
+        "Gemini CLI",
+        "Antigravity",
+        "Cursor IDE",
+        "AdaL CLI"
       ],
       "triggers": []
     },
     {
       "name": "executing-plans",
-      "version": "1.0.1",
+      "version": "2.0.0",
       "description": "This skill should be used when the user has a written implementation plan to execute in a separate session with review checkpoints.",
       "category": "planning",
       "tags": [
@@ -298,12 +370,19 @@
     },
     {
       "name": "executive-resume-writer",
-      "version": "1.0.1",
-      "description": "This skill should be used when create C-suite and VP level resumes emphasizing strategic leadership",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to create a C-suite or VP-level resume emphasizing strategic leadership, board-level impact, and P&L ownership. Use when writing resumes for CEO, COO, CTO, CFO, VP, or Director positions that require executive positioning and achievement-driven narrative.",
       "category": "career",
       "tags": [
-        "resume",
-        "career"
+        "executive-resume",
+        "c-suite",
+        "vp",
+        "leadership",
+        "board",
+        "strategic",
+        "cto",
+        "ceo",
+        "cfo"
       ],
       "risk": "safe",
       "platforms": [
@@ -320,12 +399,16 @@
     },
     {
       "name": "interview-prep-generator",
-      "version": "1.0.1",
-      "description": "This skill should be used when generate STAR stories, practice questions, and talking points from resume",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to generate STAR stories, behavioral practice questions, and talking points from a resume or job description. Use when preparing for job interviews, practicing competency-based questions, or building structured answers for behavioral and situational interview scenarios.",
       "category": "career",
       "tags": [
-        "resume",
-        "career"
+        "interview",
+        "star-stories",
+        "interview-prep",
+        "behavioral",
+        "job-search",
+        "talking-points"
       ],
       "risk": "safe",
       "platforms": [
@@ -342,12 +425,17 @@
     },
     {
       "name": "job-description-analyzer",
-      "version": "1.0.1",
-      "description": "This skill should be used when analyze job postings, calculate match scores, identify gaps, and create application strategy",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to analyze a job posting, calculate resume-to-job match scores, identify skill gaps, and create an application strategy. Use when evaluating fit for a specific role, extracting key requirements, or preparing targeted resume and cover letter materials.",
       "category": "career",
       "tags": [
-        "resume",
-        "career"
+        "job-description",
+        "ats",
+        "keyword-extraction",
+        "match-score",
+        "gap-analysis",
+        "job-search",
+        "application-strategy"
       ],
       "risk": "safe",
       "platforms": [
@@ -364,12 +452,17 @@
     },
     {
       "name": "linkedin-profile-optimizer",
-      "version": "1.0.1",
-      "description": "This skill should be used when optimize LinkedIn profile for searchability, recruiter visibility, and engagement",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to optimize a LinkedIn profile for recruiter searchability, visibility, and engagement. Use when rewriting LinkedIn headlines, About sections, or experience entries, or when improving profile keyword density and completeness for target roles.",
       "category": "career",
       "tags": [
-        "resume",
-        "career"
+        "linkedin",
+        "profile",
+        "recruiter",
+        "keywords",
+        "personal-brand",
+        "job-search",
+        "social-selling"
       ],
       "risk": "safe",
       "platforms": [
@@ -386,7 +479,7 @@
     },
     {
       "name": "mckinsey-strategist",
-      "version": "1.0.1",
+      "version": "2.0.0",
       "description": "This skill should be used when the user needs structured strategic analysis and high-impact executive recommendations for complex business problems.",
       "category": "strategy",
       "tags": [
@@ -411,12 +504,17 @@
     },
     {
       "name": "offer-comparison-analyzer",
-      "version": "1.0.1",
-      "description": "This skill should be used when compare multiple job offers side-by-side with total compensation analysis",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to compare multiple job offers side-by-side with total compensation analysis. Use when evaluating competing offers, calculating equity value and benefits, scoring offers against personal priorities, or deciding between roles with different salary and compensation structures.",
       "category": "career",
       "tags": [
-        "resume",
-        "career"
+        "job-offer",
+        "compensation",
+        "equity",
+        "total-comp",
+        "offer-comparison",
+        "negotiation",
+        "career-decision"
       ],
       "risk": "safe",
       "platforms": [
@@ -433,12 +531,42 @@
     },
     {
       "name": "portfolio-case-study-writer",
-      "version": "1.0.1",
-      "description": "This skill should be used when transform resume bullets into detailed portfolio case studies",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to transform resume bullets into detailed portfolio case studies. Use when building a project portfolio, documenting design thinking processes, writing UX or product case studies, or showcasing problem-solving approaches for creative, product, or technical roles.",
       "category": "career",
       "tags": [
-        "resume",
-        "career"
+        "portfolio",
+        "case-study",
+        "ux",
+        "product",
+        "storytelling",
+        "career",
+        "resume-expansion"
+      ],
+      "risk": "safe",
+      "platforms": [
+        "GitHub Copilot CLI",
+        "Claude Code",
+        "OpenAI Codex",
+        "OpenCode",
+        "Gemini CLI",
+        "Antigravity",
+        "Cursor IDE",
+        "AdaL CLI"
+      ],
+      "triggers": []
+    },
+    {
+      "name": "pptx-translator",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to translate PowerPoint presentations (.pptx) between languages, preserving formatting and layout. Supports parallel slide-by-slide translation with per-slide validation and retry. Default languages are Portuguese and English but any language pair is supported.",
+      "category": "content",
+      "tags": [
+        "translation",
+        "pptx",
+        "powerpoint",
+        "multilingual",
+        "presentation"
       ],
       "risk": "safe",
       "platforms": [
@@ -455,14 +583,17 @@
     },
     {
       "name": "product-architecture",
-      "version": "1.0.1",
-      "description": "This skill should be used when structure what you",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to structure what to build and when by converting discovery opportunities into prioritized bets and roadmaps. Use when organizing product capability blocks, writing solution briefs, planning quarterly cycles, or communicating product direction without false precision.",
       "category": "product",
       "tags": [
-        "product",
-        "strategy",
-        "framework",
-        "management"
+        "product-architecture",
+        "roadmap",
+        "bets",
+        "capability-blocks",
+        "planning",
+        "solution-brief",
+        "prioritization"
       ],
       "risk": "safe",
       "platforms": [
@@ -479,14 +610,18 @@
     },
     {
       "name": "product-delivery",
-      "version": "1.0.1",
-      "description": "This skill should be used when ship, measure, and learn effectively. Use when planning staged rollouts, setting up metrics hierarchies, running bet retrospectives, or executing GTM launches. Part of the Modern Product Operating Model collection.",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to ship, measure, and learn effectively. Use when planning staged rollouts, setting up metrics hierarchies, running bet retrospectives, or executing GTM launches. Part of the Modern Product Operating Model collection.",
       "category": "product",
       "tags": [
-        "product",
-        "strategy",
-        "framework",
-        "management"
+        "product-delivery",
+        "rollout",
+        "gtm",
+        "metrics",
+        "feature-flags",
+        "launch",
+        "retrospective",
+        "execution"
       ],
       "risk": "safe",
       "platforms": [
@@ -503,14 +638,16 @@
     },
     {
       "name": "product-discovery",
-      "version": "1.0.1",
-      "description": "This skill should be used when run continuous discovery to find problems worth solving. Use when setting up weekly discovery rhythm, building Opportunity Solution Trees, creating interview snapshots, exploring solutions, or testing assumptions before committing engineering resources. Part of the Modern Product Operating Model collection.",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to run continuous discovery to find problems worth solving. Use when setting up weekly discovery rhythm, building Opportunity Solution Trees, creating interview snapshots, exploring solutions, or testing assumptions before committing engineering resources.",
       "category": "product",
       "tags": [
-        "product",
-        "strategy",
-        "framework",
-        "management"
+        "product-discovery",
+        "opportunity-solution-tree",
+        "user-research",
+        "continuous-discovery",
+        "assumption-testing",
+        "interviews"
       ],
       "risk": "safe",
       "platforms": [
@@ -527,14 +664,17 @@
     },
     {
       "name": "product-leadership",
-      "version": "1.0.1",
-      "description": "This skill should be used when operate as a Director or CPO leading product organizations. Use when managing product portfolios, aligning with executives, communicating to boards, designing team structures, or establishing operating rhythms. Part of the Modern Product Operating Model collection.",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to operate as a Director or CPO leading product organizations. Use when managing product portfolios, aligning with executives, communicating to boards, designing team structures, or establishing operating rhythms across product teams.",
       "category": "product",
       "tags": [
-        "product",
-        "strategy",
-        "framework",
-        "management"
+        "product-leadership",
+        "cpo",
+        "portfolio",
+        "executive-alignment",
+        "team-structure",
+        "operating-rhythm",
+        "board"
       ],
       "risk": "safe",
       "platforms": [
@@ -551,14 +691,16 @@
     },
     {
       "name": "product-operating-model",
-      "version": "1.0.1",
-      "description": "This skill should be used when index of the Modern Product Operating Model \u2014 a collection of composable product skills. Use when user wants an overview of all product skills, doesn",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user wants an overview of the Modern Product Operating Model \u2014 a collection of 6 composable product skills covering strategy, discovery, architecture, delivery, AI-native development, and leadership. Use when unsure which product skill to invoke or when exploring the full operating system.",
       "category": "product",
       "tags": [
-        "product",
-        "strategy",
-        "framework",
-        "management"
+        "product-operating-model",
+        "product-framework",
+        "operating-model",
+        "modern-product",
+        "collection",
+        "index"
       ],
       "risk": "safe",
       "platforms": [
@@ -575,14 +717,18 @@
     },
     {
       "name": "product-strategy",
-      "version": "1.0.1",
-      "description": "This skill should be used when build product strategy that drives real choices. Use when defining where to play and how to win, creating strategy canvases, defining ICP/Anti-ICP, positioning products, setting pricing strategy, planning GTM motions, or structuring strategic bets. Part of the Modern Product Operating Model collection.",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to build a product strategy that drives real choices. Use when defining where to play and how to win, creating strategy canvases, defining ICP and Anti-ICP, positioning products, setting pricing strategy, planning GTM motions, or structuring strategic bets.",
       "category": "product",
       "tags": [
-        "product",
-        "strategy",
-        "framework",
-        "management"
+        "product-strategy",
+        "icp",
+        "positioning",
+        "gtm",
+        "pricing",
+        "competitive-moat",
+        "strategic-narrative",
+        "market"
       ],
       "risk": "safe",
       "platforms": [
@@ -599,8 +745,8 @@
     },
     {
       "name": "prompt-engineer",
-      "version": "1.1.1",
-      "description": "Transform raw prompts into optimized prompts using established frameworks like RTF, RISEN, Chain of Thought, RODES, Chain of Density, RACE, RISE, STAR, SOAP, CLEAR, and GROW. Use this skill when the user provides vague prompts, needs help articulating complex ideas, or wants to improve the effectiveness of their AI interactions.",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to transform raw prompts into optimized prompts using frameworks (RTF, RISEN, Chain of Thought, RODES, Chain of Density, RACE, RISE, STAR, SOAP, CLEAR, GROW). Use when the user provides vague prompts, needs help articulating complex ideas, or wants to improve the effectiveness of AI interactions.",
       "category": "automation",
       "tags": [
         "prompt-engineering",
@@ -623,12 +769,16 @@
     },
     {
       "name": "reference-list-builder",
-      "version": "1.0.1",
-      "description": "This skill should be used when format professional references properly and prepare reference materials",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to format professional references properly and prepare reference materials for job applications. Use when creating reference sheets, selecting appropriate references, preparing referees with talking points, or structuring reference documentation for job applications.",
       "category": "career",
       "tags": [
-        "resume",
-        "career"
+        "references",
+        "job-application",
+        "reference-list",
+        "professional-references",
+        "career",
+        "job-search"
       ],
       "risk": "safe",
       "platforms": [
@@ -645,12 +795,16 @@
     },
     {
       "name": "resume-ats-optimizer",
-      "version": "1.0.1",
-      "description": "This skill should be used when optimize resumes for Applicant Tracking Systems, check ATS compatibility, and analyze keyword match",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to optimize a resume for Applicant Tracking Systems, check ATS compatibility, and analyze keyword match against a job description. Use when a resume is failing screening filters, keyword density is low, or formatting is causing ATS parsing errors.",
       "category": "career",
       "tags": [
         "resume",
-        "career"
+        "ats",
+        "applicant-tracking",
+        "keyword-optimization",
+        "job-search",
+        "parse-ability"
       ],
       "risk": "safe",
       "platforms": [
@@ -667,12 +821,17 @@
     },
     {
       "name": "resume-bullet-writer",
-      "version": "1.0.1",
-      "description": "This skill should be used when transform weak resume bullets into achievement-focused statements with metrics and impact",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to transform weak resume bullets into achievement-focused statements with metrics and impact. Use when rewriting job descriptions on a resume, converting duties to accomplishments, or adding quantified results to career experience bullets.",
       "category": "career",
       "tags": [
         "resume",
-        "career"
+        "bullets",
+        "achievement",
+        "metrics",
+        "action-verbs",
+        "impact",
+        "job-search"
       ],
       "risk": "safe",
       "platforms": [
@@ -689,12 +848,17 @@
     },
     {
       "name": "resume-formatter",
-      "version": "1.0.1",
-      "description": "This skill should be used when ensure ATS-friendly formatting and create clean scannable layouts",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to ensure ATS-friendly formatting and create a clean, scannable resume layout. Use when fixing resume structure, standardizing fonts and spacing, checking for parsing-breaking elements, or converting a resume to ATS-compatible format.",
       "category": "career",
       "tags": [
         "resume",
-        "career"
+        "formatting",
+        "layout",
+        "ats",
+        "markdown",
+        "scannable",
+        "clean"
       ],
       "risk": "safe",
       "platforms": [
@@ -711,12 +875,17 @@
     },
     {
       "name": "resume-quantifier",
-      "version": "1.0.1",
-      "description": "This skill should be used when find opportunities to add metrics and estimate numbers when exact data unavailable",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to find opportunities to add metrics to a resume and estimate numbers when exact data is unavailable. Use when resume bullets lack quantification, when the user needs help estimating impact figures, or when strengthening achievement statements with data.",
       "category": "career",
       "tags": [
         "resume",
-        "career"
+        "metrics",
+        "quantification",
+        "achievements",
+        "numbers",
+        "impact",
+        "job-search"
       ],
       "risk": "safe",
       "platforms": [
@@ -733,12 +902,17 @@
     },
     {
       "name": "resume-section-builder",
-      "version": "1.0.1",
-      "description": "This skill should be used when create targeted resume sections optimized for different experience levels and roles",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to create targeted resume sections optimized for different experience levels and roles. Use when building a professional summary, skills section, education block, or any specific resume section tailored to a job target or career stage.",
       "category": "career",
       "tags": [
         "resume",
-        "career"
+        "sections",
+        "executive-summary",
+        "skills",
+        "education",
+        "projects",
+        "resume-writing"
       ],
       "risk": "safe",
       "platforms": [
@@ -755,12 +929,16 @@
     },
     {
       "name": "resume-tailor",
-      "version": "1.0.1",
-      "description": "This skill should be used when customize resume for specific job postings while maintaining truthfulness",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to customize a resume for a specific job posting while maintaining truthfulness. Use when adapting an existing resume to match a job description, repositioning experience for a new role, or aligning resume language with target role keywords and requirements.",
       "category": "career",
       "tags": [
         "resume",
-        "career"
+        "tailoring",
+        "job-application",
+        "keyword-alignment",
+        "customization",
+        "job-search"
       ],
       "risk": "safe",
       "platforms": [
@@ -777,12 +955,16 @@
     },
     {
       "name": "resume-version-manager",
-      "version": "1.0.1",
-      "description": "This skill should be used when track different resume versions, maintain master resume, manage tailored versions",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to track different resume versions, maintain a master resume, and manage tailored versions for multiple applications. Use when juggling multiple job targets, tracking which version was sent where, or maintaining a centralized resume source of truth.",
       "category": "career",
       "tags": [
         "resume",
-        "career"
+        "version-control",
+        "master-resume",
+        "job-search",
+        "tracking",
+        "tailoring"
       ],
       "risk": "safe",
       "platforms": [
@@ -799,12 +981,17 @@
     },
     {
       "name": "salary-negotiation-prep",
-      "version": "1.0.1",
-      "description": "This skill should be used when research market rates, build negotiation strategy, and create counter-offer scripts",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to research market rates, build a salary negotiation strategy, and create counter-offer scripts. Use when preparing to negotiate a job offer, requesting a raise, evaluating compensation packages, or responding to lowball offers with data-backed confidence.",
       "category": "career",
       "tags": [
-        "resume",
-        "career"
+        "salary-negotiation",
+        "compensation",
+        "counter-offer",
+        "market-rates",
+        "batna",
+        "equity",
+        "job-offer"
       ],
       "risk": "safe",
       "platforms": [
@@ -821,8 +1008,8 @@
     },
     {
       "name": "senior-solution-architect",
-      "version": "1.0.0",
-      "description": "This skill should be used when you need to design, review, or document complex software architectures. It combines C4 modeling, Architecture Decision Records (ADRs), and proven design patterns (Clean, Hexagonal, DDD) into a single unified authority.",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to design, review, or document complex software architectures. Use when creating C4 diagrams, writing Architecture Decision Records (ADRs), applying Clean, Hexagonal, or Domain-Driven Design patterns, or conducting system design reviews.",
       "category": "architecture",
       "tags": [
         "architecture",
@@ -846,27 +1033,27 @@
     },
     {
       "name": "skill-creator",
-      "version": "1.3.2",
-      "description": "This skill should be used when the user asks to create a new skill, build a skill, make a custom skill, develop a CLI skill, or wants to extend the CLI with new capabilities. Automates the entire skill creation workflow from brainstorming to installation.",
+      "version": "2.0.0",
+      "description": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, update or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.",
       "category": "meta",
       "tags": [
         "automation",
         "scaffolding",
         "skill-creation",
-        "meta-skill"
+        "evals",
+        "benchmarking",
+        "description-optimization"
       ],
       "risk": "safe",
       "platforms": [
-        "GitHub Copilot CLI",
-        "Claude Code",
-        "OpenAI Codex"
+        "All 8 platforms"
       ],
       "triggers": []
     },
     {
       "name": "startup-growth-strategist",
-      "version": "1.0.0",
-      "description": "This skill should be used when you need to validate a business idea, calculate market size (TAM/SAM/SOM), project financial growth, or design a Go-To-Market strategy. It combines market sizing, unit economics, competitive analysis, and growth psychology into a single unified business authority.",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to validate a business idea, calculate market size (TAM/SAM/SOM), project financial growth, or design a Go-To-Market strategy. Use when combining market sizing, unit economics, competitive analysis, and growth psychology into a unified startup strategy.",
       "category": "strategy",
       "tags": [
         "startup",
@@ -891,7 +1078,7 @@
     },
     {
       "name": "storytelling-expert",
-      "version": "1.0.1",
+      "version": "2.0.0",
       "description": "This skill should be used when the user needs to transform ideas, presentations, speeches, or data into persuasive stories using elite storytelling frameworks.",
       "category": "content",
       "tags": [
@@ -916,12 +1103,17 @@
     },
     {
       "name": "tech-resume-optimizer",
-      "version": "1.0.1",
-      "description": "This skill should be used when optimize resumes for software engineering, PM, and technical roles",
+      "version": "2.0.0",
+      "description": "This skill should be used when the user needs to optimize a resume for software engineering, product management, or technical roles. Use when tailoring a tech resume to emphasize engineering contributions, open-source work, system design, or technical leadership for software and product positions.",
       "category": "career",
       "tags": [
         "resume",
-        "career"
+        "tech-resume",
+        "software-engineer",
+        "faang",
+        "technical-roles",
+        "pm",
+        "product-manager"
       ],
       "risk": "safe",
       "platforms": [
@@ -938,7 +1130,7 @@
     },
     {
       "name": "us-program-research",
-      "version": "1.0.1",
+      "version": "2.0.0",
       "description": "This skill should be used when the user needs structured research and ranking of US academic programs (PhD, Master",
       "category": "research",
       "tags": [
@@ -963,7 +1155,7 @@
     },
     {
       "name": "writing-plans",
-      "version": "1.0.1",
+      "version": "2.0.0",
       "description": "This skill should be used when the user has a spec or requirements for a multi-step task before touching code.",
       "category": "planning",
       "tags": [
@@ -987,7 +1179,7 @@
     },
     {
       "name": "youtube-summarizer",
-      "version": "1.2.2",
+      "version": "2.0.0",
       "description": "This skill should be used when the user needs to extract transcripts from YouTube videos and generate comprehensive, detailed summaries using intelligent analysis frameworks.",
       "category": "content",
       "tags": [
@@ -1001,7 +1193,12 @@
       "platforms": [
         "GitHub Copilot CLI",
         "Claude Code",
-        "OpenAI Codex"
+        "OpenAI Codex",
+        "OpenCode",
+        "Gemini CLI",
+        "Antigravity",
+        "Cursor IDE",
+        "AdaL CLI"
       ],
       "triggers": []
     }

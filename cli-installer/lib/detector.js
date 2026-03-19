@@ -1,4 +1,4 @@
-const { execSync } = require('child_process');
+const { execSync, spawnSync } = require('child_process');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
@@ -136,11 +136,36 @@ function detectOpenCode() {
  * Detecta Gemini CLI
  */
 function detectGemini() {
+  // 1. Try 'gemini --version' via PATH
   try {
     const version = execSync('gemini --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
     const pathExec = execSync('which gemini', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
     return { installed: true, version, path: pathExec };
   } catch (e) {
+    // 2. Try common install paths (Homebrew on macOS doesn't always appear in npx PATH)
+    const commonPaths = [
+      '/opt/homebrew/bin/gemini',                          // macOS Apple Silicon (Homebrew)
+      '/usr/local/bin/gemini',                             // macOS Intel (Homebrew)
+      path.join(os.homedir(), '.local', 'bin', 'gemini'), // Linux user install
+      path.join(os.homedir(), 'go', 'bin', 'gemini'),     // Go-based install
+    ];
+    for (const binPath of commonPaths) {
+      if (fs.existsSync(binPath)) {
+        const result = spawnSync(binPath, ['--version'], { encoding: 'utf-8', timeout: EXEC_TIMEOUT });
+        const version = (result.stdout || '').trim() || 'Unknown';
+        return { installed: true, version, path: binPath };
+      }
+    }
+
+    // 3. Fallback: check ~/.gemini exists with real Gemini CLI content (not just antigravity)
+    const geminiDir = path.join(os.homedir(), '.gemini');
+    if (fs.existsSync(geminiDir)) {
+      const hasGeminiContent = fs.readdirSync(geminiDir).some(f => f !== 'antigravity');
+      if (hasGeminiContent) {
+        return { installed: true, version: 'Detected via ~/.gemini', path: geminiDir };
+      }
+    }
+
     return { installed: false, version: null, path: null };
   }
 }
