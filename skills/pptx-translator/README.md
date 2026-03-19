@@ -2,7 +2,7 @@
 
 > Translate PowerPoint presentations between languages with parallel slide-by-slide translation, formatting preservation, and full validation
 
-**Version:** 2.6.0
+**Version:** 2.7.0
 **Status:** ✨ Zero-Config | 🌍 Universal
 **Platforms:** GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI
 
@@ -187,6 +187,39 @@ The skill will display a warning and ask for confirmation before proceeding.
 
 ---
 
+## Economy Mode — Saving Tokens
+
+Translation is a high-volume, mechanical task. Running it with a cheaper model significantly reduces cost.
+
+### Claude Code (automatic)
+
+SlideTranslator agents are automatically launched with `model="haiku"` — no configuration needed. The SlideClassifier keeps the session default since language detection benefits from stronger reasoning.
+
+| Agent | Model | Reason |
+|-------|-------|--------|
+| SlideClassifier | Session default (Sonnet) | Needs real language understanding |
+| SlideTranslator | **Haiku** | Mechanical JSON-in/JSON-out — ~20x cheaper |
+
+### Other Platforms (manual — set at session level)
+
+```bash
+# Gemini CLI
+gemini --model gemini-2.0-flash "Translate ~/docs/deck.pptx to English"
+
+# OpenAI Codex CLI
+codex --model gpt-4o-mini "Translate ~/docs/deck.pptx to English"
+
+# OpenCode — edit .agent/config.yaml
+model: gpt-4o-mini
+
+# Cursor IDE / Antigravity / AdaL CLI
+# Select a cheaper/faster model in the platform's model selector before invoking
+```
+
+The skill displays a one-time Economy Mode hint before the confirmation box as a reminder.
+
+---
+
 ## Validation Details
 
 The validation sub-routine runs 4 checks after every translation:
@@ -280,6 +313,13 @@ Please close PowerPoint and try again.
 
 ---
 
+## What's New in v2.7
+
+- **SlideTranslator agent identity** — translation sub-agents are now named `SlideTranslator` (visible in platform logs and Claude Code UI); the classifier sub-agent is named `SlideClassifier`
+- **Haiku model for Claude Code** — SlideTranslator agents are launched with `model="haiku"` on Claude Code; translation is a mechanical JSON-in/JSON-out task that does not require a frontier model — reduces cost ~20x per slide compared to Sonnet; SlideClassifier keeps the session default (needs real language understanding)
+- **Economy Mode hint** — a one-time tip is displayed before the confirmation box showing how to invoke with a cheaper model on each platform (Gemini: `--model gemini-2.0-flash`, Codex: `--model gpt-4o-mini`, OpenCode: config, Cursor/Copilot/AdaL: UI/config)
+- **Minified JSON payloads** — manifest and translation payloads now use `json.dumps(..., ensure_ascii=False)` without indentation, reducing input tokens by ~30% on large presentations
+
 ## What's New in v2.6
 
 - **Batched parallel execution (universal)** — replaced single-agent-per-slide with batches of 3 slides launched in parallel; works reliably across all 8 platforms including Gemini CLI, which aborts sessions exceeding ~25 total turns; for 18 slides: 6 batches × 3 agents instead of 18 simultaneous agents
@@ -334,10 +374,10 @@ Please close PowerPoint and try again.
 
 | Field | Value |
 |-------|-------|
-| Version | 2.6.0 |
+| Version | 2.7.0 |
 | Author | Eric Andrade |
 | Created | 2026-03-19 |
-| Updated | 2026-03-19 (v2.6.0) |
+| Updated | 2026-03-19 (v2.7.0) |
 | Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | content |
 | Tags | translation, pptx, powerpoint, multilingual, presentation |

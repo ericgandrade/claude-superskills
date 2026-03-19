@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.20.10] - 2026-03-19
+
+### Changed
+- **pptx-translator v2.7.0: SlideTranslator agent identity** — translation sub-agents now named `SlideTranslator` (visible in platform logs and Claude Code UI); classifier sub-agent named `SlideClassifier`; agents launched with `description="SlideTranslator — slides X-Y/TOTAL"` on Claude Code
+- **pptx-translator v2.7.0: Haiku model for Claude Code** — SlideTranslator agents automatically use `model="haiku"` on Claude Code (mechanical JSON-in/JSON-out translation); SlideClassifier keeps session default; reduces per-slide cost ~20x
+- **pptx-translator v2.7.0: Economy Mode hint** — one-time tip before confirmation box showing cheapest invocation per platform (Gemini: `--model gemini-2.0-flash`, Codex: `--model gpt-4o-mini`, OpenCode config, Cursor/Copilot/AdaL UI)
+- **pptx-translator v2.7.0: minified JSON payloads** — manifest and translation JSON serialized without indentation, reducing input tokens ~30% on large presentations
+
+
+
 ## [1.20.9] - 2026-03-19
 
 ### Fixed

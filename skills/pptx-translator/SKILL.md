@@ -39,6 +39,19 @@ Parameters to infer or confirm:
 4. **Backup mode** — default Safe (output saved as new file); YOLO only if user explicitly says so
 5. **Speaker notes** — default Yes (translate alongside slides)
 
+Before the confirmation box, display the Economy Mode hint once:
+
+```
+╔══════════════════════════════════════════════════════════════╗
+║  💡 Economy Mode — run with a cheaper model to save tokens:  ║
+║  Gemini CLI:  gemini --model gemini-2.0-flash "..."          ║
+║  Codex CLI:   codex --model gpt-4o-mini "..."                ║
+║  OpenCode:    set model: gpt-4o-mini in .agent/config.yaml   ║
+║  Claude Code: SlideTranslator agents use Haiku automatically ║
+║  Cursor/Copilot/AdaL: select a cheaper model in the UI/config║
+╚══════════════════════════════════════════════════════════════╝
+```
+
 ```
 ╔══════════════════════════════════════════════════════════════╗
 ║  PPTX TRANSLATOR — Configuration                            ║
@@ -132,7 +145,7 @@ manifest = extract_text(sys.argv[1])
 print(json.dumps(manifest, ensure_ascii=False, indent=2))
 ```
 
-Save manifest to `/tmp/pptx_manifest_{timestamp}.json`.
+Save manifest to `/tmp/pptx_manifest_{timestamp}.json`. **Serialize with `json.dumps(..., ensure_ascii=False)` — no `indent` parameter** to minimize payload size sent to sub-agents.
 
 ### After Extraction: AI-Powered Language Classification
 
@@ -145,6 +158,8 @@ Save manifest to `/tmp/pptx_manifest_{timestamp}.json`.
 > **Note on large presentations:** If the presentation has more than 50 slides, split the input into batches of 50 and launch one classifier agent per batch — large payloads can exceed model context limits. Merge all results before proceeding.
 
 ```
+# SlideClassifier — Language Detection Agent
+
 You are a language classifier. For each slide below, determine whether its text is written (fully or partially) in {SOURCE_LANGUAGE}.
 
 Rules:
@@ -254,9 +269,18 @@ Each agent in a batch:
 5. Saves result to `/tmp/trans_slide_{N}.json`
 6. Reports `✅ Slide N/TOTAL translated — validation: {status}` or `⚠️ Slide N: warning — {reason}`
 
+### Launching SlideTranslator Agents
+
+Each sub-agent must be launched with the identity **SlideTranslator**:
+
+- **Claude Code (Agent tool):** set `description="SlideTranslator — slides X-Y/TOTAL"` and `model="haiku"`. Translation is a mechanical JSON-in/JSON-out task — Haiku is fully capable and costs ~20x less than Sonnet per token.
+- **All other platforms:** the agent prompt begins with `# SlideTranslator` so the identity is visible in platform logs. Model is inherited from the session — see the Economy Mode hint shown in Step 1.
+
 ### Sub-Agent Prompt
 
 ```
+# SlideTranslator — Professional Slide Translation Agent
+
 You are a professional translator. Translate the following PowerPoint slide content from {SOURCE_LANGUAGE} to {TARGET_LANGUAGE}.
 
 STRICT RULES:
@@ -519,6 +543,8 @@ print(f"""
 - ALWAYS use recursive `iter_shapes()` for both extraction AND write-back — never `slide.shapes` directly
 - ALWAYS key the write-back lookup by `(parent_id, shape_id, ...)` — never by `shape_id` alone
 - ALWAYS use batched parallel: group slides into batches of 3, launch each batch as 3 simultaneous agents, wait for completion, then launch next batch — NEVER launch all slides at once (exhausts platform turn budgets) and NEVER process one slide at a time (too slow)
+- ALWAYS launch SlideTranslator agents with `model="haiku"` on Claude Code — translation is mechanical (JSON-in/JSON-out) and does not require a frontier model; keep the SlideClassifier on the default session model
+- ALWAYS serialize JSON payloads without indentation (`json.dumps(..., ensure_ascii=False)`) — minified JSON reduces input tokens by ~30% on large presentations
 - NEVER create pass-through translations for slides already in the target language — skip them entirely
 - NEVER use regex patterns or `langdetect` to decide which slides to translate — use the AI classifier sub-agent; regex lists are always incomplete and `langdetect` misclassifies short or mixed-language text
 - ALWAYS use the AI classification sub-agent (Step 2) to determine `needs_translation` per slide — the model understands language natively, requires no hardcoded patterns, and handles any language pair
