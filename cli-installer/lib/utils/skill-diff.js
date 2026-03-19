@@ -6,15 +6,26 @@ const { getUserSkillsPath } = require('./path-resolver');
 
 function readSkillVersion(skillDir) {
   try {
+    // 1. Try SKILL.md frontmatter (legacy — version field no longer used)
     const skillMdPath = path.join(skillDir, 'SKILL.md');
-    if (!fs.existsSync(skillMdPath)) return null;
+    if (fs.existsSync(skillMdPath)) {
+      const content = fs.readFileSync(skillMdPath, 'utf8');
+      const match = content.match(/^---\n([\s\S]*?)\n---/);
+      if (match) {
+        const metadata = yaml.load(match[1]);
+        if (metadata?.version) return String(metadata.version);
+      }
+    }
 
-    const content = fs.readFileSync(skillMdPath, 'utf8');
-    const match = content.match(/^---\n([\s\S]*?)\n---/);
-    if (!match) return null;
+    // 2. Fallback: read from README.md Metadata table (| Version | X.Y.Z |)
+    const readmePath = path.join(skillDir, 'README.md');
+    if (fs.existsSync(readmePath)) {
+      const readme = fs.readFileSync(readmePath, 'utf8');
+      const versionMatch = readme.match(/\|\s*Version\s*\|\s*([\d]+\.[\d]+\.[\d]+)/i);
+      if (versionMatch) return versionMatch[1];
+    }
 
-    const metadata = yaml.load(match[1]);
-    return metadata?.version || null;
+    return null;
   } catch (_err) {
     return null;
   }

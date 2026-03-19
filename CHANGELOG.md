@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.20.6] - 2026-03-19
+
+### Fixed
+- **skill version analysis: all 46 skills showing as newer/unknown** — `readSkillVersion()` in `skill-diff.js` and `getSkillVersion()` in `skill-versions.js` were reading `version` from SKILL.md frontmatter, which is intentionally absent (adding it causes Claude Code loading failures); both functions now fall back to parsing the `| Version | X.Y.Z |` row from `README.md` Metadata table
+
+
+
 ## [1.20.5] - 2026-03-19
 
 ### Fixed

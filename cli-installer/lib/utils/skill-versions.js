@@ -10,28 +10,31 @@ const yaml = require('js-yaml');
  */
 function getSkillVersion(skillName, basePath) {
   try {
-    // Try multiple possible paths
-    const possiblePaths = [
-      // Git repo structure
-      path.join(basePath, 'skills', skillName, 'SKILL.md'),
-      path.join(basePath, '.github', 'skills', skillName, 'SKILL.md'),
-      path.join(basePath, '.claude', 'skills', skillName, 'SKILL.md'),
-      // NPM package structure (one level deeper with platform subdirs)
-      path.join(basePath, 'skills', 'copilot', skillName, 'SKILL.md'),
-      path.join(basePath, 'skills', 'claude', skillName, 'SKILL.md')
+    const skillDirs = [
+      path.join(basePath, 'skills', skillName),
+      path.join(basePath, '.github', 'skills', skillName),
+      path.join(basePath, '.claude', 'skills', skillName),
+      path.join(basePath, 'skills', 'copilot', skillName),
+      path.join(basePath, 'skills', 'claude', skillName)
     ];
 
-    for (const skillPath of possiblePaths) {
-      if (fs.existsSync(skillPath)) {
-        const content = fs.readFileSync(skillPath, 'utf8');
-
-        // Extract YAML frontmatter
+    for (const skillDir of skillDirs) {
+      // 1. Try SKILL.md frontmatter (legacy — version field no longer used)
+      const skillMdPath = path.join(skillDir, 'SKILL.md');
+      if (fs.existsSync(skillMdPath)) {
+        const content = fs.readFileSync(skillMdPath, 'utf8');
         const match = content.match(/^---\n([\s\S]*?)\n---/);
         if (match) {
           const frontmatter = yaml.load(match[1]);
-          if (frontmatter && frontmatter.version) {
-            return frontmatter.version;
-          }
+          if (frontmatter && frontmatter.version) return String(frontmatter.version);
+        }
+
+        // 2. Fallback: read from README.md Metadata table (| Version | X.Y.Z |)
+        const readmePath = path.join(skillDir, 'README.md');
+        if (fs.existsSync(readmePath)) {
+          const readme = fs.readFileSync(readmePath, 'utf8');
+          const versionMatch = readme.match(/\|\s*Version\s*\|\s*([\d]+\.[\d]+\.[\d]+)/i);
+          if (versionMatch) return versionMatch[1];
         }
       }
     }
