@@ -1,6 +1,6 @@
 const fs = require('fs-extra');
 const path = require('path');
-const { execSync } = require('child_process');
+const { execSync, spawnSync } = require('child_process');
 const chalk = require('chalk');
 const ora = require('ora');
 
@@ -102,11 +102,12 @@ class RequirementsInstaller {
     const spinner = ora(`Installing: ${packages.join(', ')}...`).start();
 
     try {
-      const packagesStr = packages.join(' ');
-      execSync(
-        `${this.pythonCmd} -m pip install --user --break-system-packages ${packagesStr}`,
-        { stdio: options.verbose ? 'inherit' : 'pipe' }
-      );
+      const result = spawnSync(this.pythonCmd, ['-m', 'pip', 'install', '--user', ...packages], {
+        stdio: options.verbose ? 'inherit' : 'pipe'
+      });
+      if (result.status !== 0) {
+        throw new Error(result.stderr ? result.stderr.toString() : `pip exited with code ${result.status}`);
+      }
       spinner.succeed(chalk.green(`Installed: ${packages.join(', ')}`));
       return { success: true, installed: packages };
     } catch (error) {
@@ -132,23 +133,38 @@ class RequirementsInstaller {
 
     try {
       if (requirements.type === 'bash') {
-        // Execute installation script
-        spinner.text = `Running ${path.basename(requirements.scriptPath)}...`;
-        
-        execSync(`bash "${requirements.scriptPath}"`, {
+        // Validate script before executing: must be a regular file owned by the current user
+        const scriptPath = requirements.scriptPath;
+        const stat = fs.statSync(scriptPath);
+        if (!stat.isFile()) {
+          throw new Error(`Requirements script is not a regular file: ${scriptPath}`);
+        }
+        if (process.platform !== 'win32') {
+          const currentUid = process.getuid ? process.getuid() : -1;
+          if (currentUid !== -1 && stat.uid !== currentUid && stat.uid !== 0) {
+            throw new Error(`Requirements script is not owned by current user: ${scriptPath}`);
+          }
+        }
+
+        spinner.text = `Running ${path.basename(scriptPath)}...`;
+        const result = spawnSync('bash', [scriptPath], {
           stdio: options.verbose ? 'inherit' : 'pipe',
-          cwd: path.dirname(requirements.scriptPath),
-          env: { ...process.env, TERM: 'dumb' } // Prevent interactive prompts
+          cwd: path.dirname(scriptPath),
+          env: { ...process.env, TERM: 'dumb' }
         });
-        
+        if (result.status !== 0) {
+          throw new Error(result.stderr ? result.stderr.toString() : `bash exited with code ${result.status}`);
+        }
+
       } else if (requirements.type === 'pip') {
-        // Install via pip
+        // Install via pip using array args — no shell injection possible
         spinner.text = `Installing Python packages: ${requirements.packages.join(', ')}...`;
-        
-        const packagesStr = requirements.packages.join(' ');
-        execSync(`${this.pythonCmd} -m pip install --user --break-system-packages ${packagesStr}`, {
+        const result = spawnSync(this.pythonCmd, ['-m', 'pip', 'install', '--user', ...requirements.packages], {
           stdio: options.verbose ? 'inherit' : 'pipe'
         });
+        if (result.status !== 0) {
+          throw new Error(result.stderr ? result.stderr.toString() : `pip exited with code ${result.status}`);
+        }
       }
 
       spinner.succeed(chalk.green('Requirements installed successfully'));

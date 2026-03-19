@@ -31,7 +31,16 @@ async function ensureSkillsCached(version) {
       fs.statSync(path.join(versionCacheDir, f)).isDirectory()
     );
     if (entries.length > 0 && fs.existsSync(markerPath)) {
-      return versionCacheDir;
+      // Verify cache integrity: skill count must match what was recorded at download time
+      try {
+        const markerData = JSON.parse(fs.readFileSync(markerPath, 'utf8'));
+        if (markerData.skillCount && entries.length >= markerData.skillCount) {
+          return versionCacheDir;
+        }
+      } catch (_e) {
+        // Marker is old format (plain text) — accept as-is for backwards compatibility
+        return versionCacheDir;
+      }
     }
     // Cache may be partial/corrupted from interrupted downloads.
     await fs.remove(versionCacheDir);
@@ -83,6 +92,7 @@ async function downloadViaReleaseZip(version, targetDir) {
       const entries = zip.getEntries();
       const prefix = `${REPO_NAME}-${version}/skills/`;
 
+      const resolvedTargetDir = path.resolve(targetDir);
       for (const entry of entries) {
         if (!entry.entryName.startsWith(prefix) || entry.isDirectory) continue;
 
@@ -90,6 +100,9 @@ async function downloadViaReleaseZip(version, targetDir) {
         if (!relativePath) continue;
 
         const destPath = path.join(targetDir, relativePath);
+        // Guard against zip path traversal (e.g. entries with "../../" in their name)
+        if (!path.resolve(destPath).startsWith(resolvedTargetDir + path.sep)) continue;
+
         await fs.ensureDir(path.dirname(destPath));
         fs.writeFileSync(destPath, entry.getData());
       }
@@ -124,7 +137,13 @@ function requireAdmZip() {
 
 async function writeCacheMarker(versionCacheDir) {
   const markerPath = path.join(versionCacheDir, CACHE_COMPLETE_MARKER);
-  await fs.writeFile(markerPath, `createdAt=${new Date().toISOString()}\n`);
+  const skillCount = fs.readdirSync(versionCacheDir).filter(f =>
+    fs.statSync(path.join(versionCacheDir, f)).isDirectory()
+  ).length;
+  await fs.writeFile(markerPath, JSON.stringify({
+    createdAt: new Date().toISOString(),
+    skillCount
+  }));
 }
 
 /**
@@ -190,7 +209,7 @@ function getSkillMetadata(skillName, version) {
   try {
     const content = fs.readFileSync(skillMdPath, 'utf8');
     const match = content.match(/^---\n([\s\S]*?)\n---/);
-    if (match) return yaml.load(match[1]);
+    if (match) return yaml.load(match[1], { schema: yaml.FAILSAFE_SCHEMA });
   } catch (_e) {}
   return { version: 'unknown', description: '' };
 }

@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.20.2] - 2026-03-19
+
+### Fixed
+- **Security: command injection in pip installer** — replaced execSync(string) with spawnSync(cmd, [args]) in requirements-installer.js
+- **Security: bash script execution without validation** — added stat.isFile() and ownership check before running skill install scripts
+- **Security: --break-system-packages removed** — pip installs now use --user only
+- **Security: path traversal in skill names** — added isValidSkillName() and assertSafePath() in all 8 platform installers
+- **Security: path traversal in zip extraction** — zip entries validated against targetDir before extraction
+- **Security: YAML unsafe load** — yaml.load() now uses FAILSAFE_SCHEMA
+- **Security: cache integrity** — .cache-complete marker now stores skillCount as JSON
+- **Security: auto-push postversion hook removed** — package.json no longer auto-pushes on npm version
+- **Performance: detector timeout** — execSync calls have 3s timeout; removed slow npm list -g fallbacks
+- **Bug: release.js invalid regex** — fixed SyntaxError in footer replacement regex
+
+---
+
 ## [1.20.1] - 2026-03-19
 
 ### Fixed

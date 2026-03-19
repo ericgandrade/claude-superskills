@@ -47,8 +47,7 @@ try {
 console.log(`- Updating .claude-plugin/plugin.json...`);
 let pluginJson = JSON.parse(fs.readFileSync(pluginPath, 'utf8'));
 pluginJson.version = newVersion;
-fs.writeFileSync(pluginPath, JSON.stringify(pluginJson, null, 2) + '
-');
+fs.writeFileSync(pluginPath, JSON.stringify(pluginJson, null, 2) + '\n');
 
 // 4. Update README.md
 console.log(`- Updating README.md...`);
@@ -59,7 +58,7 @@ readme = readme.replace(new RegExp(`# 🤖 Claude Superskills v${oldVersion.repl
 readme = readme.replace(new RegExp(`badge/version-${oldVersion.replace(/\./g, '\.')}-blue\.svg`, 'g'), `badge/version-${newVersion}-blue.svg`);
 // Footer
 const monthYear = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(new Date());
-readme = readme.replace(new RegExp(`\*Version ${oldVersion.replace(/\./g, '\.')} \| [^\*]+\*`, 'g'), `*Version ${newVersion} | ${monthYear}*`);
+readme = readme.replace(new RegExp(`\\*Version ${oldVersion.replace(/\./g, '\\.')} \\| [^*]+\\*`, 'g'), `*Version ${newVersion} | ${monthYear}*`);
 fs.writeFileSync(readmePath, readme);
 
 // 5. Update CLAUDE.md

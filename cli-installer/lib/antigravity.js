@@ -1,7 +1,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 const chalk = require('chalk');
-const { getUserSkillsPath } = require('./utils/path-resolver');
+const { getUserSkillsPath, isValidSkillName, assertSafePath } = require('./utils/path-resolver');
 
 /**
  * Install skills for Antigravity.
@@ -24,9 +24,23 @@ async function install(cacheDir, skills = null, quiet = false, targetDirOverride
   let failed = 0;
 
   for (const skill of skillsToInstall) {
+    if (!isValidSkillName(skill)) {
+      if (!quiet) console.log(chalk.yellow(`  ⚠️  Skipping invalid skill name: ${skill}`));
+      failed++;
+      continue;
+    }
+
     const src = path.join(cacheDir, skill);
     const dest = path.join(targetDir, skill);
     const skillFile = path.join(src, 'SKILL.md');
+
+    try {
+      assertSafePath(path.resolve(dest), path.resolve(targetDir));
+    } catch (err) {
+      if (!quiet) console.log(chalk.red(`  ✗ ${err.message}`));
+      failed++;
+      continue;
+    }
 
     if (!fs.existsSync(src) || !fs.existsSync(skillFile)) {
       if (!quiet) console.log(chalk.yellow(`  ⚠️  Skill not found: ${skill}`));

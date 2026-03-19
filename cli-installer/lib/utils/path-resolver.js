@@ -51,8 +51,37 @@ function getUserSkillsPath(platform) {
   return platformDirs[platform] || path.join(home, `.${platform}`, 'skills');
 }
 
+/**
+ * Validate that a skill name is safe to use as a directory component.
+ * Allows only lowercase alphanumeric, hyphens, and underscores.
+ * Rejects path-traversal patterns (e.g. "..", "/", "\").
+ * @param {string} name - Skill directory name
+ * @returns {boolean}
+ */
+function isValidSkillName(name) {
+  return typeof name === 'string' &&
+    name.length > 0 &&
+    name.length <= 100 &&
+    /^[a-z0-9_-]+$/.test(name);
+}
+
+/**
+ * Assert that resolvedPath stays within baseDir.
+ * Throws if a path-traversal escape is detected.
+ * @param {string} resolvedPath - path.resolve()'d target path
+ * @param {string} baseDir - path.resolve()'d base directory
+ */
+function assertSafePath(resolvedPath, baseDir) {
+  const base = baseDir.endsWith(path.sep) ? baseDir : baseDir + path.sep;
+  if (!resolvedPath.startsWith(base) && resolvedPath !== baseDir) {
+    throw new Error(`Path traversal detected: ${resolvedPath} is outside ${baseDir}`);
+  }
+}
+
 module.exports = {
   getCachedSkillsPath,
   getUserSkillsPath,
-  getCodexSkillPaths
+  getCodexSkillPaths,
+  isValidSkillName,
+  assertSafePath
 };

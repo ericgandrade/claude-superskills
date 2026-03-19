@@ -1,6 +1,6 @@
 {
   "name": "claude-superskills",
-  "version": "1.20.1",
+  "version": "1.20.2",
   "description": "46 Reusable AI CLI skills + CloudConvert MCP server for GitHub Copilot, Claude Code, and 6 more AI platforms",
   "main": "lib/index.js",
   "bin": {
@@ -16,8 +16,7 @@
     "generate-catalog": "cd .. && python3 scripts/generate-catalog.py",
     "generate-all": "npm run build && npm run generate-index && npm run generate-catalog",
     "prepublishOnly": "npm run build && npm test",
-    "version": "git add -A",
-    "postversion": "git push && git push --tags"
+    "version": "git add -A"
   },
   "keywords": [
     "copilot",

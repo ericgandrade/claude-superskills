@@ -3,6 +3,8 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
+const EXEC_TIMEOUT = 3000; // 3 seconds max per command — prevents hangs on slow networks/VPNs
+
 /**
  * Detecta ferramentas AI CLI instaladas no sistema
  * @returns {Object} { copilot: {installed, version, path}, claude: {...}, codex_cli: {...}, codex_app: {...}, ... }
@@ -28,9 +30,9 @@ function detectTools() {
  */
 function detectCopilot() {
   try {
-    const version = execSync('gh copilot --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
-    const path = execSync('which gh', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
-    return { installed: true, version, path };
+    const version = execSync('gh copilot --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    const pathExec = execSync('which gh', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    return { installed: true, version, path: pathExec };
   } catch (e) {
     return { installed: false, version: null, path: null };
   }
@@ -41,9 +43,9 @@ function detectCopilot() {
  */
 function detectClaude() {
   try {
-    const version = execSync('claude --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
-    const path = execSync('which claude', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
-    return { installed: true, version, path };
+    const version = execSync('claude --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    const pathExec = execSync('which claude', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    return { installed: true, version, path: pathExec };
   } catch (e) {
     return { installed: false, version: null, path: null };
   }
@@ -54,9 +56,9 @@ function detectClaude() {
  */
 function detectCodexCli() {
   try {
-    const version = execSync('codex --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
-    const path = execSync('which codex', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
-    return { installed: true, version, path };
+    const version = execSync('codex --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    const pathExec = execSync('which codex', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    return { installed: true, version, path: pathExec };
   } catch (e) {
     return { installed: false, version: null, path: null };
   }
@@ -72,7 +74,6 @@ function detectCodexApp() {
     if (fs.existsSync(appPath)) {
       try {
         // Try to get version from Info.plist
-        const plistPath = path.join(appPath, 'Contents', 'Info.plist');
         const version = 'Codex Desktop'; // Could parse plist for exact version
         return { installed: true, version, path: appPath };
       } catch (e) {
@@ -80,7 +81,7 @@ function detectCodexApp() {
       }
     }
   }
-  
+
   // Check Linux (if applicable)
   if (os.platform() === 'linux') {
     // Could check for ~/.local/share/applications or similar
@@ -90,14 +91,14 @@ function detectCodexApp() {
       '/opt/Codex',
       '/usr/local/bin/Codex'
     ];
-    
+
     for (const appPath of possiblePaths) {
       if (fs.existsSync(appPath)) {
         return { installed: true, version: 'Codex Desktop', path: appPath };
       }
     }
   }
-  
+
   // Check Windows
   if (os.platform() === 'win32') {
     const programFiles = process.env['ProgramFiles'] || 'C:\\Program Files';
@@ -106,7 +107,7 @@ function detectCodexApp() {
       return { installed: true, version: 'Codex Desktop', path: appPath };
     }
   }
-  
+
   return { installed: false, version: null, path: null };
 }
 
@@ -123,17 +124,11 @@ function detectCodex() {
  */
 function detectOpenCode() {
   try {
-    const version = execSync('opencode --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
-    const path = execSync('which opencode', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
-    return { installed: true, version, path };
+    const version = execSync('opencode --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    const pathExec = execSync('which opencode', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    return { installed: true, version, path: pathExec };
   } catch (e) {
-    // Método alternativo: verificar via npm global
-    try {
-      execSync('npm list -g opencode', { stdio: 'ignore' });
-      return { installed: true, version: 'unknown', path: 'npm global' };
-    } catch {
-      return { installed: false, version: null, path: null };
-    }
+    return { installed: false, version: null, path: null };
   }
 }
 
@@ -142,17 +137,11 @@ function detectOpenCode() {
  */
 function detectGemini() {
   try {
-    const version = execSync('gemini --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
-    const path = execSync('which gemini', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
-    return { installed: true, version, path };
+    const version = execSync('gemini --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    const pathExec = execSync('which gemini', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    return { installed: true, version, path: pathExec };
   } catch (e) {
-    // Método alternativo: verificar via npm global
-    try {
-      execSync('npm list -g gemini-cli', { stdio: 'ignore' });
-      return { installed: true, version: 'unknown', path: 'npm global' };
-    } catch {
-      return { installed: false, version: null, path: null };
-    }
+    return { installed: false, version: null, path: null };
   }
 }
 
@@ -162,19 +151,19 @@ function detectGemini() {
 function detectAntigravity() {
   // 1. Try 'antigravity' command
   try {
-    const version = execSync('antigravity --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
-    const pathExec = execSync('which antigravity', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
+    const version = execSync('antigravity --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    const pathExec = execSync('which antigravity', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
     return { installed: true, version, path: pathExec };
   } catch (e) {
     // 2. Try 'agy' command (common alias)
     try {
-      const version = execSync('agy --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
-      const pathExec = execSync('which agy', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
+      const version = execSync('agy --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+      const pathExec = execSync('which agy', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
       return { installed: true, version, path: pathExec };
     } catch (e2) {
       // 3. Check for application paths (macOS/Windows/Linux)
       const homeDir = os.homedir();
-      
+
       // macOS
       if (os.platform() === 'darwin') {
         const appPath = '/Applications/Antigravity.app';
@@ -182,7 +171,7 @@ function detectAntigravity() {
           return { installed: true, version: 'Antigravity App', path: appPath };
         }
       }
-      
+
       // Windows
       if (os.platform() === 'win32') {
         const localAppData = process.env.LOCALAPPDATA || path.join(homeDir, 'AppData', 'Local');
@@ -191,7 +180,7 @@ function detectAntigravity() {
           return { installed: true, version: 'Antigravity App', path: winPath };
         }
       }
-      
+
       // Linux
       if (os.platform() === 'linux') {
         const optPath = '/opt/Antigravity';
@@ -199,13 +188,13 @@ function detectAntigravity() {
           return { installed: true, version: 'Antigravity App', path: optPath };
         }
       }
-      
+
       // 4. Fallback: check for skills directory (~/.gemini/antigravity/skills)
       const skillsDir = path.join(homeDir, '.gemini', 'antigravity', 'skills');
       if (fs.existsSync(skillsDir)) {
         return { installed: true, version: 'Detected via skills path', path: skillsDir };
       }
-      
+
       return { installed: false, version: null, path: null };
     }
   }
@@ -225,7 +214,7 @@ function detectCursor() {
 
   // Check for 'cursor' command
   try {
-    const pathExec = execSync('which cursor', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
+    const pathExec = execSync('which cursor', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
     return { installed: true, version: 'Cursor CLI', path: pathExec };
   } catch {
     // Check for ~/.cursor directory
@@ -242,8 +231,8 @@ function detectCursor() {
  */
 function detectAdal() {
   try {
-    const version = execSync('adal --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
-    const pathExec = execSync('which adal', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
+    const version = execSync('adal --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    const pathExec = execSync('which adal', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
     return { installed: true, version, path: pathExec };
   } catch {
     // Check for ~/.adal directory
@@ -289,4 +278,3 @@ Após instalar, execute novamente: npx claude-superskills
 }
 
 module.exports = { detectTools, getInstallInstructions, detectCodex, detectCodexCli, detectCodexApp, detectAntigravity, detectCursor, detectAdal };
-
