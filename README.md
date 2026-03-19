@@ -121,7 +121,7 @@ To be notified when the plugin is available on claude.ai, watch this repository.
 
 ---
 
-### Once installed — all 44 skills under the `claude-superskills:` namespace
+### Once installed — all 46 skills under the `claude-superskills:` namespace
 
 ```
 /claude-superskills:skill-creator
@@ -232,7 +232,7 @@ To be notified when the plugin is available on claude.ai, watch this repository.
 | **audio-transcriber** | v2.0.0 | Transform audio recordings into professional Markdown documentation |
 | **docling-converter** | v2.0.0 | Convert PDF/Office/image documents to Markdown/JSON/HTML with optional OCR |
 | **cloudconvert-converter** | v2.0.0 | Convert 200+ file formats (docs, images, video, audio) and PDF operations (OCR, merge, split, rotate) via CloudConvert MCP |
-| **pptx-translator** | v2.0.0 | Translate PowerPoint presentations between languages with parallel slide-by-slide translation and validation |
+| **pptx-translator** | v2.1.0 | Translate PowerPoint presentations between languages with parallel slide-by-slide translation, group shape support, and per-slide validation |
 | **storytelling-expert** | v2.0.0 | Transform ideas into engaging narratives using 8 elite storytelling frameworks |
 
 ## 🎯 Curated Bundles
