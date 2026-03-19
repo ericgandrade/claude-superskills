@@ -1,8 +1,8 @@
-# 🤖 Claude Superskills v1.21.0
+# 🤖 Claude Superskills v1.21.1
 
 Scale AI-assisted engineering with a reusable skill platform that turns ad-hoc prompting into standardized, high-impact workflows. Install once and deliver consistent planning, research, orchestration, and content automation across your entire multi-tool AI stack.
 
-![Version](https://img.shields.io/badge/version-1.21.0-blue.svg)
+![Version](https://img.shields.io/badge/version-1.21.1-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Skills](https://img.shields.io/badge/skills-46-brightgreen.svg)
 ![Platforms](https://img.shields.io/badge/platforms-8-orange.svg)
@@ -140,7 +140,7 @@ To be notified when the plugin is available on claude.ai, watch this repository.
 
 ## ✨ Features
 
-- **45 Universal Skills** - Work on all platforms
+- **46 Universal Skills** - Work on all platforms
 - **Zero-Config Install** - Run once, works everywhere
 - **Curated Bundles** - Install exactly what you need
 - **Smart Search** - Find skills by keyword
@@ -232,7 +232,7 @@ To be notified when the plugin is available on claude.ai, watch this repository.
 | **audio-transcriber** | v2.0.0 | Transform audio recordings into professional Markdown documentation |
 | **docling-converter** | v2.0.0 | Convert PDF/Office/image documents to Markdown/JSON/HTML with optional OCR |
 | **cloudconvert-converter** | v2.0.0 | Convert 200+ file formats (docs, images, video, audio) and PDF operations (OCR, merge, split, rotate) via CloudConvert MCP |
-| **pptx-translator** | v2.6.0 | Translate PowerPoint presentations between languages with batched parallel translation (3 slides/batch), AI-native language classification, group shape support, and per-slide self-validation |
+| **pptx-translator** | v2.7.0 | Translate PowerPoint presentations between languages with batched parallel translation (3 slides/batch), AI-native language classification, group shape support, and per-slide self-validation |
 | **storytelling-expert** | v2.0.0 | Transform ideas into engaging narratives using 8 elite storytelling frameworks |
 
 ## 🎯 Curated Bundles
@@ -403,7 +403,7 @@ MIT - See [LICENSE](./LICENSE) for details.
 
 **Built with ❤️ by [Eric Andrade](https://github.com/ericgandrade)**
 
-*Version 1.21.0 | March 2026*
+*Version 1.21.1 | March 2026*
 
 ## 🎁 Get Started
 

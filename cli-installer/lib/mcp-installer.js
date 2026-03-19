@@ -98,7 +98,6 @@ async function writeClaudeCodeMcpConfig(pluginRoot, quiet = false) {
     }
 
     if (!changed) {
-      if (!quiet) console.log(chalk.dim('  ℹ️  Claude Code MCP config already up-to-date'));
       return { success: true, skipped: true };
     }
 
@@ -158,7 +157,6 @@ async function writeMcpConfig(platform, pluginRoot, quiet = false) {
     }
 
     if (!changed) {
-      if (!quiet) console.log(chalk.dim(`  ℹ️  MCP config already up-to-date for ${platform}`));
       return { success: true, skipped: true };
     }
 

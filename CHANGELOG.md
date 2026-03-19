@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.21.1] - 2026-03-19
+
+### Fixed
+
+- **Gemini CLI version detection**: Replaced `execFileSync` (which threw on non-TTY environments) with `spawnSync` capturing both stdout and stderr — eliminates "Unknown" version display
+- **MCP "already up-to-date" noise**: Suppressed redundant `ℹ️  MCP config already up-to-date` messages that appeared on every run even when no changes occurred
+- **README sync**: Fixed `pptx-translator` version (v2.6.0 → v2.7.0) and skill count claim ("45 Universal Skills" → "46 Universal Skills")
+
+---
+
 ## [1.21.0] - 2026-03-19
 
 ### Changed
