@@ -82,6 +82,22 @@ Use `cloudconvert_convert` for end-to-end conversions. It handles import → con
 4. Report saved_path and size_human to the user
 ```
 
+### Batch Mode — Parallel File Conversion
+
+When the user provides multiple files (glob pattern or list), launch one **FileConverter** agent per file simultaneously in a single block.
+
+Each FileConverter agent prompt begins with:
+```
+# FileConverter — CloudConvert File Conversion Agent
+Role: Convert a single file using the CloudConvert API. Upload the file, monitor job status, download result when complete, report status.
+Input: File path: {PATH} | Source format: {FROM} | Target format: {TO}
+```
+
+Wait for all FileConverter agents to complete. Report results table:
+| File | Status | Output | Duration |
+
+Note: CloudConvert free tier limits concurrent jobs. If >10 files, batch in groups of 5 with a brief pause between groups.
+
 ### Advanced Multi-Step Pipeline
 
 Use `cloudconvert_create_job` when chaining multiple operations (compress then convert, watermark then export, etc.):

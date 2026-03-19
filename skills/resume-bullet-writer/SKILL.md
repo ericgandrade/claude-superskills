@@ -4,37 +4,7 @@ description: This skill should be used when the user needs to transform weak res
 license: MIT
 ---
 
----name: Resume Bullet Writer
-description: Transform weak resume bullets into achievement-focused statements with metrics and impact
-
-version: 2.0.0
-author: Eric Andrade
-category: career
-risk: safe
-platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
----
-
 # Resume Bullet Writer
-
-## When to Use This Skill
-
-Use this skill when the user wants to:
-- Write or improve resume bullet points
-- Transform weak descriptions into strong achievements
-- Add metrics and quantifiable results
-- Make their experience more compelling
-- Mentions: "improve my bullets", "make my resume stronger", "quantify my achievements", "results-driven"
-
-Also use when you see weak bullets that need improvement (passive language, no metrics, vague descriptions).
-
-## Core Capabilities
-
-- Transform weak bullet points into achievement-focused statements
-- Apply STAR method and X-Y-Z formula
-- Add quantifiable metrics and results
-- Use strong action verbs
-- Tailor bullets to specific roles/industries
-- Ensure every bullet shows impact, not just duties
 
 ## The Bullet Point Problem
 

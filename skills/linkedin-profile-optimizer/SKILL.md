@@ -4,35 +4,7 @@ description: This skill should be used when the user needs to optimize a LinkedI
 license: MIT
 ---
 
----name: LinkedIn Profile Optimizer
-description: Optimize LinkedIn profile for searchability, recruiter visibility, and engagement
-
-version: 2.0.0
-author: Eric Andrade
-category: career
-risk: safe
-platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
----
-
 # LinkedIn Profile Optimizer
-
-## When to Use This Skill
-
-Use this skill when the user wants to:
-- Optimize their LinkedIn profile for job searching
-- Improve LinkedIn visibility and searchability
-- Sync their resume with their LinkedIn profile
-- Attract recruiters and job opportunities
-- Mentions: "LinkedIn", "LinkedIn profile", "optimize LinkedIn", "LinkedIn headline", "recruiter"
-
-## Core Capabilities
-
-- Optimize headline for searchability
-- Write compelling About/Summary sections
-- Structure Experience section for impact
-- Improve profile completeness score
-- Add relevant keywords for recruiter searches
-- Align LinkedIn with resume while leveraging platform differences
 
 ## LinkedIn vs. Resume: Key Differences
 

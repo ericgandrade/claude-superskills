@@ -4,40 +4,7 @@ description: This skill should be used when the user needs to analyze a job post
 license: MIT
 ---
 
----name: Job Description Analyzer
-description: Analyze job postings, calculate match scores, identify gaps, and create application strategy
-
-version: 2.0.0
-author: Eric Andrade
-category: career
-risk: safe
-platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
----
-
 # Job Description Analyzer
-
-## When to Use This Skill
-
-Use this skill when the user:
-- Wants to analyze a job posting
-- Asks "should I apply to this job?"
-- Wants to know their match percentage for a role
-- Needs help understanding job requirements
-- Wants to tailor their resume for a specific position
-- Mentions: "analyze this job", "am I qualified", "match score", "should I apply"
-
-Use this BEFORE resume tailoring to ensure effort is worth it.
-
-## Core Capabilities
-
-- Extract and categorize job requirements (must-have vs nice-to-have)
-- Calculate match score between user's experience and job requirements
-- Identify skill gaps and strengths
-- Detect red flags in job postings
-- Prioritize which experiences to highlight
-- Generate resume tailoring strategy
-- Create cover letter talking points
-- Assess company culture fit indicators
 
 ## The Strategic Problem
 
@@ -96,6 +63,21 @@ Identify three types:
 - B2B SaaS, healthcare, fintech
 - Enterprise vs SMB
 - Regulatory knowledge (HIPAA, SOX, GDPR)
+
+### Parallel JD Analysis
+
+All four analyses process the same job description independently. Launch simultaneously in one block:
+
+| Agent | Role |
+|-------|------|
+| `RequirementExtractor` | Parse must-have requirements, nice-to-have, and soft skills from JD |
+| `KeywordExtractor` | Extract hard skills, soft skills, and domain terms for ATS keyword matching |
+| `GapAnalyzer` | Classify gaps vs. candidate profile: critical (dealbreaker) / major / minor |
+| `RedFlagDetector` | Identify warning signs: unrealistic workload, culture toxicity, compensation red flags |
+
+Each agent prompt begins with: `# {AgentName} — Job Description Analysis Agent`
+
+Wait for all four to complete, then run match scoring using the merged outputs.
 
 ### Step 3: Calculate Match Score
 

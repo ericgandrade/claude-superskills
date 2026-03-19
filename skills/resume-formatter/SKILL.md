@@ -4,35 +4,7 @@ description: This skill should be used when the user needs to ensure ATS-friendl
 license: MIT
 ---
 
----name: Resume Formatter
-description: Ensure ATS-friendly formatting and create clean scannable layouts
-
-version: 2.0.0
-author: Eric Andrade
-category: career
-risk: safe
-platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
----
-
 # Resume Formatter
-
-## When to Use This Skill
-
-Use this skill when the user:
-- Needs help with resume layout and formatting
-- Has a messy or hard-to-read resume
-- Wants to ensure ATS compatibility through formatting
-- Needs a clean, professional design
-- Mentions: "format resume", "resume layout", "resume design", "clean resume", "professional format"
-
-## Core Capabilities
-
-- Structure resumes for optimal readability
-- Ensure ATS compatibility through formatting
-- Create visual hierarchy
-- Optimize white space and margins
-- Select appropriate fonts and sizes
-- Balance aesthetic appeal with functionality
 
 ## Formatting Fundamentals
 

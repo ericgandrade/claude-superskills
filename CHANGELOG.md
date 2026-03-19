@@ -6,6 +6,38 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.21.0] - 2026-03-19
+
+### Changed
+
+**Token Economy Pass — 5 major skills optimized:**
+- **agent-skill-orchestrator**: Removed ~2,200 words of JavaScript pseudocode (6 non-executable functions); replaced with concise prose + scoring table; truncated verbose examples; removed 6 zero-value appendix sections; ~46% reduction (4,841 → 2,600 words)
+- **agent-skill-discovery**: Removed JavaScript pseudocode functions (`discoverMCPTools`, `searchResources`), PLATFORM_CONFIGS object, Platform Support block; truncated examples; removed 5 appendix sections; ~50% reduction (3,005 → 1,500 words)
+- **skill-creator**: Removed redundant JSON schema blocks, UI description sections, duplicate closing summary; ~39% reduction (4,586 → 2,809 words)
+- **abx-strategy**: Removed ASCII art boxes, duplicate tables, "When to Use This Skill" and "Using This Skill with Claude" sections, merged KPI tables; ~29% reduction (3,394 → 2,420 words)
+- **youtube-summarizer**: Truncated verbose Examples 2 and 4
+
+**Parallelization — 13 skills upgraded with named sub-agents:**
+- **interview-prep-generator**: Added `StoryBanker` (parallel STAR story generation per bullet) + 5 named prep agents for parallel interview prep
+- **deep-research**: Added 6 `ResearchScout` agents for parallel query execution
+- **salary-negotiation-prep**: Added 7 `SalaryScout` agents + `CompCalculator` for parallel market research
+- **job-description-analyzer**: Added `RequirementExtractor`, `KeywordExtractor`, `GapAnalyzer`, `RedFlagDetector` for parallel JD analysis
+- **mckinsey-strategist**: Added `SWOTAnalyst`, `VRIOAnalyst`, `SevenSAnalyst`, `SecondOrderAnalyst`, `ImpactMatrixAnalyst` for parallel framework analysis
+- **audio-transcriber**: Added `TopicExtractor`, `ActionExtractor`, `DecisionExtractor` + batch mode pattern
+- **resume-tailor**: Added `SummaryTailor`, `SkillsTailor`, `ExperienceTailor`, `EducationTailor` for parallel section tailoring
+- **resume-ats-optimizer**: Added 5 named analyzer agents (`HardSkillsAnalyzer`, `SoftSkillsAnalyzer`, `IndustryAnalyzer`, `FormattingAuditor`, `KeywordDensityChecker`) for parallel ATS analysis
+- **offer-comparison-analyzer**: Added 8 agents (`CashAnalyzer`, `EquityAnalyzer`, `BenefitsAnalyzer`, `PerksAnalyzer`, `GrowthScorer`, `WorkLifeScorer`, `CultureScorer`, `RiskScorer`) for parallel offer analysis
+- **senior-solution-architect**: Added `C4-Context`, `C4-Container`, `C4-Component`, `AdrGenerator` for parallel C4 diagram generation
+- **cloudconvert-converter**: Added `FileConverter` agent per file for batch mode parallel conversion
+- **docling-converter**: Added `DoclingConverter` agent per file for batch mode parallel document processing
+- **agent-skill-discovery**: Added `PluginScanner`, `SkillScanner`, `McpScanner`, `RepoScanner` parallel scanning strategy
+
+**Career Skills Cleanup — 18 skills cleaned:**
+- Removed double YAML frontmatter block (legacy `---name:` block with invalid version/author/category/risk/platforms fields) from all 18 career skills
+- Removed `## When to Use This Skill` and `## Core Capabilities` sections (zero decision value for agent execution)
+
+
+
 ## [1.20.10] - 2026-03-19
 
 ### Changed

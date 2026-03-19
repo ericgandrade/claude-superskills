@@ -227,6 +227,27 @@ fi
 *Transcription engine: {engine} | Processing time: {elapsed_time}s*
 ```
 
+### Parallel Content Extraction
+
+After transcription completes, launch three extraction agents simultaneously:
+
+| Agent | Role |
+|-------|------|
+| `TopicExtractor` | Cluster transcript segments by topic using keyword proximity and temporal grouping. Output: ordered topic list with timestamps. |
+| `ActionExtractor` | Find all action items. Signals: "will", "should", "needs to", "by [date]", owner assignments, commitments. Output: action list with owner + due date. |
+| `DecisionExtractor` | Find all decisions made. Signals: "decided", "agreed", "we will", "the plan is", "confirmed". Output: decision list with rationale. |
+
+Each agent prompt begins with:
+```
+# {AgentName} — Transcript Analysis Agent
+Role: Analyze the transcript below and extract ONLY {topic/action items/decisions}. Return structured list with timestamps.
+Input: [full transcript text with speaker labels]
+```
+
+Wait for all three to complete. Merge outputs into the Markdown meeting minutes document.
+
+**Batch mode (multiple audio files):** Launch the full pipeline (transcription + 3 extraction agents) per file simultaneously. Merge all outputs after all files complete.
+
 **Implementation:**
 
 Use Python or bash with AI model (Claude/GPT) for intelligent summarization:

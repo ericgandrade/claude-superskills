@@ -4,35 +4,7 @@ description: This skill should be used when the user needs to find opportunities
 license: MIT
 ---
 
----name: Resume Quantifier
-description: Find opportunities to add metrics and estimate numbers when exact data unavailable
-
-version: 2.0.0
-author: Eric Andrade
-category: career
-risk: safe
-platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
----
-
 # Resume Quantifier
-
-## When to Use This Skill
-
-Use this skill when the user:
-- Needs to add metrics and numbers to their resume
-- Has bullets without quantifiable results
-- Doesn't know what numbers to include
-- Says they "don't have metrics" or "can't measure impact"
-- Mentions: "add metrics", "quantify", "add numbers", "measure impact", "no data"
-
-## Core Capabilities
-
-- Find hidden metrics in any experience
-- Estimate numbers when exact data unavailable
-- Create before/after comparisons
-- Identify measurable impact points
-- Transform vague statements into quantified achievements
-- Guide users to discover their metrics
 
 ## Why Quantification Matters
 

@@ -121,6 +121,36 @@ TOTAL YEAR 1:        $280,250
 TOTAL ONGOING:       $255,250/year
 ```
 
+### Parallel Offer Analysis
+
+For each offer, launch 8 analyzers simultaneously. If comparing N offers, launch all 8×N agents in one block.
+
+**Compensation agents:**
+
+| Agent | Role |
+|-------|------|
+| `CashAnalyzer` | Sum base salary + target bonus + signing bonus. Annualize. Account for bonus probability. |
+| `EquityAnalyzer` | Calculate equity value: RSU shares × current/projected price ÷ vesting years. Note cliff and vesting schedule. |
+| `BenefitsAnalyzer` | Quantify 401k match (annual $), insurance premiums saved vs. market rate, HSA contribution, other benefits. |
+| `PerksAnalyzer` | Quantify: vacation days × daily rate, commute cost savings (remote vs. in-office), learning/dev budget, other perks. |
+
+**Non-monetary scoring agents:**
+
+| Agent | Role |
+|-------|------|
+| `GrowthScorer` | Score 0–10: career trajectory, learning opportunities, brand-name value, promotion clarity |
+| `WorkLifeScorer` | Score 0–10: expected hours, flexibility, remote policy, travel burden, on-call requirements |
+| `CultureScorer` | Score 0–10: team dynamics, manager quality, company values alignment, DEI signals |
+| `RiskScorer` | Score 0–10 (inverted — lower = more stable): funding runway, layoff history, industry volatility, severance terms |
+
+Each agent prompt begins with:
+```
+# {AgentName} — Offer Analysis Agent
+Role: Analyze ONLY {DIMENSION} for {OFFER_NAME}. Return a structured result with numbers and brief justification.
+```
+
+Wait for all agents to complete. Build total compensation comparison table and weighted scoring matrix.
+
 ## Side-by-Side Comparison Template
 
 ```markdown

@@ -52,6 +52,27 @@ Display a progress gauge at each research phase:
 - Create 5-10 query variants (broad, narrow, comparative, opposing views).
 - Prefer primary sources first (official docs, papers, regulatory pages, vendor docs).
 
+### Parallel Query Execution
+
+Do NOT run searches sequentially. Launch one **ResearchScout** agent per query variant simultaneously in a single block.
+
+| Agent | Query Type |
+|-------|-----------|
+| `ResearchScout-Broad` | Wide-scope 2–3 keyword query |
+| `ResearchScout-Narrow` | Specific 5+ keyword query |
+| `ResearchScout-Comparative` | "X vs Y" or "comparison of" framing |
+| `ResearchScout-Opposing` | Contrarian or critical viewpoints |
+| `ResearchScout-Primary` | Official docs, papers, government sources |
+| `ResearchScout-Recent` | Date-filtered to last 12 months |
+
+Each agent prompt begins with:
+```
+# ResearchScout — Targeted Web Research Agent
+Role: Execute a single search query using WebSearch/WebFetch, collect top results with URLs and key findings, return structured results.
+```
+
+Wait for all ResearchScout agents to complete. Deduplicate results by URL. Then proceed to synthesis/triangulation phase.
+
 3. Collect sources with traceability
 - Capture URL, title, date, publisher, and relevance notes.
 - Track contradictions and unresolved claims explicitly.

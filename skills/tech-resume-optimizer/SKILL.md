@@ -4,34 +4,7 @@ description: This skill should be used when the user needs to optimize a resume 
 license: MIT
 ---
 
----name: Tech Resume Optimizer
-description: Optimize resumes for software engineering, PM, and technical roles
-
-version: 2.0.0
-author: Eric Andrade
-category: career
-risk: safe
-platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
----
-
 # Tech Resume Optimizer
-
-## When to Use This Skill
-
-Use this skill when the user:
-- Is applying for software engineering roles
-- Wants to optimize a technical resume
-- Needs help with developer/PM/technical job applications
-- Mentions: "tech resume", "software engineer resume", "developer resume", "technical resume", "SWE resume", "PM resume"
-
-## Core Capabilities
-
-- Optimize resumes for technical roles (SWE, PM, Data, DevOps)
-- Structure technical skills sections effectively
-- Highlight projects and technical achievements
-- Balance technical depth with business impact
-- Format for both ATS and technical recruiters
-- Include GitHub, portfolio, and technical links
 
 ## Tech Resume Philosophy
 

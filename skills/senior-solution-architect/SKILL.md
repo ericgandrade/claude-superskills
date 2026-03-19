@@ -44,6 +44,26 @@ Use Mermaid to create diagrams. Focus on:
 - **Level 2 (Container):** Applications, databases, and microservices.
 - **Level 3 (Component):** Internal structure of a container.
 
+### Parallel C4 Diagram Generation
+
+Once discovery data is complete, generate all C4 levels simultaneously:
+
+| Agent | Level | Output |
+|-------|-------|--------|
+| `C4-Context` | Level 1 — System Context | Mermaid diagram: system boundaries, users, external actors |
+| `C4-Container` | Level 2 — Container | Mermaid diagram: applications, databases, services, APIs |
+| `C4-Component` | Level 3 — Component | Mermaid diagram: internal modules, packages, interfaces |
+| `AdrGenerator` | ADRs | Architecture Decision Records for all key design choices identified |
+
+Each agent prompt begins with:
+```
+# {AgentName} — Architecture Diagram Specialist
+Role: Generate a {LEVEL} C4 diagram in Mermaid syntax using the discovery data provided. Follow C4 notation standards. Include only elements relevant to this level of abstraction.
+Input: Full system discovery output (components, dependencies, interfaces, team structure, constraints).
+```
+
+Wait for all four to complete. Assemble into the final architecture document.
+
 ### Phase 3: Decision Governance (ADRs)
 
 Every significant change requires an ADR. Follow this structure:

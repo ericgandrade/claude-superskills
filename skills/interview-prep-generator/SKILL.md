@@ -4,35 +4,7 @@ description: This skill should be used when the user needs to generate STAR stor
 license: MIT
 ---
 
----name: Interview Prep Generator
-description: Generate STAR stories, practice questions, and talking points from resume
-
-version: 2.0.0
-author: Eric Andrade
-category: career
-risk: safe
-platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
----
-
 # Interview Prep Generator
-
-## When to Use This Skill
-
-Use this skill when the user wants to:
-- Prepare for a job interview
-- Practice answering interview questions
-- Create STAR stories from their experience
-- Anticipate questions for a specific role
-- Mentions: "interview prep", "prepare for interview", "STAR stories", "interview questions", "behavioral questions"
-
-## Core Capabilities
-
-- Generate role-specific interview questions
-- Create STAR stories from resume bullets
-- Predict questions based on job description
-- Prepare answers for common questions
-- Create talking points for each experience
-- Identify potential concerns and prepare responses
 
 ## Interview Preparation Framework
 
@@ -42,11 +14,40 @@ Use this skill when the user wants to:
 - Research company interview style
 
 ### Phase 2: Story Banking
+
+### Parallel STAR Story Generation
+
+Do NOT generate STAR stories one by one. Launch one **StoryBanker** agent per resume bullet simultaneously in a single block. Each bullet's story is fully independent.
+
+Each StoryBanker agent prompt begins with:
+```
+# StoryBanker — STAR Story Generator
+Role: Transform a single resume bullet into a complete STAR story (Situation, Task, Action, Result) for interview use.
+Input: [bullet text] | Role: [target role] | Company context: [company if known]
+```
+
+Wait for all StoryBanker agents to complete, then compile the full story bank.
+
 - Convert resume bullets into STAR stories
 - Create stories for common competencies
 - Practice concise delivery
 
 ### Phase 3: Mock Preparation
+
+### Parallel Interview Prep Generation
+
+Launch all five prep agents simultaneously after the story bank is complete:
+
+| Agent | Role |
+|-------|------|
+| `BehavioralPrep` | Generate behavioral Q&A using story bank (STAR format) |
+| `ProblemSolvingPrep` | Generate problem-solving and analytical question answers |
+| `CollaborationPrep` | Generate team/collaboration question answers |
+| `AchievementPrep` | Generate achievement and impact question answers |
+| `FailureGrowthPrep` | Generate failure/growth/learning question answers |
+
+Each agent prompt begins with: `# {AgentName} — Interview Preparation Specialist`
+
 - Practice common questions
 - Prepare questions to ask
 - Research company-specific topics

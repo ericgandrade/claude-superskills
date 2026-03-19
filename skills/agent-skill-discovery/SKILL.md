@@ -25,15 +25,6 @@ Invoke this skill when:
 - Understanding platform capabilities
 - Checking whether the current repository contains local agents, skills, or MCP configs
 
-## Platform Support
-
-Works identically on all AI CLI platforms:
-- **Claude Code** (`claude`)
-- **GitHub Copilot CLI** (`gh copilot`)
-- **Gemini CLI** (`gemini`)
-- **OpenCode** (`opencode`)
-- **OpenAI Codex** (`codex`)
-
 ## Progress Tracking
 
 Display a progress gauge before each step to keep the user informed:
@@ -46,6 +37,21 @@ Display a progress gauge before each step to keep the user informed:
 [██████████████████░░] 75% — Step 5/6: Applying Filters
 [████████████████████] 100% — Step 6/6: Generating Catalog
 ```
+
+## Parallel Scanning Strategy
+
+After platform detection (Step 0), launch Steps 1–4 as four simultaneous agents in a single block:
+
+| Agent | Role |
+|-------|------|
+| `PluginScanner` | Glob for plugin.json files, extract name/version/agents metadata |
+| `SkillScanner` | Glob for SKILL.md files, parse YAML frontmatter, extract name/description/triggers |
+| `McpScanner` | Read .mcp.json, run ToolSearch per server, build tool inventory |
+| `RepoScanner` | Scan current working directory for local agents, skills, and MCP configs |
+
+Each agent prompt header: `# {AgentName} — Resource Discovery Agent`
+
+Wait for all four to complete, then apply filters (Step 5) and generate catalog (Step 6).
 
 ## Workflow
 
@@ -82,49 +88,7 @@ fi
 
 **Platform Configuration:**
 
-Set platform-specific paths dynamically:
-
-```javascript
-const PLATFORM_CONFIGS = {
-  'claude': {
-    name: 'Claude Code',
-    baseDir: BASE_DIR,
-    pluginsDir: BASE_DIR + '/plugins',
-    skillsDir: BASE_DIR + '/skills',
-    mcpConfig: BASE_DIR + '/.mcp.json'
-  },
-  'copilot': {
-    name: 'GitHub Copilot CLI',
-    baseDir: BASE_DIR,
-    pluginsDir: BASE_DIR + '/plugins',
-    skillsDir: BASE_DIR + '/skills',
-    mcpConfig: BASE_DIR + '/.mcp.json'
-  },
-  'gemini': {
-    name: 'Gemini CLI',
-    baseDir: BASE_DIR,
-    pluginsDir: BASE_DIR + '/plugins',
-    skillsDir: BASE_DIR + '/skills',
-    mcpConfig: BASE_DIR + '/.mcp.json'
-  },
-  'opencode': {
-    name: 'OpenCode',
-    baseDir: BASE_DIR,
-    pluginsDir: BASE_DIR + '/plugins',
-    skillsDir: BASE_DIR + '/skills',
-    mcpConfig: BASE_DIR + '/.mcp.json'
-  },
-  'codex': {
-    name: 'OpenAI Codex',
-    baseDir: BASE_DIR,
-    pluginsDir: BASE_DIR + '/plugins',
-    skillsDir: BASE_DIR + '/skills',
-    mcpConfig: BASE_DIR + '/.mcp.json'
-  }
-};
-
-const config = PLATFORM_CONFIGS[PLATFORM];
-```
+Platform configuration is uniform across all 5 platforms — `pluginsDir`, `skillsDir`, and `mcpConfig` paths follow the same structure relative to `BASE_DIR`. Use `BASE_DIR` resolved from the detection above for all subsequent path construction.
 
 ### Step 1: Scan for Plugins
 
@@ -283,18 +247,7 @@ If file exists, parse JSON:
 
 **3.2 Discover Available Tools:**
 
-For each MCP server, use ToolSearch to find available tools:
-
-```bash
-# Search for MCP tools by server prefix
-ToolSearch query: "mcp__{server_name}__*"
-```
-
-Example results:
-- `mcp__claude_ai_Notion__notion-search`
-- `mcp__claude_ai_Notion__notion-create-pages`
-- `mcp__plugin_playwright__browser_navigate`
-- `mcp__plugin_playwright__browser_click`
+Use ToolSearch with pattern `mcp__{server_name}__*` to list available tools for each configured MCP server. Build tool inventory from results. If ToolSearch fails, mark the server's tools as "unavailable" and continue.
 
 **3.3 Build MCP Server Inventory:**
 
@@ -407,30 +360,7 @@ If multiple files exist:
 
 **5.3 By Keyword Search:**
 
-```bash
-# User request: "find resources related to Notion"
-# Search in: plugin names, descriptions, agent names, skill names, triggers, MCP server names
-
-function searchResources(keyword) {
-  const lowerKeyword = keyword.toLowerCase();
-
-  return {
-    plugins: plugins.filter(p =>
-      p.name.includes(lowerKeyword) ||
-      p.description.toLowerCase().includes(lowerKeyword)
-    ),
-    skills: skills.filter(s =>
-      s.name.includes(lowerKeyword) ||
-      s.description.toLowerCase().includes(lowerKeyword) ||
-      s.triggers.some(t => t.includes(lowerKeyword))
-    ),
-    mcpServers: mcpServers.filter(m =>
-      m.name.includes(lowerKeyword) ||
-      m.tools.some(t => t.name.includes(lowerKeyword))
-    )
-  };
-}
-```
+Filter by keyword: match the search term (case-insensitive substring) against plugin names, skill names and descriptions, trigger phrases, MCP server names, and tool names. Return only matching entries.
 
 **Filter Detection:**
 
@@ -728,21 +658,9 @@ Detect filter intent from user request:
 ### claude_ai_Notion (stdio)
 **Status:** ✅ Connected
 **Tools (5):**
-- notion-search
-- notion-create-pages
-- notion-fetch
-- notion-update-page
-- notion-get-users
-
-### plugin_playwright (stdio)
-**Status:** ✅ Connected
-**Tools (15):**
-- browser_navigate
-- browser_click
-- browser_type
-- browser_screenshot
-(... 11 more)
 ```
+
+*(Remaining output follows same catalog format — only matching resource types shown.)*
 
 ### Example 3: Keyword Search
 
@@ -763,13 +681,9 @@ Detect filter intent from user request:
 ### audio-transcriber v1.0.0
 **Description:** Transform audio recordings into professional Markdown documentation
 **Category:** content
-**Triggers:** `transcribe audio`, `convert audio to text`
-
-### youtube-summarizer v1.0.0
-**Description:** Extract transcripts from YouTube videos and generate summaries
-**Category:** content
-**Triggers:** `summarize youtube`, `youtube summary`
 ```
+
+*(Remaining output follows same catalog format — only matching resource types shown.)*
 
 ### Example 4: Empty Results
 
@@ -790,118 +704,7 @@ Detect filter intent from user request:
 ## 🔌 Plugins (0)
 
 None installed.
-
----
-
-## 🛠️ Skills (1)
-
-### agent-skill-discovery v1.0.0
-**Description:** Scans and lists all installed resources
-**Category:** discovery
-**Triggers:** `what do I have installed`
-
----
-
-## 🌐 MCP Servers (0)
-
-None configured.
-
----
-
-## 📊 Summary
-
-- **Total Plugins:** 0
-- **Total Agents:** 0
-- **Total Skills:** 1
-- **Total MCP Servers:** 0
-- **Total MCP Tools:** 0
 ```
 
-## Technical Implementation Notes
+*(Remaining output follows same catalog format — only matching resource types shown.)*
 
-### Platform Detection Algorithm
-
-```javascript
-function detectPlatform() {
-  const platformChecks = [
-    { path: '~/.claude/skills/agent-skill-discovery/SKILL.md', platform: 'claude' },
-    { path: '~/.github/skills/agent-skill-discovery/SKILL.md', platform: 'copilot' },
-    { path: '~/.gemini/skills/agent-skill-discovery/SKILL.md', platform: 'gemini' },
-    { path: '~/.opencode/skills/agent-skill-discovery/SKILL.md', platform: 'opencode' },
-    { path: '~/.codex/skills/agent-skill-discovery/SKILL.md', platform: 'codex' }
-  ];
-
-  for (const check of platformChecks) {
-    if (fileExists(expandPath(check.path))) {
-      return check.platform;
-    }
-  }
-
-  return 'unknown';
-}
-```
-
-### YAML Frontmatter Parsing
-
-```javascript
-function parseSkillFrontmatter(content) {
-  const yamlMatch = content.match(/^---\n([\s\S]*?)\n---/);
-  if (!yamlMatch) return null;
-
-  try {
-    return parseYAML(yamlMatch[1]);
-  } catch (error) {
-    console.warn('Failed to parse YAML:', error);
-    return null;
-  }
-}
-```
-
-### MCP Tool Discovery
-
-```javascript
-function discoverMCPTools(serverName) {
-  try {
-    const searchPattern = `mcp__${serverName}__*`;
-    const toolResults = toolSearch(searchPattern);
-
-    return toolResults.map(tool => ({
-      name: tool.name.replace(`mcp__${serverName}__`, ''),
-      fullName: tool.name,
-      description: tool.description || 'No description'
-    }));
-  } catch (error) {
-    console.warn(`Failed to discover tools for ${serverName}:`, error);
-    return [];
-  }
-}
-```
-
-## Performance Considerations
-
-- **Glob Optimization:** Use specific patterns (e.g., `*/plugin.json` not `**/*`)
-- **Parallel Scanning:** Read plugins, skills, and MCPs concurrently when possible
-- **Lazy Parsing:** Only parse YAML/JSON when displaying results
-- **Caching:** No caching—always fresh scan (prioritize accuracy over speed)
-
-## Error Recovery
-
-- **Malformed JSON:** Skip resource, log warning, continue
-- **Missing Directories:** Return empty array, no error
-- **Permission Denied:** Log warning, continue with accessible resources
-- **Network Timeout (MCP):** Mark as disconnected, continue
-
-## Future Enhancements
-
-Potential features for future versions:
-- Export to JSON/CSV format
-- Compare resources between platforms
-- Historical tracking (what changed since last scan)
-- Resource health checks (validate plugins/skills work)
-- Auto-update detection (check for newer versions)
-
-## Related Skills
-
-- **agent-skill-orchestrator** - Uses this skill to discover resources before planning
-- **skill-creator** - Creates new skills that will appear in discovery results
-- **plugin-dev** - Creates plugins that will appear in discovery results

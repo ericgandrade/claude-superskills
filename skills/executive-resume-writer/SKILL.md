@@ -4,34 +4,7 @@ description: This skill should be used when the user needs to create a C-suite o
 license: MIT
 ---
 
----name: Executive Resume Writer
-description: Create C-suite and VP level resumes emphasizing strategic leadership
-
-version: 2.0.0
-author: Eric Andrade
-category: career
-risk: safe
-platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
----
-
 # Executive Resume Writer
-
-## When to Use This Skill
-
-Use this skill when the user:
-- Is applying for C-suite, VP, or Director roles
-- Has 15+ years of experience in senior leadership
-- Needs to emphasize strategic leadership over tactical skills
-- Mentions: "executive resume", "C-suite", "VP resume", "senior leadership", "board", "executive search"
-
-## Core Capabilities
-
-- Write resumes for C-suite and VP-level positions
-- Emphasize strategic leadership and business transformation
-- Showcase P&L responsibility and organizational impact
-- Balance achievements with leadership philosophy
-- Format for executive recruiters and board presentations
-- Include board experience and industry recognition
 
 ## Executive Resume Philosophy
 

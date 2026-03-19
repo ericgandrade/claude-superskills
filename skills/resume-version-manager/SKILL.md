@@ -4,35 +4,7 @@ description: This skill should be used when the user needs to track different re
 license: MIT
 ---
 
----name: Resume Version Manager
-description: Track different resume versions, maintain master resume, manage tailored versions
-
-version: 2.0.0
-author: Eric Andrade
-category: career
-risk: safe
-platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
----
-
 # Resume Version Manager
-
-## When to Use This Skill
-
-Use this skill when the user:
-- Has multiple resume versions to manage
-- Needs to track tailored resumes
-- Wants to maintain a master resume
-- Is applying to many different roles
-- Mentions: "resume versions", "master resume", "different versions", "track resumes", "which resume"
-
-## Core Capabilities
-
-- Create and maintain master resume document
-- Track tailored resume versions
-- Organize resume versions by role/industry
-- Maintain consistent source of truth
-- Streamline resume updates
-- Prevent version confusion
 
 ## The Version Management Problem
 

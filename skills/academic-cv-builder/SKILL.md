@@ -4,35 +4,7 @@ description: This skill should be used when the user needs to format a curriculu
 license: MIT
 ---
 
----name: Academic CV Builder
-description: Format CVs for academic positions with publications, grants, and teaching
-
-version: 2.0.0
-author: Eric Andrade
-category: career
-risk: safe
-platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
----
-
 # Academic CV Builder
-
-## When to Use This Skill
-
-Use this skill when the user:
-- Is applying for academic positions (faculty, research, postdoc)
-- Needs to create or update a curriculum vitae
-- Wants to format publications, grants, and teaching experience
-- Is in academia or transitioning to academic careers
-- Mentions: "academic CV", "curriculum vitae", "faculty position", "research CV", "professor resume"
-
-## Core Capabilities
-
-- Structure CVs for academic positions
-- Format publications, presentations, and grants
-- Organize teaching and research experience
-- Include appropriate academic sections
-- Tailor for different academic roles (tenure-track, postdoc, lecturer)
-- Balance research, teaching, and service
 
 ## Academic CV vs. Resume
 

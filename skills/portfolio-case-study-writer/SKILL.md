@@ -4,35 +4,7 @@ description: This skill should be used when the user needs to transform resume b
 license: MIT
 ---
 
----name: Portfolio Case Study Writer
-description: Transform resume bullets into detailed portfolio case studies
-
-version: 2.0.0
-author: Eric Andrade
-category: career
-risk: safe
-platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
----
-
 # Portfolio Case Study Writer
-
-## When to Use This Skill
-
-Use this skill when the user:
-- Wants to create portfolio case studies
-- Needs to expand resume bullets into detailed writeups
-- Is building a portfolio website
-- Wants to showcase project work in depth
-- Mentions: "case study", "portfolio", "project writeup", "work samples", "portfolio piece"
-
-## Core Capabilities
-
-- Transform resume bullets into detailed case studies
-- Structure case studies for maximum impact
-- Create compelling project narratives
-- Balance technical detail with business context
-- Format for portfolio websites
-- Tailor depth to audience
 
 ## Case Study Purpose
 

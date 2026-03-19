@@ -4,35 +4,7 @@ description: This skill should be used when the user needs to format professiona
 license: MIT
 ---
 
----name: Reference List Builder
-description: Format professional references properly and prepare reference materials
-
-version: 2.0.0
-author: Eric Andrade
-category: career
-risk: safe
-platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
----
-
 # Reference List Builder
-
-## When to Use This Skill
-
-Use this skill when the user:
-- Needs to create a professional reference list
-- Wants help choosing the right references
-- Needs to format references properly
-- Is preparing references for job applications
-- Mentions: "references", "reference list", "professional references", "reference check"
-
-## Core Capabilities
-
-- Format professional reference lists
-- Guide reference selection strategy
-- Prepare reference briefing materials
-- Anticipate reference check questions
-- Handle difficult reference situations
-- Coordinate reference outreach
 
 ## Reference Strategy
 

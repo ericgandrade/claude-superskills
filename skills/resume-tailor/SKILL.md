@@ -4,36 +4,7 @@ description: This skill should be used when the user needs to customize a resume
 license: MIT
 ---
 
----name: Resume Tailor
-description: Customize resume for specific job postings while maintaining truthfulness
-
-version: 2.0.0
-author: Eric Andrade
-category: career
-risk: safe
-platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
----
-
 # Resume Tailor
-
-## When to Use This Skill
-
-Use this skill when the user wants to:
-- Customize their resume for a specific job posting
-- Adjust their resume to match job requirements
-- Create a targeted version of their resume
-- Mentions: "tailor resume", "customize resume", "target role", "specific job", "match job description"
-
-Use AFTER job-description-analyzer to know what to emphasize.
-
-## Core Capabilities
-
-- Reorder experience sections by relevance to target role
-- Adjust professional summary for specific position
-- Add missing keywords from job description
-- Modify bullet points to match job requirements
-- Maintain authenticity while optimizing match
-- Create multiple targeted resume versions
 
 ## The Tailoring Philosophy
 
@@ -66,6 +37,27 @@ For each section, ask:
 - Add keywords naturally into existing bullets
 
 **Education:** Highlight relevant coursework, certifications
+
+### Parallel Section Tailoring
+
+All resume sections are independent. Launch simultaneously after job analysis completes:
+
+| Agent | Role |
+|-------|------|
+| `SummaryTailor` | Rewrite professional summary: lead with target role title, weave in top 3 JD keywords, match tone (formal/startup/technical) |
+| `SkillsTailor` | Reorder skills by JD priority, add missing keywords from JD to skills section, remove irrelevant skills |
+| `ExperienceTailor` | Reorder jobs if needed, swap bullets to surface most relevant achievements, inject JD keywords naturally |
+| `EducationTailor` | Highlight relevant coursework, certifications, projects, and academic achievements matching JD requirements |
+
+Each agent prompt begins with:
+
+```
+# {AgentName} — Resume Section Specialist
+Role: Tailor only the {SECTION} of this resume for the target job. Preserve all facts — only reorder, reword, and add relevant keywords. Never fabricate.
+Input: Original {SECTION} text + Job Description + Priority keyword list from analysis.
+```
+
+Wait for all four agents to complete. Assemble tailored resume from merged sections.
 
 ## Section-by-Section Tailoring Guide
 
@@ -335,10 +327,3 @@ When tailoring a resume, provide:
 | Job description too vague | Posting lacks specific requirements or keywords | Work with available signals; suggest user research the company's similar roles for keywords |
 | Resume already highly tailored | User submits pre-tailored version for another role | Confirm the base document; proceed from current state |
 
-## Implementation Notes
-
-- Always start with the job description analyzer
-- Keep tailoring changes documented for interview prep
-- Maintain master resume as source of truth
-- Never sacrifice ATS compatibility for tailoring
-- Test keyword match after tailoring

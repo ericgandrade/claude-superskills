@@ -4,35 +4,7 @@ description: This skill should be used when the user needs to balance visual des
 license: MIT
 ---
 
----name: Creative Portfolio Resume
-description: Balance visual design with ATS compatibility for creative roles
-
-version: 2.0.0
-author: Eric Andrade
-category: career
-risk: safe
-platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
----
-
 # Creative Portfolio Resume
-
-## When to Use This Skill
-
-Use this skill when the user:
-- Works in a creative field (design, marketing, writing)
-- Needs to balance visual design with ATS compatibility
-- Wants to showcase creative skills through resume design
-- Is building a portfolio resume for creative roles
-- Mentions: "creative resume", "designer resume", "visual resume", "portfolio resume", "creative field"
-
-## Core Capabilities
-
-- Balance visual appeal with ATS compatibility
-- Design resumes for creative roles
-- Integrate portfolio elements with resume content
-- Advise on when to use creative vs. traditional formats
-- Guide visual hierarchy and design choices
-- Connect resume to portfolio effectively
 
 ## The Creative Resume Dilemma
 

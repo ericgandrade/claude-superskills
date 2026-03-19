@@ -148,6 +148,19 @@ if __name__ == "__main__":
     sys.exit(0 if success else 1)
 ```
 
+### Batch Mode — Parallel Document Processing
+
+When the user provides a directory or multiple files, launch one **DoclingConverter** agent per file simultaneously in a single block.
+
+Each DoclingConverter agent prompt begins with:
+```
+# DoclingConverter — Document Processing Agent
+Role: Convert a single document to Markdown and JSON using Docling. Run the conversion script, validate that output files were created, return status and output paths.
+Input: File path: {PATH} | Output format: {FORMAT}
+```
+
+Wait for all DoclingConverter agents to complete. Merge all Markdown outputs. Report summary: files processed, conversion time, any failures.
+
 ### Step 2: Execute Conversion
 
 **Objective:** Run the conversion script on the user's file.

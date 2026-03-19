@@ -4,35 +4,7 @@ description: This skill should be used when the user needs to research market ra
 license: MIT
 ---
 
----name: Salary Negotiation Prep
-description: Research market rates, build negotiation strategy, and create counter-offer scripts
-
-version: 2.0.0
-author: Eric Andrade
-category: career
-risk: safe
-platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
----
-
 # Salary Negotiation Prep
-
-## When to Use This Skill
-
-Use this skill when the user wants to:
-- Negotiate a job offer or salary
-- Research market rates for their role
-- Create a counter-offer strategy
-- Understand total compensation packages
-- Mentions: "salary negotiation", "negotiate offer", "counter offer", "compensation", "how much should I ask for"
-
-## Core Capabilities
-
-- Research and validate market compensation
-- Build negotiation strategy and scripts
-- Calculate total compensation (not just base salary)
-- Prepare counter-offer responses
-- Identify negotiation leverage points
-- Navigate difficult salary conversations
 
 ## The Negotiation Mindset
 
@@ -56,19 +28,32 @@ Use this skill when the user wants to:
 
 ### Step 1: Determine Market Rate
 
-**Sources to Check:**
-- Levels.fyi (best for tech)
-- Glassdoor (general, take with grain of salt)
-- LinkedIn Salary
-- Blind (anonymous reports)
-- PayScale
-- Salary.com
-- H1B salary data (publicly available)
+### Parallel Market Research
+
+Do NOT query salary sources one by one. Launch all salary research agents simultaneously:
+
+| Agent | Source | Focus |
+|-------|--------|-------|
+| `SalaryScout-Levels` | Levels.fyi | Tech/engineering compensation bands |
+| `SalaryScout-Glassdoor` | Glassdoor | General market salary range |
+| `SalaryScout-LinkedIn` | LinkedIn Salary | Role + location data |
+| `SalaryScout-Blind` | Blind | Anonymous company-specific data |
+| `SalaryScout-PayScale` | PayScale | Years-of-experience curves |
+| `SalaryScout-H1B` | H1B public records | Company salary floor |
+| `CompCalculator` | — | Calculate total compensation including equity + benefits value |
+
+Each SalaryScout agent prompt begins with:
+```
+# SalaryScout — Market Salary Research Agent
+Role: Query {SOURCE} for salary data matching {ROLE} + {LOCATION} + {EXPERIENCE_LEVEL}. Return min/median/max range with source URL and date.
+```
+
+Wait for all agents to complete. Build composite salary range with confidence bands from all sources. Discard outliers. Present range as: floor (10th percentile) → midpoint (50th) → ceiling (90th).
 
 **Build a Range:**
 ```
 Low (25th percentile): $XXX,XXX
-Target (50th percentile): $XXX,XXX  
+Target (50th percentile): $XXX,XXX
 High (75th percentile): $XXX,XXX
 Stretch (90th percentile): $XXX,XXX
 ```

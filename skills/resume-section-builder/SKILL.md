@@ -4,35 +4,7 @@ description: This skill should be used when the user needs to create targeted re
 license: MIT
 ---
 
----name: Resume Section Builder
-description: Create targeted resume sections optimized for different experience levels and roles
-
-version: 2.0.0
-author: Eric Andrade
-category: career
-risk: safe
-platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
----
-
 # Resume Section Builder
-
-## When to Use This Skill
-
-Use this skill when the user:
-- Needs help with specific resume sections
-- Wants to optimize a particular part of their resume
-- Is unsure what to include in a section
-- Needs section-specific guidance
-- Mentions: "resume sections", "skills section", "summary section", "experience section", "what to include"
-
-## Core Capabilities
-
-- Build targeted professional summaries
-- Structure skills sections effectively
-- Optimize experience sections
-- Create education sections appropriately
-- Add supplementary sections strategically
-- Tailor sections for different career stages
 
 ## Professional Summary Section
 

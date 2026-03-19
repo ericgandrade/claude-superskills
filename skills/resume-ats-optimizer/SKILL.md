@@ -117,6 +117,23 @@ For each keyword in job description:
 3. Count frequency of mention
 4. Note location (summary, experience, skills)
 
+### Parallel ATS Analysis
+
+Launch all analyzers simultaneously in one block:
+
+| Agent | Role |
+|-------|------|
+| `HardSkillsAnalyzer` | Extract hard skills from JD, find matches in resume, calculate % match, identify critical gaps |
+| `SoftSkillsAnalyzer` | Extract soft skills from JD, find phrasing matches in resume, suggest natural insertion points |
+| `IndustryAnalyzer` | Extract domain vocabulary and industry terms from JD, check resume density, suggest insertions |
+| `FormattingAuditor` | Check file format compatibility, header tag structure, fonts, spacing, and tables for ATS parse issues |
+| `KeywordDensityChecker` | Calculate keyword density per resume section, flag over/under-optimization, suggest optimal placement |
+
+Each agent prompt begins with: `# {AgentName} — ATS Optimization Agent`
+Input: Full resume text + Full job description text.
+
+Wait for all five to complete. Compute overall ATS match score from weighted sub-scores. Generate prioritized optimization plan.
+
 ### Step 3: Calculate Match Score
 
 ```

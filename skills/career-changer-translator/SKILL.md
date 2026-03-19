@@ -4,34 +4,7 @@ description: This skill should be used when the user needs to translate skills f
 license: MIT
 ---
 
----name: Career Changer Translator
-description: Translate skills from one industry to another, identify transferable skills
-
-version: 2.0.0
-author: Eric Andrade
-category: career
-risk: safe
-platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
----
-
 # Career Changer Translator
-
-## When to Use This Skill
-
-Use this skill when the user:
-- Is switching careers or industries
-- Wants to translate their experience for a new field
-- Needs help identifying transferable skills
-- Mentions: "career change", "switching careers", "new industry", "transferable skills", "pivot"
-
-## Core Capabilities
-
-- Identify transferable skills across industries
-- Translate experience into new industry language
-- Reframe achievements for target roles
-- Bridge skill gaps strategically
-- Position career changes positively
-- Create compelling change narratives
 
 ## The Career Change Challenge
 

@@ -4,36 +4,7 @@ description: This skill should be used when the user needs to create a personali
 license: MIT
 ---
 
----name: Cover Letter Generator
-description: Create personalized, compelling cover letters from resume and job description
-
-version: 2.0.0
-author: Eric Andrade
-category: career
-risk: safe
-platforms: [github-copilot, claude-code, codex, opencode, gemini, antigravity, cursor, adal]
----
-
 # Cover Letter Generator
-
-## When to Use This Skill
-
-Use this skill when the user wants to:
-- Write a cover letter for a job application
-- Create a personalized application letter
-- Address specific job requirements in letter format
-- Mentions: "cover letter", "application letter", "write cover letter", "letter for job"
-
-Use AFTER analyzing job description to have clear talking points.
-
-## Core Capabilities
-
-- Generate personalized cover letters from resume + job description
-- Match tone to company culture
-- Address qualification gaps strategically
-- Create compelling opening hooks
-- Structure persuasive arguments for candidacy
-- Maintain authenticity while selling effectively
 
 ## Cover Letter Philosophy
 

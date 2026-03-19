@@ -362,54 +362,7 @@ echo "[████████████████████] 100% - Step
 [Final synthesis and takeaways]
 
 
-### **Example 2: Missing Dependency**
-
-**User Input:**
-```
-claude> summarize this youtube video https://youtu.be/abc123
-```
-
-**Skill Response:**
-
-```
-⚠️  youtube-transcript-api not installed
-
-This skill requires the Python library 'youtube-transcript-api'.
-
-Would you like me to install it now?
-- [ ] Yes - Install with pip
-- [ ] No - I'll install manually
-```
-
-**User selects "Yes":**
-
-```bash
-$ pip install youtube-transcript-api
-Successfully installed youtube-transcript-api-0.6.1
-
-✅ Installation complete! Proceeding with video summary...
-```
-
-
-### **Example 4: Invalid URL**
-
-**User Input:**
-```
-claude> summarize youtube video www.youtube.com/some-video
-```
-
-**Skill Response:**
-
-```
-❌ Invalid YouTube URL format
-
-Expected format examples:
-- https://www.youtube.com/watch?v=VIDEO_ID
-- https://youtu.be/VIDEO_ID
-
-Please provide a valid YouTube video URL.
-```
-
+*(Output follows same structure as Example 1.)*
 
 ## 📊 Executive Summary
 
