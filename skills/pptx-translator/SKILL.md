@@ -137,15 +137,20 @@ Save manifest to `/tmp/pptx_manifest_{timestamp}.json`.
 
 ### After Extraction
 
-Detect which slides contain source-language content using **per-block pattern matching**, not per-slide `langdetect`. `langdetect` is unreliable for short or mixed-language texts (e.g. it classifies "CiberSegurança Avanade Brasil" as Catalan, not Portuguese).
+Detect which slides contain source-language content using a **3-layer detection strategy**. A pure regex list is inherently incomplete — words like "nossa", "jornada", "certo", "nosso" are valid Portuguese but have no accents and are not in any finite keyword list. The 3-layer approach eliminates false negatives:
+
+**Layer 1 (regex):** Fast check for accented characters and high-confidence PT suffixes/stop-words.
+**Layer 2 (langdetect on concatenated text):** If regex misses, concatenate ALL text blocks of the slide and run `langdetect` on the combined string — more text = higher accuracy. Avoids the single-block unreliability problem.
+**Layer 3 (conservative fallback):** If a slide has text but both layers are inconclusive, treat it as needing translation. It is always safer to translate an already-English slide (no harm) than to skip a Portuguese one.
 
 ```python
 import re
+from langdetect import detect, LangDetectException
 
-# Portuguese-specific patterns: accented chars unique to PT + common PT stop-words/suffixes
+# Layer 1: Portuguese-specific patterns — accented chars + high-confidence PT stop-words/suffixes
 _PT_PATTERN = re.compile(
-    r'[çãõáéíóúâêôàü]'                     # accented chars unique to PT/ES
-    r'|ção|ções|ão|ões'                      # PT suffixes
+    r'[çãõáéíóúâêôàü]'                      # accented chars unique to PT/ES
+    r'|ção|ções|ão|ões|mente\b'              # PT suffixes
     r'|\b(não|que|para|com|uma|por|são'
     r'|foi|mais|isso|como|mas|este|essa'
     r'|esse|pela|pelo|das|dos|nos|nas'
@@ -153,37 +158,77 @@ _PT_PATTERN = re.compile(
     r'|um|já|está|até|quando|temos|foram'
     r'|estamos|devemos|próximos|oferta'
     r'|agenda|cenário|solução|abordagem'
-    r'|estratégia|mercado)\b',
+    r'|estratégia|mercado|nossa|nosso'
+    r'|nossas|nossos|jornada|empresa'
+    r'|empresas|sendo|tendo|vamos|estão'
+    r'|podem|devem|sobre|entre|também'
+    r'|porque|apenas|sempre|ainda|agora'
+    r'|aqui|depois|antes|muito|pouco'
+    r'|grande|pequeno|novo|nova|isso)\b',
     re.IGNORECASE
 )
 
+# Layer 2: langdetect codes that map to source language
+_LANG_CODES = {
+    "pt": {"pt", "pt-br", "pt-pt"},
+    "es": {"es"},
+    "fr": {"fr"},
+    "de": {"de"},
+    "it": {"it"},
+    "ja": {"ja"},
+    "zh": {"zh-cn", "zh-tw"},
+}
+
 def has_source_language_content(slide_data, source_lang="pt"):
     """
-    Returns True if ANY text block contains source-language content.
-    Evaluates per-block — mixed slides (mostly EN with a few PT words) are
-    correctly included. A slide is skipped ONLY when ZERO blocks match.
-    For non-PT sources, falls back to langdetect per-block (not per-slide).
+    3-layer detection strategy to eliminate false negatives.
+
+    Layer 1: Fast regex — catches slides with accents, PT suffixes, or known stop-words.
+    Layer 2: langdetect on concatenated slide text — reliable when given enough context.
+    Layer 3: Conservative fallback — if inconclusive and slide has ≥3 words, translate anyway.
     """
+    blocks = slide_data.get("text_blocks", [])
+    if not blocks:
+        return False
+
+    # --- Layer 1: Regex (fast path) ---
     if source_lang == "pt":
-        for block in slide_data["text_blocks"]:
+        for block in blocks:
             if _PT_PATTERN.search(block["original_text"]):
-                return True
-        return False
+                return True  # Definitive positive
     else:
-        from langdetect import detect, LangDetectException
-        for block in slide_data["text_blocks"]:
-            try:
-                if detect(block["original_text"]).startswith(source_lang):
-                    return True
-            except LangDetectException:
-                continue
-        return False
+        # For non-PT source languages, skip to Layer 2 immediately
+        pass
+
+    # --- Layer 2: langdetect on concatenated slide text ---
+    combined = " ".join(b["original_text"] for b in blocks if b["original_text"].strip())
+    combined_words = combined.split()
+    if len(combined_words) >= 3:
+        try:
+            detected = detect(combined)
+            target_codes = _LANG_CODES.get(source_lang, {source_lang})
+            # Accept exact match or prefix match (e.g. "pt" matches "pt-br")
+            if detected in target_codes or any(detected.startswith(c) for c in target_codes):
+                return True  # Layer 2 positive
+            # langdetect returned a different language — likely already in target
+            if detected in {"en", "fr", "de", "es", "it", "ja"} and detected != source_lang:
+                return False  # High-confidence negative: slide is in another language
+        except LangDetectException:
+            pass  # Fall through to Layer 3
+
+    # --- Layer 3: Conservative fallback ---
+    # If we have enough words and both layers were inconclusive, translate rather than skip.
+    # Rationale: translating an already-English slide causes no harm; skipping a PT slide does.
+    if len(combined_words) >= 5:
+        return True  # Conservative: translate when uncertain
+
+    return False
 
 for slide in manifest:
     slide["needs_translation"] = has_source_language_content(slide, source_lang="pt")
 ```
 
-A slide is marked `needs_translation=False` **only when ZERO text blocks match** the source language pattern. This prevents false negatives from `langdetect` misclassifying short or mixed-language slides.
+A slide is skipped (`needs_translation=False`) **only when detection is confident** the content is already in the target language. When in doubt, the skill translates — it is always safer to over-translate than to miss a slide.
 
 ```
 ✅ Extraction complete
@@ -224,13 +269,36 @@ STRICT RULES:
   Examples of what NOT to translate: "Accenture", "Microsoft", "Bradesco", "João Silva", "Azure", "BLT", "YTD", "KPI", "CCI"
 - Return JSON with the same structure as input (shape_id, parent_id, para_idx, run_idx preserved — these are required for write-back)
 - Translate speaker notes naturally, maintaining the presenter's voice
-- After translating, validate: use langdetect on the combined translated text to confirm it is in {TARGET_LANG_CODE}. If validation fails, retry the translation once before returning.
 
 Slide {N}/{TOTAL}:
 {JSON_TEXT_BLOCKS}
 
 Speaker notes:
 {NOTES_TEXT}
+
+AFTER translating, run this exact validation script and use its output to populate the "validation" field:
+
+```python
+from langdetect import detect, LangDetectException
+combined = " ".join(
+    b.get("translated_text", "") for b in translated_blocks
+    if b.get("translated_text", "").strip()
+)
+try:
+    detected_lang = detect(combined) if len(combined.split()) >= 3 else "{TARGET_LANG_CODE}"
+    if detected_lang == "{TARGET_LANG_CODE}" or detected_lang.startswith("{TARGET_LANG_CODE}"):
+        validation_status = "ok"
+        validation_message = ""
+    else:
+        validation_status = "warning"
+        validation_message = f"Expected {TARGET_LANG_CODE}, detected {detected_lang} — retrying"
+except LangDetectException:
+    detected_lang = "{TARGET_LANG_CODE}"
+    validation_status = "ok"
+    validation_message = "not enough text for langdetect"
+```
+
+If validation_status == "warning", retry the translation ONCE and re-run validation before saving.
 
 Save your result to /tmp/trans_slide_{N}.json in this format:
 {
@@ -240,21 +308,47 @@ Save your result to /tmp/trans_slide_{N}.json in this format:
     {"shape_id": X, "parent_id": Y_or_null, "row_idx": R, "col_idx": C, "translated_text": "..."}
   ],
   "translated_notes": "...",
-  "validation": {"status": "ok|warning", "detected_lang": "en", "message": ""}
+  "validation": {"status": "ok|warning", "detected_lang": "{TARGET_LANG_CODE}", "message": ""}
 }
+
+After saving, print: "✅ Slide {N}/{TOTAL} translated — validation: {status} ({detected_lang})"
 ```
 
 ### Progress Display
 
-As agents complete, display rolling progress:
+After launching all agents, track completion in a non-blocking loop and display each slide as it finishes. Use `list_agents` to poll, then `read_agent` on completed ones.
+
+Display a running gauge **before launching agents**:
 
 ```
-✅ Slide  3/35 traduzido e validado
-✅ Slide  7/35 traduzido e validado
-✅ Slide 13/35 traduzido e validado  (group shapes incluídos)
-⚠️ Slide 18/35 — warning: mixed language detected, retried OK
-✅ Slide 22/35 traduzido e validado
+[████████░░░░░░░░░░░░] 40% — Step 3/5: Translating 23 slides in parallel…
 ```
+
+Then as each agent completes, print one line per slide in the order they finish:
+
+```
+✅ Slide  3/23 translated — validation: ok (en)
+✅ Slide  7/23 translated — validation: ok (en)
+✅ Slide 13/23 translated — validation: ok (en)  [group shapes traversed]
+⚠️ Slide 18/23 — validation: warning (pt detected) — retried OK
+✅ Slide 22/23 translated — validation: ok (en)
+```
+
+Update the gauge as completion percentage increases:
+
+```
+[████████████████░░░░] 72% — Translating: 17/23 slides done
+```
+
+When all agents complete, print:
+
+```
+[████████████████████] Step 3/5 complete — all 23 slides translated
+   Validation warnings: 1 (auto-retried OK)
+   Validation failures: 0
+```
+
+**IMPORTANT:** If any agent output contains `"status": "warning"` and the retry also failed, flag those slides in the final summary as needing manual review — do NOT silently ignore them.
 
 ## Step 4: Write-Back in a Single Pass
 
@@ -345,13 +439,42 @@ def write_translations(pptx_path, output_path, trans_dir):
                                 cell.text_frame.paragraphs[0].add_run().text = cell_map[key]
                             cells_updated += 1
 
-        # Write speaker notes
+        # Write speaker notes — preserve paragraph structure for multiline notes
         if slide_data.get("translated_notes") and slide.has_notes_slide:
             notes_tf = slide.notes_slide.notes_text_frame
-            if notes_tf and notes_tf.paragraphs:
-                for run in notes_tf.paragraphs[0].runs:
-                    run.text = ""
-                notes_tf.paragraphs[0].add_run().text = slide_data["translated_notes"]
+            if notes_tf:
+                # Split translated notes by newline to restore paragraph structure
+                translated_lines = slide_data["translated_notes"].split("\n")
+                existing_paras = notes_tf.paragraphs
+
+                for para_idx, para in enumerate(existing_paras):
+                    # Clear all runs in this paragraph
+                    for run in para.runs:
+                        run.text = ""
+                    # Write corresponding translated line if available
+                    if para_idx < len(translated_lines):
+                        if para.runs:
+                            para.runs[0].text = translated_lines[para_idx]
+                        else:
+                            para.add_run().text = translated_lines[para_idx]
+
+                # If translated text has MORE lines than existing paragraphs, append extras
+                from pptx.util import Pt
+                from copy import deepcopy
+                from lxml import etree
+                if len(translated_lines) > len(existing_paras):
+                    # Use the last paragraph as a template for new ones
+                    last_para_xml = existing_paras[-1]._p
+                    parent_elem = last_para_xml.getparent()
+                    for extra_line in translated_lines[len(existing_paras):]:
+                        new_para = deepcopy(last_para_xml)
+                        # Clear runs in cloned paragraph and set text
+                        for r in new_para.findall(".//{http://schemas.openxmlformats.org/drawingml/2006/main}r"):
+                            t = r.find("{http://schemas.openxmlformats.org/drawingml/2006/main}t")
+                            if t is not None:
+                                t.text = extra_line
+                            break
+                        parent_elem.append(new_para)
 
     prs.save(output_path)
     return runs_updated, cells_updated

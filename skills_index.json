@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated": "2026-03-19T16:04:54.109315Z",
+  "generated": "2026-03-19T16:12:21.434643Z",
   "skills": [
     {
       "name": "abx-strategy",
@@ -558,7 +558,7 @@
     },
     {
       "name": "pptx-translator",
-      "version": "2.2.0",
+      "version": "2.3.0",
       "description": "This skill should be used when the user needs to translate PowerPoint presentations (.pptx) between languages, preserving formatting and layout. Supports parallel slide-by-slide translation with per-slide validation and retry. Default languages are Portuguese and English but any language pair is supported.",
       "category": "content",
       "tags": [
@@ -692,7 +692,7 @@
     {
       "name": "product-operating-model",
       "version": "2.0.0",
-      "description": "This skill should be used when the user wants an overview of the Modern Product Operating Model \u2014 a collection of 6 composable product skills covering strategy, discovery, architecture, delivery, AI-native development, and leadership. Use when unsure which product skill to invoke or when exploring the full operating system.",
+      "description": "This skill should be used when the user wants an overview of the Modern Product Operating Model — a collection of 6 composable product skills covering strategy, discovery, architecture, delivery, AI-native development, and leadership. Use when unsure which product skill to invoke or when exploring the full operating system.",
       "category": "product",
       "tags": [
         "product-operating-model",

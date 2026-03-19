@@ -2,7 +2,7 @@
 
 > Translate PowerPoint presentations between languages with parallel slide-by-slide translation, formatting preservation, and full validation
 
-**Version:** 2.2.0
+**Version:** 2.3.0
 **Status:** ✨ Zero-Config | 🌍 Universal
 **Platforms:** GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI
 
@@ -280,6 +280,13 @@ Please close PowerPoint and try again.
 
 ---
 
+## What's New in v2.3
+
+- **3-layer language detection** — replaced fragile single-regex approach with a 3-layer strategy: (1) expanded regex with more PT words (`nossa`, `nosso`, `jornada`, `empresa`, `sendo`, `vamos`, `também`, etc.), (2) `langdetect` on the *concatenated* text of all slide blocks (more context = higher accuracy), (3) conservative fallback that translates rather than skips when detection is inconclusive — eliminates false negatives like slide 22 ("A nossa jornada")
+- **Real-time progress gauge** — non-blocking agent polling with per-slide completion lines (`✅ Slide 7/23 translated — validation: ok (en)`) and a live progress bar updated as agents finish
+- **Concrete validation script in agent prompt** — agents now receive an explicit Python `langdetect` validation script to run after translating; `detected_lang` field reflects the actual detected language, not a hardcoded value; warning triggers automatic retry
+- **Multiline speaker notes preserved** — write-back now splits translated notes by `\n` and maps lines back to individual paragraphs; extra paragraphs are appended via deepcopy if the translation has more lines than the original
+
 ## What's New in v2.2
 
 - **Reliable source-language detection** — replaced `langdetect` per-slide with `has_source_language_content()` regex per-block; fixes false negatives where slides with Portuguese content (e.g. "CiberSegurança Avanade Brasil") were misclassified as Catalan and skipped untranslated
@@ -303,10 +310,10 @@ Please close PowerPoint and try again.
 
 | Field | Value |
 |-------|-------|
-| Version | 2.2.0 |
+| Version | 2.3.0 |
 | Author | Eric Andrade |
 | Created | 2026-03-19 |
-| Updated | 2026-03-19 (v2.2.0) |
+| Updated | 2026-03-19 (v2.3.0) |
 | Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | content |
 | Tags | translation, pptx, powerpoint, multilingual, presentation |
