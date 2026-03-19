@@ -2,7 +2,7 @@
 
 > Translate PowerPoint presentations between languages with parallel slide-by-slide translation, formatting preservation, and full validation
 
-**Version:** 2.5.0
+**Version:** 2.6.0
 **Status:** ✨ Zero-Config | 🌍 Universal
 **Platforms:** GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI
 
@@ -280,6 +280,11 @@ Please close PowerPoint and try again.
 
 ---
 
+## What's New in v2.6
+
+- **Batched parallel execution (universal)** — replaced single-agent-per-slide with batches of 3 slides launched in parallel; works reliably across all 8 platforms including Gemini CLI, which aborts sessions exceeding ~25 total turns; for 18 slides: 6 batches × 3 agents instead of 18 simultaneous agents
+- **Consolidated Step 5** — integrity check, cleanup, and final summary now run in a single Python script (one tool call); eliminates 2 extra turns at the end of the workflow that were triggering Gemini CLI's loop detector
+
 ## What's New in v2.5
 
 - **Removed `langdetect` dependency** — no longer installed or used anywhere in the pipeline; the skill now requires only `python-pptx`
@@ -329,10 +334,10 @@ Please close PowerPoint and try again.
 
 | Field | Value |
 |-------|-------|
-| Version | 2.5.0 |
+| Version | 2.6.0 |
 | Author | Eric Andrade |
 | Created | 2026-03-19 |
-| Updated | 2026-03-19 (v2.5.0) |
+| Updated | 2026-03-19 (v2.6.0) |
 | Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | content |
 | Tags | translation, pptx, powerpoint, multilingual, presentation |

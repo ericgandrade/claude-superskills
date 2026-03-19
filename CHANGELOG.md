@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.20.8] - 2026-03-19
+
+### Fixed
+- **pptx-translator v2.6.0: batched parallel execution (universal)** — replaced single-agent-per-slide with batches of 3 slides launched simultaneously; eliminates Gemini CLI `_recoverFromLoop` aborts caused by exceeding ~25 session turns; works uniformly across all 8 platforms without platform detection; 18 slides = 6 batches × 3 agents instead of 18 simultaneous agents
+- **pptx-translator v2.6.0: consolidated Step 5** — integrity check + cleanup + final summary now execute in a single Python script (one tool call), reducing final-step turns from 3 to 1
+
+
+
 ## [1.20.7] - 2026-03-19
 
 ### Fixed

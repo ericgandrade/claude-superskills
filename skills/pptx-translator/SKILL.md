@@ -233,17 +233,26 @@ This approach requires **zero hardcoded patterns**, works for any language pair,
 [████████░░░░░░░░░░░░] 40% — Step 3/5: Translating slides in parallel
 ```
 
-### CRITICAL: Launch ALL agents in a single parallel block
+### Batched Parallel Strategy (3 slides per batch, universal)
 
-Launch one Agent tool call per slide that needs translation **all at the same time in the same message block**. Never launch in rounds or batches — all agents must be parallel.
+Group slides that need translation into **batches of 3**. Launch each batch as 3 simultaneous Agent tool calls. Wait for the batch to complete, then launch the next batch. This is the default for all platforms.
 
-Each agent:
+**Why batches of 3:** single-agent-per-slide can exceed the internal turn budget of platforms like Gemini CLI, causing session aborts. Batches of 3 keep total turns manageable regardless of platform while still providing parallelism.
+
+```
+Slides to translate: 18
+Batches: 6  (slides 1-3, 4-6, 7-9, 10-12, 13-15, 16-18)
+Agents per batch: 3 (parallel)
+Total rounds: 6
+```
+
+Each agent in a batch:
 1. Receives its slide's JSON text blocks
 2. Translates the content
-3. Validates immediately (language detection + block completeness)
+3. Self-validates using language understanding (no libraries)
 4. Retries once automatically if validation fails
 5. Saves result to `/tmp/trans_slide_{N}.json`
-6. Reports `✅ Slide N/TOTAL translated and validated` or `⚠️ Slide N: validation warning — {reason}`
+6. Reports `✅ Slide N/TOTAL translated — validation: {status}` or `⚠️ Slide N: warning — {reason}`
 
 ### Sub-Agent Prompt
 
@@ -285,39 +294,26 @@ After saving, print: "✅ Slide {N}/{TOTAL} translated — validation: {status} 
 
 ### Progress Display
 
-After launching all agents, track completion in a non-blocking loop and display each slide as it finishes. Use `list_agents` to poll, then `read_agent` on completed ones.
-
-Display a running gauge **before launching agents**:
+Display a running gauge before each batch and print results as agents complete:
 
 ```
-[████████░░░░░░░░░░░░] 40% — Step 3/5: Translating 23 slides in parallel…
+[████████░░░░░░░░░░░░] 40% — Batch 1/6: translating slides 1-3…
+✅ Slide 1/18 translated — validation: ok (en)
+✅ Slide 2/18 translated — validation: ok (en)
+✅ Slide 3/18 translated — validation: ok (en)
+
+[█████████████░░░░░░░] 55% — Batch 2/6: translating slides 4-6…
+✅ Slide 4/18 translated — validation: ok (en)
+⚠️ Slide 5/18 — warning (pt detected) — retried OK
+✅ Slide 6/18 translated — validation: ok (en)
+
+…
+
+[████████████████████] Step 3/5 complete — all 18 slides translated
+   Batches: 6  |  Warnings: 1 (auto-retried OK)  |  Failures: 0
 ```
 
-Then as each agent completes, print one line per slide in the order they finish:
-
-```
-✅ Slide  3/23 translated — validation: ok (en)
-✅ Slide  7/23 translated — validation: ok (en)
-✅ Slide 13/23 translated — validation: ok (en)  [group shapes traversed]
-⚠️ Slide 18/23 — validation: warning (pt detected) — retried OK
-✅ Slide 22/23 translated — validation: ok (en)
-```
-
-Update the gauge as completion percentage increases:
-
-```
-[████████████████░░░░] 72% — Translating: 17/23 slides done
-```
-
-When all agents complete, print:
-
-```
-[████████████████████] Step 3/5 complete — all 23 slides translated
-   Validation warnings: 1 (auto-retried OK)
-   Validation failures: 0
-```
-
-**IMPORTANT:** If any agent output contains `"status": "warning"` and the retry also failed, flag those slides in the final summary as needing manual review — do NOT silently ignore them.
+**IMPORTANT:** If any agent output contains `"status": "warning"` after retry, flag those slides in the final summary as needing manual review — do NOT silently ignore them.
 
 ## Step 4: Write-Back in a Single Pass
 
@@ -460,53 +456,48 @@ def write_translations(pptx_path, output_path, trans_dir):
 - Shape positions, sizes, backgrounds, and images are never touched
 - Image shapes are skipped entirely (report in summary)
 
-## Step 5: File Integrity Check & Final Summary
+## Step 5: Integrity Check, Cleanup & Summary (single script)
 
 ```
-[████████████████░░░░] 80% — Step 5/5: Integrity check
+[████████████████░░░░] 80% — Step 5/5: Finalizing
 ```
 
-Per-slide validation was already done inside each agent (Step 3). This step only verifies the output file is a valid PPTX.
+Run a **single Python script** that performs integrity check, cleanup, and prints the final summary. This must be one tool call — do not split into separate steps.
 
 ```python
+from pptx import Presentation
+import glob, os
+
+# Integrity check
 try:
     prs_check = Presentation(output_path)
-    slide_count = len(prs_check.slides)
     integrity_ok = True
 except Exception as e:
     integrity_ok = False
-    integrity_error = str(e)
-```
+    print(f"⚠️  Integrity check failed: {e}")
 
-### Cleanup
-
-```python
-import glob, os
+# Cleanup all temp files
 for f in (glob.glob("/tmp/pptx_manifest_*.json") +
           glob.glob("/tmp/trans_slide_*.json") +
           glob.glob("/tmp/pptx_classify_*.json")):
     os.remove(f)
-```
 
-### Final Summary
-
-```
+# Final summary
+print(f"""
 [████████████████████] 100% — Done!
 
 ╔══════════════════════════════════════════════════════════════╗
-║  TRANSLATION COMPLETE ✅                                    ║
+║  TRANSLATION COMPLETE {'✅' if integrity_ok else '⚠️ CHECK FILE'}
 ╠══════════════════════════════════════════════════════════════╣
-║  Original file:     ~/docs/proposta.pptx                    ║
-║  Translated file:   ~/docs/proposta_en.pptx                 ║
-║  Backup created:    ~/docs/proposta_backup_20260319.pptx    ║
-║  Slides translated: 23/35 (12 already in English — skipped)║
-║  Text runs updated: 736                                     ║
-║  Table cells updated: 1,175                                 ║
-║  Speaker notes:     2/2 translated                          ║
-║  Group shapes:      4 slides with groups fully traversed    ║
-║  Language pair:     Portuguese → English                    ║
+║  Original file:      {pptx_path}
+║  Translated file:    {output_path}
+║  Slides translated:  {slides_translated}/{slides_total} ({slides_skipped} already in target language)
+║  Text runs updated:  {runs_updated}
+║  Table cells:        {cells_updated}
+║  Language pair:      {source_lang} → {target_lang}
+║  File integrity:     {'OK' if integrity_ok else 'FAILED — check file manually'}
 ╚══════════════════════════════════════════════════════════════╝
-```
+""")
 
 ## Error Handling
 
@@ -527,14 +518,14 @@ for f in (glob.glob("/tmp/pptx_manifest_*.json") +
 - In Safe mode the original is preserved automatically (output is a new file) — NEVER create a redundant `_backup_{timestamp}.pptx` in Safe mode; only create backup in YOLO mode before overwriting
 - ALWAYS use recursive `iter_shapes()` for both extraction AND write-back — never `slide.shapes` directly
 - ALWAYS key the write-back lookup by `(parent_id, shape_id, ...)` — never by `shape_id` alone
-- NEVER launch translation agents in rounds — all agents must be launched in a single parallel block
+- ALWAYS use batched parallel: group slides into batches of 3, launch each batch as 3 simultaneous agents, wait for completion, then launch next batch — NEVER launch all slides at once (exhausts platform turn budgets) and NEVER process one slide at a time (too slow)
 - NEVER create pass-through translations for slides already in the target language — skip them entirely
 - NEVER use regex patterns or `langdetect` to decide which slides to translate — use the AI classifier sub-agent; regex lists are always incomplete and `langdetect` misclassifies short or mixed-language text
 - ALWAYS use the AI classification sub-agent (Step 2) to determine `needs_translation` per slide — the model understands language natively, requires no hardcoded patterns, and handles any language pair
 - ALWAYS treat a slide as needing translation when the classifier is uncertain — it is safer to translate an already-English slide (no harm) than to miss a source-language one
 - NEVER translate proper nouns: personal names, company names, brand names, product names, technology names, organizational acronyms (e.g. "Accenture", "Microsoft", "João Silva", "Azure", "BLT", "YTD")
 - ALWAYS do per-slide self-validation inside each translation agent (translate → read back → fix → save) — agents use their own language understanding, no libraries
-- ALWAYS clean up temp files after completion, whether the workflow succeeds or fails
+- ALWAYS run Step 5 as a single script: integrity check + cleanup + final summary in one tool call — never split into separate steps
 - ALWAYS preserve text formatting — only change `run.text`, never font/size/color properties
 - NEVER ask the user for confirmation more than once (the initial config confirmation)
 - NEVER add improvised "preview", "debug", or "check" shell commands not specified in this workflow
