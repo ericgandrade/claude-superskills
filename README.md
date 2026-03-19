@@ -185,44 +185,44 @@ To be notified when the plugin is available on claude.ai, watch this repository.
 | Skill | Version | Purpose |
 |-------|---------|---------|
 | **skill-creator** | v2.1.0 | Automate skill creation with guided workflow |
-| **prompt-engineer** | v2.1.0 | Optimize prompts using 11 frameworks (RTF, RISEN, Chain of Thought, etc.) |
+| **prompt-engineer** | v2.0.0 | Optimize prompts using 11 frameworks (RTF, RISEN, Chain of Thought, etc.) |
 
 ### 🧭 Planning & Execution
 | Skill | Version | Purpose |
 |-------|---------|---------|
-| **brainstorming** | v2.1.0 | Mandatory pre-implementation design clarification workflow |
-| **writing-plans** | v2.1.0 | Build detailed, actionable implementation plans before coding |
-| **executing-plans** | v2.1.0 | Execute plans in batches with checkpoints and review gates |
+| **brainstorming** | v2.0.0 | Mandatory pre-implementation design clarification workflow |
+| **writing-plans** | v2.0.0 | Build detailed, actionable implementation plans before coding |
+| **executing-plans** | v2.0.0 | Execute plans in batches with checkpoints and review gates |
 | **mckinsey-strategist** | v2.1.0 | Senior strategy consulting with SWOT, VRIO, 7S and First Principles analysis |
 
 ### 🏛️ Software Architecture
 | Skill | Version | Purpose |
 |-------|---------|---------|
 | **senior-solution-architect** | v2.1.0 | Unified authority for C4 modeling, ADRs, and system reviews |
-| **product-architecture** | v2.1.0 | Define scalable product architecture and modules |
+| **product-architecture** | v2.0.0 | Define scalable product architecture and modules |
 
 ### 🚀 Startup & Venture
 | Skill | Version | Purpose |
 |-------|---------|---------|
-| **startup-growth-strategist** | v2.1.0 | Integrated authority for market sizing, unit economics, and GTM |
+| **startup-growth-strategist** | v2.0.0 | Integrated authority for market sizing, unit economics, and GTM |
 | **abx-strategy** | v2.1.0 | Build Account-Based Everything (ABX) GTM strategies |
 
 ### 📈 Product Management & Strategy
 | Skill | Version | Purpose |
 |-------|---------|---------|
-| **product-operating-model** | v2.1.0 | Index and entry point for the Modern Product Operating Model |
-| **product-strategy** | v2.1.0 | Build product strategy defining where to play and how to win |
-| **product-discovery** | v2.1.0 | Run continuous discovery using OSTs, interviews, and assumption testing |
-| **product-architecture** | v2.1.0 | Convert discovery opportunities into roadmaps and solution briefs |
-| **product-delivery** | v2.1.0 | Ship, measure, and learn with staged rollouts and metrics hierarchies |
-| **product-leadership** | v2.1.0 | Operate as Director or CPO managing portfolios and org design |
-| **ai-native-product** | v2.1.0 | Build AI-native products with agency-control tradeoffs and eval strategies |
+| **product-operating-model** | v2.0.0 | Index and entry point for the Modern Product Operating Model |
+| **product-strategy** | v2.0.0 | Build product strategy defining where to play and how to win |
+| **product-discovery** | v2.0.0 | Run continuous discovery using OSTs, interviews, and assumption testing |
+| **product-architecture** | v2.0.0 | Convert discovery opportunities into roadmaps and solution briefs |
+| **product-delivery** | v2.0.0 | Ship, measure, and learn with staged rollouts and metrics hierarchies |
+| **product-leadership** | v2.0.0 | Operate as Director or CPO managing portfolios and org design |
+| **ai-native-product** | v2.0.0 | Build AI-native products with agency-control tradeoffs and eval strategies |
 
 ### 🔬 Research & Analysis
 | Skill | Version | Purpose |
 |-------|---------|---------|
 | **deep-research** | v2.1.0 | Multi-step research workflow with citations using native web tools (no Google API required) |
-| **us-program-research** | v2.1.0 | Structured US academic program research, ranking, and application action-plan generation |
+| **us-program-research** | v2.0.0 | Structured US academic program research, ranking, and application action-plan generation |
 
 ### 📝 Content Processing
 | Skill | Version | Purpose |
@@ -232,7 +232,7 @@ To be notified when the plugin is available on claude.ai, watch this repository.
 | **docling-converter** | v2.1.0 | Convert PDF/Office/image documents to Markdown/JSON/HTML with optional OCR |
 | **cloudconvert-converter** | v2.1.0 | Convert 200+ file formats (docs, images, video, audio) and PDF operations (OCR, merge, split, rotate) via CloudConvert MCP |
 | **pptx-translator** | v2.7.0 | Translate PowerPoint presentations between languages with batched parallel translation (3 slides/batch), AI-native language classification, group shape support, and per-slide self-validation |
-| **storytelling-expert** | v2.1.0 | Transform ideas into engaging narratives using 8 elite storytelling frameworks |
+| **storytelling-expert** | v2.0.0 | Transform ideas into engaging narratives using 8 elite storytelling frameworks |
 
 ## 🎯 Curated Bundles
 

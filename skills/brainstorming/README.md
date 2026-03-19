@@ -34,7 +34,7 @@ Pre-implementation ideation skill that generates structured design options for f
 
 | Field | Value |
 |-------|-------|
-| Version | 2.1.0 |
+| Version | 2.0.0 |
 | Author | Eric Andrade |
 | Created | 2026-02-20 |
 | Updated | 2026-03-19 |

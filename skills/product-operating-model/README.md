@@ -51,7 +51,7 @@ Index and entry point for the Modern Product Operating Model — a collection of
 
 | Field | Value |
 |-------|-------|
-| Version | 2.1.0 |
+| Version | 2.0.0 |
 | Author | Eric Andrade |
 | Created | 2026-03-01 |
 | Updated | 2026-03-19 |

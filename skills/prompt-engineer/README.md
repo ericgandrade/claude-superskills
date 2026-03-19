@@ -665,7 +665,7 @@ Then configure:
 
 | Field | Value |
 |-------|-------|
-| Version | 2.1.0 |
+| Version | 2.0.0 |
 | Author | Eric Andrade |
 | Created | 2025-02-01 |
 | Updated | 2026-03-19 |

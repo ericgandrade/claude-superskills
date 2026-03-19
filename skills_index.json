@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated": "2026-03-19T19:33:19.157521Z",
+  "generated": "2026-03-19T19:39:17.878284Z",
   "skills": [
     {
       "name": "abx-strategy",
@@ -110,7 +110,7 @@
     },
     {
       "name": "ai-native-product",
-      "version": "2.1.0",
+      "version": "2.0.0",
       "description": "This skill should be used when the user needs to build AI-native products with agency-control tradeoffs, calibration loops, and eval strategies. Use when building AI agents, LLM features, or products where AI handles user tasks autonomously. Part of the Modern Product Operating Model collection.",
       "category": "product",
       "tags": [
@@ -163,7 +163,7 @@
     },
     {
       "name": "brainstorming",
-      "version": "2.1.0",
+      "version": "2.0.0",
       "description": "This skill should be used when the user needs pre-implementation ideation for creative work, such as creating features, building components, adding functionality, or modifying behavior.",
       "category": "planning",
       "tags": [
@@ -346,7 +346,7 @@
     },
     {
       "name": "executing-plans",
-      "version": "2.1.0",
+      "version": "2.0.0",
       "description": "This skill should be used when the user has a written implementation plan to execute in a separate session with review checkpoints.",
       "category": "planning",
       "tags": [
@@ -583,7 +583,7 @@
     },
     {
       "name": "product-architecture",
-      "version": "2.1.0",
+      "version": "2.0.0",
       "description": "This skill should be used when the user needs to structure what to build and when by converting discovery opportunities into prioritized bets and roadmaps. Use when organizing product capability blocks, writing solution briefs, planning quarterly cycles, or communicating product direction without false precision.",
       "category": "product",
       "tags": [
@@ -610,7 +610,7 @@
     },
     {
       "name": "product-delivery",
-      "version": "2.1.0",
+      "version": "2.0.0",
       "description": "This skill should be used when the user needs to ship, measure, and learn effectively. Use when planning staged rollouts, setting up metrics hierarchies, running bet retrospectives, or executing GTM launches. Part of the Modern Product Operating Model collection.",
       "category": "product",
       "tags": [
@@ -638,7 +638,7 @@
     },
     {
       "name": "product-discovery",
-      "version": "2.1.0",
+      "version": "2.0.0",
       "description": "This skill should be used when the user needs to run continuous discovery to find problems worth solving. Use when setting up weekly discovery rhythm, building Opportunity Solution Trees, creating interview snapshots, exploring solutions, or testing assumptions before committing engineering resources.",
       "category": "product",
       "tags": [
@@ -664,7 +664,7 @@
     },
     {
       "name": "product-leadership",
-      "version": "2.1.0",
+      "version": "2.0.0",
       "description": "This skill should be used when the user needs to operate as a Director or CPO leading product organizations. Use when managing product portfolios, aligning with executives, communicating to boards, designing team structures, or establishing operating rhythms across product teams.",
       "category": "product",
       "tags": [
@@ -691,7 +691,7 @@
     },
     {
       "name": "product-operating-model",
-      "version": "2.1.0",
+      "version": "2.0.0",
       "description": "This skill should be used when the user wants an overview of the Modern Product Operating Model \u2014 a collection of 6 composable product skills covering strategy, discovery, architecture, delivery, AI-native development, and leadership. Use when unsure which product skill to invoke or when exploring the full operating system.",
       "category": "product",
       "tags": [
@@ -717,7 +717,7 @@
     },
     {
       "name": "product-strategy",
-      "version": "2.1.0",
+      "version": "2.0.0",
       "description": "This skill should be used when the user needs to build a product strategy that drives real choices. Use when defining where to play and how to win, creating strategy canvases, defining ICP and Anti-ICP, positioning products, setting pricing strategy, planning GTM motions, or structuring strategic bets.",
       "category": "product",
       "tags": [
@@ -745,7 +745,7 @@
     },
     {
       "name": "prompt-engineer",
-      "version": "2.1.0",
+      "version": "2.0.0",
       "description": "This skill should be used when the user needs to transform raw prompts into optimized prompts using frameworks (RTF, RISEN, Chain of Thought, RODES, Chain of Density, RACE, RISE, STAR, SOAP, CLEAR, GROW). Use when the user provides vague prompts, needs help articulating complex ideas, or wants to improve the effectiveness of AI interactions.",
       "category": "automation",
       "tags": [
@@ -1052,7 +1052,7 @@
     },
     {
       "name": "startup-growth-strategist",
-      "version": "2.1.0",
+      "version": "2.0.0",
       "description": "This skill should be used when the user needs to validate a business idea, calculate market size (TAM/SAM/SOM), project financial growth, or design a Go-To-Market strategy. Use when combining market sizing, unit economics, competitive analysis, and growth psychology into a unified startup strategy.",
       "category": "strategy",
       "tags": [
@@ -1078,7 +1078,7 @@
     },
     {
       "name": "storytelling-expert",
-      "version": "2.1.0",
+      "version": "2.0.0",
       "description": "This skill should be used when the user needs to transform ideas, presentations, speeches, or data into persuasive stories using elite storytelling frameworks.",
       "category": "content",
       "tags": [
@@ -1130,7 +1130,7 @@
     },
     {
       "name": "us-program-research",
-      "version": "2.1.0",
+      "version": "2.0.0",
       "description": "This skill should be used when the user needs structured research and ranking of US academic programs (PhD, Master",
       "category": "research",
       "tags": [
@@ -1155,7 +1155,7 @@
     },
     {
       "name": "writing-plans",
-      "version": "2.1.0",
+      "version": "2.0.0",
       "description": "This skill should be used when the user has a spec or requirements for a multi-step task before touching code.",
       "category": "planning",
       "tags": [

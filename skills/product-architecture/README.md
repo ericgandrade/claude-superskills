@@ -46,7 +46,7 @@ Part of the **Modern Product Operating Model collection** alongside `product-str
 
 | Field | Value |
 |-------|-------|
-| Version | 2.1.0 |
+| Version | 2.0.0 |
 | Author | Eric Andrade |
 | Created | 2026-03-01 |
 | Updated | 2026-03-19 |

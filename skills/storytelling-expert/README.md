@@ -76,7 +76,7 @@ Aprovar o piloto de 3 meses com a ferramenta X.
 
 | Field | Value |
 |-------|-------|
-| Version | 2.1.0 |
+| Version | 2.0.0 |
 | Author | Eric Andrade |
 | Created | 2026-02-22 |
 | Updated | 2026-03-19 |
