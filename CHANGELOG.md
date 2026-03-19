@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.20.9] - 2026-03-19
+
+### Fixed
+- **detector: Gemini CLI version showing as "Unknown"** — `detectGemini()` was using `spawnSync` for fallback paths, which returns empty stdout when the subprocess environment lacks Homebrew; switched to `execFileSync` with an augmented PATH (`/opt/homebrew/bin:/usr/local/bin:$PATH`) so Gemini's own `--version` command resolves its runtime dependencies correctly; version now reports correctly (e.g. `0.34.0`)
+
+
+
 ## [1.20.8] - 2026-03-19
 
 ### Fixed

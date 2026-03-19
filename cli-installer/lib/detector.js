@@ -1,4 +1,4 @@
-const { execSync, spawnSync } = require('child_process');
+const { execSync, spawnSync, execFileSync } = require('child_process');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
@@ -151,9 +151,16 @@ function detectGemini() {
     ];
     for (const binPath of commonPaths) {
       if (fs.existsSync(binPath)) {
-        const result = spawnSync(binPath, ['--version'], { encoding: 'utf-8', timeout: EXEC_TIMEOUT });
-        const version = (result.stdout || '').trim() || 'Unknown';
-        return { installed: true, version, path: binPath };
+        try {
+          const version = execFileSync(binPath, ['--version'], {
+            encoding: 'utf-8',
+            timeout: EXEC_TIMEOUT,
+            env: { ...process.env, PATH: `/opt/homebrew/bin:/usr/local/bin:${process.env.PATH || ''}` }
+          }).trim();
+          return { installed: true, version: version || 'Unknown', path: binPath };
+        } catch {
+          return { installed: true, version: 'Unknown', path: binPath };
+        }
       }
     }
 
