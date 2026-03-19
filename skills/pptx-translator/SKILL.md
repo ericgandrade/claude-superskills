@@ -47,9 +47,9 @@ Parameters to infer or confirm:
 ║  File:            ~/docs/proposta.pptx                      ║
 ║  Direction:       Portuguese → English                      ║
 ║  Speaker notes:   Yes (included)                            ║
-║  Backup mode:     Safe — backup will be created             ║
+║  Original:        preserved (output saved as new file)      ║
 ║  Output file:     ~/docs/proposta_en.pptx                   ║
-║  ⚠️  YOLO: original will be overwritten (if YOLO mode)      ║
+║  ⚠️  YOLO: original will be overwritten + backup created    ║
 ╚══════════════════════════════════════════════════════════════╝
 Proceed? [Y/n]
 ```
@@ -137,28 +137,59 @@ Save manifest to `/tmp/pptx_manifest_{timestamp}.json`.
 
 ### After Extraction
 
-Display summary and detect slides already in the target language:
+Detect which slides contain source-language content using **per-block pattern matching**, not per-slide `langdetect`. `langdetect` is unreliable for short or mixed-language texts (e.g. it classifies "CiberSegurança Avanade Brasil" as Catalan, not Portuguese).
 
 ```python
-from langdetect import detect, LangDetectException
+import re
 
-def detect_slide_language(slide_data):
-    all_text = " ".join(b["original_text"] for b in slide_data["text_blocks"])
-    if not all_text.strip():
-        return None
-    try:
-        return detect(all_text)
-    except LangDetectException:
-        return None
+# Portuguese-specific patterns: accented chars unique to PT + common PT stop-words/suffixes
+_PT_PATTERN = re.compile(
+    r'[çãõáéíóúâêôàü]'                     # accented chars unique to PT/ES
+    r'|ção|ções|ão|ões'                      # PT suffixes
+    r'|\b(não|que|para|com|uma|por|são'
+    r'|foi|mais|isso|como|mas|este|essa'
+    r'|esse|pela|pelo|das|dos|nos|nas'
+    r'|em|se|do|da|de|no|na|ao|à|os|as'
+    r'|um|já|está|até|quando|temos|foram'
+    r'|estamos|devemos|próximos|oferta'
+    r'|agenda|cenário|solução|abordagem'
+    r'|estratégia|mercado)\b',
+    re.IGNORECASE
+)
+
+def has_source_language_content(slide_data, source_lang="pt"):
+    """
+    Returns True if ANY text block contains source-language content.
+    Evaluates per-block — mixed slides (mostly EN with a few PT words) are
+    correctly included. A slide is skipped ONLY when ZERO blocks match.
+    For non-PT sources, falls back to langdetect per-block (not per-slide).
+    """
+    if source_lang == "pt":
+        for block in slide_data["text_blocks"]:
+            if _PT_PATTERN.search(block["original_text"]):
+                return True
+        return False
+    else:
+        from langdetect import detect, LangDetectException
+        for block in slide_data["text_blocks"]:
+            try:
+                if detect(block["original_text"]).startswith(source_lang):
+                    return True
+            except LangDetectException:
+                continue
+        return False
+
+for slide in manifest:
+    slide["needs_translation"] = has_source_language_content(slide, source_lang="pt")
 ```
 
-Mark slides as `needs_translation=False` if `langdetect` confirms they are already in the target language. These slides will be **skipped entirely** — no agent launched, no pass-through.
+A slide is marked `needs_translation=False` **only when ZERO text blocks match** the source language pattern. This prevents false negatives from `langdetect` misclassifying short or mixed-language slides.
 
 ```
 ✅ Extraction complete
    Slides found:       35
    Text blocks:        1911
-   Slides to skip:     12 (already in target language)
+   Slides to skip:     12 (zero source-language blocks detected)
    Slides to translate: 23
    Speaker notes:      2 slides with notes
    Group shapes found: 4 slides with grouped content (will be recursed)
@@ -231,14 +262,20 @@ As agents complete, display rolling progress:
 [████████████░░░░░░░░] 60% — Step 4/5: Writing translations to PPTX
 ```
 
-### Safe Mode: Create Backup First
+### Safe Mode (default): Original is preserved automatically
+
+In Safe mode the output is always saved as a **new file** (`{name}_{lang}.pptx`). The original is never touched — it is already the backup. No redundant `_backup_{timestamp}.pptx` is created.
+
+**YOLO mode only:** when the user explicitly chose YOLO, the output overwrites the original. In this case, create a backup first:
 
 ```python
+# YOLO mode only — Safe mode does NOT run this block
 import shutil
 from datetime import datetime
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 backup_path = pptx_path.replace(".pptx", f"_backup_{timestamp}.pptx")
 shutil.copy2(pptx_path, backup_path)
+print(f"✅ Backup created: {backup_path}")
 ```
 
 ### Write-Back Script
@@ -387,11 +424,13 @@ for f in glob.glob("/tmp/pptx_manifest_*.json") + glob.glob("/tmp/trans_slide_*.
 ## Critical Rules
 
 - NEVER modify the original file unless the user explicitly chose YOLO mode
-- ALWAYS create a timestamped backup in Safe mode before any modification
+- In Safe mode the original is preserved automatically (output is a new file) — NEVER create a redundant `_backup_{timestamp}.pptx` in Safe mode; only create backup in YOLO mode before overwriting
 - ALWAYS use recursive `iter_shapes()` for both extraction AND write-back — never `slide.shapes` directly
 - ALWAYS key the write-back lookup by `(parent_id, shape_id, ...)` — never by `shape_id` alone
 - NEVER launch translation agents in rounds — all agents must be launched in a single parallel block
 - NEVER create pass-through translations for slides already in the target language — skip them entirely
+- NEVER use `langdetect` per-slide to decide skip/translate — use `has_source_language_content()` per-block pattern matching; `langdetect` is unreliable for short or mixed-language slides and frequently misclassifies Portuguese as Catalan ("ca")
+- ALWAYS treat a slide as needing translation if ANY single text block matches the source language — skip only when ZERO blocks match
 - NEVER translate proper nouns: personal names, company names, brand names, product names, technology names, organizational acronyms (e.g. "Accenture", "Microsoft", "João Silva", "Azure", "BLT", "YTD")
 - ALWAYS do per-slide validation inside each agent (translate → validate → retry once) — not in a separate phase
 - ALWAYS clean up temp files after completion, whether the workflow succeeds or fails

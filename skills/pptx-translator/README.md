@@ -2,7 +2,7 @@
 
 > Translate PowerPoint presentations between languages with parallel slide-by-slide translation, formatting preservation, and full validation
 
-**Version:** 2.1.0
+**Version:** 2.2.0
 **Status:** ✨ Zero-Config | 🌍 Universal
 **Platforms:** GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI
 
@@ -168,13 +168,12 @@ pip install python-pptx langdetect
 
 ### Safe Mode (Default)
 
-A timestamped backup is created before any modification:
+The output is saved as a **new file** (`{name}_{lang}.pptx`). The original is never touched — it serves as the implicit backup. No redundant `_backup_` file is created.
 
 ```
-proposta_backup_20260319_141500.pptx
+proposta.pptx          ← original, untouched
+proposta_en.pptx       ← new translated file
 ```
-
-The original file is never modified until after the backup is confirmed.
 
 ### YOLO Mode
 
@@ -281,6 +280,12 @@ Please close PowerPoint and try again.
 
 ---
 
+## What's New in v2.2
+
+- **Reliable source-language detection** — replaced `langdetect` per-slide with `has_source_language_content()` regex per-block; fixes false negatives where slides with Portuguese content (e.g. "CiberSegurança Avanade Brasil") were misclassified as Catalan and skipped untranslated
+- **Per-block skip logic** — a slide is skipped only when ZERO text blocks match the source language; mixed slides (mostly EN with a few PT words) are now correctly translated
+- **Backup only when needed** — Safe mode no longer creates a redundant `_backup_{timestamp}.pptx`; since output is always a new file, the original is already preserved; backup is only created in YOLO mode before overwriting
+
 ## What's New in v2.1
 
 - **GROUP Shape Recursion** — `iter_shapes()` now descends into MSO GROUP shapes; nested text boxes (e.g. org charts, diagram sections) are fully extracted and translated
@@ -298,10 +303,10 @@ Please close PowerPoint and try again.
 
 | Field | Value |
 |-------|-------|
-| Version | 2.1.0 |
+| Version | 2.2.0 |
 | Author | Eric Andrade |
 | Created | 2026-03-19 |
-| Updated | 2026-03-19 (v2.1.0) |
+| Updated | 2026-03-19 (v2.2.0) |
 | Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | content |
 | Tags | translation, pptx, powerpoint, multilingual, presentation |

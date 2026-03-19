@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.20.5] - 2026-03-19
+
+### Fixed
+- **pptx-translator: false-negative slide skip (langdetect misclassification)** — replaced `detect_slide_language()` (per-slide langdetect) with `has_source_language_content()` (per-block regex); slides like "CiberSegurança Avanade Brasil" were misclassified as Catalan ("ca") and skipped untranslated; fix uses accented-char + PT stop-word patterns evaluated per block
+- **pptx-translator: mixed-language slides incorrectly skipped** — a slide is now skipped only when ZERO text blocks match the source language; previously any misclassification of the concatenated slide text caused the entire slide to be skipped
+- **pptx-translator: redundant backup in Safe mode** — removed `_backup_{timestamp}.pptx` creation from Safe mode; output is always a new file so the original is already preserved; backup is now created only in YOLO mode before overwriting the original
+
+
+
 ## [1.20.4] - 2026-03-19
 
 ### Fixed

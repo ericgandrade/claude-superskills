@@ -1,6 +1,6 @@
 # 📚 Claude Superskills Catalog
 
-**Generated:** 2026-03-19T15:10:32.922721Z  
+**Generated:** 2026-03-19T15:17:49.697984Z  
 **Total Skills:** 46  
 **Platforms:** GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI
 
@@ -31,7 +31,7 @@
 | **mckinsey-strategist** | 2.0.0 | strategy | consulting, strategy, mece | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **offer-comparison-analyzer** | 2.0.0 | career | job-offer, compensation, equity | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **portfolio-case-study-writer** | 2.0.0 | career | portfolio, case-study, ux | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
-| **pptx-translator** | 2.0.0 | content | translation, pptx, powerpoint | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
+| **pptx-translator** | 2.1.0 | content | translation, pptx, powerpoint | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **product-architecture** | 2.0.0 | product | product-architecture, roadmap, bets | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **product-delivery** | 2.0.0 | product | product-delivery, rollout, gtm | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **product-discovery** | 2.0.0 | product | product-discovery, opportunity-solution-tree, user-research | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
@@ -171,7 +171,7 @@
   - Description: This skill should be used when the user needs to convert documents (PDF, DOCX, PPTX, XLSX, HTML, ima...
   - Tags: document-conversion, markdown, json, pdf, docling, ocr
 
-- **pptx-translator** (v2.0.0)
+- **pptx-translator** (v2.1.0)
   - Description: This skill should be used when the user needs to translate PowerPoint presentations (.pptx) between ...
   - Tags: translation, pptx, powerpoint, multilingual, presentation
 
