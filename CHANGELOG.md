@@ -6,6 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.20.3] - 2026-03-19
+
+### Fixed
+- **pptx-translator: GROUP shapes not traversed** — extraction and write-back now use recursive `iter_shapes()` that descends into MSO_SHAPE_TYPE.GROUP; nested text boxes are now fully extracted and translated
+- **pptx-translator: write-back lookup key collision** — changed from `shape_id` to `(parent_id, shape_id)` composite key to prevent collisions between children of different group shapes
+- **pptx-translator: validation ignores table cells** — per-slide validation now counts both text runs and table cell blocks for accurate completeness reporting
+- **pptx-translator: agents launched in sequential rounds** — skill now explicitly instructs all agents to be launched in a single parallel block
+- **pptx-translator: pass-through overhead for already-translated slides** — slides already in the target language are now skipped entirely via langdetect; no agent launched
+- **pptx-translator: excessive confirmations** — consolidated to one config confirmation; dependency install is silent with `--user`; no mid-workflow prompts
+- **pptx-translator: proper nouns translated** — added explicit rule with examples (Accenture, Microsoft, Azure, personal names, acronyms) to never translate proper nouns
+- **pptx-translator: per-slide validation moved inside each agent** — translate → validate → retry happens inside each parallel agent; Step 5 is now a lightweight file integrity check only
+- **pptx-translator: improvised debug shell commands** — added explicit rule prohibiting preview/debug shell commands not in the workflow specification
+
+
+
 ## [1.20.2] - 2026-03-19
 
 ### Fixed
