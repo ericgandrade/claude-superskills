@@ -2,7 +2,7 @@
 
 > Translate PowerPoint presentations between languages with parallel slide-by-slide translation, formatting preservation, and full validation
 
-**Version:** 2.0.0
+**Version:** 2.1.0
 **Status:** ✨ Zero-Config | 🌍 Universal
 **Platforms:** GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI
 
@@ -19,12 +19,15 @@ Default direction is **Portuguese ↔ English**, but any language pair is suppor
 ## Features
 
 - 🌍 **Any language pair** — PT↔EN by default, but supports ES, FR, DE, JA, ZH, and any other language
-- ⚡ **Parallel translation** — one sub-agent per slide for maximum speed
+- ⚡ **Parallel translation** — all slide agents launched simultaneously in a single block for maximum speed
+- 🔁 **Per-slide validation + retry** — each agent validates its slide immediately and retries once before reporting
+- 🧩 **Group shape support** — recursive traversal of MSO GROUP shapes; nested text boxes are fully extracted and translated
+- ⏭️ **Smart skip** — slides already in the target language are detected via langdetect and skipped (no unnecessary agents)
 - 🎨 **Formatting preservation** — font size, bold, italic, colors, hyperlinks, and table structure are never modified
 - 📝 **Speaker notes included** — translates presenter notes alongside slide content
 - 🛡️ **Safe mode** — creates a timestamped backup before modifying any file
 - 💥 **YOLO mode** — translates in-place for users who don't need a backup
-- ✅ **Full validation** — completeness check, language detection, notes check, and file integrity
+- 🏷️ **Proper noun protection** — personal names, company names, brands, acronyms, and technology names are never translated
 - 🧹 **Auto cleanup** — temp files are always removed, even on failure
 - 🚫 **Image text awareness** — informs user that embedded image text is out of scope
 
@@ -49,15 +52,15 @@ copilot> Preciso traduzir meu pptx pro ingles
 
 ### First-Time Setup
 
-The skill automatically checks for dependencies and offers to install them:
+Dependencies are installed automatically with `pip install --user` — no prompts unless the install fails:
 
 ```bash
-⚠️  python-pptx is required but not installed.
-
-Would you like me to install it now?
-- [x] Yes - Install with pip
-- [ ] No - I'll install manually
+# Silent auto-install on first run
+Installed python-pptx
+Installed langdetect
 ```
+
+If automatic install fails, the skill asks once for the preferred install method.
 
 ---
 
@@ -204,9 +207,10 @@ The validation sub-routine runs 4 checks after every translation:
 
 ✅ Text in regular shapes and text boxes
 ✅ Text in tables (cell content)
+✅ Text nested inside GROUP shapes (recursive traversal)
 ✅ Speaker/presenter notes
 ✅ Any language pair supported by the AI model
-✅ Presentations of any size (batched sub-agents for >20 slides)
+✅ Presentations of any size (all slides translated in parallel)
 
 ### What Doesn't Work
 
@@ -277,13 +281,16 @@ Please close PowerPoint and try again.
 
 ---
 
-## What's New in v2.0
+## What's New in v2.1
 
-- **Parallel Sub-Agents** — one sub-agent per slide for faster translation at scale
-- **Full Validation Sub-Routine** — completeness check, langdetect language verification, speaker notes check, and file integrity check after every run
-- **EVALs** — `evals/evals.json` with 5 realistic test cases; `evals/trigger-eval.json` with 20 queries (10 trigger / 10 no-trigger) for description optimization
-- **Backup/YOLO Mode** — Safe mode (default) creates a timestamped backup; YOLO mode translates in place
-- **All 8 Platforms** — works across GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, and AdaL CLI
+- **GROUP Shape Recursion** — `iter_shapes()` now descends into MSO GROUP shapes; nested text boxes (e.g. org charts, diagram sections) are fully extracted and translated
+- **Composite Write-Back Key** — lookup keyed by `(parent_id, shape_id)` to prevent ID collisions between children of different groups
+- **Per-Slide Validation + Retry** — each parallel agent validates its own slide immediately (translate → validate → retry once) instead of a separate end phase
+- **Smart Skip** — slides already in the target language detected via `langdetect` are skipped entirely; no agent launched, no pass-through overhead
+- **Single Parallel Block** — all agents launched simultaneously; no sequential rounds
+- **Proper Noun Protection** — explicit rule with examples (Accenture, Microsoft, Azure, personal names, acronyms) prevents proper nouns from being translated
+- **Silent Dependency Install** — `pip install --user` runs automatically without confirmation prompts
+- **Single Consolidated Confirmation** — one config box at the start; no mid-workflow interruptions
 
 ---
 
@@ -291,10 +298,10 @@ Please close PowerPoint and try again.
 
 | Field | Value |
 |-------|-------|
-| Version | 2.0.0 |
+| Version | 2.1.0 |
 | Author | Eric Andrade |
 | Created | 2026-03-19 |
-| Updated | 2026-03-19 |
+| Updated | 2026-03-19 (v2.1.0) |
 | Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | content |
 | Tags | translation, pptx, powerpoint, multilingual, presentation |
