@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.20.7] - 2026-03-19
+
+### Fixed
+- **pptx-translator v2.5.0: 8 improvements from code review** — removed `langdetect` dependency entirely (only `python-pptx` required); classifier prompt now explicitly instructs agent to save to `/tmp/pptx_classify_output.json`; added fallback to translate-all-with-text when classifier returns invalid JSON; added batching note for >50-slide presentations; fixed multiline table cell write-back (per-paragraph, same fix as speaker notes in v2.3); removed unused imports (`pptx.util.Pt`, `lxml.etree`); added classifier temp files to cleanup; documented classifier failure in error table
+- **pptx-translator v2.4.0: AI-native language classification** — replaced all hardcoded regex patterns and `langdetect` calls with a dedicated AI classifier sub-agent; model receives all slide texts and returns `needs_translation` per slide using native language understanding; works for any language pair with zero hardcoded patterns; agents self-validate using language understanding instead of `langdetect`
+- **pptx-translator v2.3.0: 3-layer detection, progress gauge, multiline notes** — replaced single-regex with 3-layer strategy (expanded regex → langdetect on concatenated blocks → conservative fallback); added non-blocking per-slide progress gauge; agents receive explicit validation script; multiline speaker notes now split by `\n` and mapped back to individual paragraphs
+
+
+
 ## [1.20.6] - 2026-03-19
 
 ### Fixed
