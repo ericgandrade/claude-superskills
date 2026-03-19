@@ -1,0 +1,26 @@
+{
+  "skill_name": "pptx-translator",
+  "description": "Triggers for translating PowerPoint presentations between languages",
+  "queries": [
+    {"id": 1, "query": "Translate this PowerPoint to English", "should_trigger": true},
+    {"id": 2, "query": "Traduza esta apresentacao para ingles", "should_trigger": true},
+    {"id": 3, "query": "Convert my pptx from Portuguese to English", "should_trigger": true},
+    {"id": 4, "query": "Translate presentation slides to Spanish", "should_trigger": true},
+    {"id": 5, "query": "I need to translate a .pptx file", "should_trigger": true},
+    {"id": 6, "query": "Translate the speaker notes in my PowerPoint deck", "should_trigger": true},
+    {"id": 7, "query": "PPTX translation from Portuguese to English", "should_trigger": true},
+    {"id": 8, "query": "Translate my PowerPoint presentation from English to French", "should_trigger": true},
+    {"id": 9, "query": "Preciso traduzir meu pptx pro ingles", "should_trigger": true},
+    {"id": 10, "query": "Translate all slides in this presentation to German", "should_trigger": true},
+    {"id": 11, "query": "Convert this PPTX to PDF", "should_trigger": false},
+    {"id": 12, "query": "Summarize this PowerPoint presentation", "should_trigger": false},
+    {"id": 13, "query": "Create a new PowerPoint presentation about AI trends", "should_trigger": false},
+    {"id": 14, "query": "Translate this text from English to Portuguese", "should_trigger": false},
+    {"id": 15, "query": "Help me design better slides for my deck", "should_trigger": false},
+    {"id": 16, "query": "Extract text from this PPTX file", "should_trigger": false},
+    {"id": 17, "query": "Convert this Word document to Markdown", "should_trigger": false},
+    {"id": 18, "query": "Translate this Python code to JavaScript", "should_trigger": false},
+    {"id": 19, "query": "How do I use python-pptx to read slides?", "should_trigger": false},
+    {"id": 20, "query": "Merge these two PowerPoint presentations into one", "should_trigger": false}
+  ]
+}

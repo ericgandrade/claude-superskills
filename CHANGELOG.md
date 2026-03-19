@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.20.0] - 2026-03-19
+
+### Added
+- New `pptx-translator` skill: translate PowerPoint presentations between any language pair with parallel sub-agent slide-by-slide translation, full validation sub-routine (completeness, language detection, notes, file integrity), backup/YOLO mode, and speaker notes support
+- EVALs and trigger-evals for `pptx-translator` (5 test cases, 20 trigger queries)
+
+---
+
 ## [1.19.2] - 2026-03-06
 
 ### Fixed

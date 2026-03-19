@@ -67,6 +67,7 @@
         "audio-transcriber",
         "docling-converter",
         "cloudconvert-converter",
+        "pptx-translator",
         "storytelling-expert"
       ],
       "use_cases": [
@@ -156,7 +157,8 @@
         "salary-negotiation-prep",
         "tech-resume-optimizer",
         "senior-solution-architect",
-        "startup-growth-strategist"
+        "startup-growth-strategist",
+        "pptx-translator"
       ],
       "use_cases": [
         "Complete AI assistance",
