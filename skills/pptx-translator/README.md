@@ -2,7 +2,7 @@
 
 > Translate PowerPoint presentations between languages with parallel slide-by-slide translation, formatting preservation, and full validation
 
-**Version:** 2.3.0
+**Version:** 2.4.0
 **Status:** ✨ Zero-Config | 🌍 Universal
 **Platforms:** GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI
 
@@ -280,6 +280,12 @@ Please close PowerPoint and try again.
 
 ---
 
+## What's New in v2.4
+
+- **AI-native language classification** — replaced all hardcoded regex patterns and `langdetect` library calls with a dedicated AI classifier sub-agent; the model receives all slide texts and returns `needs_translation` per slide using its own language understanding; works for any language pair with zero hardcoded patterns
+- **AI self-validation in translation agents** — agents now read back their own translated output and verify correctness using language understanding, not `langdetect`; no library dependency, no false positives from statistical classifiers
+- **Eliminated all hardcoded word lists** — no more `_PT_PATTERN`, `_LANG_CODES`, or any language-specific keywords in the skill
+
 ## What's New in v2.3
 
 - **3-layer language detection** — replaced fragile single-regex approach with a 3-layer strategy: (1) expanded regex with more PT words (`nossa`, `nosso`, `jornada`, `empresa`, `sendo`, `vamos`, `também`, etc.), (2) `langdetect` on the *concatenated* text of all slide blocks (more context = higher accuracy), (3) conservative fallback that translates rather than skips when detection is inconclusive — eliminates false negatives like slide 22 ("A nossa jornada")
@@ -310,10 +316,10 @@ Please close PowerPoint and try again.
 
 | Field | Value |
 |-------|-------|
-| Version | 2.3.0 |
+| Version | 2.4.0 |
 | Author | Eric Andrade |
 | Created | 2026-03-19 |
-| Updated | 2026-03-19 (v2.3.0) |
+| Updated | 2026-03-19 (v2.4.0) |
 | Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | content |
 | Tags | translation, pptx, powerpoint, multilingual, presentation |

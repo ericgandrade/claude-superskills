@@ -135,106 +135,77 @@ print(json.dumps(manifest, ensure_ascii=False, indent=2))
 
 Save manifest to `/tmp/pptx_manifest_{timestamp}.json`.
 
-### After Extraction
+### After Extraction: AI-Powered Language Classification
 
-Detect which slides contain source-language content using a **3-layer detection strategy**. A pure regex list is inherently incomplete — words like "nossa", "jornada", "certo", "nosso" are valid Portuguese but have no accents and are not in any finite keyword list. The 3-layer approach eliminates false negatives:
+**Do NOT use regex or `langdetect` to decide which slides to translate.** Both approaches require hardcoded rules and fail silently on valid words with no accents (e.g. "nossa jornada", "cenário", "nosso time"). Regex lists are never complete; `langdetect` misclassifies short or mixed-language text.
 
-**Layer 1 (regex):** Fast check for accented characters and high-confidence PT suffixes/stop-words.
-**Layer 2 (langdetect on concatenated text):** If regex misses, concatenate ALL text blocks of the slide and run `langdetect` on the combined string — more text = higher accuracy. Avoids the single-block unreliability problem.
-**Layer 3 (conservative fallback):** If a slide has text but both layers are inconclusive, treat it as needing translation. It is always safer to translate an already-English slide (no harm) than to skip a Portuguese one.
+**The model itself already understands language natively** — use it. After extraction, launch a **single classification sub-agent** that receives all slide texts and returns a JSON decision for each slide. No libraries. No hardcoded words. No false negatives.
 
-```python
-import re
-from langdetect import detect, LangDetectException
+### Classification Sub-Agent Prompt
 
-# Layer 1: Portuguese-specific patterns — accented chars + high-confidence PT stop-words/suffixes
-_PT_PATTERN = re.compile(
-    r'[çãõáéíóúâêôàü]'                      # accented chars unique to PT/ES
-    r'|ção|ções|ão|ões|mente\b'              # PT suffixes
-    r'|\b(não|que|para|com|uma|por|são'
-    r'|foi|mais|isso|como|mas|este|essa'
-    r'|esse|pela|pelo|das|dos|nos|nas'
-    r'|em|se|do|da|de|no|na|ao|à|os|as'
-    r'|um|já|está|até|quando|temos|foram'
-    r'|estamos|devemos|próximos|oferta'
-    r'|agenda|cenário|solução|abordagem'
-    r'|estratégia|mercado|nossa|nosso'
-    r'|nossas|nossos|jornada|empresa'
-    r'|empresas|sendo|tendo|vamos|estão'
-    r'|podem|devem|sobre|entre|também'
-    r'|porque|apenas|sempre|ainda|agora'
-    r'|aqui|depois|antes|muito|pouco'
-    r'|grande|pequeno|novo|nova|isso)\b',
-    re.IGNORECASE
-)
+```
+You are a language classifier. For each slide below, determine whether its text is written (fully or partially) in {SOURCE_LANGUAGE}.
 
-# Layer 2: langdetect codes that map to source language
-_LANG_CODES = {
-    "pt": {"pt", "pt-br", "pt-pt"},
-    "es": {"es"},
-    "fr": {"fr"},
-    "de": {"de"},
-    "it": {"it"},
-    "ja": {"ja"},
-    "zh": {"zh-cn", "zh-tw"},
-}
+Rules:
+- A slide needs translation if ANY text block contains {SOURCE_LANGUAGE} content — even a single sentence or title
+- A slide does NOT need translation only if ALL its text is already in {TARGET_LANGUAGE} or is language-neutral (numbers, dates, proper nouns, acronyms, code)
+- Proper nouns, brand names, product names, and technical terms are language-neutral — do not use them as evidence of either language
+- When in doubt, mark needs_translation: true — it is safer to translate an already-English slide than to skip a source-language one
 
-def has_source_language_content(slide_data, source_lang="pt"):
-    """
-    3-layer detection strategy to eliminate false negatives.
+Slides to classify:
+{SLIDE_TEXTS_JSON}
 
-    Layer 1: Fast regex — catches slides with accents, PT suffixes, or known stop-words.
-    Layer 2: langdetect on concatenated slide text — reliable when given enough context.
-    Layer 3: Conservative fallback — if inconclusive and slide has ≥3 words, translate anyway.
-    """
-    blocks = slide_data.get("text_blocks", [])
-    if not blocks:
-        return False
-
-    # --- Layer 1: Regex (fast path) ---
-    if source_lang == "pt":
-        for block in blocks:
-            if _PT_PATTERN.search(block["original_text"]):
-                return True  # Definitive positive
-    else:
-        # For non-PT source languages, skip to Layer 2 immediately
-        pass
-
-    # --- Layer 2: langdetect on concatenated slide text ---
-    combined = " ".join(b["original_text"] for b in blocks if b["original_text"].strip())
-    combined_words = combined.split()
-    if len(combined_words) >= 3:
-        try:
-            detected = detect(combined)
-            target_codes = _LANG_CODES.get(source_lang, {source_lang})
-            # Accept exact match or prefix match (e.g. "pt" matches "pt-br")
-            if detected in target_codes or any(detected.startswith(c) for c in target_codes):
-                return True  # Layer 2 positive
-            # langdetect returned a different language — likely already in target
-            if detected in {"en", "fr", "de", "es", "it", "ja"} and detected != source_lang:
-                return False  # High-confidence negative: slide is in another language
-        except LangDetectException:
-            pass  # Fall through to Layer 3
-
-    # --- Layer 3: Conservative fallback ---
-    # If we have enough words and both layers were inconclusive, translate rather than skip.
-    # Rationale: translating an already-English slide causes no harm; skipping a PT slide does.
-    if len(combined_words) >= 5:
-        return True  # Conservative: translate when uncertain
-
-    return False
-
-for slide in manifest:
-    slide["needs_translation"] = has_source_language_content(slide, source_lang="pt")
+Return ONLY valid JSON, no explanation:
+[
+  {"slide_num": 1, "needs_translation": true, "language": "pt", "reason": "Title contains Portuguese: 'A nova era das empresas'"},
+  {"slide_num": 2, "needs_translation": false, "language": "en", "reason": "All text is in English"},
+  ...
+]
 ```
 
-A slide is skipped (`needs_translation=False`) **only when detection is confident** the content is already in the target language. When in doubt, the skill translates — it is always safer to over-translate than to miss a slide.
+Where `{SLIDE_TEXTS_JSON}` is built from the manifest:
+
+```python
+import json
+
+slide_texts = []
+for slide in manifest:
+    combined = " | ".join(
+        b["original_text"] for b in slide["text_blocks"] if b["original_text"].strip()
+    )
+    if combined.strip():
+        slide_texts.append({"slide_num": slide["slide_num"], "text": combined})
+    else:
+        # No text content — images/charts only, skip
+        slide["needs_translation"] = False
+
+# Save for the classifier agent
+with open("/tmp/pptx_classify_input.json", "w") as f:
+    json.dump(slide_texts, f, ensure_ascii=False, indent=2)
+```
+
+The classifier agent saves its result to `/tmp/pptx_classify_output.json`. After it completes, apply the decisions:
+
+```python
+with open("/tmp/pptx_classify_output.json") as f:
+    decisions = {d["slide_num"]: d for d in json.load(f)}
+
+for slide in manifest:
+    decision = decisions.get(slide["slide_num"])
+    if decision:
+        slide["needs_translation"] = decision["needs_translation"]
+        slide["detected_language"] = decision.get("language", "unknown")
+        slide["detection_reason"] = decision.get("reason", "")
+    # slides with no text content were already set to False above
+```
+
+This approach requires **zero hardcoded patterns**, works for any language pair, and handles edge cases (mixed slides, proper nouns, short titles, accented-free Portuguese) correctly.
 
 ```
 ✅ Extraction complete
    Slides found:       35
    Text blocks:        1911
-   Slides to skip:     12 (zero source-language blocks detected)
+   Slides to skip:     12 (AI classifier determined already in target language)
    Slides to translate: 23
    Speaker notes:      2 slides with notes
    Group shapes found: 4 slides with grouped content (will be recursed)
@@ -276,29 +247,11 @@ Slide {N}/{TOTAL}:
 Speaker notes:
 {NOTES_TEXT}
 
-AFTER translating, run this exact validation script and use its output to populate the "validation" field:
-
-```python
-from langdetect import detect, LangDetectException
-combined = " ".join(
-    b.get("translated_text", "") for b in translated_blocks
-    if b.get("translated_text", "").strip()
-)
-try:
-    detected_lang = detect(combined) if len(combined.split()) >= 3 else "{TARGET_LANG_CODE}"
-    if detected_lang == "{TARGET_LANG_CODE}" or detected_lang.startswith("{TARGET_LANG_CODE}"):
-        validation_status = "ok"
-        validation_message = ""
-    else:
-        validation_status = "warning"
-        validation_message = f"Expected {TARGET_LANG_CODE}, detected {detected_lang} — retrying"
-except LangDetectException:
-    detected_lang = "{TARGET_LANG_CODE}"
-    validation_status = "ok"
-    validation_message = "not enough text for langdetect"
-```
-
-If validation_status == "warning", retry the translation ONCE and re-run validation before saving.
+AFTER translating, self-validate using your own language understanding (no libraries needed):
+- Read back all your translated_text values
+- Confirm they are in {TARGET_LANGUAGE} and not in {SOURCE_LANGUAGE}
+- If you find any block still in {SOURCE_LANGUAGE}, fix it before saving
+- Set validation.status to "ok" if all blocks are correctly translated, or "warning" with a description if any issue remains
 
 Save your result to /tmp/trans_slide_{N}.json in this format:
 {
@@ -552,10 +505,11 @@ for f in glob.glob("/tmp/pptx_manifest_*.json") + glob.glob("/tmp/trans_slide_*.
 - ALWAYS key the write-back lookup by `(parent_id, shape_id, ...)` — never by `shape_id` alone
 - NEVER launch translation agents in rounds — all agents must be launched in a single parallel block
 - NEVER create pass-through translations for slides already in the target language — skip them entirely
-- NEVER use `langdetect` per-slide to decide skip/translate — use `has_source_language_content()` per-block pattern matching; `langdetect` is unreliable for short or mixed-language slides and frequently misclassifies Portuguese as Catalan ("ca")
-- ALWAYS treat a slide as needing translation if ANY single text block matches the source language — skip only when ZERO blocks match
+- NEVER use regex patterns or `langdetect` to decide which slides to translate — use the AI classifier sub-agent; regex lists are always incomplete and `langdetect` misclassifies short or mixed-language text
+- ALWAYS use the AI classification sub-agent (Step 2) to determine `needs_translation` per slide — the model understands language natively, requires no hardcoded patterns, and handles any language pair
+- ALWAYS treat a slide as needing translation when the classifier is uncertain — it is safer to translate an already-English slide (no harm) than to miss a source-language one
 - NEVER translate proper nouns: personal names, company names, brand names, product names, technology names, organizational acronyms (e.g. "Accenture", "Microsoft", "João Silva", "Azure", "BLT", "YTD")
-- ALWAYS do per-slide validation inside each agent (translate → validate → retry once) — not in a separate phase
+- ALWAYS do per-slide self-validation inside each translation agent (translate → read back → fix → save) — agents use their own language understanding, no libraries
 - ALWAYS clean up temp files after completion, whether the workflow succeeds or fails
 - ALWAYS preserve text formatting — only change `run.text`, never font/size/color properties
 - NEVER ask the user for confirmation more than once (the initial config confirmation)
