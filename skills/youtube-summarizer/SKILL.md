@@ -23,26 +23,33 @@ This skill should be used when:
 - User asks to "summarize", "resume", or "extract content" from YouTube videos
 - User wants comprehensive documentation prioritizing completeness over brevity
 
-## Step 0: Discovery & Setup
+## Step 0: Environment Detection & Setup
 
-Before processing videos, validate the environment and dependencies:
+Before processing, detect the execution environment to choose the correct transcript extraction strategy.
+
+### Environment Detection
 
 ```bash
-# Check if youtube-transcript-api is installed
-python3 -c "import youtube_transcript_api" 2>/dev/null
-if [ $? -ne 0 ]; then
-    echo "⚠️  youtube-transcript-api not found"
-    # Offer to install
-fi
+# Test 1: Can we run local Python?
+python3 --version 2>/dev/null
+PYTHON_AVAILABLE=$?
 
-# Check Python availability
-if ! command -v python3 &>/dev/null; then
-    echo "❌ Python 3 is required but not installed"
-    exit 1
-fi
+# Test 2: Is youtube-transcript-api installed?
+python3 -c "import youtube_transcript_api" 2>/dev/null
+LIB_AVAILABLE=$?
 ```
 
-**Ask the user if dependency is missing:**
+Three modes are supported, tried in order:
+
+| Mode | Condition | Strategy |
+|------|-----------|----------|
+| **A — Python/CLI** | Python 3 available + library installed | `youtube-transcript-api` (full featured) |
+| **B — WebFetch** | No Python OR sandboxed environment | Fetch YouTube page → extract transcript from embedded JSON |
+| **C — Manual** | YouTube blocked at network level | Ask user to paste transcript text directly |
+
+### Mode A Setup (Python available, library missing)
+
+If Python is available but `youtube-transcript-api` is not installed, offer to install:
 
 ```
 youtube-transcript-api is required but not installed.
@@ -52,16 +59,34 @@ Would you like to install it now?
 - [ ] No - I'll install it manually
 ```
 
-**If user selects "Yes":**
-
 ```bash
 pip install youtube-transcript-api
 ```
 
-**Verify installation:**
+### Mode B Setup (Sandboxed / Claude Cowork / no Python)
 
-```bash
-python3 -c "import youtube_transcript_api; print('✅ youtube-transcript-api installed successfully')"
+Use WebFetch to extract the transcript embedded in the YouTube page HTML. YouTube embeds full caption track URLs in `ytInitialPlayerResponse` JSON inside the page source.
+
+Steps:
+1. WebFetch `https://www.youtube.com/watch?v=VIDEO_ID`
+2. Extract `ytInitialPlayerResponse` JSON block from the HTML using regex
+3. Parse `captions.playerCaptionsTracklistRenderer.captionTracks[0].baseUrl`
+4. WebFetch that URL to retrieve the transcript XML
+5. Parse XML `<text>` elements into plain text
+
+If the YouTube page itself is blocked (proxy/sandbox restriction), fall through to Mode C.
+
+### Mode C Setup (Network blocked)
+
+Inform the user clearly:
+
+```
+⚠️  YouTube is not accessible in this environment.
+
+Options:
+1. Run this skill in Claude Code (CLI) — it has full network access and can install Python libraries.
+2. Paste the video transcript text directly into this chat — the skill will summarize whatever text you provide.
+3. Copy the transcript from youtube.com/watch?v=VIDEO_ID → click "..." → "Show transcript" → paste here.
 ```
 
 ## Main Workflow
@@ -145,9 +170,9 @@ Example: https://www.youtube.com/watch?v=dQw4w9WgXcQ
 echo "[████████░░░░░░░░░░░░] 40% - Step 2/5: Checking Availability"
 ```
 
-**Objective:** Verify video exists and transcript is accessible.
+**Objective:** Verify video exists and transcript is accessible using the detected mode.
 
-**Actions:**
+**Mode A (Python):**
 
 ```python
 from youtube_transcript_api import YouTubeTranscriptApi, TranscriptsDisabled, NoTranscriptFound
@@ -156,29 +181,26 @@ import sys
 video_id = sys.argv[1]
 
 try:
-    # Get list of available transcripts
     transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
-    
     print(f"✅ Video accessible: {video_id}")
-    print("📝 Available transcripts:")
-    
     for transcript in transcript_list:
-        print(f"  - {transcript.language} ({transcript.language_code})")
-        if transcript.is_generated:
-            print("    [Auto-generated]")
-    
+        lang_type = "[Auto-generated]" if transcript.is_generated else "[Manual]"
+        print(f"  - {transcript.language} ({transcript.language_code}) {lang_type}")
+
 except TranscriptsDisabled:
     print(f"❌ Transcripts are disabled for video {video_id}")
     sys.exit(1)
-    
 except NoTranscriptFound:
     print(f"❌ No transcript found for video {video_id}")
     sys.exit(1)
-    
 except Exception as e:
     print(f"❌ Error accessing video: {e}")
     sys.exit(1)
 ```
+
+**Mode B (WebFetch):**
+
+Use WebFetch to load `https://www.youtube.com/watch?v=VIDEO_ID`. Search the HTML for the string `"captionTracks"` to confirm captions are available. If the page is inaccessible or no `captionTracks` key is found, fall through to Mode C.
 
 **Error Handling:**
 
@@ -186,8 +208,8 @@ except Exception as e:
 |-------|---------|--------|
 | Video not found | "❌ Video does not exist or is private" | Ask user to verify URL |
 | Transcripts disabled | "❌ Transcripts are disabled for this video" | Cannot proceed |
-| No transcript available | "❌ No transcript found (not auto-generated or manually added)" | Cannot proceed |
-| Private/restricted video | "❌ Video is private or restricted" | Ask for public video |
+| No transcript available | "❌ No transcript found" | Cannot proceed |
+| YouTube blocked (sandbox) | "⚠️ YouTube is not accessible in this environment" | Switch to Mode C |
 
 ### Step 3: Extract Transcript
 
@@ -196,9 +218,9 @@ except Exception as e:
 echo "[████████████░░░░░░░░] 60% - Step 3/5: Extracting Transcript"
 ```
 
-**Objective:** Retrieve transcript in preferred language.
+**Objective:** Retrieve transcript text using the active mode.
 
-**Actions:**
+**Mode A (Python):**
 
 ```python
 from youtube_transcript_api import YouTubeTranscriptApi
@@ -206,38 +228,50 @@ from youtube_transcript_api import YouTubeTranscriptApi
 video_id = "VIDEO_ID"
 
 try:
-    # Try to get transcript in user's preferred language first
-    # Fall back to English if not available
     transcript = YouTubeTranscriptApi.get_transcript(
-        video_id, 
+        video_id,
         languages=['pt', 'en']  # Prefer Portuguese, fallback to English
     )
-    
-    # Combine transcript segments into full text
     full_text = " ".join([entry['text'] for entry in transcript])
-    
-    # Get video metadata
-    from youtube_transcript_api import YouTubeTranscriptApi
-    transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
-    
     print("✅ Transcript extracted successfully")
     print(f"📊 Transcript length: {len(full_text)} characters")
-    
-    # Save to temporary file for processing
     with open(f"/tmp/transcript_{video_id}.txt", "w") as f:
         f.write(full_text)
-    
 except Exception as e:
     print(f"❌ Error extracting transcript: {e}")
     exit(1)
 ```
 
-**Transcript Processing:**
+**Mode B (WebFetch):**
 
-- Combine all transcript segments into coherent text
+1. WebFetch the YouTube video page: `https://www.youtube.com/watch?v=VIDEO_ID`
+2. Locate the `ytInitialPlayerResponse` JSON block in the HTML
+3. Extract `captions.playerCaptionsTracklistRenderer.captionTracks[0].baseUrl`
+4. WebFetch that caption URL (returns XML with `<text>` elements)
+5. Strip XML tags and join `<text>` segments into plain text
+
+If the page load fails or no caption track URL is found, switch to Mode C.
+
+**Mode C (Manual):**
+
+Ask the user to provide the transcript:
+
+```
+⚠️  YouTube is not accessible in this environment (proxy/sandbox restriction).
+
+To proceed, paste the video transcript text directly into this chat.
+To get it: go to youtube.com/watch?v=VIDEO_ID → click "..." below the video → "Show transcript" → copy all text.
+
+Alternatively, run this skill in Claude Code (CLI) for automatic extraction.
+```
+
+Accept any plain text the user pastes and proceed directly to Step 4.
+
+**Transcript Processing (all modes):**
+
+- Combine all segments into coherent text
 - Preserve punctuation and formatting where available
-- Remove duplicate or overlapping segments (if auto-generated artifacts)
-- Store in temporary file for analysis
+- Remove `[Music]`, `[Applause]` and other auto-generated noise markers
 
 ### Step 4: Generate Comprehensive Summary
 
@@ -408,6 +442,7 @@ Welcome to this comprehensive tutorial on machine learning fundamentals. In toda
 | Transcripts disabled | Creator disabled transcripts on this video | Inform user transcripts are unavailable; suggest manual transcription |
 | No transcript found | Video has no auto-generated or manual transcript | Inform user; suggest trying a different video or using audio-transcriber |
 | `youtube-transcript-api` not installed | Python dependency missing | Offer to install with `pip install youtube-transcript-api` |
+| YouTube blocked — proxy/sandbox error | Running in Claude Cowork or other sandboxed environment | Switch to Mode B (WebFetch); if also blocked, switch to Mode C (manual paste) |
 | Network error / timeout | Internet connectivity issue or YouTube rate-limiting | Retry once; if it persists, inform user and ask to try again later |
 | Transcript in unexpected language | Video is in a language not supported by the analyzer | Report detected language; proceed with available transcript |
 

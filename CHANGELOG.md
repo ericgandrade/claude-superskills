@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.20.1] - 2026-03-19
+
+### Fixed
+- **youtube-summarizer SKILL.md** — aligned with README.md by adding 3-mode environment detection (Mode A: Python/CLI, Mode B: WebFetch for sandboxed environments, Mode C: manual paste when YouTube is blocked); previously the SKILL.md only described the Python path with no fallback
+
+---
+
 ## [1.20.0] - 2026-03-19
 
 ### Added
