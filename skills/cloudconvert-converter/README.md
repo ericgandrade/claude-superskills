@@ -6,10 +6,10 @@ Convert files between 200+ formats and perform PDF operations using the CloudCon
 
 | Field     | Value                                                                 |
 |-----------|-----------------------------------------------------------------------|
-| Version   | 2.0.0                                                                 |
+| Version   | 2.1.0                                                                 |
 | Author    | Eric Andrade                                                          |
 | Created   | 2026-03-06                                                            |
-| Updated   | 2026-03-06                                                            |
+| Updated   | 2026-03-19                                                            |
 | Platforms | Claude Code, GitHub Copilot, Gemini CLI, OpenCode, Codex, Cursor, Antigravity, AdaL |
 | Category  | Content                                                               |
 | Tags      | conversion, cloudconvert, pdf, ocr, video, audio, documents, mcp     |

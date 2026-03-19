@@ -39,10 +39,10 @@ Convert complex documents into structured outputs (Markdown, JSON, HTML) using D
 
 | Field | Value |
 |-------|-------|
-| Version | 2.0.0 |
+| Version | 2.1.0 |
 | Author | Eric Andrade |
 | Created | 2025-02-01 |
-| Updated | 2026-03-06 |
+| Updated | 2026-03-19 |
 | Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | content |
 | Tags | document-conversion, markdown, json, pdf, docling, ocr |

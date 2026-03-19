@@ -37,10 +37,10 @@ Optimize resumes for software engineering, product management, and technical rol
 
 | Field | Value |
 |-------|-------|
-| Version | 2.0.0 |
+| Version | 2.1.0 |
 | Author | Eric Andrade |
 | Created | 2026-03-01 |
-| Updated | 2026-03-06 |
+| Updated | 2026-03-19 |
 | Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | career |
 | Tags | resume, tech-resume, software-engineer, faang, technical-roles, pm, product-manager |

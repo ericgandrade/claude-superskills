@@ -157,10 +157,10 @@ This skill is built on the [Anthropic official skill-creator](https://github.com
 
 | Field | Value |
 |-------|-------|
-| Version | 2.0.0 |
+| Version | 2.1.0 |
 | Author | Eric Andrade |
 | Created | 2025-02-01 |
-| Updated | 2026-03-06 |
+| Updated | 2026-03-19 |
 | Platforms | All 8 platforms |
 | Category | meta |
 | Tags | automation, scaffolding, skill-creation, evals, benchmarking, description-optimization |
