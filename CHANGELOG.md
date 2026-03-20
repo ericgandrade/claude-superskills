@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.21.5] - 2026-03-20
+
+### Fixed
+
+- **Gemini CLI version detection**: the installer now extracts the installed Homebrew Gemini CLI version from the resolved binary path when `gemini --version` is slow or non-responsive, so Gemini shows `0.34.0` instead of generic `Detected`
+- **Version table rendering**: normalized multiline and noisy version outputs before rendering, so tools like Antigravity no longer break the table layout with Electron error lines or extra metadata
+
 ## [1.21.4] - 2026-03-20
 
 ### Fixed

@@ -1,8 +1,8 @@
-# claude-superskills v1.21.4
+# claude-superskills v1.21.5
 
 Universal installer for the `claude-superskills` library. Install 46 reusable AI skills across GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, and AdaL CLI from one command.
 
-![Version](https://img.shields.io/badge/version-1.21.4-blue.svg)
+![Version](https://img.shields.io/badge/version-1.21.5-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Node](https://img.shields.io/badge/node-%3E%3D14.0.0-green.svg)
 
@@ -103,5 +103,5 @@ npx claude-superskills doctor
 ## Notes
 
 - The installer downloads skills from GitHub and caches them locally before copying them into platform directories.
-- The installer compares installed skill versions with `v1.21.4` and recommends updates automatically.
+- The installer compares installed skill versions with `v1.21.5` and recommends updates automatically.
 - Skills are authored in the repository `skills/` directory only; platform directories are installation targets, not source directories.

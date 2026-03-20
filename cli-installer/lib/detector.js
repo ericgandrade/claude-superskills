@@ -5,6 +5,51 @@ const path = require('path');
 
 const EXEC_TIMEOUT = 3000; // 3 seconds max per command — prevents hangs on slow networks/VPNs
 
+function normalizeVersionOutput(raw, { preferSemver = false } = {}) {
+  if (!raw) return null;
+
+  const cleaned = String(raw)
+    .replace(/\x1B\[[0-9;]*[A-Za-z]/g, '')
+    .replace(/\r/g, '')
+    .trim();
+
+  if (!cleaned) return null;
+
+  const lines = cleaned
+    .split('\n')
+    .map(line => line.trim())
+    .filter(Boolean)
+    .filter(line => !/^\[[0-9/.:A-Z_-]+.*ERROR:/i.test(line));
+
+  if (lines.length === 0) return null;
+
+  if (preferSemver) {
+    for (const line of lines) {
+      const semver = line.match(/\b\d+\.\d+\.\d+\b/);
+      if (semver) return semver[0];
+    }
+  }
+
+  return lines[0];
+}
+
+function extractGeminiVersionFromPath(binPath) {
+  if (!binPath) return null;
+
+  const symlinkVersion = binPath.match(/\/Cellar\/gemini-cli\/([^/]+)\/bin\/gemini$/);
+  if (symlinkVersion) return symlinkVersion[1];
+
+  try {
+    const resolved = fs.realpathSync(binPath);
+    const resolvedVersion = resolved.match(/\/Cellar\/gemini-cli\/([^/]+)\//);
+    if (resolvedVersion) return resolvedVersion[1];
+  } catch {
+    // Ignore realpath failures and continue with other heuristics.
+  }
+
+  return null;
+}
+
 /**
  * Detecta ferramentas AI CLI instaladas no sistema
  * @returns {Object} { copilot: {installed, version, path}, claude: {...}, codex_cli: {...}, codex_app: {...}, ... }
@@ -30,7 +75,7 @@ function detectTools() {
  */
 function detectCopilot() {
   try {
-    const version = execSync('gh copilot --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    const version = normalizeVersionOutput(execSync('gh copilot --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }));
     const pathExec = execSync('which gh', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
     return { installed: true, version, path: pathExec };
   } catch (e) {
@@ -43,7 +88,7 @@ function detectCopilot() {
  */
 function detectClaude() {
   try {
-    const version = execSync('claude --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    const version = normalizeVersionOutput(execSync('claude --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }));
     const pathExec = execSync('which claude', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
     return { installed: true, version, path: pathExec };
   } catch (e) {
@@ -56,7 +101,7 @@ function detectClaude() {
  */
 function detectCodexCli() {
   try {
-    const version = execSync('codex --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    const version = normalizeVersionOutput(execSync('codex --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }));
     const pathExec = execSync('which codex', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
     return { installed: true, version, path: pathExec };
   } catch (e) {
@@ -124,7 +169,7 @@ function detectCodex() {
  */
 function detectOpenCode() {
   try {
-    const version = execSync('opencode --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    const version = normalizeVersionOutput(execSync('opencode --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }));
     const pathExec = execSync('which opencode', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
     return { installed: true, version, path: pathExec };
   } catch (e) {
@@ -146,21 +191,30 @@ function detectGemini() {
         env: { ...process.env, ...extraEnv }
       });
       if (result.error) return null;
-      return ((result.stdout || '') + (result.stderr || '')).trim() || null;
+      return normalizeVersionOutput((result.stdout || '') + (result.stderr || ''), { preferSemver: true });
     } catch {
       return null;
+    }
+  }
+
+  let binPath = null;
+  try {
+    binPath = execSync('which gemini', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+  } catch {
+    binPath = null;
+  }
+
+  if (binPath) {
+    const pathVersion = extractGeminiVersionFromPath(binPath);
+    if (pathVersion) {
+      return { installed: true, version: pathVersion, path: binPath };
     }
   }
 
   // 1. Try 'gemini --version' via PATH (stdout + stderr)
   const viaPath = tryGetVersion('gemini');
   if (viaPath) {
-    try {
-      const binPath = execSync('which gemini', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
-      return { installed: true, version: viaPath, path: binPath };
-    } catch {
-      return { installed: true, version: viaPath, path: 'gemini' };
-    }
+    return { installed: true, version: viaPath, path: binPath || 'gemini' };
   }
 
   // 2. Try common install paths (Homebrew on macOS doesn't always appear in npx PATH)
@@ -173,6 +227,10 @@ function detectGemini() {
   ];
   for (const binPath of commonPaths) {
     if (fs.existsSync(binPath)) {
+      const pathVersion = extractGeminiVersionFromPath(binPath);
+      if (pathVersion) {
+        return { installed: true, version: pathVersion, path: binPath };
+      }
       const extraPath = `/opt/homebrew/bin:/usr/local/bin:${process.env.PATH || ''}`;
       const version = tryGetVersion(binPath, ['--version'], { PATH: extraPath });
       return { installed: true, version: version || 'Detected', path: binPath };
@@ -197,13 +255,13 @@ function detectGemini() {
 function detectAntigravity() {
   // 1. Try 'antigravity' command
   try {
-    const version = execSync('antigravity --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    const version = normalizeVersionOutput(execSync('antigravity --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }), { preferSemver: true });
     const pathExec = execSync('which antigravity', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
     return { installed: true, version, path: pathExec };
   } catch (e) {
     // 2. Try 'agy' command (common alias)
     try {
-      const version = execSync('agy --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+      const version = normalizeVersionOutput(execSync('agy --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }), { preferSemver: true });
       const pathExec = execSync('which agy', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
       return { installed: true, version, path: pathExec };
     } catch (e2) {

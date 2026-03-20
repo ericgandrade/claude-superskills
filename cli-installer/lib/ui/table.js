@@ -1,5 +1,13 @@
 const chalk = require('chalk');
 
+function sanitizeCell(value) {
+  return String(value ?? '')
+    .replace(/\x1B\[[0-9;]*[A-Za-z]/g, '')
+    .replace(/\r?\n+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
 /**
  * Exibe tabela formatada de ferramentas detectadas
  * Agora com Codex CLI e Codex App separados
@@ -30,7 +38,7 @@ function displayToolsTable(tools) {
     // Formatar linha com espaçamento fixo
     const namePadded = name.padEnd(21);
     const statusPadded = '  ' + status + '      ';
-    const versionStr = String(version).substring(0, 26);
+    const versionStr = sanitizeCell(version).substring(0, 26);
     const versionPadded = versionStr.padEnd(26);
     
     console.log(`│ ${namePadded} │${statusPadded}│ ${versionPadded}│`);
