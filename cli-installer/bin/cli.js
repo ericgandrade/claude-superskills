@@ -83,11 +83,59 @@ function getDetectedTargets(detected) {
   return targets;
 }
 
+function getPlatformLabel(platform) {
+  const labels = {
+    copilot: 'GitHub Copilot CLI',
+    claude: 'Claude Code',
+    codex: 'OpenAI Codex',
+    opencode: 'OpenCode',
+    gemini: 'Gemini CLI',
+    antigravity: 'Google Antigravity',
+    cursor: 'Cursor IDE',
+    adal: 'AdaL CLI',
+    cowork: 'Claude Cowork'
+  };
+
+  return labels[platform] || platform;
+}
+
 function splitTargets(targets) {
   return {
     platforms: targets.filter((target) => target !== 'cowork'),
     includeCowork: targets.includes('cowork')
   };
+}
+
+function getUndetectedPlatformLabels(detected) {
+  const undetected = [];
+
+  if (!detected.copilot.installed) undetected.push(getPlatformLabel('copilot'));
+  if (!detected.claude.installed) undetected.push(getPlatformLabel('claude'));
+  if (!detected.codex_cli.installed && !detected.codex_app.installed) undetected.push(getPlatformLabel('codex'));
+  if (!detected.opencode.installed) undetected.push(getPlatformLabel('opencode'));
+  if (!detected.gemini.installed) undetected.push(getPlatformLabel('gemini'));
+  if (!detected.antigravity.installed) undetected.push(getPlatformLabel('antigravity'));
+  if (!detected.cursor.installed) undetected.push(getPlatformLabel('cursor'));
+  if (!detected.adal.installed) undetected.push(getPlatformLabel('adal'));
+
+  return undetected;
+}
+
+function printInstallContextNotes(detected, { includeCowork = false, quiet = false } = {}) {
+  if (quiet) return;
+
+  const undetected = getUndetectedPlatformLabels(detected);
+
+  if (includeCowork && detected.cowork && detected.cowork.installed) {
+    console.log(chalk.cyan('📦 Claude Cowork'));
+    console.log(chalk.dim('  Manual target only: the installer can generate a plugin zip, but it will not auto-install or auto-update Cowork.\n'));
+  }
+
+  if (undetected.length > 0) {
+    console.log(chalk.cyan('ℹ️  Not installed on this machine'));
+    console.log(chalk.dim(`  ${undetected.join(', ')}`));
+    console.log(chalk.dim('  These platforms were not detected, so the installer will not make changes there.\n'));
+  }
 }
 
 function getManagedSkillNames() {
@@ -407,7 +455,8 @@ function printGlobalStatus(detected) {
   console.log();
 }
 
-async function runSmartInstallFlow(detected, platforms, quiet, skipPrompt) {
+async function runSmartInstallFlow(detected, platforms, quiet, skipPrompt, options = {}) {
+  const { includeCowork = false } = options;
   const cacheDir = await warmCache(quiet);
   const cacheInventory = getCachedSkillInventory(cacheDir);
   const diffByPlatform = buildDiffByPlatform(platforms, cacheInventory);
@@ -421,6 +470,7 @@ async function runSmartInstallFlow(detected, platforms, quiet, skipPrompt) {
     if (!quiet) {
       console.log(chalk.green('✅ All selected platforms are already up to date.'));
       console.log(chalk.dim('No outdated or missing managed skills were found.\n'));
+      printInstallContextNotes(detected, { includeCowork, quiet });
     }
 
     if (skipPrompt) return;
@@ -428,7 +478,7 @@ async function runSmartInstallFlow(detected, platforms, quiet, skipPrompt) {
     const { action } = await inquirer.prompt([{
       type: 'list',
       name: 'action',
-      message: 'What do you want to do?',
+      message: 'What do you want to do with the CLI-installed platforms?',
       choices: [
         { name: 'Reinstall all skills anyway', value: 'reinstall' },
         { name: 'Uninstall skills', value: 'uninstall' },
@@ -453,6 +503,7 @@ async function runSmartInstallFlow(detected, platforms, quiet, skipPrompt) {
   if (!quiet) {
     console.log(chalk.cyan('📌 Recommendation'));
     console.log(chalk.dim(`  Update ${totalOutdated} outdated skill instance(s) and install ${totalMissing} new skill instance(s).\n`));
+    printInstallContextNotes(detected, { includeCowork, quiet });
   }
 
   if (skipPrompt) {
@@ -525,7 +576,7 @@ async function runUpdateCommand(detected, quiet, skipPrompt) {
   }
 
   if (platforms.length > 0) {
-    await runSmartInstallFlow(detected, platforms, quiet, skipPrompt);
+    await runSmartInstallFlow(detected, platforms, quiet, skipPrompt, { includeCowork: hasCowork });
   }
 
   await maybePackageCowork(detected, hasCowork, quiet);
@@ -690,7 +741,7 @@ async function main() {
     }
 
     if (installPlatforms.length > 0) {
-      await runSmartInstallFlow(detected, installPlatforms, quiet, skipPrompt);
+      await runSmartInstallFlow(detected, installPlatforms, quiet, skipPrompt, { includeCowork });
       const pluginRoot = path.resolve(__dirname, '..', '..');
       await registerMcpServers(installPlatforms, pluginRoot, quiet);
     }

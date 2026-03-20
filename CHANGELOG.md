@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.21.7] - 2026-03-20
+
+### Changed
+
+- **Installer UX clarification**: when all detected CLI platforms are already up to date, the installer now explicitly calls out Claude Cowork as a manual packaging target and lists platforms that are not installed on the machine, so users understand nothing will be changed there
+- **Prompt wording**: refined the no-op follow-up prompt to clarify that the action applies only to CLI-installed platforms, reducing confusion when Cowork is also selected
+
+
 ## [1.21.6] - 2026-03-20
 
 ### Added

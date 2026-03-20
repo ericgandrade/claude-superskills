@@ -1,6 +1,6 @@
 {
   "name": "claude-superskills",
-  "version": "1.21.6",
+  "version": "1.21.7",
   "description": "46 Reusable AI CLI skills + CloudConvert MCP server for GitHub Copilot, Claude Code, and 6 more AI platforms",
   "main": "lib/index.js",
   "bin": {
