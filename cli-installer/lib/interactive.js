@@ -57,7 +57,8 @@ async function confirmCancel() {
 async function promptPlatforms(detected, options = {}) {
   const {
     message = 'Instalar skills para quais plataformas? (Pressione ESC para cancelar)',
-    defaultChecked = true
+    defaultChecked = true,
+    includeCowork = false
   } = options;
   const choices = [];
   
@@ -73,6 +74,14 @@ async function promptPlatforms(detected, options = {}) {
     choices.push({
       name: '✅ Claude Code (~/.claude/skills/)',
       value: 'claude',
+      checked: defaultChecked
+    });
+  }
+
+  if (includeCowork && detected.cowork && detected.cowork.installed) {
+    choices.push({
+      name: '✅ Claude Cowork (generate plugin zip for manual upload)',
+      value: 'cowork',
       checked: defaultChecked
     });
   }

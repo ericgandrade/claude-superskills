@@ -21,11 +21,14 @@ function displayToolsTable(tools) {
   const toolNames = {
     copilot: 'GitHub Copilot CLI',
     claude: 'Claude Code',
+    cowork: 'Claude Cowork',
     codex_cli: 'OpenAI Codex CLI',
     codex_app: 'OpenAI Codex App',
     opencode: 'OpenCode',
     gemini: 'Gemini CLI',
-    antigravity: 'Google Antigravity'
+    antigravity: 'Google Antigravity',
+    cursor: 'Cursor IDE',
+    adal: 'AdaL CLI'
   };
   
   for (const [key, name] of Object.entries(toolNames)) {
@@ -57,14 +60,17 @@ function getToolsSummary(tools) {
 
   if (tools.copilot && tools.copilot.installed) installed.push('copilot');
   if (tools.claude && tools.claude.installed) installed.push('claude');
+  if (tools.cowork && tools.cowork.installed) installed.push('cowork');
   if (tools.codex_cli && tools.codex_cli.installed) installed.push('codex_cli');
   if (tools.codex_app && tools.codex_app.installed) installed.push('codex_app');
   if (tools.opencode && tools.opencode.installed) installed.push('opencode');
   if (tools.gemini && tools.gemini.installed) installed.push('gemini');
   if (tools.antigravity && tools.antigravity.installed) installed.push('antigravity');
+  if (tools.cursor && tools.cursor.installed) installed.push('cursor');
+  if (tools.adal && tools.adal.installed) installed.push('adal');
 
   return {
-    total: 7,
+    total: 10,
     installed: installed.length,
     names: installed
   };

@@ -6,6 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.21.6] - 2026-03-20
+
+### Added
+
+- **Claude Cowork packaging flow**: the installer now detects Claude Desktop/Cowork, offers Cowork as a manual-upload target, generates a plugin zip, and prints explicit replace-the-old-version update instructions
+
+### Changed
+
+- **Cowork command surface**: added `package-cowork` / `cowork` as a direct command for generating the Cowork plugin package without running the full install flow
+- **Installer documentation**: documented the Cowork update flow and clarified that the current support level is validated on macOS, with Windows/Linux detection implemented as best-effort heuristics pending end-to-end validation
+
+### Fixed
+
+- **Detection table completeness**: the installer table now includes Claude Cowork alongside Cursor IDE and AdaL CLI, keeping detected tools aligned with actual installer support
+- **Windows/Linux Cowork detection heuristics**: expanded common install/data path checks so Cowork-capable Claude Desktop installs are more likely to be detected outside macOS
+
 ## [1.21.5] - 2026-03-20
 
 ### Fixed

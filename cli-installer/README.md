@@ -1,8 +1,10 @@
-# claude-superskills v1.21.5
+# claude-superskills v1.21.6
 
 Universal installer for the `claude-superskills` library. Install 46 reusable AI skills across GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, and AdaL CLI from one command.
 
-![Version](https://img.shields.io/badge/version-1.21.5-blue.svg)
+If Claude Desktop is detected, the installer can also generate a Claude Cowork plugin zip for manual upload.
+
+![Version](https://img.shields.io/badge/version-1.21.6-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Node](https://img.shields.io/badge/node-%3E%3D14.0.0-green.svg)
 
@@ -30,6 +32,7 @@ See [Installation Guide](../docs/INSTALLATION.md) for full setup and troubleshoo
 3. Compares installed skill versions with the current installer version.
 4. Recommends smart updates for outdated or missing skills.
 5. Copies skills into each platform's global skills directory.
+6. If Claude Cowork is detected and selected, generates a plugin zip and prints manual upload instructions.
 
 Installation is always global. Local repository scope is no longer supported.
 
@@ -44,12 +47,20 @@ Installation is always global. Local repository scope is no longer supported.
 - Cursor IDE: `~/.cursor/skills/`
 - AdaL CLI: `~/.adal/skills/`
 
+Claude Cowork is supported as a packaging target, not as a direct copy target. The installer generates a zip for manual upload in Claude Desktop / Cowork.
+
+Support status:
+- macOS: detected and validated locally
+- Windows: detection implemented with common install/data path heuristics, not yet validated end-to-end
+- Linux: detection implemented with desktop-entry/config path heuristics, not yet validated end-to-end
+
 ## Available Commands
 
 - `install`, `i` - Install skills (default)
 - `list`, `ls` - List installed skills
 - `status`, `st` - Show installed status and version diff
 - `update`, `up` - Smart update outdated and missing skills
+- `package-cowork`, `cowork` - Generate a Claude Cowork plugin zip
 - `uninstall`, `rm` - Remove installed skills
 - `doctor`, `doc` - Check installation health
 
@@ -95,6 +106,7 @@ npx claude-superskills
 npx claude-superskills -y -q
 npx claude-superskills --bundle essential -y
 npx claude-superskills up -y
+npx claude-superskills package-cowork
 npx claude-superskills status
 npx claude-superskills uninstall -y
 npx claude-superskills doctor
@@ -103,5 +115,6 @@ npx claude-superskills doctor
 ## Notes
 
 - The installer downloads skills from GitHub and caches them locally before copying them into platform directories.
-- The installer compares installed skill versions with `v1.21.5` and recommends updates automatically.
+- The installer compares installed skill versions with `v1.21.6` and recommends updates automatically.
 - Skills are authored in the repository `skills/` directory only; platform directories are installation targets, not source directories.
+- Claude Cowork updates are manual by design: generate the zip, remove the previous `claude-superskills` plugin in Cowork, then upload the new zip.

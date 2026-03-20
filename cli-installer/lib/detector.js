@@ -58,6 +58,7 @@ function detectTools() {
   const tools = {
     copilot: detectCopilot(),
     claude: detectClaude(),
+    cowork: detectCowork(),
     codex_cli: detectCodexCli(),
     codex_app: detectCodexApp(),
     opencode: detectOpenCode(),
@@ -68,6 +69,137 @@ function detectTools() {
   };
 
   return tools;
+}
+
+function readMacAppVersion(appPath) {
+  const plistPath = path.join(appPath, 'Contents', 'Info.plist');
+  if (!fs.existsSync(plistPath)) return null;
+
+  try {
+    const output = execSync(`plutil -p "${plistPath}"`, {
+      encoding: 'utf-8',
+      stdio: ['pipe', 'pipe', 'ignore'],
+      timeout: EXEC_TIMEOUT
+    });
+
+    const match = output.match(/"CFBundleShortVersionString" => "([^"]+)"/);
+    return match ? match[1] : null;
+  } catch {
+    return null;
+  }
+}
+
+function findFirstExistingPath(possiblePaths) {
+  for (const candidate of possiblePaths) {
+    if (!candidate) continue;
+    if (fs.existsSync(candidate)) return candidate;
+  }
+  return null;
+}
+
+function hasAnyExistingPath(possiblePaths) {
+  return possiblePaths.some((candidate) => candidate && fs.existsSync(candidate));
+}
+
+function readLinuxDesktopFileVersion(desktopFilePath) {
+  if (!desktopFilePath || !fs.existsSync(desktopFilePath)) return null;
+
+  try {
+    const content = fs.readFileSync(desktopFilePath, 'utf-8');
+    const versionMatch = content.match(/^X-AppImage-Version=(.+)$/m) || content.match(/^Version=(.+)$/m);
+    return versionMatch ? versionMatch[1].trim() : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Detecta Claude Desktop / Cowork-capable app
+ */
+function detectCowork() {
+  // macOS
+  if (os.platform() === 'darwin') {
+    const appPath = '/Applications/Claude.app';
+    if (fs.existsSync(appPath)) {
+      const version = readMacAppVersion(appPath);
+      return { installed: true, version: version || 'Claude Desktop detected', path: appPath };
+    }
+  }
+
+  // Windows
+  if (os.platform() === 'win32') {
+    const homeDir = os.homedir();
+    const localAppData = process.env.LOCALAPPDATA || path.join(os.homedir(), 'AppData', 'Local');
+    const roamingAppData = process.env.APPDATA || path.join(homeDir, 'AppData', 'Roaming');
+    const programFiles = process.env['ProgramFiles'] || 'C:\\Program Files';
+    const programFilesX86 = process.env['ProgramFiles(x86)'] || 'C:\\Program Files (x86)';
+    const possiblePaths = [
+      path.join(localAppData, 'Programs', 'Claude', 'Claude.exe'),
+      path.join(programFiles, 'Claude', 'Claude.exe'),
+      path.join(programFilesX86, 'Claude', 'Claude.exe'),
+      path.join(localAppData, 'Claude', 'Claude.exe'),
+      path.join(localAppData, 'Programs', 'claude', 'Claude.exe')
+    ];
+    const supportPaths = [
+      path.join(roamingAppData, 'Claude'),
+      path.join(roamingAppData, 'Anthropic', 'Claude'),
+      path.join(localAppData, 'Claude'),
+      path.join(localAppData, 'Anthropic', 'Claude'),
+      path.join(localAppData, 'com.anthropic.claudefordesktop')
+    ];
+
+    const appPath = findFirstExistingPath(possiblePaths);
+    if (appPath) {
+      return { installed: true, version: 'Claude Desktop detected', path: appPath };
+    }
+
+    if (hasAnyExistingPath(supportPaths)) {
+      return {
+        installed: true,
+        version: 'Claude Desktop data detected',
+        path: findFirstExistingPath(supportPaths)
+      };
+    }
+  }
+
+  // Linux
+  if (os.platform() === 'linux') {
+    const homeDir = os.homedir();
+    const possiblePaths = [
+      path.join(homeDir, '.local', 'share', 'applications', 'Claude.desktop'),
+      path.join(homeDir, '.local', 'share', 'applications', 'claude.desktop'),
+      '/usr/share/applications/Claude.desktop',
+      '/usr/share/applications/claude.desktop',
+      '/var/lib/flatpak/exports/share/applications/com.anthropic.claudefordesktop.desktop',
+      path.join(homeDir, '.local', 'share', 'flatpak', 'exports', 'share', 'applications', 'com.anthropic.claudefordesktop.desktop'),
+      '/opt/Claude',
+      '/opt/Claude/claude'
+    ];
+    const supportPaths = [
+      path.join(homeDir, '.config', 'Claude'),
+      path.join(homeDir, '.config', 'claude'),
+      path.join(homeDir, '.var', 'app', 'com.anthropic.claudefordesktop'),
+      path.join(homeDir, '.local', 'share', 'Claude')
+    ];
+
+    const appPath = findFirstExistingPath(possiblePaths);
+    if (appPath) {
+      const version = appPath.endsWith('.desktop')
+        ? readLinuxDesktopFileVersion(appPath) || 'Claude Desktop detected'
+        : 'Claude Desktop detected';
+      return { installed: true, version, path: appPath };
+    }
+
+    if (hasAnyExistingPath(supportPaths)) {
+      return {
+        installed: true,
+        version: 'Claude Desktop data detected',
+        path: findFirstExistingPath(supportPaths)
+      };
+    }
+  }
+
+  return { installed: false, version: null, path: null };
 }
 
 /**
@@ -381,4 +513,4 @@ Após instalar, execute novamente: npx claude-superskills
   `;
 }
 
-module.exports = { detectTools, getInstallInstructions, detectCodex, detectCodexCli, detectCodexApp, detectAntigravity, detectCursor, detectAdal };
+module.exports = { detectTools, getInstallInstructions, detectCodex, detectCodexCli, detectCodexApp, detectAntigravity, detectCursor, detectAdal, detectCowork };

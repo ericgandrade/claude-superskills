@@ -34,6 +34,7 @@ This script will:
 - ✅ Offer to install Node.js via nvm if missing
 - ✅ Install claude-superskills globally via npm
 - ✅ Detect installed AI CLI tools (Copilot, Claude, Codex, OpenCode, Gemini)
+- ✅ Detect Claude Desktop / Cowork when available
 - ✅ Show next steps
 
 ---
@@ -89,6 +90,16 @@ npx claude-superskills
 - Quick one-time use
 - Testing before installing
 - Always wanting latest version
+
+**Claude Cowork packaging:**
+
+If Claude Desktop is installed, you can generate a Cowork-ready plugin zip:
+
+```bash
+npx claude-superskills package-cowork
+```
+
+The package is generated locally and must be uploaded manually in Claude Desktop / Cowork.
 
 ---
 
@@ -193,6 +204,36 @@ Download from: https://nodejs.org/
 ---
 
 ## 🖥️ Platform-Specific Notes
+
+### Claude Desktop / Cowork
+
+Claude Cowork is supported as a manual-upload plugin target.
+
+How it works:
+- the installer detects Claude Desktop locally
+- it offers `Claude Cowork (generate plugin zip for manual upload)` as a target
+- it generates a zip under `~/.claude-superskills/plugin-output/`
+- it prints the exact file path, version, and next steps
+
+Recommended update flow:
+
+```bash
+npx claude-superskills package-cowork
+```
+
+Then in Claude Desktop:
+
+1. Open `Cowork`.
+2. Open `Customize`.
+3. Find the installed `claude-superskills` plugin.
+4. Remove the old version first.
+5. Upload the new zip.
+6. Confirm the new version is shown.
+
+Important:
+- Cowork is not updated automatically by the installer.
+- The known `claude plugin install` shell bug does not block the Cowork custom zip upload flow.
+- Current support level is asymmetric: macOS has been validated locally; Windows and Linux currently rely on best-effort detection heuristics and still need real-world validation in Claude Desktop / Cowork.
 
 ### macOS
 

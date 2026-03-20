@@ -16,6 +16,7 @@ const { registerMcpServers } = require('../lib/mcp-installer');
 const { searchSkills } = require('../lib/search');
 const { displayToolsTable } = require('../lib/ui/table');
 const { ensureSkillsCached } = require('../lib/core/downloader');
+const { packageCoworkPlugin, printCoworkInstructions } = require('../lib/cowork');
 const { getUserSkillsPath } = require('../lib/utils/path-resolver');
 const {
   getCachedSkillInventory,
@@ -39,7 +40,8 @@ const commandAliases = {
   st: 'status',
   up: 'update',
   rm: 'uninstall',
-  doc: 'doctor'
+  doc: 'doctor',
+  cowork: 'package-cowork'
 };
 
 function validateRemovedScopeFlags(args) {
@@ -73,6 +75,19 @@ function getDetectedPlatforms(detected) {
   if (detected.cursor.installed) platforms.push('cursor');
   if (detected.adal.installed) platforms.push('adal');
   return platforms;
+}
+
+function getDetectedTargets(detected) {
+  const targets = getDetectedPlatforms(detected);
+  if (detected.cowork && detected.cowork.installed) targets.push('cowork');
+  return targets;
+}
+
+function splitTargets(targets) {
+  return {
+    platforms: targets.filter((target) => target !== 'cowork'),
+    includeCowork: targets.includes('cowork')
+  };
 }
 
 function getManagedSkillNames() {
@@ -496,16 +511,41 @@ async function runStatusCommand() {
 
 async function runUpdateCommand(detected, quiet, skipPrompt) {
   const platforms = getDetectedPlatforms(detected);
-  if (platforms.length === 0) {
+  const hasCowork = detected.cowork && detected.cowork.installed;
+
+  if (platforms.length === 0 && !hasCowork) {
     console.log(chalk.yellow('\n⚠️  No supported platforms detected for update.\n'));
     return;
   }
 
   if (!quiet) {
-    console.log(chalk.cyan(`\n🔄 Updating skills for: ${platforms.join(', ')}\n`));
+    const targets = [...platforms];
+    if (hasCowork) targets.push('cowork');
+    console.log(chalk.cyan(`\n🔄 Updating skills for: ${targets.join(', ')}\n`));
   }
 
-  await runSmartInstallFlow(detected, platforms, quiet, skipPrompt);
+  if (platforms.length > 0) {
+    await runSmartInstallFlow(detected, platforms, quiet, skipPrompt);
+  }
+
+  await maybePackageCowork(detected, hasCowork, quiet);
+}
+
+async function maybePackageCowork(detected, includeCowork, quiet) {
+  if (!includeCowork || !detected.cowork || !detected.cowork.installed) return;
+
+  const pluginRoot = path.resolve(__dirname, '..', '..');
+  const result = await packageCoworkPlugin({ version: VERSION, quiet, pluginRoot });
+  printCoworkInstructions(result, VERSION);
+}
+
+async function runPackageCoworkCommand(detected, quiet) {
+  if (!detected.cowork || !detected.cowork.installed) {
+    console.log(chalk.yellow('\n⚠️  Claude Cowork / Claude Desktop was not detected on this machine.\n'));
+    return;
+  }
+
+  await maybePackageCowork(detected, true, quiet);
 }
 
 async function main() {
@@ -559,6 +599,7 @@ async function main() {
     displayToolsTable(detected);
 
     const hasAny = detected.copilot.installed || detected.claude.installed ||
+                   detected.cowork.installed ||
                    detected.codex_cli.installed || detected.codex_app.installed || detected.opencode.installed ||
                    detected.gemini.installed || detected.antigravity.installed ||
                    detected.cursor.installed || detected.adal.installed;
@@ -570,9 +611,9 @@ async function main() {
 
     let platforms;
     if (skipPrompt) {
-      platforms = getDetectedPlatforms(detected);
+      platforms = getDetectedTargets(detected);
     } else {
-      platforms = await promptPlatforms(detected);
+      platforms = await promptPlatforms(detected, { includeCowork: true });
     }
 
     if (platforms.length === 0) {
@@ -580,20 +621,31 @@ async function main() {
       process.exit(0);
     }
 
-    const cacheDir = await warmCache(quiet);
+    const { platforms: installPlatforms, includeCowork } = splitTargets(platforms);
+
+    const cacheDir = installPlatforms.length > 0 ? await warmCache(quiet) : null;
 
     if (!quiet) {
       console.log(chalk.gray('Mode: global installation only'));
       console.log(`📦 Installing bundle: ${bundle.name}`);
       console.log(`Skills: ${bundle.skills.join(', ')}\n`);
+      if (includeCowork) {
+        console.log(chalk.dim('Claude Cowork package generation is repo-wide; bundle filtering does not change the Cowork zip contents.\n'));
+      }
     }
 
-    for (const skill of bundle.skills) {
-      await installForPlatforms(cacheDir, platforms, [skill], quiet);
+    if (installPlatforms.length > 0) {
+      for (const skill of bundle.skills) {
+        await installForPlatforms(cacheDir, installPlatforms, [skill], quiet);
+      }
     }
 
-    const pluginRoot = path.resolve(__dirname, '..', '..');
-    await registerMcpServers(platforms, pluginRoot, quiet);
+    if (installPlatforms.length > 0) {
+      const pluginRoot = path.resolve(__dirname, '..', '..');
+      await registerMcpServers(installPlatforms, pluginRoot, quiet);
+    }
+
+    await maybePackageCowork(detected, includeCowork, quiet);
 
     if (!quiet) {
       console.log('\n✅ Bundle installed successfully!\n');
@@ -609,6 +661,7 @@ async function main() {
     displayToolsTable(detected);
 
     const hasAny = detected.copilot.installed || detected.claude.installed ||
+                   detected.cowork.installed ||
                    detected.codex_cli.installed || detected.codex_app.installed || detected.opencode.installed ||
                    detected.gemini.installed || detected.antigravity.installed ||
                    detected.cursor.installed || detected.adal.installed;
@@ -620,9 +673,9 @@ async function main() {
 
     let platforms;
     if (skipPrompt) {
-      platforms = getDetectedPlatforms(detected);
+      platforms = getDetectedTargets(detected);
     } else {
-      platforms = await promptPlatforms(detected);
+      platforms = await promptPlatforms(detected, { includeCowork: true });
     }
 
     if (platforms.length === 0) {
@@ -630,13 +683,19 @@ async function main() {
       process.exit(0);
     }
 
+    const { platforms: installPlatforms, includeCowork } = splitTargets(platforms);
+
     if (!quiet) {
-      console.log(chalk.cyan(`\n📦 Global installation target: ${platforms.join(', ')}\n`));
+      console.log(chalk.cyan(`\n📦 Installation target: ${platforms.join(', ')}\n`));
     }
 
-    await runSmartInstallFlow(detected, platforms, quiet, skipPrompt);
-    const pluginRoot = path.resolve(__dirname, '..', '..');
-    await registerMcpServers(platforms, pluginRoot, quiet);
+    if (installPlatforms.length > 0) {
+      await runSmartInstallFlow(detected, installPlatforms, quiet, skipPrompt);
+      const pluginRoot = path.resolve(__dirname, '..', '..');
+      await registerMcpServers(installPlatforms, pluginRoot, quiet);
+    }
+
+    await maybePackageCowork(detected, includeCowork, quiet);
     return;
   }
 
@@ -666,6 +725,12 @@ async function main() {
       break;
     }
 
+    case 'package-cowork': {
+      const detected = detectTools();
+      await runPackageCoworkCommand(detected, quiet);
+      break;
+    }
+
     case 'uninstall':
       console.log(chalk.cyan('🔍 Detecting installed AI CLI tools...\n'));
       await runUninstallFlow(detectTools(), quiet, skipPrompt);
@@ -692,6 +757,7 @@ Commands:
   list, ls        List installed skills
   status, st      Show installed status + version diff
   update, up      Smart update (outdated + missing)
+  package-cowork  Generate Claude Cowork plugin zip
   uninstall, rm   Remove skills
   doctor, doc     Check installation
 
@@ -708,12 +774,14 @@ Options:
 Notes:
   - Installation is always global.
   - The installer compares installed skill versions with v${VERSION} and recommends updates.
+  - If Claude Cowork is detected, the installer can generate a plugin zip for manual upload.
 
 Examples:
   npx claude-superskills                        # Interactive smart installation
   npx claude-superskills -y -q                 # Auto smart update/install
   npx claude-superskills --bundle essential -y # Install essential bundle
   npx claude-superskills up -y                 # Update outdated + install missing skills
+  npx claude-superskills package-cowork        # Generate Cowork zip for manual upload
   npx claude-superskills status                # Show global status and version differences
   npx claude-superskills uninstall -y          # Uninstall all + clear cache
 `);

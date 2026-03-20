@@ -1,6 +1,6 @@
 {
   "name": "claude-superskills",
-  "version": "1.21.5",
+  "version": "1.21.6",
   "description": "46 universal AI skills + CloudConvert MCP server for Claude Code — skill creation, deep research, strategic planning, product management, content processing, file conversion, and orchestration workflows",
   "mcpServers": {
     "cloudconvert": {
