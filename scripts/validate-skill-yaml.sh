@@ -16,12 +16,23 @@ echo "🔍 Validating YAML frontmatter in $SKILL_PATH/SKILL.md..."
 FRONTMATTER=$(sed -n '/^---$/,/^---$/p' "$SKILL_PATH/SKILL.md" | sed '1d;$d')
 
 # Check required fields
-for field in name description version; do
+for field in name description license; do
   if ! echo "$FRONTMATTER" | grep -q "^$field:"; then
     echo "❌ Missing required field: $field"
     exit 2
   fi
 done
+
+# Disallow legacy extra fields that break Claude Code loading
+DISALLOWED_FIELDS=$(echo "$FRONTMATTER" | grep -E "^(version|author|platforms|category|tags|risk|created|updated):" || true)
+if [[ -n "$DISALLOWED_FIELDS" ]]; then
+  echo "❌ Error: Disallowed frontmatter fields found in SKILL.md:"
+  echo "$DISALLOWED_FIELDS" | while IFS= read -r line; do echo "   $line"; done
+  echo ""
+  echo "   SKILL.md frontmatter must contain only: name, description, license"
+  echo "   Move metadata such as version, author, tags, risk, and dates to README.md."
+  exit 2
+fi
 
 # Check name format (kebab-case)
 SKILL_NAME=$(echo "$FRONTMATTER" | grep "^name:" | sed 's/^name: *//')

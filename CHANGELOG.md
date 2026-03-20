@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.21.4] - 2026-03-20
+
+### Fixed
+
+- **Validate workflow updated to current architecture**: removed legacy mirrored-skill sync assumptions and replaced them with version/doc consistency checks plus a guard against tracked platform skill directories
+- **YAML validation updated to current SKILL.md contract**: `scripts/validate-skill-yaml.sh` now requires `name`, `description`, and `license`, and rejects legacy fields such as `version`, `author`, `tags`, and `risk`
+- **Release follow-up**: supersedes the failed `v1.21.3` tag attempt, which did not publish to npm
+
 ## [1.21.3] - 2026-03-20
 
 ### Fixed

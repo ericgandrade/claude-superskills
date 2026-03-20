@@ -9,28 +9,40 @@ on:
       - main
 
 jobs:
-  verify-skills-sync:
-    name: Verify Skills Sync
+  verify-release-consistency:
+    name: Verify Release Consistency
     runs-on: ubuntu-latest
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         
+      - name: Verify version sync
+        run: bash ./scripts/verify-version-sync.sh
+
+      - name: Check documentation consistency
+        run: ./scripts/check-doc-consistency.sh
+
+  validate-build:
+    name: Validate Skills Source
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Build skills from source
         run: ./scripts/build-skills.sh
-        
-      - name: Check for sync differences
+
+      - name: Confirm no ignored platform skill dirs are committed
         run: |
-          if [ -n "$(git status --porcelain .github/skills .claude/skills .codex/skills)" ]; then
-            echo "❌ ERROR: Skills are out of sync!"
-            echo "Run './scripts/build-skills.sh' locally and commit the changes."
+          if git ls-files --error-unmatch .github/skills .claude/skills .codex/skills .agent/skills .gemini/skills .cursor/skills .adal/skills cli-installer/skills >/dev/null 2>&1; then
+            echo "❌ ERROR: Mirrored platform skill directories are committed."
+            echo "Remove them from git and keep skills only in skills/."
             echo ""
-            echo "Changes detected:"
-            git status --porcelain .github/skills .claude/skills .codex/skills
             exit 1
           fi
-          echo "✅ Skills are in sync"
+          echo "✅ No mirrored platform skill directories are tracked"
 
   validate-workflows:
     name: Validate GitHub Actions
