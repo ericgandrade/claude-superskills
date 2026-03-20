@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.21.3] - 2026-03-20
+
+### Fixed
+
+- **Documentation consistency hardening**: corrected stale installer, marketplace, contribution, versioning, and quality docs that still described mirrored in-repo platform skill directories as active source
+- **Release validation**: added `scripts/check-doc-consistency.sh` and updated `scripts/verify-version-sync.sh` plus `scripts/pre-publish-check.sh` to catch version drift and stale public metadata before release
+- **Authoring workflow scripts**: updated `scripts/create-skill.sh`, `scripts/update-main-readme.sh`, `scripts/check-tools.sh`, and `scripts/install-skills.sh` to use `skills/` as the repository source of truth
+- **Legacy guidance cleanup**: refreshed affected skill READMEs and marked archived reference material as historical so maintainers are no longer directed to deprecated mirrored workflows
+
 ## [1.21.2] - 2026-03-20
 
 ### Added
