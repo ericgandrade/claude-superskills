@@ -1,8 +1,8 @@
-# 🤖 Claude Superskills v1.21.1
+# 🤖 Claude Superskills v1.21.2
 
 Scale AI-assisted engineering with a reusable skill platform that turns ad-hoc prompting into standardized, high-impact workflows. Install once and deliver consistent planning, research, orchestration, and content automation across your entire multi-tool AI stack.
 
-![Version](https://img.shields.io/badge/version-1.21.1-blue.svg)
+![Version](https://img.shields.io/badge/version-1.21.2-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Skills](https://img.shields.io/badge/skills-46-brightgreen.svg)
 ![Platforms](https://img.shields.io/badge/platforms-8-orange.svg)
@@ -231,7 +231,7 @@ To be notified when the plugin is available on claude.ai, watch this repository.
 | **audio-transcriber** | v2.1.0 | Transform audio recordings into professional Markdown documentation |
 | **docling-converter** | v2.1.0 | Convert PDF/Office/image documents to Markdown/JSON/HTML with optional OCR |
 | **cloudconvert-converter** | v2.1.0 | Convert 200+ file formats (docs, images, video, audio) and PDF operations (OCR, merge, split, rotate) via CloudConvert MCP |
-| **pptx-translator** | v2.7.0 | Translate PowerPoint presentations between languages with batched parallel translation (3 slides/batch), AI-native language classification, group shape support, and per-slide self-validation |
+| **pptx-translator** | v2.8.0 | Translate PowerPoint presentations between languages with batched parallel translation (3 slides/batch), AI-native language classification, group shape support, per-slide self-validation, and interactive output filename choice (original + lang suffix, AI-translated name, or custom) |
 | **storytelling-expert** | v2.0.0 | Transform ideas into engaging narratives using 8 elite storytelling frameworks |
 
 ## 🎯 Curated Bundles

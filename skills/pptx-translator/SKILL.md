@@ -38,6 +38,7 @@ Parameters to infer or confirm:
 3. **Target language** — infer from request; ask if not specified
 4. **Backup mode** — default Safe (output saved as new file); YOLO only if user explicitly says so
 5. **Speaker notes** — default Yes (translate alongside slides)
+6. **Output filename** — resolved interactively in Step 1.5 (after this confirmation box); default is `{stem}_{target_lang_code}.pptx`
 
 Before the confirmation box, display the Economy Mode hint once:
 
@@ -66,7 +67,56 @@ Before the confirmation box, display the Economy Mode hint once:
 Proceed? [Y/n]
 ```
 
-After this single confirmation, proceed without further interruptions.
+After this single confirmation, proceed to Step 1.5 without further interruptions.
+
+## Step 1.5: Output Filename Choice
+
+Immediately after the Step 1 confirmation, show this mini-prompt.
+All variables are derived from the **target language** resolved in Step 1 — never hardcoded to English.
+
+Variables:
+- `{stem}` — original filename without extension (e.g. `proposta_comercial`)
+- `{lang_code}` — ISO 639-1 code of the **target** language (e.g. `pt`, `fr`, `de`, `es`, `en`, `ja`)
+- `{target_language}` — human-readable target language name (e.g. `Portuguese`, `French`, `German`)
+
+```
+How should the output file be named?
+
+  [1] {stem}_{lang_code}.pptx              ← original name + target language suffix (default)
+  [2] {translated_stem}_{lang_code}.pptx   ← filename translated to {target_language} (AI suggestion)
+  [3] Custom name                           ← I'll type it myself
+
+Choice [1]:
+```
+
+**Option 1 (default):** If user presses Enter or types `1`, set `output_filename = {stem}_{lang_code}.pptx`.
+
+**Option 2 — AI translates the filename stem to the target language:**
+- Run an inline AI call with this exact prompt:
+  `"Translate only this filename stem to {target_language}: '{stem}'. Return ONLY the translated stem, lowercase, spaces replaced with underscores, no punctuation, no explanation."`
+- Show the suggestion before proceeding:
+  `Suggested: {translated_stem}_{lang_code}.pptx — use this? [Y/n]`
+- If confirmed → `output_filename = {translated_stem}_{lang_code}.pptx`
+- If rejected → fall back silently to Option 1
+
+**Option 3 — Custom name:**
+- Prompt: `Enter filename (with or without .pptx):`
+- Normalize: strip any leading path separators, ensure `.pptx` extension, replace spaces with `_`
+- Confirm: `Output will be saved as: {custom_name} — confirm? [Y/n]`
+- If confirmed → `output_filename = {custom_name}`
+- If rejected → re-show the 3-option menu
+
+**Examples by language pair:**
+
+| Original file | Direction | Option 1 | Option 2 (AI) |
+|---------------|-----------|----------|----------------|
+| `proposta_comercial.pptx` | PT→EN | `proposta_comercial_en.pptx` | `commercial_proposal_en.pptx` |
+| `proposta_comercial.pptx` | PT→FR | `proposta_comercial_fr.pptx` | `proposition_commerciale_fr.pptx` |
+| `proposta_comercial.pptx` | PT→DE | `proposta_comercial_de.pptx` | `geschaeftsvorschlag_de.pptx` |
+| `quarterly_review.pptx`   | EN→PT | `quarterly_review_pt.pptx`  | `revisao_trimestral_pt.pptx` |
+| `marketing_plan.pptx`     | EN→ES | `marketing_plan_es.pptx`    | `plan_de_marketing_es.pptx` |
+
+Store the resolved name as `output_filename`. Use it in Steps 4 and 5 as the output path.
 
 ## Step 2: Extract & Analyze Slide Content
 
@@ -347,7 +397,7 @@ Display a running gauge before each batch and print results as agents complete:
 
 ### Safe Mode (default): Original is preserved automatically
 
-In Safe mode the output is always saved as a **new file** (`{name}_{lang}.pptx`). The original is never touched — it is already the backup. No redundant `_backup_{timestamp}.pptx` is created.
+In Safe mode the output is always saved as a **new file** using the `output_filename` resolved in Step 1.5 (default: `{stem}_{lang_code}.pptx`). The original is never touched — it is already the backup. No redundant `_backup_{timestamp}.pptx` is created.
 
 **YOLO mode only:** when the user explicitly chose YOLO, the output overwrites the original. In this case, create a backup first:
 
@@ -565,6 +615,14 @@ User: Translate this presentation from Portuguese to English: ~/docs/proposta_q4
 
 Skill: [Installs deps silently if needed]
        [One config confirmation: PT→EN, Safe mode, speaker notes]
+
+       How should the output file be named?
+         [1] proposta_q4_en.pptx              ← original name + target suffix (default)
+         [2] q4_proposal_en.pptx              ← filename translated to English (AI)
+         [3] Custom name                       ← I'll type it myself
+       Choice [1]: 2
+       Suggested: q4_proposal_en.pptx — use this? [Y/n]: Y
+
        [Extracts 35 slides, 1911 blocks — 12 already in English, skipping]
        [Launches 23 parallel agents simultaneously]
        ✅ Slide  3/35 traduzido e validado
@@ -572,7 +630,7 @@ Skill: [Installs deps silently if needed]
        ✅ Slide 13/35 traduzido e validado (group shapes traversed)
        ...
        [Single write-back pass: 736 runs + 1175 table cells]
-       ✅ Saved: ~/docs/proposta_q4_en.pptx
+       ✅ Saved: ~/docs/q4_proposal_en.pptx
 ```
 
 ### Example 2: EN→PT with YOLO Mode
@@ -582,7 +640,16 @@ User: Translate presentation.pptx to Portuguese, YOLO mode
 
 Skill: [Config confirmation shows ⚠️ YOLO — original will be overwritten]
        [User confirms once]
-       [Translates in place, saves as presentation.pptx]
+
+       How should the output file be named?
+         [1] presentation_pt.pptx             ← original name + target suffix (default)
+         [2] apresentacao_pt.pptx             ← filename translated to Portuguese (AI)
+         [3] Custom name                       ← I'll type it myself
+       Choice [1]: 3
+       Enter filename (with or without .pptx): Q1_Apresentacao_Final
+       Output will be saved as: Q1_Apresentacao_Final.pptx — confirm? [Y/n]: Y
+
+       [Translates in place, saves as Q1_Apresentacao_Final.pptx]
 ```
 
 ### Example 3: Custom Language Pair

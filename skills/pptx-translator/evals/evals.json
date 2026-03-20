@@ -64,6 +64,32 @@
         {"text": "Displays validation report in the formatted box with checkmarks and warnings", "weight": 2},
         {"text": "Does not skip validation even when translation appears successful", "weight": 1}
       ]
+    },
+    {
+      "id": 6,
+      "prompt": "Translate ~/docs/proposta_comercial.pptx from Portuguese to French. When asked about the output filename, choose option 2 (translate filename to French).",
+      "expected_output": "Shows the 3-option filename menu with French-specific suggestions; on option 2, runs an inline AI call to translate 'proposta_comercial' to French; confirms the suggested name; saves as proposition_commerciale_fr.pptx or similar",
+      "assertions": [
+        {"text": "Shows the 3-option filename menu after the Step 1 confirmation box", "weight": 2},
+        {"text": "Option 1 shows 'proposta_comercial_fr.pptx' (target lang code 'fr', not 'en')", "weight": 3},
+        {"text": "Option 2 translates the stem to French (e.g. 'proposition_commerciale'), not English", "weight": 3},
+        {"text": "Appends '_fr.pptx' suffix (target language), not '_en.pptx'", "weight": 2},
+        {"text": "Shows confirmation prompt before accepting option 2 suggestion", "weight": 1},
+        {"text": "Saves the final file with the chosen French filename", "weight": 2}
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Translate quarterly_review.pptx from English to Portuguese. When asked about the output filename, type a custom name: 'Revisão Trimestral Q1 2026'",
+      "expected_output": "Shows 3-option filename menu; on option 3, prompts for custom name; normalizes 'Revisão Trimestral Q1 2026' → 'Revisão_Trimestral_Q1_2026.pptx'; confirms before proceeding; saves with that name",
+      "assertions": [
+        {"text": "Shows the 3-option filename menu after Step 1 confirmation", "weight": 2},
+        {"text": "Option 3 prompts the user to enter a custom filename", "weight": 2},
+        {"text": "Normalizes spaces to underscores in the custom name", "weight": 2},
+        {"text": "Ensures .pptx extension even if user omits it", "weight": 2},
+        {"text": "Shows confirmation of the normalized filename before proceeding", "weight": 2},
+        {"text": "Saves translated file as 'Revisão_Trimestral_Q1_2026.pptx'", "weight": 2}
+      ]
     }
   ]
 }

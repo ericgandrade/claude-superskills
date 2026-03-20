@@ -2,7 +2,7 @@
 
 > Translate PowerPoint presentations between languages with parallel slide-by-slide translation, formatting preservation, and full validation
 
-**Version:** 2.7.0
+**Version:** 2.8.0
 **Status:** ✨ Zero-Config | 🌍 Universal
 **Platforms:** GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI
 
@@ -313,6 +313,16 @@ Please close PowerPoint and try again.
 
 ---
 
+## What's New in v2.8
+
+- **Output filename choice (Step 1.5)** — after the configuration confirmation, the skill now asks how to name the output file with 3 options:
+  1. Original filename + target language suffix (default, e.g. `proposta_en.pptx` for PT→EN)
+  2. Filename translated to the **target language** via an inline AI call (e.g. `proposition_fr.pptx` for PT→FR, `revisão_trimestral_pt.pptx` for EN→PT) — always uses the target language, never hardcoded to English
+  3. Custom name — user types freely; normalized to `.pptx` extension
+- Option 2 shows a preview and asks for confirmation before proceeding; if rejected, falls back to Option 1
+- Option 3 sanitizes input (strips path separators, replaces spaces with `_`, enforces `.pptx`)
+- The suffix `_{lang_code}` always uses the ISO 639-1 code of the **target** language (`en`, `pt`, `fr`, `de`, `es`, `ja`, etc.)
+
 ## What's New in v2.7
 
 - **SlideTranslator agent identity** — translation sub-agents are now named `SlideTranslator` (visible in platform logs and Claude Code UI); the classifier sub-agent is named `SlideClassifier`
@@ -374,10 +384,10 @@ Please close PowerPoint and try again.
 
 | Field | Value |
 |-------|-------|
-| Version | 2.7.0 |
+| Version | 2.8.0 |
 | Author | Eric Andrade |
 | Created | 2026-03-19 |
-| Updated | 2026-03-19 (v2.7.0) |
+| Updated | 2026-03-20 (v2.8.0) |
 | Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | content |
 | Tags | translation, pptx, powerpoint, multilingual, presentation |

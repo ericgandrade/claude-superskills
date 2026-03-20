@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated": "2026-03-19T19:39:17.878284Z",
+  "generated": "2026-03-20T07:15:36.091917Z",
   "skills": [
     {
       "name": "abx-strategy",
@@ -558,7 +558,7 @@
     },
     {
       "name": "pptx-translator",
-      "version": "2.7.0",
+      "version": "2.8.0",
       "description": "This skill should be used when the user needs to translate PowerPoint presentations (.pptx) between languages, preserving formatting and layout. Supports parallel slide-by-slide translation with per-slide validation and retry. Default languages are Portuguese and English but any language pair is supported.",
       "category": "content",
       "tags": [

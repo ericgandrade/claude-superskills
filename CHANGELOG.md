@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.21.2] - 2026-03-20
+
+### Added
+
+- **pptx-translator v2.8.0 — interactive output filename choice (Step 1.5)**: After the Step 1 confirmation, the skill now presents 3 filename options:
+  1. Original filename + target language suffix (default, e.g. `proposta_comercial_fr.pptx` for PT→FR)
+  2. AI translates the filename stem to the **target language** (e.g. `proposition_commerciale_fr.pptx` for PT→FR; `revisão_trimestral_pt.pptx` for EN→PT) — never hardcoded to English
+  3. Custom name — free-form input, normalized to `.pptx` with spaces replaced by `_`
+- **pptx-translator evals.json**: Added 2 new evals (ids 6 and 7) covering the 3 filename options across PT→FR and EN→PT language pairs
+
+---
+
 ## [1.21.1] - 2026-03-19
 
 ### Fixed
