@@ -402,7 +402,7 @@ MIT - See [LICENSE](./LICENSE) for details.
 
 **Built with ❤️ by [Eric Andrade](https://github.com/ericgandrade)**
 
-*Version 1.21.1 | March 2026*
+*Version 1.21.2 | March 2026*
 
 ## 🎁 Get Started
 
