@@ -64,8 +64,29 @@ fi
 echo "   ✅ package-lock.json exists"
 echo ""
 
-# 5. Check for uncommitted changes
-echo "5️⃣  Checking git status..."
+# 5. Verify version sync
+echo "5️⃣  Verifying version sync..."
+cd "$REPO_ROOT"
+if ./scripts/verify-version-sync.sh; then
+  echo "   ✅ Version sync OK"
+else
+  echo "   ❌ Version sync failed"
+  exit 1
+fi
+echo ""
+
+# 6. Check documentation consistency
+echo "6️⃣  Checking documentation consistency..."
+if ./scripts/check-doc-consistency.sh; then
+  echo "   ✅ Documentation consistency OK"
+else
+  echo "   ❌ Documentation consistency failed"
+  exit 1
+fi
+echo ""
+
+# 7. Check for uncommitted changes
+echo "7️⃣  Checking git status..."
 cd "$REPO_ROOT"
 if ! git diff-index --quiet HEAD -- 2>/dev/null; then
   echo "   ⚠️  You have uncommitted changes"
@@ -75,8 +96,8 @@ else
 fi
 echo ""
 
-# 6. Run tests
-echo "6️⃣  Running tests..."
+# 8. Run tests
+echo "8️⃣  Running tests..."
 cd "$PKG_DIR"
 if npm test --silent; then
   echo "   ✅ All tests passed"
@@ -86,23 +107,23 @@ else
 fi
 echo ""
 
-# 7. Check what will be published
-echo "7️⃣  Files to be published:"
+# 9. Check what will be published
+echo "9️⃣  Files to be published:"
 echo ""
 npm pack --dry-run 2>/dev/null | tail -n +2 | sed 's/^/   /'
 echo ""
 
-# 8. Calculate package size
+# 10. Calculate package size
 TARBALL_SIZE=$(npm pack --dry-run 2>&1 | grep "package size" | awk '{print $4, $5}')
 UNPACKED_SIZE=$(npm pack --dry-run 2>&1 | grep "unpacked size" | awk '{print $4, $5}')
 
-echo "8️⃣  Package size:"
+echo "🔟  Package size:"
 echo "   📦 Tarball: $TARBALL_SIZE"
 echo "   📂 Unpacked: $UNPACKED_SIZE"
 echo ""
 
-# 9. Check npm audit
-echo "9️⃣  Security audit..."
+# 11. Check npm audit
+echo "1️⃣1️⃣  Security audit..."
 if npm audit --audit-level=moderate --silent 2>/dev/null; then
   echo "   ✅ No moderate or higher vulnerabilities"
 else
@@ -119,9 +140,7 @@ echo ""
 echo "Next steps:"
 echo "  1. Review changes: git log"
 echo "  2. Commit: git commit -m 'chore: bump version to $CURRENT_VERSION'"
-echo "  3. Push: git push origin main"
-echo "  4. Trigger workflow: gh workflow run publish-npm.yml"
-echo ""
-echo "Or publish manually:"
-echo "  cd cli-installer && npm publish"
+echo "  3. Tag: git tag v$CURRENT_VERSION"
+echo "  4. Push: git push origin main && git push origin v$CURRENT_VERSION"
+echo "  5. Confirm GitHub Actions publish workflow runs from the tag push"
 echo ""

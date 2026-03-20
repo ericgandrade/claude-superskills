@@ -1,98 +1,107 @@
-# claude-superskills v1.13.3
+# claude-superskills v1.21.2
 
-🚀 **NPX Installer for AI Skills**
+Universal installer for the `claude-superskills` library. Install 46 reusable AI skills across GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, and AdaL CLI from one command.
 
-Install reusable skills for GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, and AdaL CLI in one command.
-
-![Version](https://img.shields.io/badge/version-1.13.3-blue.svg)
+![Version](https://img.shields.io/badge/version-1.21.2-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Node](https://img.shields.io/badge/node-%3E%3D14.0.0-green.svg)
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
-# Interactive zero-config install
+# Interactive smart installation
 npx claude-superskills
 
-# Auto-install to all detected platforms
+# Auto smart update/install
 npx claude-superskills -y -q
 
-# Bundle install examples
+# Install curated bundles
 npx claude-superskills --bundle essential -y
-npx claude-superskills --bundle planning -y
-npx claude-superskills --bundle research -y
+npx claude-superskills --bundle content -y
+npx claude-superskills --bundle career -y
 ```
 
-See [Installation Guide](../docs/INSTALLATION.md) for full methods.
+See [Installation Guide](../docs/INSTALLATION.md) for full setup and troubleshooting.
 
-## 📦 What It Does
+## What It Does
 
 1. Detects installed AI tools and IDEs.
-2. Fetches the matching skills release cache.
-3. Compares installed skills with installer versions (`outdated`, `missing`, `up-to-date`).
-4. Recommends smart update actions and installs globally into platform directories.
+2. Downloads the matching skills release into a local cache.
+3. Compares installed skill versions with the current installer version.
+4. Recommends smart updates for outdated or missing skills.
+5. Copies skills into each platform's global skills directory.
 
-Installation mode is always global. Local repository scope is no longer supported.
+Installation is always global. Local repository scope is no longer supported.
 
-## 💻 Supported Platforms
+## Supported Platforms
 
 - GitHub Copilot CLI: `~/.github/skills/`
 - Claude Code: `~/.claude/skills/`
-- OpenAI Codex: `~/.codex/skills/` (cleanup support for legacy `~/.agents/skills/`)
+- OpenAI Codex: `~/.codex/skills/`
 - OpenCode: `~/.agent/skills/`
 - Gemini CLI: `~/.gemini/skills/`
 - Antigravity: `~/.gemini/antigravity/skills/`
 - Cursor IDE: `~/.cursor/skills/`
 - AdaL CLI: `~/.adal/skills/`
 
-## 📚 Available Skills (10)
+## Available Commands
 
-1. `agent-skill-discovery` (v1.1.0)
-2. `agent-skill-orchestrator` (v1.1.0)
-3. `brainstorming` (v1.0.0)
-4. `writing-plans` (v1.0.0)
-5. `executing-plans` (v1.0.0)
-6. `deep-research` (v1.0.0)
-7. `skill-creator` (v1.3.1)
-8. `prompt-engineer` (v1.1.0)
-9. `youtube-summarizer` (v1.2.1)
-10. `audio-transcriber` (v1.2.1)
+- `install`, `i` - Install skills (default)
+- `list`, `ls` - List installed skills
+- `status`, `st` - Show installed status and version diff
+- `update`, `up` - Smart update outdated and missing skills
+- `uninstall`, `rm` - Remove installed skills
+- `doctor`, `doc` - Check installation health
 
-## 📦 Bundles
+## Options
 
-- `essential`
-- `planning`
-- `research`
-- `content`
-- `developer`
-- `orchestration`
-- `all`
+- `--bundle NAME` - Install a curated bundle
+- `--search KEYWORD` - Search for matching skills
+- `--list-bundles` - Show available bundles
+- `--all`, `-a` - Install for all detected platforms
+- `--yes`, `-y` - Skip prompts
+- `--quiet`, `-q` - Minimal output
+- `--help`, `-h` - Show help
+- `--version`, `-v` - Show version
+
+## Bundles
+
+- `essential` - Core workflow skills for discovery, orchestration, planning, and prompt optimization
+- `planning` - Pre-implementation design and structured execution
+- `research` - Deep research and resource discovery
+- `content` - YouTube, audio, document conversion, CloudConvert, and storytelling workflows
+- `product` - Product strategy, discovery, architecture, delivery, leadership, and AI-native product work
+- `career` - Resume, job search, interview, negotiation, and portfolio workflows
+- `developer` - Skill creation workflows
+- `orchestration` - Resource discovery and planning
+- `all` - All 46 available skills
 
 ```bash
 npx claude-superskills --list-bundles
 ```
 
-## 🔍 Search
+## Search
 
 ```bash
 npx claude-superskills --search "planning"
+npx claude-superskills --search "resume"
 npx claude-superskills --search "research"
 ```
 
-## ⚡ Shortcuts
-
-- `i` => `install`
-- `ls` => `list`
-- `up` => `update`
-- `rm` => `uninstall`
-- `doc` => `doctor`
-
-## 📖 Useful Commands
+## Example Commands
 
 ```bash
-npx claude-superskills i -a -y -q
-npx claude-superskills ls -q
-npx claude-superskills up
+npx claude-superskills
+npx claude-superskills -y -q
+npx claude-superskills --bundle essential -y
+npx claude-superskills up -y
+npx claude-superskills status
 npx claude-superskills uninstall -y
-npx claude-superskills doc
+npx claude-superskills doctor
 ```
+
+## Notes
+
+- The installer downloads skills from GitHub and caches them locally before copying them into platform directories.
+- The installer compares installed skill versions with `v1.21.2` and recommends updates automatically.
+- Skills are authored in the repository `skills/` directory only; platform directories are installation targets, not source directories.

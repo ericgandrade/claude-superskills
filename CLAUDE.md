@@ -13,7 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 🚨 CRITICAL: VERSION CONSISTENCY RULE
 
-You **MUST** keep the following files synchronized at all times when changing versions or adding skills. Failure to do so will result in deployment errors and user confusion.
+You **MUST** keep the following files synchronized at all times when changing versions or adding skills. Failure to do so will result in deployment errors, stale marketplace metadata, and user confusion.
 
 | File | What to Update | Authority |
 |------|----------------|-----------|
@@ -22,13 +22,38 @@ You **MUST** keep the following files synchronized at all times when changing ve
 | `README.md` | H1 Title, Version Badge, Footer | Visual confirmation |
 | `CLAUDE.md` | Project Overview & Version Checklist | Guidance consistency |
 | `CHANGELOG.md` | New version entry | History |
+| `cli-installer/README.md` | Version, skill count, command examples, supported platforms | Installer docs must match current product |
+| `.claude-plugin/marketplace.json` | Description, skill count, plugin positioning | Marketplace-facing metadata must match current product |
+| `docs/guides/skill-anatomy.md` | Repository architecture and skill file structure | Must reflect current single-source-of-truth model |
+
+## 🚨 CRITICAL: DOCUMENTATION CONSISTENCY RULE
+
+Version sync alone is **not enough**. Any change that affects product scope, packaging, installation flow, supported platforms, skill count, or repository architecture **must** be propagated to all user-facing and maintainer-facing docs in the same change.
+
+### Always update documentation when any of these change
+
+- Skill count changes
+- Supported platforms change
+- Installation flow changes
+- Plugin or marketplace behavior changes
+- Repository architecture changes
+- Source-of-truth rules change
+- Bundle composition or command behavior changes
+
+### Documentation authority rules
+
+1. **`skills/` is the only source of truth for skill content.** No guide or README may describe replicated skill copies inside platform directories as part of the active architecture.
+2. **`cli-installer/package.json` and `.claude-plugin/plugin.json` define the current released version.** Secondary docs must reflect that version or avoid version-specific claims.
+3. **`README.md` and `CLAUDE.md` define the current product shape.** Secondary docs such as `cli-installer/README.md`, `.claude-plugin/marketplace.json`, and `docs/guides/*.md` must not advertise obsolete counts, narrower scope, or deprecated flows.
+4. **Marketplace metadata is documentation.** `.claude-plugin/marketplace.json` descriptions must be reviewed whenever the public skill count or positioning changes.
+5. **Guides must describe the active architecture, not historical architecture.** If a guide mentions deprecated mirrored platform directories, symlink-era behavior, or bundled skills in npm, it must be updated or explicitly labeled historical.
 
 ### 🛠️ Use the Release Script
 To avoid forgetting these files, always use the automated release command:
 ```bash
 node scripts/release.js [patch|minor|major]
 ```
-This script synchronizes all 5 critical files and regenerates indexes automatically. If you prefer manual updates, follow the [Fool-Proof Release Checklist](#-the-fool-proof-release-checklist) below.
+This script synchronizes the 5 version-authoritative files and regenerates indexes automatically. Secondary docs such as `cli-installer/README.md`, `.claude-plugin/marketplace.json`, and impacted guides still require explicit review in the same change. If you prefer manual updates, follow the [Fool-Proof Release Checklist](#-the-fool-proof-release-checklist) below.
 
 ---
 
@@ -240,7 +265,7 @@ npx claude-superskills
 /plugin install claude-superskills@claude-superskills
     → clones repo → copies to ~/.claude/plugins/cache/claude-superskills/
     → auto-discovers skills/ directory
-    → registers all 45 skills as /claude-superskills:<skill-name>
+    → registers all 46 skills as /claude-superskills:<skill-name>
 
 # NOTE: The shell command `claude plugin install ...` is currently unstable
 # due to upstream bugs in Claude Code (e.g. anthropics/claude-code#29722).
@@ -284,11 +309,14 @@ Every new skill added to `skills/` **must** trigger the following updates before
 1. **`skills/<skill-name>/SKILL.md`** — create with valid frontmatter: `name` (kebab-case), `description` ("This skill should be used when..."), `license` (MIT). No other fields — `version`, `author`, `platforms`, `category`, `tags`, `risk`, `created`, `updated` all cause Claude Code loading failures. No bare date fields.
 2. **`skills/<skill-name>/README.md`** — create with `## Metadata` table (Version, Author, Created, Updated, Platforms, Category, Tags, Risk). Dates go here, NOT in SKILL.md.
 3. **`README.md`** — add skill to the relevant category table; bump the `skills-N` badge count.
-4. **`CLAUDE.md`** — add skill to the architecture tree (`skills/`) and to the Skill Types section; update the skills badge count note.
+4. **`CLAUDE.md`** — add skill to the architecture tree (`skills/`) and to the Skill Types section; update any skill count references.
 5. **`.claude-plugin/plugin.json`** — bump `"version"` (minor for new skill: X.Y.0 → X.(Y+1).0).
 6. **`cli-installer/package.json`** — bump version to match plugin.json via `./scripts/bump-version.sh minor`.
 7. **`CHANGELOG.md`** — add entry under new version.
-8. **`bundles.json`** — add skill to appropriate bundle(s) if applicable.
+8. **`cli-installer/README.md`** — update installer-facing version, skill count, and examples if they mention totals or capabilities.
+9. **`.claude-plugin/marketplace.json`** — update marketplace description if the public scope or skill count changed.
+10. **`docs/guides/skill-anatomy.md`** and related guides — update any architecture examples or file trees affected by the new skill or current packaging model.
+11. **`bundles.json`** — add skill to appropriate bundle(s) if applicable.
 
 > ⛔ **Do NOT set `version` in `.claude-plugin/marketplace.json` plugin entry.** The docs specify that `plugin.json` is the version authority for GitHub-sourced plugins. Setting it in both places causes silent conflicts. Only set version in `plugin.json`.
 
@@ -352,6 +380,9 @@ git push origin main && git push origin vX.Y.Z
 > - `README.md` (commands, examples, version badges/footer, behavior notes)
 > - `CHANGELOG.md` (new version entry with added/changed/fixed items)
 > - `CLAUDE.md` (architecture/workflow/rules/version references)
+> - `cli-installer/README.md` (installer behavior, skill count, examples)
+> - `.claude-plugin/marketplace.json` (public marketplace description and positioning)
+> - `docs/guides/*.md` impacted by architecture or workflow changes
 > - `cli-installer/package.json` and `cli-installer/package-lock.json` (version bump)
 > - `.claude-plugin/plugin.json` — `"version"` must match `package.json` exactly
 > - Git commit + version tag `vX.Y.Z` + push `main` and tag to trigger publish workflow
@@ -373,11 +404,12 @@ ls ~/.claude-superskills/cache/
 
 Before committing new or modified skills:
 
-1. **YAML frontmatter** — `name` is kebab-case; `name`, `description`, `version` present; version is SemVer (X.Y.Z)
+1. **YAML frontmatter** — `name` is kebab-case; only `name`, `description`, and `license` are present
 2. **No bare date values** — `created:` and `updated:` fields must NOT appear in `SKILL.md` frontmatter. Bare `YYYY-MM-DD` values are parsed as Date objects by js-yaml (Claude Code's parser), causing `malformed YAML frontmatter` errors. Put dates in `README.md` Metadata section.
 3. **Content** — Word count 1500–2000 (max 5000); no second-person ("you should"); imperative form used; 3–5 realistic examples
 4. **Structure** — Required sections: Purpose, When to Use, Workflow, Critical Rules, Example Usage; Step 0: Discovery if skill interacts with project structure
 5. **Plugin version sync** — `.claude-plugin/plugin.json` `"version"` must match `cli-installer/package.json` version exactly. If you bumped the npm version, also update plugin.json manually (bump-version.sh does NOT update it automatically).
+6. **Documentation sync** — any changed totals, architecture statements, install flows, or marketplace claims must be updated in all affected docs before merge
 
 ## Skill Architecture
 
@@ -554,7 +586,7 @@ Curated skill collections:
 - **content**: `youtube-summarizer`, `audio-transcriber`, `docling-converter`, `pptx-translator`
 - **developer**: `skill-creator`
 - **orchestration**: `agent-skill-discovery`, `agent-skill-orchestrator`
-- **all**: all 45 skills
+- **all**: all 46 skills
 
 ## Automation Scripts
 

@@ -1,372 +1,126 @@
 # Skill Anatomy: Understanding the Structure
 
-This guide explains how skills are structured, what makes a quality skill, and how all the pieces fit together.
+This guide explains how skills are structured in the current `claude-superskills` architecture and what makes a skill compatible with the supported AI platforms.
 
-## 📋 What is a Skill?
+## What Is a Skill?
 
-A **skill** is a self-contained module that extends the capabilities of AI coding assistants. Each skill:
+A skill is a self-contained Markdown workflow that teaches an AI assistant how to perform a specific class of work. In this repository, skills:
 
-- Works across **multiple platforms** (GitHub Copilot CLI, Claude Code, Codex)
-- Has **clear documentation** explaining its purpose and usage
-- Follows **structured metadata** for discovery and categorization
-- Maintains **semantic versioning** for reliable updates
-- Is **backward compatible** with previous versions
+- are authored once in `skills/`
+- are distributed to multiple AI platforms by the installer or plugin system
+- use a minimal `SKILL.md` frontmatter format for Claude Code compatibility
+- keep detailed metadata in `README.md`, not in the YAML frontmatter
 
----
+## Repository Structure
 
-## 🏗️ Skill File Structure
+The active repository model is:
 
-Each skill lives in a platform-specific directory:
-
+```text
+skills/<skill-name>/
+  SKILL.md
+  README.md
+  references/    # optional
+  examples/      # optional
+  scripts/       # optional
 ```
-.github/skills/skill-creator/
-  ├── SKILL.md           ← Main skill definition
-  └── [other files]      ← Platform-specific implementations
-```
 
-**Replicated across:**
-- `.github/skills/` (GitHub Copilot CLI)
-- `.claude/skills/` (Claude Code)
-- `.codex/skills/` (OpenAI Codex)
+`skills/` is the only in-repository source of truth. Platform directories such as `~/.claude/skills/` or `~/.codex/skills/` are installation targets in user environments, not authored source directories in this repository.
 
----
+## SKILL.md Requirements
 
-## 📄 SKILL.md File Format
-
-### 1. YAML Frontmatter (Required)
-
-Every SKILL.md file starts with a **minimal** YAML metadata block. This is critical for compatibility with the Claude Code parser.
+Every `SKILL.md` file must start with minimal YAML frontmatter:
 
 ```yaml
 ---
 name: skill-name
-description: This skill should be used when you need to [clear use case]...
+description: This skill should be used when the user needs to ...
 license: MIT
 ---
 ```
 
-> 🚨 **IMPORTANT:** Never add fields like `version`, `author`, `category`, or `tags` to the `SKILL.md` frontmatter. These fields will cause `malformed YAML frontmatter` errors in Claude Code. All detailed metadata belongs in the `README.md` file.
+Rules:
 
-### 2. Metadata Fields (README.md only)
+- `name` must be kebab-case
+- `description` should be a single line and start with `This skill should be used when...`
+- `license` should be `MIT`
+- do not add `version`, `author`, `category`, `tags`, `risk`, `created`, or `updated`
 
-All detailed metadata must be placed in a Markdown table under the `## Metadata` section of the skill's `README.md` file.
+Claude Code is strict about YAML parsing. Extra fields can cause `malformed YAML frontmatter` errors.
 
-| Field | Type | Example | Purpose |
-|-------|------|---------|---------|
-| `Version` | string | `1.3.0` | Semantic version |
-| `Author` | string | `Eric Andrade` | Original author |
-| `Platforms` | array | `Claude Code, Gemini CLI` | Supported environments |
-| `Category` | string | `automation` | Organizational category |
-| `Tags` | array | `prompt, optimization` | Discovery tags |
-| `Risk` | string | `safe` | Execution risk level |
+## README.md Metadata
 
-#### **Category Values**
+Detailed metadata belongs in each skill's `README.md`, typically in a `## Metadata` section. Common fields include:
 
-Skills are organized into categories:
+- `Version`
+- `Author`
+- `Platforms`
+- `Category`
+- `Tags`
+- `Risk`
+- `Created`
+- `Updated`
 
-| Category | Purpose | Examples |
-|----------|---------|----------|
-| `meta` | Tools for creating tools | skill-creator |
-| `content` | Content processing | youtube-summarizer, audio-transcriber |
-| `automation` | Task automation | prompt-engineer, workflow builders |
-| `analysis` | Code/data analysis | linters, analyzers |
-| `development` | Development utilities | testing, deployment tools |
+Keep dates and extended metadata here, not in `SKILL.md`.
 
-#### **Risk Levels**
+## Recommended Markdown Sections
 
-Indicates what the skill might do:
+The body of `SKILL.md` should usually include:
 
-| Risk | Description | Examples |
-|------|-------------|----------|
-| `none` | No external calls or side effects | Pure prompt engineering |
-| `safe` | Reads data only, no modifications | youtube-summarizer (reads video transcripts) |
-| `moderate` | Makes external API calls or creates files | audio-transcriber (calls Whisper API) |
-| `critical` | Modifies code, deploys, or deletes files | Deployment automation |
+1. `## Purpose`
+2. `## When to Use`
+3. `## Workflow`
+4. `## Critical Rules`
+5. `## Example Usage`
 
-#### **Platforms**
+Additional sections such as `Progress Tracking`, `Limitations`, or `References` are fine when they materially improve execution quality.
 
-Which AI assistants support this skill:
+## Writing Conventions
 
-- `github-copilot-cli` - GitHub Copilot in CLI
-- `claude-code` - Anthropic Claude in VS Code
-- `codex` - OpenAI's Codex
+- Use imperative instructions in workflow steps
+- Keep activation guidance explicit and concrete
+- Prefer third-person trigger phrasing in the description
+- Use realistic examples
+- Avoid repository-specific assumptions unless the skill is intentionally repo-aware
 
-Most skills support all three.
+## Compatibility Model
 
-### 3. Markdown Content
+Skills are authored once, then distributed to supported platforms such as:
 
-After the frontmatter, the SKILL.md file contains comprehensive documentation:
+- GitHub Copilot CLI
+- Claude Code
+- OpenAI Codex
+- OpenCode
+- Gemini CLI
+- Antigravity
+- Cursor IDE
+- AdaL CLI
 
-#### **A. Purpose Section**
+The installer handles copying skills into each platform's global skill directory. The repository should not maintain mirrored skill copies for each platform.
 
-Explain what the skill does in one clear paragraph:
+## Example
 
-```markdown
-## Purpose
-
-This skill automates the entire workflow of creating new AI assistant skills 
-from brainstorming through implementation to installation across three platforms 
-(GitHub Copilot CLI, Claude Code, OpenAI Codex).
+```text
+skills/prompt-engineer/
+  SKILL.md
+  README.md
 ```
 
-#### **B. When to Use**
+`SKILL.md` contains the executable workflow. `README.md` contains the richer metadata, explanation, and supporting guidance.
 
-List specific scenarios:
+## Anti-Patterns
 
-```markdown
-## When to Use
+Avoid these mistakes:
 
-Use this skill when:
+- adding extra YAML fields to `SKILL.md`
+- documenting platform directories as if they were the authored source of truth
+- hardcoding stale skill counts or architecture assumptions into guides
+- storing the same skill in multiple in-repo platform folders
 
-- Building custom skills for your team or organization
-- Creating specialized domain-specific assistants
-- Extending CLI capabilities with new commands
-- Setting up skill scaffolding for consistent structure
-- You want zero-configuration skill creation
-```
+## Validation Checklist
 
-#### **C. Workflow / How It Works**
+Before committing a new or updated skill, confirm:
 
-Step-by-step explanation:
-
-```markdown
-## Workflow
-
-1. **Brainstorm** - Describe what your skill should do
-2. **Validate** - Check naming conventions and structure
-3. **Scaffold** - Auto-generate project structure
-4. **Implement** - Write skill logic and documentation
-5. **Test** - Run validation scripts
-6. **Install** - Deploy to all three platforms
-```
-
-#### **D. Examples**
-
-3-5 realistic scenarios with sample commands:
-
-```markdown
-## Examples
-
-### Example 1: Create a Code Review Skill
-```bash
-npx claude-superskills skill-creator
-# Follow prompts to create "code-reviewer"
-```
-
-### Example 2: Batch Create Multiple Skills
-```
-"Create skills for: Python linting, TypeScript validation, and Docker optimization"
-```
-```
-
-#### **E. Best Practices**
-
-Tips for effective usage:
-
-```markdown
-## Best Practices
-
-1. **Use Specific Prompts** - "Create a skill for linting Python code" works better 
-   than "make a new skill"
-2. **Keep Skills Focused** - One responsibility per skill for better reusability
-3. **Follow Naming** - Use kebab-case (my-skill, not MySkill)
-4. **Version Carefully** - Follow semantic versioning
-5. **Document Well** - Write comprehensive skill descriptions
-```
-
-#### **F. Limitations**
-
-Be honest about constraints:
-
-```markdown
-## Limitations
-
-- Requires Node.js v14+ for skill scaffolding
-- Cannot auto-generate actual implementation logic
-- Requires manual editing for customization
-- No automatic testing of generated skills
-```
-
-#### **G. Advanced Usage**
-
-Optional section for power users:
-
-```markdown
-## Advanced Usage
-
-### Custom Templates
-You can provide custom skill templates...
-
-### Batch Operations
-Use the `--batch` flag to create multiple skills from a JSON file...
-```
-
----
-
-## 🔍 Metadata Example (Full Skill Entry)
-
-Here's what a complete skill definition looks like:
-
-```yaml
----
-name: youtube-summarizer
-description: "Extract and summarize YouTube video content by providing a video URL. 
-  Generates comprehensive, detailed summaries from video transcripts."
-triggers: 
-  - "summarize a youtube video"
-  - "extract video transcript"
-  - "create youtube summary"
-version: 1.2.0
-category: content
-tags: ["video", "summarization", "transcription", "youtube", "content-analysis"]
-risk: safe
-platforms: ["github-copilot-cli", "claude-code", "codex"]
----
-
-## Purpose
-
-Quickly extract insights from YouTube videos without watching them. This skill 
-transcribes video audio and generates concise summaries with key takeaways.
-
-## When to Use
-
-- Research video content efficiently
-- Extract meeting/webinar key points
-- Create show notes for podcasts/videos
-- Archive and reference video content
-- Generate transcripts for accessibility
-
-## Workflow
-
-1. Provide YouTube video URL
-2. Skill downloads transcript
-3. Extracts key sections
-4. Generates formatted summary
-5. Returns results in Markdown
-
-## Examples
-
-### Example 1: Summarize a Tech Talk
-Input: https://youtube.com/watch?v=xyz123
-Output: Structured summary with timestamps and key points
-
-...more examples...
-
-## Limitations
-
-- Requires videos with available transcripts
-- Transcripts auto-generated (may have errors)
-- Long videos (3+ hours) may take time
-```
-
----
-
-## 🔄 Version Management
-
-### Semantic Versioning (SemVer)
-
-Skills follow **MAJOR.MINOR.PATCH** versioning:
-
-```
-1.3.0
-│ │ │
-│ │ └─ PATCH: Bug fixes, typos
-│ └─── MINOR: New features, metadata
-└───── MAJOR: Breaking changes
-```
-
-### When to Bump Versions
-
-| Scenario | Bump | Example |
-|----------|------|---------|
-| Bug fix in logic | PATCH | 1.3.0 → 1.3.1 |
-| Add metadata/tags | MINOR | 1.3.0 → 1.4.0 |
-| Breaking API change | MAJOR | 1.3.0 → 2.0.0 |
-
-### Version Synchronization
-
-**CRITICAL:** Each skill must have the same version across all three platforms:
-
-```bash
-# Must all be 1.3.0:
-.github/skills/skill-creator/SKILL.md       → version: 1.3.0
-.claude/skills/skill-creator/SKILL.md       → version: 1.3.0
-.codex/skills/skill-creator/SKILL.md        → version: 1.3.0
-```
-
-Run verification script:
-```bash
-./scripts/verify-version-sync.sh
-```
-
----
-
-## 📦 Discovery & Search
-
-Skills are discoverable through:
-
-### 1. skills_index.json
-Auto-generated JSON file with all skill metadata:
-
-```json
-{
-  "version": "1.0.0",
-  "generated": "2026-02-04T10:30:00Z",
-  "skills": [
-    {
-      "name": "skill-creator",
-      "version": "1.3.0",
-      "description": "...",
-      "category": "meta",
-      "tags": ["automation", "scaffolding"],
-      "risk": "safe",
-      "platforms": ["github-copilot-cli", "claude-code", "codex"]
-    }
-  ]
-}
-```
-
-### 2. CATALOG.md
-Human-readable catalog of all skills (auto-generated from skills_index.json)
-
-### 3. CLI Search
-```bash
-npx claude-superskills --search "video"
-npx claude-superskills --search "automation"
-```
-
----
-
-## ✅ Quality Checklist
-
-Before publishing a skill, verify:
-
-- [ ] YAML frontmatter is valid (test with `jq`)
-- [ ] All required metadata fields present
-- [ ] `version` matches across .github, .claude, .codex
-- [ ] `description` is 2-3 clear sentences
-- [ ] `triggers` array has 3-5 useful keywords
-- [ ] `category` is from allowed list
-- [ ] `tags` array has 3-5 relevant tags
-- [ ] `risk` level is accurate
-- [ ] Markdown sections follow structure
-- [ ] Examples are realistic and runnable
-- [ ] No typos or formatting errors
-- [ ] Links are working
-- [ ] Word count is 1500-2000 words
-
-For detailed checklist, see [Quality Standards](quality-standards.md).
-
----
-
-## 🔗 Related Documentation
-
-- **[Quality Standards](quality-standards.md)** - How to write excellent skills
-- **[Getting Started](getting-started.md)** - First-time user guide
-- **[Main Catalog](../../CATALOG.md)** - Browse all skills
-- **[Contributing Guide](../../CONTRIBUTING.md)** - How to contribute new skills
-- **[Skill Development](../references/skills-development.md)** - Advanced skill creation
-
----
-
-**Ready to create your own skill? Check out [skill-creator](../../skills_index.json) or read [Skill Development](../references/skills-development.md)!**
+- the skill exists only under `skills/<skill-name>/`
+- `SKILL.md` uses only `name`, `description`, and `license`
+- `README.md` carries the extended metadata
+- the guide and release docs still reflect the current architecture
