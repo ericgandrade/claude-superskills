@@ -36,13 +36,16 @@ echo "────────────────────────�
 
 # Summary
 if [ "$COPILOT_INSTALLED" = true ] && [ "$CLAUDE_INSTALLED" = true ]; then
-    echo "✅ Both tools installed - create skills for both platforms"
+    echo "✅ Both tools installed"
+    echo "   Repository authoring path: skills/"
     exit 0
 elif [ "$COPILOT_INSTALLED" = true ]; then
-    echo "⚠️  Only Copilot installed - create skills in .github/skills/"
+    echo "⚠️  Only Copilot installed"
+    echo "   Repository authoring path: skills/"
     exit 0
 elif [ "$CLAUDE_INSTALLED" = true ]; then
-    echo "⚠️  Only Claude installed - create skills in .claude/skills/"
+    echo "⚠️  Only Claude installed"
+    echo "   Repository authoring path: skills/"
     exit 0
 else
     echo "❌ No AI CLI tools installed - install at least one to use skills"

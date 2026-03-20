@@ -10,7 +10,7 @@ if [[ -z "$SKILL_NAME" ]]; then
   exit 1
 fi
 
-SKILL_PATH=".github/skills/$SKILL_NAME"
+SKILL_PATH="skills/$SKILL_NAME"
 
 if [[ ! -f "$SKILL_PATH/SKILL.md" ]]; then
   echo "❌ Error: Skill not found at $SKILL_PATH"
@@ -27,8 +27,8 @@ echo ""
 echo "### 🆕 $NAME"
 echo "$DESCRIPTION"
 echo ""
-echo "**[→ Full Documentation]($SKILL_PATH/README.md)**"
+echo "**[→ Full Documentation](./$SKILL_PATH/README.md)**"
 echo ""
 
-echo "✅ Add the above to README.md under '## Available Skills'"
+echo "✅ Add the above to README.md under the appropriate skills section"
 exit 0

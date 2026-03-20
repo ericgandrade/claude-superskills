@@ -323,16 +323,16 @@ These skills follow the universal `SKILL.md` format and work with any AI coding 
 
 | Tool | Type | Invocation Example | Path |
 |------|------|--------------------|------|
-| **Claude Code** | CLI | `/skill-name help me...` | `.claude/skills/` |
-| **Gemini CLI** | CLI | `Use skill-name to...` | `.gemini/skills/` |
-| **Codex CLI** | CLI | `Use skill-name to...` | `.codex/skills/` |
-| **Antigravity** | IDE | *(Agent Mode)* `Use skill...` | `.gemini/antigravity/skills/` |
-| **Cursor** | IDE | `@skill-name` in Chat | `.cursor/skills/` |
+| **Claude Code** | CLI | `/skill-name help me...` | `~/.claude/skills/` |
+| **Gemini CLI** | CLI | `Use skill-name to...` | `~/.gemini/skills/` |
+| **Codex CLI** | CLI | `Use skill-name to...` | `~/.codex/skills/` |
+| **Antigravity** | IDE | *(Agent Mode)* `Use skill...` | `~/.gemini/antigravity/skills/` |
+| **Cursor** | IDE | `@skill-name` in Chat | `~/.cursor/skills/` |
 | **Copilot** | Ext | *(Paste skill content manually)* | N/A |
-| **OpenCode** | CLI | `opencode run @skill-name` | `.agent/skills/` |
-| **AdaL CLI** | CLI | *(Auto)* Skills load on-demand | `.adal/skills/` |
+| **OpenCode** | CLI | `opencode run @skill-name` | `~/.agent/skills/` |
+| **AdaL CLI** | CLI | *(Auto)* Skills load on-demand | `~/.adal/skills/` |
 
-> **Tip:** OpenCode uses `.agent/skills/`; Antigravity uses `.gemini/antigravity/skills/`.
+> **Tip:** OpenCode uses `~/.agent/skills/`; Antigravity uses `~/.gemini/antigravity/skills/`.
 
 ## 📚 Documentation
 

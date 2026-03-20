@@ -1,5 +1,7 @@
 # 🤖 CLI AI Skills
 
+> Archived reference. This file documents an older pre-single-source-of-truth architecture and is kept only for historical context. For the current repository model, use `README.md`, `CLAUDE.md`, and the guides under `docs/guides/`.
+
 Reusable AI skills for **GitHub Copilot CLI**, **Claude Code**, and **OpenAI Codex CLI/App** that work globally across all your projects.
 
 ---

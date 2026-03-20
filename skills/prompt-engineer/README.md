@@ -625,23 +625,20 @@ This skill is designed to work **globally** across all your projects.
    }
    ```
 
-### Option 2: Copy to Global Skills Directory
+### Option 2: Use the Installer
 
 ```bash
-cp -r /path/to/claude-superskills/.github/skills/prompt-engineer ~/.copilot/global-skills/
+npx claude-superskills --search "prompt"
+npx claude-superskills --bundle essential -y
 ```
 
-Then configure:
+Or from a local clone:
+
 ```bash
-# Add to ~/.copilot/config.json
-{
-  "skills": {
-    "directories": [
-      "~/.copilot/global-skills"
-    ]
-  }
-}
+./scripts/local-install.sh -y
 ```
+
+This installs the skill into the correct global directory for each supported platform.
 
 ---
 

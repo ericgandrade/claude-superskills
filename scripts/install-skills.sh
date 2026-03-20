@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -euo pipefail
 
 SKILLS_REPO=$1
 
@@ -23,22 +25,31 @@ if [ ! -d "$SKILLS_REPO" ]; then
     exit 1
 fi
 
+SOURCE_DIR="$SKILLS_REPO/skills"
+
+if [ ! -d "$SOURCE_DIR" ]; then
+    echo "❌ Source skills directory not found: $SOURCE_DIR"
+    echo ""
+    echo "This script expects a repository with skills stored under skills/"
+    exit 1
+fi
+
 echo "🔧 Installing skills from:"
 echo "   $SKILLS_REPO"
 echo ""
 
 CONFIGURED=0
 
-# GitHub Copilot CLI - uses ~/.copilot/skills/ directory
+# GitHub Copilot CLI - uses ~/.github/skills/ directory
 if command -v gh &> /dev/null && gh copilot --version &> /dev/null 2>&1; then
     echo "✅ Installing for GitHub Copilot CLI..."
-    mkdir -p ~/.copilot/skills
+    mkdir -p ~/.github/skills
     
     # Create symlink for each skill
-    for skill_dir in "$SKILLS_REPO/.github/skills"/*; do
+    for skill_dir in "$SOURCE_DIR"/*; do
         if [ -d "$skill_dir" ] && [ -f "$skill_dir/SKILL.md" ]; then
             skill_name=$(basename "$skill_dir")
-            target="$HOME/.copilot/skills/$skill_name"
+            target="$HOME/.github/skills/$skill_name"
             
             # Remove existing symlink or directory
             if [ -L "$target" ] || [ -d "$target" ]; then
@@ -51,7 +62,7 @@ if command -v gh &> /dev/null && gh copilot --version &> /dev/null 2>&1; then
         fi
     done
     
-    echo "   Skills directory: ~/.copilot/skills/"
+    echo "   Skills directory: ~/.github/skills/"
     CONFIGURED=$((CONFIGURED + 1))
 else
     echo "⚠️  GitHub Copilot CLI not installed - skipping"
@@ -65,7 +76,7 @@ if command -v claude &> /dev/null; then
     mkdir -p ~/.claude/skills
     
     # Create symlink for each skill
-    for skill_dir in "$SKILLS_REPO/.claude/skills"/*; do
+    for skill_dir in "$SOURCE_DIR"/*; do
         if [ -d "$skill_dir" ] && [ -f "$skill_dir/SKILL.md" ]; then
             skill_name=$(basename "$skill_dir")
             target="$HOME/.claude/skills/$skill_name"
@@ -102,7 +113,7 @@ echo ""
 echo "Benefits of symlink installation:"
 echo "  • Updates automatically when you pull changes (git pull)"
 echo "  • No need to reinstall after skill updates"
-echo "  • Single source of truth in your repository"
+echo "  • Single source of truth in your repository skills/ directory"
 echo ""
 echo "Test skills in a NEW terminal:"
 if command -v gh &> /dev/null && gh copilot --version &> /dev/null 2>&1; then

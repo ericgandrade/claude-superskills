@@ -1,264 +1,125 @@
 # Versioning Guide
 
-This document defines the versioning strategy for the **claude-superskills** project and all individual skills.
+This document defines the versioning and release strategy for the current `claude-superskills` architecture.
 
----
+## Release Authorities
 
-## 📦 Package Versioning (cli-installer)
+The repository has two version-authoritative release files:
 
-**File:** `cli-installer/package.json`  
-**Current Version:** 1.3.1  
-**Follows:** [Semantic Versioning 2.0.0](https://semver.org/)
+- `cli-installer/package.json` - npm package version
+- `.claude-plugin/plugin.json` - Claude Code plugin version
 
-### Version Format: `MAJOR.MINOR.PATCH`
+These two versions must always match exactly.
 
-- **MAJOR** (1.x.x) - Breaking changes to installer API or behavior
-- **MINOR** (x.3.x) - New skills added or major skill upgrades
-- **PATCH** (x.x.1) - Bug fixes, minor improvements, documentation updates
+Secondary files must reflect the same release state when applicable:
 
-### When to Bump
+- `README.md`
+- `CLAUDE.md`
+- `CHANGELOG.md`
+- `cli-installer/README.md`
+- `.claude-plugin/marketplace.json`
 
-| Change | Version Bump | Example |
-|--------|-------------|---------|
-| New skill added | MINOR | 1.2.0 → 1.3.0 |
-| Skill upgraded to new major version | MINOR | 1.3.0 → 1.4.0 |
-| Bug fix in installer | PATCH | 1.3.0 → 1.3.1 |
-| Breaking change in installer CLI | MAJOR | 1.3.1 → 2.0.0 |
-| Documentation update only | PATCH | 1.3.1 → 1.3.2 |
+## Package Versioning
 
-### NPM Publishing Rules
+The project uses Semantic Versioning for the repository release:
 
-1. **Always update version** in `package.json` before publishing
-2. **Always update CHANGELOG.md** with changes
-3. **Always create git tag** matching the version (`v1.3.1`)
-4. **Always push tags** to GitHub after publishing
+```text
+MAJOR.MINOR.PATCH
+```
 
----
+- `MAJOR` - breaking changes to installation, packaging, or platform behavior
+- `MINOR` - new skills, new platforms, or meaningful new product capabilities
+- `PATCH` - fixes, documentation corrections, and non-breaking installer improvements
 
-## 🧩 Skill Versioning
+## Skill Versioning
 
-**Files:** `.github/skills/*/SKILL.md` and `.claude/skills/*/SKILL.md`  
-**Follows:** [Semantic Versioning 2.0.0](https://semver.org/)
+Skills do not store version metadata in `SKILL.md`.
 
-### Version Format: `MAJOR.MINOR.PATCH`
-
-Each skill maintains its **own independent version** in YAML frontmatter:
+`SKILL.md` frontmatter must stay minimal:
 
 ```yaml
 ---
 name: skill-name
-version: 1.2.0
+description: This skill should be used when the user needs to ...
+license: MIT
 ---
 ```
 
-### When to Bump
+Per-skill version metadata belongs in each skill's `README.md` under `## Metadata`.
 
-| Change | Version Bump | Example |
-|--------|-------------|---------|
-| Breaking change in skill behavior | MAJOR | 1.2.0 → 2.0.0 |
-| New feature added to skill | MINOR | 1.2.0 → 1.3.0 |
-| Bug fix or minor improvement | PATCH | 1.2.0 → 1.2.1 |
-| Documentation update only | PATCH | 1.2.0 → 1.2.1 |
+## Current Architecture Rule
 
-### Skill-Specific CHANGELOGs
+`skills/` is the only in-repository source of truth.
 
-Each skill with significant changes should have its own CHANGELOG:
+Do not version or synchronize mirrored in-repo copies under:
 
-- **File:** `.github/skills/<skill-name>/CHANGELOG.md`
-- **Mirror:** `.claude/skills/<skill-name>/CHANGELOG.md`
+- `.github/skills/`
+- `.claude/skills/`
+- `.codex/skills/`
+- `.agent/skills/`
+- `.gemini/skills/`
+- `.cursor/skills/`
+- `.adal/skills/`
 
-Example: `audio-transcriber` has a CHANGELOG because it went from v1.0.0 → v1.1.0 with major features.
+Those directories are installation targets in user environments or ignored placeholders in the repository, not authored source.
 
-**Not all skills need a CHANGELOG** - only those with multiple versions or complex changes.
+## When to Bump the Repository Version
 
----
+| Change | Recommended Bump |
+|--------|------------------|
+| Add a new skill | `MINOR` |
+| Add a new supported platform | `MINOR` |
+| Breaking installer or plugin behavior change | `MAJOR` |
+| Fix installer bug | `PATCH` |
+| Correct documentation or metadata drift | `PATCH` |
 
-## 🔄 Synchronization Rules
+## Release Workflow
 
-### Dual-Platform Parity
-
-All skills **must** maintain identical versions across platforms:
-
-```
-.github/skills/skill-name/SKILL.md → version: 1.2.0
-.claude/skills/skill-name/SKILL.md → version: 1.2.0  ✅ SAME
-```
-
-### Version Consistency Matrix
-
-| File | Version Field | Must Match |
-|------|---------------|------------|
-| `cli-installer/package.json` | `"version"` | NPM published version |
-| `cli-installer/CHANGELOG.md` | `## [X.Y.Z]` heading | package.json version |
-| `.github/skills/*/SKILL.md` | `version:` frontmatter | `.claude/skills/*/SKILL.md` |
-| `.github/skills/README.md` | Skill headers (`v1.2.0`) | SKILL.md version |
-| `.claude/skills/README.md` | Skill headers (`v1.2.0`) | SKILL.md version |
-| `README.md` (root) | Skill sections (`v1.2.0`) | SKILL.md version |
-| Git tags | `v1.3.1` | package.json version |
-
----
-
-## 🏷️ Git Tagging Strategy
-
-### Tag Format
-
-**Installer releases only:**
-```
-v1.3.1  → matches cli-installer/package.json version
-```
-
-**Do NOT tag individual skills** - only the NPM package releases.
-
-### Tagging Workflow
+Preferred workflow:
 
 ```bash
-# After bumping version in package.json and updating CHANGELOG.md
+node scripts/release.js [patch|minor|major]
+```
+
+This updates the core release files and regenerates indexes. After that, review impacted secondary documentation before committing.
+
+Manual workflow:
+
+```bash
+./scripts/verify-version-sync.sh
+./scripts/check-doc-consistency.sh
+./scripts/pre-publish-check.sh
 git add -A
 git commit -m "chore: bump version to X.Y.Z"
-git tag -a vX.Y.Z -m "Release vX.Y.Z"
+git tag vX.Y.Z
 git push origin main
 git push origin vX.Y.Z
 ```
 
-### Viewing Tags
+## Publishing Rules
+
+- Do not publish manually from a local workstation as the normal path
+- Tag push `vX.Y.Z` is the intended trigger for the GitHub Actions publish flow
+- Always update `CHANGELOG.md` before tagging
+- Always review secondary docs when counts, platform support, or packaging behavior changed
+
+## Verification Commands
 
 ```bash
-# List all tags
-git tag -l
-
-# View specific tag details
-git show v1.3.1
+bash scripts/verify-version-sync.sh
+./scripts/check-doc-consistency.sh
+./scripts/pre-publish-check.sh
 ```
 
----
+## Common Mistakes
 
-## 📝 Release Checklist
+- adding `version` to `SKILL.md`
+- updating `package.json` without updating `.claude-plugin/plugin.json`
+- fixing `README.md` while leaving `cli-installer/README.md` or `.claude-plugin/marketplace.json` stale
+- documenting mirrored platform directories as active repository source
+- treating historical docs as current architecture guidance
 
-Use this checklist for every release to ensure consistency:
+## Notes
 
-### Pre-Release
-
-- [ ] All skills have correct versions in SKILL.md (both .github and .claude)
-- [ ] Skills index READMEs updated (.github/skills/README.md + .claude/skills/README.md)
-- [ ] Root README.md updated with skill versions
-- [ ] Individual skill READMEs updated (if skill changed)
-- [ ] Skill CHANGELOGs created/updated (for major skill changes)
-
-### Package Release
-
-- [ ] Bump version in `cli-installer/package.json`
-- [ ] Update `cli-installer/CHANGELOG.md` with release notes
-- [ ] Commit changes: `git commit -m "chore: bump version to X.Y.Z"`
-- [ ] Create git tag: `git tag -a vX.Y.Z -m "Release vX.Y.Z"`
-- [ ] Push commits: `git push origin main`
-- [ ] Push tags: `git push origin vX.Y.Z`
-- [ ] Publish to NPM: `npm publish` (from cli-installer directory)
-
-### Post-Release
-
-- [ ] Verify NPM package published: `npm view claude-superskills`
-- [ ] Verify git tag on GitHub: Check releases page
-- [ ] Test installation: `npx claude-superskills@latest install <skill>`
-- [ ] Update GitHub release notes (optional but recommended)
-
----
-
-## 🧪 Version Verification Commands
-
-Run these to audit version consistency:
-
-```bash
-# Check package version
-cat cli-installer/package.json | grep '"version"'
-
-# Check all skill versions
-for skill in .github/skills/*/SKILL.md; do
-  echo "$(basename $(dirname $skill)): $(grep '^version:' $skill)"
-done
-
-# Check git tags
-git tag -l | sort -V
-
-# Check NPM published versions
-npm view claude-superskills versions
-
-# Verify dual-platform sync
-diff .github/skills/README.md .claude/skills/README.md
-```
-
----
-
-## 📊 Current State (as of 2026-02-03)
-
-### Package Version
-- **cli-installer:** 1.3.1 ✅
-- **NPM Published:** 1.3.1 ✅
-- **Git Tag:** v1.3.1 ✅
-
-### Skill Versions
-- **prompt-engineer:** 1.0.1 ✅
-- **skill-creator:** 1.1.0 ✅
-- **youtube-summarizer:** 1.2.0 ✅
-- **audio-transcriber:** 1.1.0 ✅
-
-### Synchronization Status
-- ✅ All SKILL.md versions match across .github and .claude
-- ✅ Skills index READMEs updated with all 4 skills
-- ✅ Root README.md reflects current skill versions
-- ✅ CHANGELOG.md matches package.json version
-- ✅ Git tag created and pushed
-- ✅ NPM package published
-
----
-
-## 🚨 Common Mistakes to Avoid
-
-1. ❌ **Forgetting to update .claude/** when changing .github/
-2. ❌ **Version mismatch** between SKILL.md and README.md headers
-3. ❌ **Publishing to NPM without git tag**
-4. ❌ **Creating tags for skills** (only tag installer releases)
-5. ❌ **Skipping CHANGELOG.md updates**
-6. ❌ **Not testing `npx claude-superskills@latest` after publishing**
-
----
-
-## 📚 References
-
-- [Semantic Versioning 2.0.0](https://semver.org/)
-- [Keep a Changelog](https://keepachangelog.com/)
-- [NPM Versioning Guide](https://docs.npmjs.com/about-semantic-versioning)
-- [Git Tagging](https://git-scm.com/book/en/v2/Git-Basics-Tagging)
-
----
-
-**Last Updated:** February 3, 2026  
-**Maintainer:** Eric Andrade
-
-## Platform Addition Versioning Strategy
-
-When adding support for a new platform (e.g., Codex):
-
-1. **Skills:** PATCH bump (X.Y.Z → X.Y.Z+1)
-   - Rationale: Technical adaptation, not new functionality
-   - Changes: Remove/add platform-specific elements (triggers, examples)
-   - Workflows remain 100% identical
-
-2. **NPM Package:** MINOR bump (X.Y.Z → X.Y+1.0)
-   - Rationale: New platform = new feature for end users
-   - Reflects repository-level enhancement
-
-Example (v1.4.0):
-  - prompt-engineer: 1.0.1 → 1.0.2
-  - skill-creator: 1.1.0 → 1.1.1
-  - youtube-summarizer: 1.1.0 → 1.1.1
-  - audio-transcriber: 1.1.0 → 1.1.1
-  - claude-superskills (NPM): 1.3.1 → 1.4.0
-
-## Tri-Platform Synchronization Matrix
-
-| Component | .github | .claude | .codex | Sync Required? |
-|-----------|---------|---------|--------|----------------|
-| SKILL.md workflows | ✓ | ✓ | ✓ | YES (100% identical) |
-| YAML frontmatter | Triggers ✓ | Triggers ✓ | No triggers | Partial |
-| Examples | copilot> | claude> | codex> | Platform-specific |
-| Zero-config design | ✓ | ✓ | ✓ | YES (philosophy) |
+- Historical changelog entries may mention older skill counts; that is acceptable when clearly tied to the release that shipped at that time.
+- Living documentation should describe the current architecture only.

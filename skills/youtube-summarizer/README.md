@@ -308,31 +308,24 @@ Files are saved as `resumo-{VIDEO_ID}-{YYYY-MM-DD}.md` (summary) or `transcript-
 
 ## Installation
 
-### Global Installation (Recommended)
+### Universal Installer
 
-Install the skill globally to use it across all projects:
+Install through the repository installer:
 
 ```bash
-# Clone the repository
+npx claude-superskills --search "youtube"
+npx claude-superskills --bundle content -y
+```
+
+Or clone the repository and run the local installer:
+
+```bash
 git clone https://github.com/ericgandrade/claude-superskills.git
 cd claude-superskills
-
-# Run the install script
-./scripts/install-skills.sh $(pwd)
+./scripts/local-install.sh -y
 ```
 
-This creates symlinks in:
-- `~/.copilot/skills/youtube-summarizer/` (GitHub Copilot CLI)
-- `~/.claude/skills/youtube-summarizer/` (Claude Code)
-
-### Repository Installation
-
-Add to a specific project:
-
-```bash
-# Copy skill to your project
-cp -r claude-superskills/.github/skills/youtube-summarizer .github/skills/
-```
+The installer copies the skill into the correct global directory for each supported platform.
 
 ---
 
