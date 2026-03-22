@@ -212,30 +212,31 @@
       "triggers": []
     },
     {
-      "name": "cloudconvert-converter",
-      "version": "2.1.0",
-      "description": "This skill should be used when the user needs to convert files between formats (documents, images, video, audio, PDFs, presentations), perform PDF operations (OCR, merge, split, rotate, encrypt, decrypt), or process files that pandoc and docling do not support. Trigger when the user says \"convert this file\", \"transform to PDF\", \"extract text with OCR\", \"merge PDFs\", \"compress video\", \"convert pptx to pdf\", \"convert image to webp\", or mentions CloudConvert explicitly. Use this skill whenever format conversion or PDF manipulation is needed, even if the user does not name the tool.",
-      "category": "Content",
+      "name": "document-converter",
+      "version": "1.0.0",
+      "description": "This skill should be used when the user needs to convert documents between formats (Office to PDF, PDF to images, image to PDF), perform PDF operations (merge, split, rotate, encrypt, decrypt), or run OCR on scanned documents. Uses local free tools — LibreOffice, ghostscript, pdftk, tesseract, and imagemagick — with no API key required.",
+      "category": "content",
       "tags": [
-        "conversion",
-        "cloudconvert",
+        "document-conversion",
         "pdf",
+        "office",
+        "libreoffice",
         "ocr",
-        "video",
-        "audio",
-        "documents",
-        "mcp"
+        "ghostscript",
+        "pdftk",
+        "imagemagick",
+        "tesseract"
       ],
-      "risk": "low",
+      "risk": "safe",
       "platforms": [
+        "GitHub Copilot CLI",
         "Claude Code",
-        "GitHub Copilot",
-        "Gemini CLI",
+        "OpenAI Codex",
         "OpenCode",
-        "Codex",
-        "Cursor",
+        "Gemini CLI",
         "Antigravity",
-        "AdaL"
+        "Cursor IDE",
+        "AdaL CLI"
       ],
       "triggers": []
     },

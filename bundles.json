@@ -61,12 +61,12 @@
     },
     "content": {
       "name": "Content Creation",
-      "description": "Skills for processing video, audio, and document content. Extract transcripts, summaries, and convert between 200+ formats.",
+      "description": "Skills for processing video, audio, and document content. Extract transcripts, summaries, convert documents, and perform PDF operations.",
       "skills": [
         "youtube-summarizer",
         "audio-transcriber",
         "docling-converter",
-        "cloudconvert-converter",
+        "document-converter",
         "pptx-translator",
         "storytelling-expert"
       ],
@@ -74,8 +74,8 @@
         "Summarizing YouTube videos",
         "Transcribing audio recordings",
         "Converting PDF/Office documents to structured Markdown and JSON",
-        "Converting files between 200+ formats (video, audio, images, documents)",
-        "PDF operations: OCR, merge, split, rotate, encrypt",
+        "Converting Office documents to PDF (DOCX, PPTX, XLSX)",
+        "PDF operations: OCR, merge, split, rotate, encrypt — using local free tools",
         "Creating meeting notes",
         "Extracting video insights"
       ],
@@ -123,7 +123,7 @@
         "skill-creator",
         "prompt-engineer",
         "docling-converter",
-        "cloudconvert-converter",
+        "document-converter",
         "youtube-summarizer",
         "audio-transcriber",
         "storytelling-expert",

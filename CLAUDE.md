@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **claude-superskills** is a reusable AI skills library for **8 AI platforms**: GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, and AdaL CLI. Skills are Markdown-based workflow specifications (`SKILL.md`) that teach AI agents how to perform specific tasks.
 
-- **npm package**: `claude-superskills` (v1.21.7) — `npx claude-superskills` — **46 skills**
+- **npm package**: `claude-superskills` (v1.21.8) — `npx claude-superskills` — **46 skills**
 - **Claude Code plugin**: `claude --plugin-dir ./claude-superskills` — native plugin, no npm needed
 - **GitHub**: `https://github.com/ericgandrade/claude-superskills`
 - **Old package** `cli-ai-skills` is deprecated, redirects to this one
@@ -23,8 +23,10 @@ You **MUST** keep the following files synchronized at all times when changing ve
 | `CLAUDE.md` | Project Overview & Version Checklist | Guidance consistency |
 | `CHANGELOG.md` | New version entry | History |
 | `cli-installer/README.md` | Version, skill count, command examples, supported platforms | Installer docs must match current product |
+| `cli-installer/package.json` `description` | Remove/add tool references when MCP servers or major features change | npm metadata is public |
 | `.claude-plugin/marketplace.json` | Description, skill count, plugin positioning | Marketplace-facing metadata must match current product |
 | `docs/guides/skill-anatomy.md` | Repository architecture and skill file structure | Must reflect current single-source-of-truth model |
+| **GitHub About** (`gh repo edit`) | Description and topics on github.com | Public face of the repo — run `gh repo edit --description "..."` on every release |
 
 ## 🚨 CRITICAL: DOCUMENTATION CONSISTENCY RULE
 
@@ -39,6 +41,8 @@ Version sync alone is **not enough**. Any change that affects product scope, pac
 - Repository architecture changes
 - Source-of-truth rules change
 - Bundle composition or command behavior changes
+- MCP servers are added or removed
+- Any feature referenced in the GitHub About description changes
 
 ### Documentation authority rules
 
@@ -74,11 +78,11 @@ claude-superskills/
 │   ├── audio-transcriber/
 │   ├── brainstorming/
 │   ├── career-changer-translator/
-│   ├── cloudconvert-converter/
 │   ├── cover-letter-generator/
 │   ├── creative-portfolio-resume/
 │   ├── deep-research/
 │   ├── docling-converter/
+│   ├── document-converter/
 │   ├── executing-plans/
 │   ├── executive-resume-writer/
 │   ├── interview-prep-generator/
@@ -113,12 +117,7 @@ claude-superskills/
 │   ├── youtube-summarizer/
 │   └── pptx-translator/
 │
-├── mcp-servers/                   # MCP server implementations
-│   └── cloudconvert/
-│       ├── server.py              # FastMCP entry point (8 tools)
-│       ├── tools/                 # Per-tool modules + shared error handler
-│       ├── requirements.txt       # cloudconvert, mcp, python-dotenv
-│       └── README.md              # Setup, API key config, free tier warning
+├── mcp-servers/                   # MCP server implementations (reserved for future servers)
 │
 ├── cli-installer/             # NPM package (claude-superskills)
 │   ├── bin/cli.js            # Main CLI entry point (commands, flags, install flow)
@@ -469,7 +468,7 @@ Skills that interact with project structure should include a discovery phase tha
 
 ## Version Management
 
-The package version is defined in `cli-installer/package.json` (currently **v1.21.7**).
+The package version is defined in `cli-installer/package.json` (currently **v1.21.8**).
 `.claude-plugin/plugin.json` `"version"` must always match `package.json` exactly.
 
 - `cli-installer/package.json` — source of truth for npm version
@@ -502,8 +501,12 @@ Do not skip any of these steps when bumping the version.
    # Regenerate internal catalogs
    npm run generate-all --prefix cli-installer
 
-   # Update GitHub About & Topics (if new skills or categories were added)
-   gh repo edit --description "42+ Universal AI Skills for Claude Code & GitHub Copilot. Standardized workflows for Software Engineering, Product Strategy, Career Growth, and Deep Research."
+   # Update GitHub About & Topics — MANDATORY on every release (not optional)
+   # The GitHub About description is the public face of the repo on github.com.
+   # It must be updated whenever: skill count changes, MCP servers are added/removed,
+   # supported platforms change, or the product positioning changes.
+   # Failure to update it leaves stale metadata visible to all visitors.
+   gh repo edit --description "46 Universal AI Skills for Claude Code, GitHub Copilot & 6 more platforms. Planning, orchestration, product strategy, career workflows, research, document conversion — no API keys required."
    gh repo edit --add-topic "claude-code,github-copilot,ai-skills,skills,prompt-engineering,product-strategy,career-development,cli,automation,generative-ai,agents,productivity,llm,anthropic,openai-codex,cursor-ide,gemini-cli,workflow-automation,tech-leadership,ats-optimization"
    ```
 6. **Generate Claude Desktop Plugin Package:**
@@ -606,7 +609,7 @@ Curated skill collections:
 - **Planning** — Pre-implementation design and execution (`brainstorming`, `writing-plans`, `executing-plans`)
 - **Product & Strategy** — Frameworks for product management, discovery, and GTM (`product-strategy`, `product-discovery`, `abx-strategy`, etc.)
 - **Research** — Deep research and academic analysis (`deep-research`, `us-program-research`)
-- **Content** — Media and document processing (`youtube-summarizer`, `audio-transcriber`, `docling-converter`, `cloudconvert-converter`, `pptx-translator`)
+- **Content** — Media and document processing (`youtube-summarizer`, `audio-transcriber`, `docling-converter`, `document-converter`, `pptx-translator`)
 - **Architecture** — System design, C4 modeling, and ADRs (`senior-solution-architect`, `product-architecture`)
 - **Startup** — Market sizing, unit economics, and GTM for founders (`startup-growth-strategist`, `product-strategy`, `abx-strategy`)
 

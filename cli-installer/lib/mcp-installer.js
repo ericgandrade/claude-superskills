@@ -6,20 +6,15 @@ const chalk = require('chalk');
 /**
  * MCP server definitions bundled with claude-superskills.
  * Each entry describes how to register the server in a platform's MCP config file.
+ *
+ * Add entries here when bundling new MCP servers in the future:
+ * {
+ *   description: 'Tool description',
+ *   serverScript: 'mcp-servers/<name>/server.py',
+ *   envVars: { MY_API_KEY: '${MY_API_KEY}' }
+ * }
  */
-const MCP_SERVERS = {
-  cloudconvert: {
-    description: 'CloudConvert — convert 200+ formats, PDF ops (OCR, merge, split), upload/download',
-    serverScript: 'mcp-servers/cloudconvert/server.py',
-    // NOTE: ${...} syntax is used for env var references.
-    // All platforms inherit the actual value from the shell environment at runtime.
-    // The user only needs to set CLOUDCONVERT_API_KEY once in their shell profile.
-    envVars: {
-      CLOUDCONVERT_API_KEY: '${CLOUDCONVERT_API_KEY}',
-      CLOUDCONVERT_SANDBOX: '${CLOUDCONVERT_SANDBOX:-false}'
-    }
-  }
-};
+const MCP_SERVERS = {};
 
 /**
  * Platform-specific MCP config file paths (absolute, in user home).
@@ -185,8 +180,12 @@ async function writeMcpConfig(platform, pluginRoot, quiet = false) {
  * @param {boolean}  quiet      - Suppress output
  */
 async function registerMcpServers(platforms, pluginRoot, quiet = false) {
+  if (Object.keys(MCP_SERVERS).length === 0) {
+    return [];
+  }
+
   if (!quiet) {
-    console.log(chalk.cyan('\n  Registering CloudConvert MCP server...'));
+    console.log(chalk.cyan('\n  Registering MCP servers...'));
   }
 
   // All 8 platforms — claude included (uses ~/.claude.json, not plugin.json)
@@ -196,13 +195,7 @@ async function registerMcpServers(platforms, pluginRoot, quiet = false) {
 
   const succeeded = results.filter(r => r.success && !r.skipped).length;
   if (!quiet && succeeded > 0) {
-    console.log(chalk.green(`  ✓ MCP server registered for ${succeeded} platform(s)`));
-    console.log(chalk.yellow('\n  ⚠️  Action required: set your CloudConvert API key once in your shell:'));
-    console.log(chalk.white('     export CLOUDCONVERT_API_KEY="your-key"'));
-    console.log(chalk.dim('     Add to ~/.zshrc or ~/.bashrc to persist across sessions.'));
-    console.log(chalk.dim('     This single setting works for ALL 8 platforms automatically.'));
-    console.log(chalk.dim('     Free tier: 10 conversion minutes/day. Use CLOUDCONVERT_SANDBOX=true for testing.'));
-    console.log(chalk.dim('     Get your key: https://cloudconvert.com/dashboard/api/v2/keys'));
+    console.log(chalk.green(`  ✓ MCP server(s) registered for ${succeeded} platform(s)`));
   }
 
   return results;

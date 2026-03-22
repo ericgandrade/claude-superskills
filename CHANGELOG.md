@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.21.8] - 2026-03-22
+
+### Added
+
+- **document-converter skill**: converts Office documents to PDF, performs PDF operations (merge, split, rotate, encrypt/decrypt, OCR) using local free tools — LibreOffice, ghostscript, pdftk, tesseract, imagemagick. No API key, no cost, works offline on macOS, Linux, and Windows.
+
+### Removed
+
+- **cloudconvert-converter skill**: replaced by `document-converter`. Removed CloudConvert dependency, API key requirement, paid tier, and rate limits.
+- **CloudConvert MCP server** (`mcp-servers/cloudconvert/`): removed entirely. MCP server infrastructure (`mcp-installer.js`) kept as empty stub for future servers.
+
+---
+
 ## [1.21.7] - 2026-03-20
 
 ### Changed

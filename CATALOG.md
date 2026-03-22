@@ -18,7 +18,7 @@
 | **audio-transcriber** | 2.1.0 | content | audio, transcription, whisper | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **brainstorming** | 2.0.0 | planning | brainstorming, design, requirements | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **career-changer-translator** | 2.1.0 | career | career-change, transferable-skills, career-pivot | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
-| **cloudconvert-converter** | 2.1.0 | Content | conversion, cloudconvert, pdf | low | Claude Code GitHub Copilot Gemini CLI OpenCode Codex Cursor Antigravity AdaL |
+| **document-converter** | 1.0.0 | content | document-conversion, pdf, office, libreoffice, ocr, ghostscript, pdftk | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **cover-letter-generator** | 2.1.0 | career | cover-letter, job-application, resume | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **creative-portfolio-resume** | 2.1.0 | career | resume, creative, portfolio | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **deep-research** | 2.1.0 | research | research, search, analysis | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
@@ -63,9 +63,9 @@
 
 ### Content
 
-- **cloudconvert-converter** (v2.1.0)
-  - Description: This skill should be used when the user needs to convert files between formats (documents, images, v...
-  - Tags: conversion, cloudconvert, pdf, ocr, video, audio, documents, mcp
+- **document-converter** (v1.0.0)
+  - Description: This skill should be used when the user needs to convert documents between formats (Office to PDF, PDF to images, image to PDF), perform PDF operations (merge, split, rotate, encrypt, decrypt), or run OCR on scanned documents using local free tools.
+  - Tags: document-conversion, pdf, office, libreoffice, ocr, ghostscript, pdftk, imagemagick, tesseract
 
 ### Architecture
 

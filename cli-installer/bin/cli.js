@@ -12,7 +12,6 @@ const { install: installAntigravitySkills } = require('../lib/antigravity');
 const { install: installCursorSkills } = require('../lib/cursor');
 const { install: installAdalSkills } = require('../lib/adal');
 const { listBundles, validateBundle } = require('../lib/bundles');
-const { registerMcpServers } = require('../lib/mcp-installer');
 const { searchSkills } = require('../lib/search');
 const { displayToolsTable } = require('../lib/ui/table');
 const { ensureSkillsCached } = require('../lib/core/downloader');
@@ -494,8 +493,6 @@ async function runSmartInstallFlow(detected, platforms, quiet, skipPrompt, optio
     }
 
     await installForPlatforms(cacheDir, platforms, null, quiet);
-    const pluginRootReinstall = path.resolve(__dirname, '..', '..');
-    await registerMcpServers(platforms, pluginRootReinstall, quiet);
     if (!quiet) console.log(chalk.green('\n✅ Reinstall complete!\n'));
     return;
   }
@@ -534,16 +531,12 @@ async function runSmartInstallFlow(detected, platforms, quiet, skipPrompt, optio
 
   if (action === 'reinstall') {
     await installForPlatforms(cacheDir, platforms, null, quiet);
-    const pluginRootR2 = path.resolve(__dirname, '..', '..');
-    await registerMcpServers(platforms, pluginRootR2, quiet);
     if (!quiet) console.log(chalk.green('\n✅ Reinstall complete!\n'));
     return;
   }
 
   const plan = buildRecommendedInstallPlan(diffByPlatform);
   await runInstallPlan(cacheDir, plan, quiet);
-  const pluginRootPlan = path.resolve(__dirname, '..', '..');
-  await registerMcpServers(platforms, pluginRootPlan, quiet);
   if (!quiet) console.log(chalk.green('\n✅ Smart update complete (outdated + missing skills).\n'));
 }
 
@@ -691,11 +684,6 @@ async function main() {
       }
     }
 
-    if (installPlatforms.length > 0) {
-      const pluginRoot = path.resolve(__dirname, '..', '..');
-      await registerMcpServers(installPlatforms, pluginRoot, quiet);
-    }
-
     await maybePackageCowork(detected, includeCowork, quiet);
 
     if (!quiet) {
@@ -742,8 +730,6 @@ async function main() {
 
     if (installPlatforms.length > 0) {
       await runSmartInstallFlow(detected, installPlatforms, quiet, skipPrompt, { includeCowork });
-      const pluginRoot = path.resolve(__dirname, '..', '..');
-      await registerMcpServers(installPlatforms, pluginRoot, quiet);
     }
 
     await maybePackageCowork(detected, includeCowork, quiet);
