@@ -1,0 +1,70 @@
+{
+  "skill_name": "obsidian-canvas",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create an Obsidian Canvas dashboard showing three active projects as file cards in separate columns: 'Projects/Project Alpha.md', 'Projects/Initiative X.md', and 'Projects/Research Sprint.md'. Add a column group for each card.",
+      "expected_output": "Valid .canvas JSON with 3 file nodes referencing the correct vault paths, 3 group nodes (one per column), positioned horizontally with consistent spacing. No edges required.",
+      "expectations": [
+        "Output is valid JSON with nodes and edges arrays",
+        "Contains exactly 3 file-type nodes",
+        "File paths correctly reference Projects/Project Alpha.md, Projects/Initiative X.md, Projects/Research Sprint.md",
+        "Contains 3 group nodes, one per column",
+        "Columns are horizontally spaced (x positions differ by at least 350)",
+        "All node IDs are unique"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Create an Obsidian Canvas with a text card 'Product Strategy' at the center (position 0,0, size 300x150), and 4 surrounding file cards: 'Strategy/Vision.md', 'Strategy/ICP.md', 'Strategy/Pricing.md', 'Strategy/GTM.md'. Add edges from center to each surrounding card.",
+      "expected_output": "Valid .canvas JSON with 1 central text card, 4 file cards spaced around it, and 4 edges connecting center to each surrounding card.",
+      "expectations": [
+        "Output is valid JSON with nodes and edges arrays",
+        "Central text node at approximately (0, 0) with text 'Product Strategy'",
+        "4 file nodes with paths to Vision, ICP, Pricing, GTM notes",
+        "4 edge objects connecting the central node to each file card",
+        "All edge fromNode/toNode values reference valid node IDs",
+        "File cards are spread around the center (different x/y positions)"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Create a Kanban canvas with 4 status columns: Backlog (gray), In Progress (orange), Review (yellow), Done (green). Each column should be a group box 300px wide and 600px tall. Add two sample text card tasks in the Backlog column.",
+      "expected_output": "Valid .canvas JSON with 4 group nodes using appropriate colors, positioned horizontally, and 2 text card nodes inside the Backlog group with placeholder task text.",
+      "expectations": [
+        "Output is valid JSON with nodes array",
+        "4 group-type nodes labeled Backlog, In Progress, Review, Done",
+        "Group colors approximately match the specified colors (gray/orange/yellow/green)",
+        "Groups are horizontally positioned with consistent spacing",
+        "2 text-type nodes with task content positioned within the Backlog group boundaries",
+        "All IDs unique"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Build a research workspace canvas centered on an existing note 'Research/Remote Work Trends.md'. Add 4 surrounding empty text cards with headers: '## Key Statistics', '## Opposing Views', '## Supporting Evidence', '## Open Questions'. Connect them to the center note with arrows.",
+      "expected_output": "Valid .canvas JSON with 1 file card for the main note, 4 text cards with the specified header text, and 4 edges from the file card to each text card.",
+      "expectations": [
+        "Output is valid JSON with nodes and edges arrays",
+        "1 file-type node referencing Research/Remote Work Trends.md",
+        "4 text-type nodes with the specified heading text",
+        "4 edges connecting the central file card to each text card",
+        "Text cards are spread around the center",
+        "All edge IDs and node IDs are unique"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Create a brainstorming canvas for a Q3 planning session. Add a title banner card 'Q3 Planning Session' at the top (wide, short). Below it, create 4 color-coded groups: Now (red), Next (orange), Later (cyan), Ideas (purple). Each group should be 280x400.",
+      "expected_output": "Valid .canvas JSON with 1 wide text banner card at the top, and 4 group nodes arranged in a 2×2 grid or horizontal row below, each with the correct color code and label.",
+      "expectations": [
+        "Output is valid JSON with nodes array",
+        "1 text node at the top with title content",
+        "4 group nodes labeled Now, Next, Later, Ideas",
+        "Colors match approximately: Now=red(1), Next=orange(2), Later=cyan(5), Ideas=purple(6)",
+        "Groups positioned below the title banner",
+        "All node IDs unique"
+      ]
+    }
+  ]
+}

@@ -46,12 +46,15 @@ npx claude-superskills --bundle essential -y
 
 ## 🎬 Content Creation Bundle
 
-**Perfect for:** Processing video and audio
+**Perfect for:** Processing video, audio, web pages, and diagrams
 
 **Includes:**
 - **youtube-summarizer** - Summarize YouTube videos
 - **audio-transcriber** - Transcribe audio to Markdown
 - **docling-converter** - Convert PDF/Office/image docs to Markdown/JSON with optional OCR
+- **webpage-reader** - Extract clean Markdown from any URL using Defuddle CLI
+- **mermaid-diagram** - Generate Mermaid diagrams from plain-language descriptions
+- **excalidraw-diagram** - Create hand-drawn style diagrams in Excalidraw JSON format
 
 **Installation:**
 ```bash
@@ -63,9 +66,11 @@ npx claude-superskills --bundle content -y
 - 🎙️ Transcribing podcasts and recordings
 - 📋 Creating meeting notes automatically
 - 📊 Extracting key insights from videos
+- 🌐 Reading and saving web page content as Markdown
+- 📐 Generating architecture and flow diagrams
 - 🌍 Multi-language support (99+ languages)
 
-**Word Count:** ~4000 words of functionality
+**Word Count:** ~10000 words of functionality
 
 **Perfect For:**
 - Content creators
@@ -73,6 +78,7 @@ npx claude-superskills --bundle content -y
 - Podcast producers
 - Meeting attendees
 - Students
+- Developers documenting systems
 
 ---
 
@@ -108,6 +114,7 @@ npx claude-superskills --bundle planning -y
 - **us-program-research** - US academic program ranking and action-plan workflow
 - **agent-skill-discovery** - Discover available resources
 - **prompt-engineer** - Improve research prompts
+- **webpage-reader** - Extract and save web content as clean Markdown
 
 **Installation:**
 ```bash
@@ -119,6 +126,7 @@ npx claude-superskills --bundle research -y
 - 📚 Literature and technical scans
 - 🧾 Decision support with cited evidence
 - 🧭 Repository and environment discovery
+- 🌐 Save reference pages as structured Markdown
 
 ---
 
@@ -151,23 +159,46 @@ npx claude-superskills --bundle developer -y
 
 ---
 
-## 🚀 All Skills Bundle
+## �️ Obsidian Knowledge Management Bundle {#-obsidian-knowledge-management-bundle}
 
-**Perfect for:** Complete functionality
+**Perfect for:** Obsidian vault users, knowledge workers, and researchers
 
 **Includes:**
-- **agent-skill-discovery** - Discover installed and local resources
-- **agent-skill-orchestrator** - Build intelligent execution strategies
-- **brainstorming** - Clarify design before coding
-- **writing-plans** - Create implementation plans
-- **executing-plans** - Execute plans with checkpoints
-- **deep-research** - Run deep research with citations
-- **skill-creator** - Create custom skills
-- **prompt-engineer** - Optimize prompts
-- **docling-converter** - Convert complex documents with Docling
-- **youtube-summarizer** - Summarize videos
-- **audio-transcriber** - Transcribe audio
-- **us-program-research** - Research and rank US academic programs
+- **obsidian-markdown** - Master Obsidian Flavored Markdown syntax (wikilinks, callouts, embeds, block IDs)
+- **obsidian-links** - Create, validate, repair, and analyze wikilinks across an Obsidian vault
+- **obsidian-frontmatter** - Create, validate, and standardize YAML properties for Dataview compatibility
+- **obsidian-automation** - Automate vault tasks using the CLI, shell scripts, and Local REST API
+- **obsidian-note-builder** - Build knowledge-graph-ready notes from raw content with Zettelkasten patterns
+- **obsidian-canvas** - Generate freeform visual workspaces as ready-to-save `.canvas` files
+
+**Installation:**
+```bash
+npx claude-superskills --bundle obsidian -y
+```
+
+**Use Cases:**
+- 📝 Creating well-structured Obsidian notes automatically
+- 🔗 Finding and fixing broken wikilinks across the vault
+- 🏷️ Standardizing frontmatter and tags for Dataview queries
+- ⚙️ Batch operations without manually touching each note
+- 🗺️ Building visual Maps of Content and dashboards
+- 🧠 Zettelkasten-style knowledge base maintenance
+
+**Perfect For:**
+- Obsidian users
+- Knowledge workers
+- Researchers
+- Note-taking enthusiasts
+- Teams using Obsidian as a shared knowledge base
+
+---
+
+## 🚀 All Skills Bundle
+
+**Perfect for:** Complete functionality — all 55 skills
+
+**Includes:** All 55 skills across every category:
+Career & Professional Growth · Discovery & Orchestration · Development & Automation · Planning & Execution · Software Architecture · Startup & Venture · Product Management · Research & Analysis · Content Processing · Obsidian Knowledge Management
 
 **Installation:**
 ```bash
@@ -176,12 +207,10 @@ npx claude-superskills --bundle all -y
 
 **Use Cases:**
 - 🎓 Complete learning experience
-- 🔄 All content types (prompts, video, audio)
+- 🔄 All content types (prompts, video, audio, web, diagrams)
 - 🛠️ Full development capability
 - 💼 Enterprise comprehensive suite
 - 🌟 Maximum AI assistance
-
-**Word Count:** ~9000 words of functionality
 
 **Perfect For:**
 - Power users
@@ -193,16 +222,18 @@ npx claude-superskills --bundle all -y
 
 ## 📊 Bundle Comparison
 
-| Feature | Essential | Content | Planning | Research | Developer | All |
-|---------|-----------|---------|----------|----------|-----------|-----|
-| Prompt Optimization | ✅ | ❌ | ❌ | ✅ | ❌ | ✅ |
-| Skill Creation | ✅ | ❌ | ❌ | ❌ | ✅ | ✅ |
-| Video Summarization | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ |
-| Audio Transcription | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ |
-| Planning Workflow | ✅ | ❌ | ✅ | ❌ | ❌ | ✅ |
-| Deep Research | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
-| Skills Count | 7 | 3 | 4 | 4 | 1 | 12 |
-| Size | Medium | Medium | Medium | Small | Small | Large |
+| Feature | Essential | Content | Planning | Research | Obsidian | Developer | All |
+|---------|-----------|---------|----------|----------|----------|-----------|-----|
+| Prompt Optimization | ✅ | ❌ | ❌ | ✅ | ❌ | ❌ | ✅ |
+| Skill Creation | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ | ✅ |
+| Video/Audio | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| Web Page Reader | ❌ | ✅ | ❌ | ✅ | ❌ | ❌ | ✅ |
+| Diagrams | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ✅ |
+| Planning Workflow | ✅ | ❌ | ✅ | ❌ | ❌ | ❌ | ✅ |
+| Deep Research | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | ✅ |
+| Obsidian Vault | ❌ | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
+| Skills Count | 7 | 6 | 4 | 5 | 6 | 1 | 55 |
+| Size | Medium | Large | Medium | Medium | Medium | Small | Complete |
 
 ---
 

@@ -1,0 +1,75 @@
+{
+  "skill_name": "excalidraw-diagram",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create an Excalidraw diagram showing a simple three-tier web architecture: Browser (client), API Server (backend), and PostgreSQL Database. Use color coding and include labeled arrows.",
+      "expected_output": "Valid Excalidraw JSON with three elements (rectangle for browser in blue, rectangle for API server in green, rectangle/cylinder for DB in purple), two arrow elements with labels (e.g., HTTP Request, SQL Query), and correct binding references.",
+      "expectations": [
+        "Output is valid JSON starting with {\"type\": \"excalidraw\", \"version\": 2",
+        "Contains at least 3 shape elements and 2 arrow elements",
+        "Browser element uses blue color scheme",
+        "API Server element uses green color scheme",
+        "Database element uses purple color scheme",
+        "Arrows have labels",
+        "All element IDs are unique",
+        "Arrow bindings reference valid element IDs",
+        "roughness is set to 1 for hand-drawn look"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Draw a concept map in Excalidraw with 'Product Strategy' at the center and six branches: Vision, ICP, Positioning, Pricing, GTM, and Roadmap.",
+      "expected_output": "Valid Excalidraw JSON with a central ellipse for Product Strategy and six surrounding boxes/ellipses for each branch, connected by arrows from center to each branch. Radial layout with consistent spacing.",
+      "expectations": [
+        "Output is valid Excalidraw JSON",
+        "Contains a central element labeled Product Strategy",
+        "Contains 6 branch elements labeled Vision, ICP, Positioning, Pricing, GTM, Roadmap",
+        "6 arrows connecting center to each branch",
+        "Positions spread around the center (not all stacked)",
+        "All IDs unique, arrow bindings valid"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Create an Excalidraw user flow sketch for user login: start with User enters credentials, then Validate credentials, then a decision: Valid? Yes → Redirect to dashboard, No → Show error message with option to retry.",
+      "expected_output": "Valid Excalidraw JSON with process boxes for each step, a diamond shape for the decision point, two branch arrows labeled Yes and No, and end boxes for dashboard redirect and error message.",
+      "expectations": [
+        "Output is valid Excalidraw JSON",
+        "Contains at least 4 shape elements plus a diamond (decision)",
+        "Diamond element is type ellipse or a shape indicating a decision",
+        "Two arrows from decision with labels Yes and No",
+        "Yes branch leads to a dashboard box",
+        "No branch leads to an error box",
+        "Layout flows in a logical direction (top-down or left-right)"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Draw a C4 context diagram in Excalidraw for a payment SaaS: the main actors are Customer (person), our Payment Platform (system), Stripe (external payment provider), and SendGrid (external email service). Customer interacts with Payment Platform. Payment Platform calls Stripe and SendGrid.",
+      "expected_output": "Valid Excalidraw JSON with 4 elements: Customer (person/ellipse), Payment Platform (central large rectangle), Stripe (orange rectangle for external), SendGrid (orange rectangle for external), and 3 arrows connecting them with labels.",
+      "expectations": [
+        "Output is valid Excalidraw JSON",
+        "Customer element uses a person-like shape or labeled appropriately",
+        "Payment Platform is the central large element",
+        "Stripe and SendGrid use the external color scheme (orange)",
+        "3 arrows with labels showing interactions",
+        "All IDs unique and bindings valid"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Create a simple org chart in Excalidraw: CPO at top, then PM Lead and Design Lead on the next level (both reporting to CPO), then three PMs under PM Lead and two Designers under Design Lead.",
+      "expected_output": "Valid Excalidraw JSON with 7 boxes in a hierarchical layout: CPO at top center, PM Lead and Design Lead on level 2, PMs and Designers on level 3. Connecting lines from parent to children.",
+      "expectations": [
+        "Output is valid Excalidraw JSON",
+        "Contains exactly 7 elements (CPO + PM Lead + Design Lead + 3 PMs + 2 Designers)",
+        "CPO is positioned at top center",
+        "PM Lead and Design Lead are on the same level below CPO",
+        "3 PM boxes below PM Lead",
+        "2 Designer boxes below Design Lead",
+        "All parent-child connections present as lines or arrows"
+      ]
+    }
+  ]
+}

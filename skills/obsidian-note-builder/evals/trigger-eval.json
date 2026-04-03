@@ -1,0 +1,26 @@
+{
+  "skill_name": "obsidian-note-builder",
+  "description": "Triggers when the user wants to create a structured, wikilinked Obsidian note from raw content or ideas",
+  "queries": [
+    { "id": 1, "query": "turn this brain dump into a proper Obsidian concept note", "should_trigger": true },
+    { "id": 2, "query": "create a meeting note from today's Q2 planning session summary", "should_trigger": true },
+    { "id": 3, "query": "build a reference note for the book Thinking Fast and Slow", "should_trigger": true },
+    { "id": 4, "query": "extract entities from this text and add wikilinks to create an Obsidian note", "should_trigger": true },
+    { "id": 5, "query": "add this article to my vault as a structured note", "should_trigger": true },
+    { "id": 6, "query": "this note is too long, split it into atomic Zettelkasten notes", "should_trigger": true },
+    { "id": 7, "query": "create an Obsidian project note for Initiative Orion", "should_trigger": true },
+    { "id": 8, "query": "build a well-structured note about systems thinking for my vault", "should_trigger": true },
+    { "id": 9, "query": "import this email into my Obsidian vault as a reference note", "should_trigger": true },
+    { "id": 10, "query": "create a note about the new team member and link it to relevant project notes", "should_trigger": true },
+    { "id": 11, "query": "add frontmatter tags to my existing note", "should_trigger": false },
+    { "id": 12, "query": "find broken wikilinks in my vault", "should_trigger": false },
+    { "id": 13, "query": "draw a flowchart for the user registration process", "should_trigger": false },
+    { "id": 14, "query": "optimize my resume for a software engineering role", "should_trigger": false },
+    { "id": 15, "query": "create a bash script to archive old Obsidian notes", "should_trigger": false },
+    { "id": 16, "query": "summarize this YouTube video", "should_trigger": false },
+    { "id": 17, "query": "create an Excalidraw diagram for the system architecture", "should_trigger": false },
+    { "id": 18, "query": "transcribe this audio file to Markdown", "should_trigger": false },
+    { "id": 19, "query": "what is the best PKM system for academics?", "should_trigger": false },
+    { "id": 20, "query": "write a Python script to read and process a CSV file", "should_trigger": false }
+  ]
+}

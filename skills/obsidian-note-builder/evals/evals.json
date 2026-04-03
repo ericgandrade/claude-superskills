@@ -1,0 +1,72 @@
+{
+  "skill_name": "obsidian-note-builder",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Convert this brain dump into a proper Zettelkasten atomic note for my Obsidian vault:\n\n'Systems thinking is a way of seeing the world as interconnected wholes rather than separate parts. Key concept: feedback loops. Two types: reinforcing loops (amplify change) and balancing loops (resist change). Related to complexity theory and emergence. Term popularized by Peter Senge in The Fifth Discipline.'",
+      "expected_output": "A complete Obsidian note with frontmatter (title, date, tags: concept, aliases), a clear one-paragraph definition, Key Principles section with bullet points, a Related Concepts section with wikilinks to Feedback Loops, Reinforcing Loops, Balancing Loops, Complexity Theory, Emergence, and Peter Senge, and a Sources section linking to The Fifth Discipline.",
+      "expectations": [
+        "Note starts with a YAML frontmatter block on line 1",
+        "tags include concept and a domain tag",
+        "Opening paragraph provides a standalone definition of systems thinking",
+        "Related Concepts section includes wikilinks to at least 3 related terms",
+        "Peter Senge is linked as a wikilink",
+        "The Fifth Discipline is referenced in a Sources section",
+        "Note is self-contained and expresses exactly one concept"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Build a complete meeting note from this summary:\n\nDate: March 15, 2024\nMeeting: Q2 Product Strategy Review\nAttendees: Sarah Kim (PM), James Torres (Engineering), Priya Patel (Design)\nDecisions: Move launch from April to May 1. Prioritize mobile over web for v1.\nAction items: Sarah to update the roadmap by March 20. James to revise sprint plan. Priya to finalize designs for mobile flow.\nNext meeting: March 22.",
+      "expected_output": "A complete meeting note with frontmatter (title, date: 2024-03-15, attendees as quoted wikilinks, tags: meeting, status: done), structured body with Agenda/Notes/Decisions/Action Items sections, checkboxes for action items with wikilink assignments, and a link to a next meeting note.",
+      "expectations": [
+        "Frontmatter has date: 2024-03-15",
+        "attendees lists Sarah Kim, James Torres, Priya Patel as quoted wikilinks",
+        "tags includes meeting",
+        "Decisions section contains both decisions clearly stated",
+        "Action Items section uses - [ ] checkbox format",
+        "Each action item links to the assigned person with [[wikilink]]",
+        "A next meeting reference is included"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Create a reference note for the book 'Thinking Fast and Slow' by Daniel Kahneman. Key ideas: System 1 (fast, automatic, emotional, intuitive) vs System 2 (slow, deliberate, logical). Anchoring bias, availability heuristic, loss aversion. I read it in February 2024 and rate it 5/5.",
+      "expected_output": "A reference note with frontmatter (title, author, read_date: 2024-02-01 or similar, rating: 5, tags: reference, books), a one-line summary, Key Takeaways section covering System 1/2 and the biases, wikilinks to System 1, System 2, Anchoring Bias, Availability Heuristic, Loss Aversion as candidate notes, and a How It Connects section.",
+      "expectations": [
+        "Frontmatter includes author: Daniel Kahneman",
+        "read_date is in ISO 8601 format (2024-02-XX)",
+        "rating is 5 (numeric)",
+        "tags includes reference and books or similar",
+        "Key Takeaways explains System 1 vs System 2",
+        "Anchoring bias, availability heuristic, and loss aversion mentioned as wikilinks",
+        "At least one How It Connects or Related entry"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "This note has gotten too broad. Split it into separate atomic notes:\n\n# Productivity Concepts\n\nPomodoro Technique: Work in 25-minute focused blocks, take 5-minute breaks. After 4 pomodoros, take a longer break. Created by Francesco Cirillo.\n\nDeep Work: Cal Newport's concept. Work with full concentration on cognitively demanding tasks without distraction. Contrasted with shallow work.\n\nZero Inbox: Email management philosophy. Process every email to completion during each session. Archive or delete everything.",
+      "expected_output": "Three separate atomic notes (Pomodoro Technique, Deep Work, Zero Inbox) each with their own frontmatter and body, plus a parent MOC note that links to all three.",
+      "expectations": [
+        "Three complete separate notes are output",
+        "Each note has its own frontmatter with name, date, tags",
+        "Pomodoro Technique links to [[Francesco Cirillo]]",
+        "Deep Work links to [[Cal Newport]] and [[Shallow Work]]",
+        "All notes have a Related Concepts section",
+        "A parent MOC note is output linking to all three atomic notes"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Import this article excerpt into my vault as a reference note. Extract main entities and flag new notes to create:\n\n'According to a 2023 McKinsey report, organizations that use generative AI for product development see a 40% reduction in time-to-market. The key enablers are: design thinking workshops, rapid prototyping, and cross-functional teams including product managers, engineers, and UX researchers.'",
+      "expected_output": "A reference note with source (McKinsey report), key statistics, entities extracted (McKinsey, generative AI, design thinking, rapid prototyping, cross-functional teams), and a list of notes to create for un-linked concepts.",
+      "expectations": [
+        "Frontmatter includes source reference to McKinsey",
+        "Key finding (40% reduction) is captured",
+        "At least 3 entities extracted and linked",
+        "An After This section or similar lists notes to create",
+        "Note is structured as a reference, not a concept note"
+      ]
+    }
+  ]
+}

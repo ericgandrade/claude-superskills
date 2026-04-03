@@ -1,7 +1,7 @@
 # 📚 Claude Superskills Catalog
 
-**Generated:** 2026-03-20T07:15:36.289858Z  
-**Total Skills:** 46  
+**Generated:** 2026-04-03T14:55:13.565225Z  
+**Total Skills:** 55  
 **Platforms:** GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI
 
 ---
@@ -18,17 +18,25 @@
 | **audio-transcriber** | 2.1.0 | content | audio, transcription, whisper | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **brainstorming** | 2.0.0 | planning | brainstorming, design, requirements | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **career-changer-translator** | 2.1.0 | career | career-change, transferable-skills, career-pivot | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
-| **document-converter** | 1.0.0 | content | document-conversion, pdf, office, libreoffice, ocr, ghostscript, pdftk | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **cover-letter-generator** | 2.1.0 | career | cover-letter, job-application, resume | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **creative-portfolio-resume** | 2.1.0 | career | resume, creative, portfolio | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **deep-research** | 2.1.0 | research | research, search, analysis | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **docling-converter** | 2.1.0 | content | document-conversion, markdown, json | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
+| **document-converter** | 1.0.0 | content | document-conversion, pdf, office | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
+| **excalidraw-diagram** | 1.0.0 | Content / Visualization | excalidraw, diagram, whiteboard | Low | Claude Code GitHub Copilot All AI CLI tools |
 | **executing-plans** | 2.0.0 | planning | planning, execution, checkpoints | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **executive-resume-writer** | 2.1.0 | career | executive-resume, c-suite, vp | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **interview-prep-generator** | 2.1.0 | career | interview, star-stories, interview-prep | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **job-description-analyzer** | 2.1.0 | career | job-description, ats, keyword-extraction | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **linkedin-profile-optimizer** | 2.1.0 | career | linkedin, profile, recruiter | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **mckinsey-strategist** | 2.1.0 | strategy | consulting, strategy, mece | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
+| **mermaid-diagram** | 1.0.0 | Content / Visualization | mermaid, diagram, flowchart | Low | Claude Code GitHub Copilot All AI CLI tools |
+| **obsidian-automation** | 1.0.0 | Tools Needed | obsidian, automation, cli | Medium (file system operations) | Claude Code GitHub Copilot All AI CLI tools |
+| **obsidian-canvas** | 1.0.0 | Obsidian / Knowledge Management | obsidian, canvas, visual-workspace | Low | Claude Code GitHub Copilot All AI CLI tools |
+| **obsidian-frontmatter** | 1.0.0 | Obsidian / Knowledge Management | obsidian, frontmatter, yaml | Low | Claude Code GitHub Copilot All AI CLI tools |
+| **obsidian-links** | 1.0.0 | Obsidian / Knowledge Management | obsidian, wikilinks, knowledge-graph | Low | Claude Code GitHub Copilot All AI CLI tools |
+| **obsidian-markdown** | 1.0.0 | Obsidian | obsidian, markdown, wikilinks | Low | All 8 |
+| **obsidian-note-builder** | 1.0.0 | Obsidian / Knowledge Management | obsidian, note-building, zettelkasten | Low | Claude Code GitHub Copilot All AI CLI tools |
 | **offer-comparison-analyzer** | 2.1.0 | career | job-offer, compensation, equity | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **portfolio-case-study-writer** | 2.1.0 | career | portfolio, case-study, ux | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **pptx-translator** | 2.8.0 | content | translation, pptx, powerpoint | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
@@ -54,6 +62,7 @@
 | **storytelling-expert** | 2.0.0 | content | storytelling, narrative, presentations | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **tech-resume-optimizer** | 2.1.0 | career | resume, tech-resume, software-engineer | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **us-program-research** | 2.0.0 | research | us-programs, university-research, rankings | medium | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
+| **webpage-reader** | 1.0.0 | Content | web, extraction, markdown | Low | All 8 |
 | **writing-plans** | 2.0.0 | planning | planning, implementation-plan, task-breakdown | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 | **youtube-summarizer** | 2.1.0 | content | video, summarization, transcription | safe | GitHub Copilot CLI Claude Code OpenAI Codex OpenCode Gemini CLI Antigravity Cursor IDE AdaL CLI |
 
@@ -63,9 +72,49 @@
 
 ### Content
 
-- **document-converter** (v1.0.0)
-  - Description: This skill should be used when the user needs to convert documents between formats (Office to PDF, PDF to images, image to PDF), perform PDF operations (merge, split, rotate, encrypt, decrypt), or run OCR on scanned documents using local free tools.
-  - Tags: document-conversion, pdf, office, libreoffice, ocr, ghostscript, pdftk, imagemagick, tesseract
+- **webpage-reader** (v1.0.0)
+  - Description: This skill should be used when the user wants to read, fetch, extract, or analyze the content of a w...
+  - Tags: web, extraction, markdown, research, content, defuddle, url
+
+### Content / visualization
+
+- **excalidraw-diagram** (v1.0.0)
+  - Description: This skill should be used when the user needs to create a diagram using Excalidraw — a hand-drawn st...
+  - Tags: excalidraw, diagram, whiteboard, architecture, sketch, obsidian
+
+- **mermaid-diagram** (v1.0.0)
+  - Description: This skill should be used when the user needs to create, edit, or convert a diagram into Mermaid syn...
+  - Tags: mermaid, diagram, flowchart, sequence, visualization, obsidian
+
+### Obsidian
+
+- **obsidian-markdown** (v1.0.0)
+  - Description: This skill should be used when the user is working with Obsidian notes and needs to create or edit f...
+  - Tags: obsidian, markdown, wikilinks, callouts, frontmatter, embeds, vault
+
+### Obsidian / knowledge management
+
+- **obsidian-canvas** (v1.0.0)
+  - Description: This skill should be used when the user needs to create or edit an Obsidian Canvas — a freeform visu...
+  - Tags: obsidian, canvas, visual-workspace, knowledge-map, dashboard
+
+- **obsidian-frontmatter** (v1.0.0)
+  - Description: This skill should be used when the user needs to create, validate, standardize, or repair YAML front...
+  - Tags: obsidian, frontmatter, yaml, properties, metadata, dataview
+
+- **obsidian-links** (v1.0.0)
+  - Description: This skill should be used when the user needs to create, validate, repair, or analyze wikilinks insi...
+  - Tags: obsidian, wikilinks, knowledge-graph, backlinks, MOC
+
+- **obsidian-note-builder** (v1.0.0)
+  - Description: This skill should be used when the user wants to create a well-structured, richly linked Obsidian no...
+  - Tags: obsidian, note-building, zettelkasten, knowledge-graph, entity-extraction
+
+### Tools needed
+
+- **obsidian-automation** (v1.0.0)
+  - Description: This skill should be used when the user wants to automate repetitive Obsidian tasks using the Obsidi...
+  - Tags: obsidian, automation, cli, scripting, shell, batch-processing
 
 ### Architecture
 
@@ -170,6 +219,10 @@
 - **docling-converter** (v2.1.0)
   - Description: This skill should be used when the user needs to convert documents (PDF, DOCX, PPTX, XLSX, HTML, ima...
   - Tags: document-conversion, markdown, json, pdf, docling, ocr
+
+- **document-converter** (v1.0.0)
+  - Description: This skill should be used when the user needs to convert documents between formats (Office to PDF, P...
+  - Tags: document-conversion, pdf, office, libreoffice, ocr, ghostscript, pdftk, imagemagick, tesseract
 
 - **pptx-translator** (v2.8.0)
   - Description: This skill should be used when the user needs to translate PowerPoint presentations (.pptx) between ...

@@ -48,7 +48,8 @@
         "deep-research",
         "us-program-research",
         "agent-skill-discovery",
-        "prompt-engineer"
+        "prompt-engineer",
+        "webpage-reader"
       ],
       "use_cases": [
         "Technical due diligence",
@@ -68,7 +69,10 @@
         "docling-converter",
         "document-converter",
         "pptx-translator",
-        "storytelling-expert"
+        "storytelling-expert",
+        "webpage-reader",
+        "mermaid-diagram",
+        "excalidraw-diagram"
       ],
       "use_cases": [
         "Summarizing YouTube videos",
@@ -158,7 +162,16 @@
         "tech-resume-optimizer",
         "senior-solution-architect",
         "startup-growth-strategist",
-        "pptx-translator"
+        "pptx-translator",
+        "webpage-reader",
+        "mermaid-diagram",
+        "excalidraw-diagram",
+        "obsidian-markdown",
+        "obsidian-links",
+        "obsidian-frontmatter",
+        "obsidian-automation",
+        "obsidian-note-builder",
+        "obsidian-canvas"
       ],
       "use_cases": [
         "Complete AI assistance",
@@ -251,6 +264,26 @@
         "Launch strategy"
       ],
       "target": "Founders, Entrepreneurs, Business Analysts"
+    },
+    "obsidian": {
+      "name": "Obsidian Knowledge Management",
+      "description": "Complete toolkit for working with Obsidian vaults: notes, links, frontmatter, automation, canvas, and diagrams.",
+      "skills": [
+        "obsidian-markdown",
+        "obsidian-links",
+        "obsidian-frontmatter",
+        "obsidian-automation",
+        "obsidian-note-builder",
+        "obsidian-canvas"
+      ],
+      "use_cases": [
+        "Creating well-structured Obsidian notes",
+        "Managing wikilinks and knowledge graphs",
+        "Standardizing frontmatter properties",
+        "Automating vault tasks with CLI scripts",
+        "Building visual workspaces with Canvas"
+      ],
+      "target": "Obsidian users, knowledge workers, researchers"
     }
   }
 }

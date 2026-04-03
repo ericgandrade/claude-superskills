@@ -1,0 +1,26 @@
+{
+  "skill_name": "excalidraw-diagram",
+  "description": "Triggers when the user wants to create a hand-drawn style diagram using Excalidraw",
+  "queries": [
+    { "id": 1, "query": "create an Excalidraw diagram for the system architecture", "should_trigger": true },
+    { "id": 2, "query": "draw a whiteboard-style sketch of the user registration flow", "should_trigger": true },
+    { "id": 3, "query": "excalidraw concept map with product strategy at the center", "should_trigger": true },
+    { "id": 4, "query": "sketch a C4 context diagram for our SaaS application", "should_trigger": true },
+    { "id": 5, "query": "hand-drawn architecture diagram for the microservices system", "should_trigger": true },
+    { "id": 6, "query": "draw an informal org chart for the product team in Excalidraw", "should_trigger": true },
+    { "id": 7, "query": "whiteboard diagram showing how the components interact", "should_trigger": true },
+    { "id": 8, "query": "create an Excalidraw file I can embed in my Obsidian note", "should_trigger": true },
+    { "id": 9, "query": "quick sketch of the three-tier web architecture", "should_trigger": true },
+    { "id": 10, "query": "draw a mind map in excalidraw with six branches", "should_trigger": true },
+    { "id": 11, "query": "create a mermaid flowchart for the login process", "should_trigger": false },
+    { "id": 12, "query": "add wikilinks to my Obsidian note", "should_trigger": false },
+    { "id": 13, "query": "create an Obsidian canvas layout with my strategy notes", "should_trigger": false },
+    { "id": 14, "query": "optimize my resume for a product manager role", "should_trigger": false },
+    { "id": 15, "query": "write a Python script to process image files", "should_trigger": false },
+    { "id": 16, "query": "summarize this YouTube video about design systems", "should_trigger": false },
+    { "id": 17, "query": "add frontmatter tags to this Obsidian note", "should_trigger": false },
+    { "id": 18, "query": "transcribe this audio recording to markdown", "should_trigger": false },
+    { "id": 19, "query": "analyze the competitive landscape for our product", "should_trigger": false },
+    { "id": 20, "query": "write a state machine diagram using mermaid stateDiagram-v2", "should_trigger": false }
+  ]
+}

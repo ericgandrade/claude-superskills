@@ -6,6 +6,29 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ---
 
+## [1.22.0] - 2026-04-03
+
+### Added
+
+- **webpage-reader skill**: extracts clean Markdown from URLs using the Defuddle CLI. Supports metadata-only mode, batch URL processing, and custom output paths.
+- **mermaid-diagram skill**: generates Mermaid diagram syntax (flowchart, sequence, class, state, ER, mindmap, Gantt, pie, quadrant) from plain-language descriptions. 12 diagram types supported.
+- **excalidraw-diagram skill**: creates hand-drawn style diagrams in Excalidraw JSON format. Supports architecture sketches, concept maps, user flows, C4 context diagrams, and org charts. Output embeds in Obsidian or opens at excalidraw.com.
+- **obsidian-markdown skill**: comprehensive Obsidian Flavored Markdown reference — wikilinks, embeds, callouts, frontmatter properties, block IDs, and all Obsidian-specific syntax extensions.
+- **obsidian-links skill**: creates, validates, repairs, and analyzes wikilinks in Obsidian vaults. Includes broken link detection, orphan discovery, auto-linking, and Map of Content builder.
+- **obsidian-frontmatter skill**: creates, validates, standardizes, and repairs YAML frontmatter properties in Obsidian notes. Covers tags, aliases, dates, custom properties, and Dataview-compatible schema.
+- **obsidian-automation skill**: automates Obsidian vault tasks using the Obsidian CLI (Local REST API), shell scripts, and Templater. Batch note creation, bulk frontmatter updates, vault maintenance, and integration with external tools.
+- **obsidian-note-builder skill**: builds complete, knowledge-graph-ready Obsidian notes from raw content. Extracts entities, inserts wikilinks, applies note templates (atomic, meeting, reference, project), and supports Zettelkasten atomicity.
+- **obsidian-canvas skill**: creates freeform visual workspaces using Obsidian Canvas JSON format. Supports hub-and-spoke, column, linear, and Kanban layout patterns. Output is a ready-to-save `.canvas` file.
+- **obsidian bundle**: new curated bundle containing `obsidian-markdown`, `obsidian-links`, `obsidian-frontmatter`, `obsidian-automation`, `obsidian-note-builder`, `obsidian-canvas`.
+- **content bundle**: extended with `webpage-reader`, `mermaid-diagram`, `excalidraw-diagram`.
+- **research bundle**: extended with `webpage-reader`.
+
+### Fixed
+
+- **validate-skill-yaml.sh**: fixed false positive when SKILL.md body contains YAML code examples (e.g., showing how to write frontmatter with `tags:`, `---` delimiters). Validator now uses `awk` to extract only the first frontmatter block, ignoring code examples in the body.
+
+---
+
 ## [1.21.8] - 2026-03-22
 
 ### Added

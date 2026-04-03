@@ -1,0 +1,26 @@
+{
+  "skill_name": "webpage-reader",
+  "description": "Triggers for extracting clean Markdown content from web page URLs using Defuddle",
+  "queries": [
+    {"id": 1, "query": "Read this page for me: https://docs.anthropic.com/en/docs/about-claude/models", "should_trigger": true},
+    {"id": 2, "query": "Fetch the content of https://martinfowler.com/articles/microservices.html", "should_trigger": true},
+    {"id": 3, "query": "Extract this URL and give me the article: https://blog.example.com/post", "should_trigger": true},
+    {"id": 4, "query": "Save this documentation page to a file: https://docs.fastapi.tiangolo.com", "should_trigger": true},
+    {"id": 5, "query": "What does this page say? https://openai.com/research/gpt-4", "should_trigger": true},
+    {"id": 6, "query": "Get the content from this website and clean it up: https://example.com/article", "should_trigger": true},
+    {"id": 7, "query": "Read these three URLs for my research session: [list of URLs]", "should_trigger": true},
+    {"id": 8, "query": "Fetch this webpage without all the navigation noise: https://news.ycombinator.com/item?id=123", "should_trigger": true},
+    {"id": 9, "query": "Can you read this article for me? https://medium.com/some-post", "should_trigger": true},
+    {"id": 10, "query": "Extract this documentation page as clean Markdown and save it locally: https://docs.python.org/3/library/json.html", "should_trigger": true},
+    {"id": 11, "query": "Summarize this YouTube video: https://youtube.com/watch?v=abc123", "should_trigger": false},
+    {"id": 12, "query": "Convert this PDF to Markdown: /path/to/document.pdf", "should_trigger": false},
+    {"id": 13, "query": "Transcribe this audio file: meeting.mp3", "should_trigger": false},
+    {"id": 14, "query": "Search the web for information about LLMs and summarize findings", "should_trigger": false},
+    {"id": 15, "query": "Read the README.md file in this repository", "should_trigger": false},
+    {"id": 16, "query": "Open this local file and summarize it: notes/research.md", "should_trigger": false},
+    {"id": 17, "query": "Download and convert this PDF: https://arxiv.org/pdf/2303.08774.pdf", "should_trigger": false},
+    {"id": 18, "query": "Help me write a blog post about microservices architecture", "should_trigger": false},
+    {"id": 19, "query": "Translate this paragraph from Portuguese to English", "should_trigger": false},
+    {"id": 20, "query": "Create a Mermaid diagram from this process description", "should_trigger": false}
+  ]
+}

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "generated": "2026-03-20T07:15:36.091917Z",
+  "generated": "2026-04-03T14:55:13.345896Z",
   "skills": [
     {
       "name": "abx-strategy",
@@ -212,35 +212,6 @@
       "triggers": []
     },
     {
-      "name": "document-converter",
-      "version": "1.0.0",
-      "description": "This skill should be used when the user needs to convert documents between formats (Office to PDF, PDF to images, image to PDF), perform PDF operations (merge, split, rotate, encrypt, decrypt), or run OCR on scanned documents. Uses local free tools — LibreOffice, ghostscript, pdftk, tesseract, and imagemagick — with no API key required.",
-      "category": "content",
-      "tags": [
-        "document-conversion",
-        "pdf",
-        "office",
-        "libreoffice",
-        "ocr",
-        "ghostscript",
-        "pdftk",
-        "imagemagick",
-        "tesseract"
-      ],
-      "risk": "safe",
-      "platforms": [
-        "GitHub Copilot CLI",
-        "Claude Code",
-        "OpenAI Codex",
-        "OpenCode",
-        "Gemini CLI",
-        "Antigravity",
-        "Cursor IDE",
-        "AdaL CLI"
-      ],
-      "triggers": []
-    },
-    {
       "name": "cover-letter-generator",
       "version": "2.1.0",
       "description": "This skill should be used when the user needs to create a personalized, compelling cover letter from a resume and job description. Use when writing job application letters, addressing specific role requirements, handling career change narratives, or structuring persuasive arguments for candidacy.",
@@ -342,6 +313,56 @@
         "Antigravity",
         "Cursor IDE",
         "AdaL CLI"
+      ],
+      "triggers": []
+    },
+    {
+      "name": "document-converter",
+      "version": "1.0.0",
+      "description": "This skill should be used when the user needs to convert documents between formats (Office to PDF, PDF to images, image to PDF), perform PDF operations (merge, split, rotate, encrypt, decrypt), or run OCR on scanned documents. Uses local free tools \u2014 LibreOffice, ghostscript, pdftk, tesseract, and imagemagick \u2014 with no API key required. Trigger when the user says \"convert this document\", \"export to PDF\", \"merge PDFs\", \"split PDF\", \"rotate PDF\", \"OCR this scan\", \"convert PPTX to PDF\", \"convert DOCX to PDF\", or any document format conversion request.",
+      "category": "content",
+      "tags": [
+        "document-conversion",
+        "pdf",
+        "office",
+        "libreoffice",
+        "ocr",
+        "ghostscript",
+        "pdftk",
+        "imagemagick",
+        "tesseract"
+      ],
+      "risk": "safe",
+      "platforms": [
+        "GitHub Copilot CLI",
+        "Claude Code",
+        "OpenAI Codex",
+        "OpenCode",
+        "Gemini CLI",
+        "Antigravity",
+        "Cursor IDE",
+        "AdaL CLI"
+      ],
+      "triggers": []
+    },
+    {
+      "name": "excalidraw-diagram",
+      "version": "1.0.0",
+      "description": "This skill should be used when the user needs to create a diagram using Excalidraw \u2014 a hand-drawn style whiteboard tool. Use when the user wants a sketch-style architecture diagram, system design, concept map, user flow, or any visual that benefits from the informal, freehand aesthetic of Excalidraw. Outputs an embedded Excalidraw file ready for use in Obsidian or standalone.",
+      "category": "Content / Visualization",
+      "tags": [
+        "excalidraw",
+        "diagram",
+        "whiteboard",
+        "architecture",
+        "sketch",
+        "obsidian"
+      ],
+      "risk": "Low",
+      "platforms": [
+        "Claude Code",
+        "GitHub Copilot",
+        "All AI CLI tools"
       ],
       "triggers": []
     },
@@ -500,6 +521,149 @@
         "Antigravity",
         "Cursor IDE",
         "AdaL CLI"
+      ],
+      "triggers": []
+    },
+    {
+      "name": "mermaid-diagram",
+      "version": "1.0.0",
+      "description": "This skill should be used when the user needs to create, edit, or convert a diagram into Mermaid syntax. Use when the user asks for a flowchart, sequence diagram, class diagram, state diagram, entity-relationship diagram, mindmap, Gantt chart, or any other diagram type that Mermaid supports. Outputs a ready-to-render Mermaid code block.",
+      "category": "Content / Visualization",
+      "tags": [
+        "mermaid",
+        "diagram",
+        "flowchart",
+        "sequence",
+        "visualization",
+        "obsidian"
+      ],
+      "risk": "Low",
+      "platforms": [
+        "Claude Code",
+        "GitHub Copilot",
+        "All AI CLI tools"
+      ],
+      "triggers": []
+    },
+    {
+      "name": "obsidian-automation",
+      "version": "1.0.0",
+      "description": "This skill should be used when the user wants to automate repetitive Obsidian tasks using the Obsidian CLI, shell commands, or scripted workflows. Use when the user needs to batch-create notes, bulk-update frontmatter, run vault maintenance tasks, open specific notes in Obsidian, navigate the vault programmatically, or integrate Obsidian with external tools.",
+      "category": "Tools Needed",
+      "tags": [
+        "obsidian",
+        "automation",
+        "cli",
+        "scripting",
+        "shell",
+        "batch-processing"
+      ],
+      "risk": "Medium (file system operations)",
+      "platforms": [
+        "Claude Code",
+        "GitHub Copilot",
+        "All AI CLI tools"
+      ],
+      "triggers": []
+    },
+    {
+      "name": "obsidian-canvas",
+      "version": "1.0.0",
+      "description": "This skill should be used when the user needs to create or edit an Obsidian Canvas \u2014 a freeform visual workspace that arranges notes, cards, links, images, and web content on an infinite canvas. Use when the user wants to map ideas spatially, build a knowledge dashboard, sketch a concept cluster, or create a visual workspace linking multiple Obsidian notes.",
+      "category": "Obsidian / Knowledge Management",
+      "tags": [
+        "obsidian",
+        "canvas",
+        "visual-workspace",
+        "knowledge-map",
+        "dashboard"
+      ],
+      "risk": "Low",
+      "platforms": [
+        "Claude Code",
+        "GitHub Copilot",
+        "All AI CLI tools"
+      ],
+      "triggers": []
+    },
+    {
+      "name": "obsidian-frontmatter",
+      "version": "1.0.0",
+      "description": "This skill should be used when the user needs to create, validate, standardize, or repair YAML frontmatter properties in Obsidian notes. Use when the user wants to add or update tags, aliases, dates, custom properties, or any metadata fields in the Properties panel of an Obsidian note.",
+      "category": "Obsidian / Knowledge Management",
+      "tags": [
+        "obsidian",
+        "frontmatter",
+        "yaml",
+        "properties",
+        "metadata",
+        "dataview"
+      ],
+      "risk": "Low",
+      "platforms": [
+        "Claude Code",
+        "GitHub Copilot",
+        "All AI CLI tools"
+      ],
+      "triggers": []
+    },
+    {
+      "name": "obsidian-links",
+      "version": "1.0.0",
+      "description": "This skill should be used when the user needs to create, validate, repair, or analyze wikilinks inside an Obsidian vault. Use when the user wants to add links between notes, find broken links, rename a linked note, discover orphaned notes, or build a bidirectional linking structure in Obsidian.",
+      "category": "Obsidian / Knowledge Management",
+      "tags": [
+        "obsidian",
+        "wikilinks",
+        "knowledge-graph",
+        "backlinks",
+        "MOC"
+      ],
+      "risk": "Low",
+      "platforms": [
+        "Claude Code",
+        "GitHub Copilot",
+        "All AI CLI tools"
+      ],
+      "triggers": []
+    },
+    {
+      "name": "obsidian-markdown",
+      "version": "1.0.0",
+      "description": "This skill should be used when the user is working with Obsidian notes and needs to create or edit files using Obsidian Flavored Markdown syntax. Use when the user mentions wikilinks, callouts, embeds, frontmatter properties, tags, block references, or any Obsidian-specific syntax that extends standard Markdown.",
+      "category": "Obsidian",
+      "tags": [
+        "obsidian",
+        "markdown",
+        "wikilinks",
+        "callouts",
+        "frontmatter",
+        "embeds",
+        "vault"
+      ],
+      "risk": "Low",
+      "platforms": [
+        "All 8"
+      ],
+      "triggers": []
+    },
+    {
+      "name": "obsidian-note-builder",
+      "version": "1.0.0",
+      "description": "This skill should be used when the user wants to create a well-structured, richly linked Obsidian note from raw content, ideas, or instructions. Use when the user needs entity extraction, automatic wikilink insertion, Zettelkasten-style atomic note formatting, or building a note that integrates seamlessly into an existing vault's knowledge graph.",
+      "category": "Obsidian / Knowledge Management",
+      "tags": [
+        "obsidian",
+        "note-building",
+        "zettelkasten",
+        "knowledge-graph",
+        "entity-extraction"
+      ],
+      "risk": "Low",
+      "platforms": [
+        "Claude Code",
+        "GitHub Copilot",
+        "All AI CLI tools"
       ],
       "triggers": []
     },
@@ -1151,6 +1315,26 @@
         "Antigravity",
         "Cursor IDE",
         "AdaL CLI"
+      ],
+      "triggers": []
+    },
+    {
+      "name": "webpage-reader",
+      "version": "1.0.0",
+      "description": "This skill should be used when the user wants to read, fetch, extract, or analyze the content of a web page from a URL. Use when the user provides a URL to access documentation, articles, blog posts, research papers, release notes, or any online content and needs clean, readable Markdown output without navigation clutter, advertisements, or boilerplate HTML.",
+      "category": "Content",
+      "tags": [
+        "web",
+        "extraction",
+        "markdown",
+        "research",
+        "content",
+        "defuddle",
+        "url"
+      ],
+      "risk": "Low",
+      "platforms": [
+        "All 8"
       ],
       "triggers": []
     },
