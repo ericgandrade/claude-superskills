@@ -117,8 +117,6 @@ claude-superskills/
 │   ├── youtube-summarizer/
 │   └── pptx-translator/
 │
-├── mcp-servers/                   # MCP server implementations (reserved for future servers)
-│
 ├── cli-installer/             # NPM package (claude-superskills)
 │   ├── bin/cli.js            # Main CLI entry point (commands, flags, install flow)
 │   ├── lib/
