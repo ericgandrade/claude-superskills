@@ -1,10 +1,10 @@
-# 🤖 Claude Superskills v1.21.8
+# 🤖 Claude Superskills v1.22.0
 
 Scale AI-assisted engineering with a reusable skill platform that turns ad-hoc prompting into standardized, high-impact workflows. Install once and deliver consistent planning, research, orchestration, and content automation across your entire multi-tool AI stack.
 
-![Version](https://img.shields.io/badge/version-1.21.8-blue.svg)
+![Version](https://img.shields.io/badge/version-1.22.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
-![Skills](https://img.shields.io/badge/skills-46-brightgreen.svg)
+![Skills](https://img.shields.io/badge/skills-55-brightgreen.svg)
 ![Platforms](https://img.shields.io/badge/platforms-8-orange.svg)
 
 ## 🚀 Quick Install
@@ -160,7 +160,7 @@ Important:
 
 ---
 
-### Once installed — all 46 skills under the `claude-superskills:` namespace
+### Once installed — all 55 skills under the `claude-superskills:` namespace
 
 ```
 /claude-superskills:skill-creator
@@ -172,14 +172,14 @@ Important:
 /claude-superskills:executing-plans
 /claude-superskills:agent-skill-discovery
 /claude-superskills:agent-skill-orchestrator
-... (44 total)
+... (46 more)
 ```
 
 > **npm install still works** for GitHub Copilot, Cursor IDE, Gemini CLI, and 5 other platforms. The plugin format is Claude Code-specific.
 
 ## ✨ Features
 
-- **46 Universal Skills** - Work on all platforms
+- **55 Universal Skills** - Work on all platforms
 - **Zero-Config Install** - Run once, works everywhere
 - **Curated Bundles** - Install exactly what you need
 - **Smart Search** - Find skills by keyword
@@ -272,6 +272,19 @@ Important:
 | **document-converter** | v1.0.0 | Convert Office documents to PDF, perform PDF operations (merge, split, rotate, encrypt, OCR) using local free tools — LibreOffice, ghostscript, pdftk, tesseract, imagemagick |
 | **pptx-translator** | v2.8.0 | Translate PowerPoint presentations between languages with batched parallel translation (3 slides/batch), AI-native language classification, group shape support, per-slide self-validation, and interactive output filename choice (original + lang suffix, AI-translated name, or custom) |
 | **storytelling-expert** | v2.0.0 | Transform ideas into engaging narratives using 8 elite storytelling frameworks |
+| **webpage-reader** | v1.0.0 | Extract clean Markdown from any URL using the Defuddle CLI. Supports metadata-only mode, batch URLs, and saving output to file |
+| **mermaid-diagram** | v1.0.0 | Generate Mermaid diagram syntax from plain-language descriptions — flowchart, sequence, class, state, ER, mindmap, Gantt, and 5 more types |
+| **excalidraw-diagram** | v1.0.0 | Create hand-drawn style diagrams in Excalidraw JSON format — architecture sketches, concept maps, user flows, C4 context, org charts |
+
+### 🗒️ Obsidian Knowledge Management
+| Skill | Version | Purpose |
+|-------|---------|-------|
+| **obsidian-markdown** | v1.0.0 | Master Obsidian Flavored Markdown — wikilinks, embeds, callouts, frontmatter properties, block IDs, and all Obsidian-specific syntax extensions |
+| **obsidian-links** | v1.0.0 | Create, validate, repair, and analyze wikilinks in Obsidian vaults. Broken link detection, orphan discovery, auto-linking, and MOC builder |
+| **obsidian-frontmatter** | v1.0.0 | Create, validate, standardize, and repair YAML frontmatter properties — tags, aliases, dates, custom fields — for Dataview-compatible notes |
+| **obsidian-automation** | v1.0.0 | Automate Obsidian vault tasks using the CLI, shell scripts, and Local REST API — batch note creation, bulk updates, and vault maintenance |
+| **obsidian-note-builder** | v1.0.0 | Build complete, knowledge-graph-ready Obsidian notes from raw content with entity extraction, auto-wikilinks, and Zettelkasten atomicity |
+| **obsidian-canvas** | v1.0.0 | Create freeform visual workspaces using Obsidian Canvas — hub-and-spoke, Kanban, and dashboard layouts as ready-to-save `.canvas` files |
 
 ## 🎯 Curated Bundles
 
@@ -296,6 +309,9 @@ npx claude-superskills --bundle research -y
 
 # Skill Developer (for creating custom skills)
 npx claude-superskills --bundle developer -y
+
+# Obsidian Knowledge Management
+npx claude-superskills --bundle obsidian -y
 
 # All Skills (complete collection)
 npx claude-superskills --bundle all -y
@@ -441,7 +457,7 @@ MIT - See [LICENSE](./LICENSE) for details.
 
 **Built with ❤️ by [Eric Andrade](https://github.com/ericgandrade)**
 
-*Version 1.21.8 | March 2026*
+*Version 1.22.0 | April 2026*
 
 ## 🎁 Get Started
 
@@ -453,6 +469,7 @@ Choose a bundle that fits your workflow:
 - **[Product](docs/bundles/bundles.md#-product--strategy-bundle)** - abx-strategy, ai-native-product, product-strategy, and more
 - **[Career](docs/bundles/bundles.md#-career--professional-growth-bundle)** - resume-ats-optimizer, interview-prep, salary-negotiation, and more
 - **[Research](docs/bundles/bundles.md#-research--analysis-bundle)** - deep-research, us-program-research + discovery
+- **[Obsidian](docs/bundles/bundles.md#-obsidian-knowledge-management-bundle)** - obsidian-markdown, links, frontmatter, automation, note-builder, canvas
 - **[Developer](docs/bundles/bundles.md#-developer-bundle)** - skill-creator for power users
 - **[All](docs/bundles/bundles.md#-all-skills-bundle)** - Complete toolkit
 

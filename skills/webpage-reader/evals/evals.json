@@ -1,0 +1,72 @@
+{
+  "skill_name": "webpage-reader",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Read this page for me: https://docs.anthropic.com/en/docs/about-claude/models",
+      "expected_output": "Clean Markdown content of the Claude models documentation page with source URL noted",
+      "expectations": [
+        "Output checks for Defuddle availability before proceeding",
+        "Output runs defuddle parse with the --md flag",
+        "Output includes the source URL in the response",
+        "Output contains the main page content as clean Markdown",
+        "Output does not include navigation menus, sidebars, or boilerplate"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Extract this article and save it to notes/microservices.md: https://martinfowler.com/articles/microservices.html",
+      "expected_output": "Markdown content extracted and saved to notes/microservices.md with confirmation message",
+      "expectations": [
+        "Output runs defuddle parse with --md flag and -o notes/microservices.md",
+        "Output confirms the file was saved successfully",
+        "Output includes the file path where content was saved",
+        "Output does not print the full content to the terminal since it was saved to file"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "What is the title and author of this page? https://kentcdodds.com/blog/javascript-to-know-for-react",
+      "expected_output": "Title and author metadata extracted from the page without fetching the full body",
+      "expectations": [
+        "Output uses defuddle with -p title flag",
+        "Output uses defuddle with -p author flag",
+        "Output presents the title and author clearly",
+        "Output does not return the full body content when only metadata was requested"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "I am researching LLM evaluation frameworks. Read these two pages: https://docs.ragas.io/en/latest/ and https://www.trulens.org/",
+      "expected_output": "Clean Markdown content from both pages delivered sequentially with source labels",
+      "expectations": [
+        "Output processes both URLs",
+        "Output extracts each page separately using defuddle",
+        "Output labels each section clearly with its source URL",
+        "Output contains the main content from each page without navigation boilerplate"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Fetch this page but I do not have defuddle installed: https://openai.com/research/gpt-4",
+      "expected_output": "Offer to install Defuddle or fall back to WebFetch with clear explanation of quality difference",
+      "expectations": [
+        "Output detects that defuddle is not installed",
+        "Output offers to install defuddle with npm install -g defuddle",
+        "Output explains the fallback option if the user declines",
+        "Output does not silently fail or fetch without informing the user"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Read https://notes/local-file.md using the webpage-reader skill",
+      "expected_output": "Redirect to WebFetch since the URL ends in .md — no Defuddle needed",
+      "expectations": [
+        "Output recognizes the .md extension",
+        "Output does not use defuddle for .md files",
+        "Output uses WebFetch or reads the file directly instead",
+        "Output explains why Defuddle is not used for this file type"
+      ]
+    }
+  ]
+}

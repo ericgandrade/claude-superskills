@@ -1,10 +1,10 @@
-# claude-superskills v1.21.8
+# claude-superskills v1.22.0
 
-Universal installer for the `claude-superskills` library. Install 46 reusable AI skills across GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, and AdaL CLI from one command.
+Universal installer for the `claude-superskills` library. Install 55 reusable AI skills across GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, and AdaL CLI from one command.
 
 If Claude Desktop is detected, the installer can also generate a Claude Cowork plugin zip for manual upload.
 
-![Version](https://img.shields.io/badge/version-1.21.8-blue.svg)
+![Version](https://img.shields.io/badge/version-1.22.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Node](https://img.shields.io/badge/node-%3E%3D14.0.0-green.svg)
 
@@ -85,7 +85,7 @@ Support status:
 - `career` - Resume, job search, interview, negotiation, and portfolio workflows
 - `developer` - Skill creation workflows
 - `orchestration` - Resource discovery and planning
-- `all` - All 46 available skills
+- `all` - All 55 available skills
 
 ```bash
 npx claude-superskills --list-bundles

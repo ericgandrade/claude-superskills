@@ -1,0 +1,26 @@
+{
+  "skill_name": "mermaid-diagram",
+  "description": "Triggers when the user wants to create any kind of diagram using Mermaid syntax",
+  "queries": [
+    { "id": 1, "query": "draw a flowchart for the user registration process", "should_trigger": true },
+    { "id": 2, "query": "create a sequence diagram showing how the API handles a request", "should_trigger": true },
+    { "id": 3, "query": "I need a class diagram for my data model", "should_trigger": true },
+    { "id": 4, "query": "generate a mermaid state machine for the order lifecycle", "should_trigger": true },
+    { "id": 5, "query": "make a mindmap of the product strategy topics", "should_trigger": true },
+    { "id": 6, "query": "create an ER diagram for the database schema", "should_trigger": true },
+    { "id": 7, "query": "gantt chart for the Q3 project timeline", "should_trigger": true },
+    { "id": 8, "query": "diagram the architecture of our microservices", "should_trigger": true },
+    { "id": 9, "query": "show me the flow from login to checkout in a diagram", "should_trigger": true },
+    { "id": 10, "query": "visualize the states a document can be in using mermaid", "should_trigger": true },
+    { "id": 11, "query": "write me a Python script to parse CSV files", "should_trigger": false },
+    { "id": 12, "query": "summarize this YouTube video", "should_trigger": false },
+    { "id": 13, "query": "create an Excalidraw diagram for the system architecture", "should_trigger": false },
+    { "id": 14, "query": "optimize my resume for ATS", "should_trigger": false },
+    { "id": 15, "query": "add a wikilink to the Budget page in this note", "should_trigger": false },
+    { "id": 16, "query": "what is the best way to structure a REST API?", "should_trigger": false },
+    { "id": 17, "query": "create a canvas in Obsidian with my notes", "should_trigger": false },
+    { "id": 18, "query": "transcribe this audio file into markdown", "should_trigger": false },
+    { "id": 19, "query": "analyze the market for my startup idea", "should_trigger": false },
+    { "id": 20, "query": "write a cover letter for this job posting", "should_trigger": false }
+  ]
+}

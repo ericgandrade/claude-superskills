@@ -1,0 +1,86 @@
+{
+  "skill_name": "mermaid-diagram",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Draw a flowchart for a user registration process: user fills form, system validates email, if email taken show error and stop, otherwise hash password and save to DB, then send confirmation email.",
+      "expected_output": "A fenced ```mermaid code block containing a flowchart TD diagram with nodes for form filling, email validation, a decision diamond for email taken, password hashing, DB save, and confirmation email steps. Edges correctly labeled Yes/No on the decision branch.",
+      "expectations": [
+        "Output contains a ```mermaid fenced code block",
+        "Uses flowchart TD or flowchart LR as the diagram type",
+        "Includes a decision diamond node for the email-taken check",
+        "Has two branches from the decision: one to error/stop, one to continue",
+        "Includes nodes for password hashing, DB save, and email confirmation",
+        "Node IDs used in edges are all defined"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Create a sequence diagram showing how a mobile app authenticates a user via OAuth2: app redirects to provider, user logs in, provider returns auth code, app exchanges code for token, app calls API with token.",
+      "expected_output": "A fenced ```mermaid code block with a sequenceDiagram block containing actors (User, App, OAuth Provider, API) and the full OAuth2 authorization code flow with correct arrow types (->>, -->>).",
+      "expectations": [
+        "Output contains a ```mermaid fenced code block",
+        "Uses sequenceDiagram as the diagram type",
+        "Defines at least 3 participants/actors",
+        "Shows the redirect from app to provider",
+        "Shows the auth code return",
+        "Shows token exchange",
+        "Shows API call with token",
+        "Uses ->> for requests and -->> for responses"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I need a class diagram for an e-commerce system with Product, Cart, Order, and Customer classes. Products have name, price, stock. Cart contains items. Orders track status.",
+      "expected_output": "A fenced ```mermaid code block with a classDiagram showing 4 classes with appropriate attributes and relationships (Customer 1 to many Orders, Cart 1 to many Products, etc.)",
+      "expectations": [
+        "Output contains a ```mermaid fenced code block",
+        "Uses classDiagram as the diagram type",
+        "Defines Product, Cart, Order, and Customer classes",
+        "Each class has at least 2 attributes",
+        "Includes at least 2 relationship lines between classes",
+        "Uses correct visibility modifiers (+ for public)"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Create a mindmap for a content marketing strategy: topics should include Blog, Social Media, Email, and SEO, each with 2-3 subtopics.",
+      "expected_output": "A fenced ```mermaid code block with a mindmap diagram. Root node is Content Marketing Strategy. Four child branches for Blog, Social Media, Email, and SEO, each with 2-3 leaf nodes.",
+      "expectations": [
+        "Output contains a ```mermaid fenced code block",
+        "Uses mindmap as the diagram type",
+        "Has a root node for the overall topic",
+        "Has at least 4 top-level branches",
+        "Each branch has 2-3 child nodes",
+        "Uses indentation correctly to define hierarchy (no arrows in mindmap)"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "What states can a support ticket go through? Start from Open, include Assigned, In Progress, Pending Response, Resolved, and Closed states.",
+      "expected_output": "A fenced ```mermaid code block with a stateDiagram-v2 block showing all 6 states, transitions between them with event labels, and [*] start and end points.",
+      "expectations": [
+        "Output contains a ```mermaid fenced code block",
+        "Uses stateDiagram-v2 as the diagram type",
+        "Includes [*] as the initial state",
+        "Defines at least Open, Assigned, In Progress, Resolved, and Closed states",
+        "Adds transition labels explaining the trigger for each state change",
+        "Has a final [*] after Closed"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Make an ER diagram for a library system: Books have ISBN, title, and author. Members have name and email. Loans link a member to a book with a due date.",
+      "expected_output": "A fenced ```mermaid code block with an erDiagram block defining Book, Member, and Loan entities with their attributes and PK/FK designations, and relationship lines with cardinality notation.",
+      "expectations": [
+        "Output contains a ```mermaid fenced code block",
+        "Uses erDiagram as the diagram type",
+        "Defines Book entity with isbn (PK), title, author",
+        "Defines Member entity with id (PK), name, email",
+        "Defines Loan entity with FK references and due_date",
+        "Uses correct cardinality notation (||--o{, etc.)",
+        "Has at least 2 relationship lines"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "skill_name": "obsidian-links",
+  "description": "Triggers when the user needs to create, validate, or manage wikilinks in an Obsidian vault",
+  "queries": [
+    { "id": 1, "query": "add wikilinks to this meeting note for all the people and projects mentioned", "should_trigger": true },
+    { "id": 2, "query": "find all broken links in my Obsidian vault", "should_trigger": true },
+    { "id": 3, "query": "which notes in my vault have no incoming links?", "should_trigger": true },
+    { "id": 4, "query": "convert all mentions of Deep Work to wikilinks in this note", "should_trigger": true },
+    { "id": 5, "query": "link the strategy note to the OKR tracker", "should_trigger": true },
+    { "id": 6, "query": "build a map of content for all my product management notes", "should_trigger": true },
+    { "id": 7, "query": "I renamed Project Alpha to Initiative Orion, update all wikilinks", "should_trigger": true },
+    { "id": 8, "query": "create a block reference to this paragraph in my meeting notes", "should_trigger": true },
+    { "id": 9, "query": "show me all notes that link to the Team Goals page", "should_trigger": true },
+    { "id": 10, "query": "check my Research hub for broken wikilinks", "should_trigger": true },
+    { "id": 11, "query": "summarize this YouTube video about productivity", "should_trigger": false },
+    { "id": 12, "query": "create a mermaid flowchart for the login process", "should_trigger": false },
+    { "id": 13, "query": "optimize my resume for ATS", "should_trigger": false },
+    { "id": 14, "query": "add frontmatter tags and aliases to this note", "should_trigger": false },
+    { "id": 15, "query": "create an Excalidraw whiteboard for the system design", "should_trigger": false },
+    { "id": 16, "query": "write a Python script to read JSON files", "should_trigger": false },
+    { "id": 17, "query": "what is the best note-taking system for students?", "should_trigger": false },
+    { "id": 18, "query": "transcribe this audio recording to markdown", "should_trigger": false },
+    { "id": 19, "query": "analyze the competitive landscape for my product", "should_trigger": false },
+    { "id": 20, "query": "generate a cover letter for this job application", "should_trigger": false }
+  ]
+}

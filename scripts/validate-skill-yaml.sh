@@ -12,8 +12,8 @@ fi
 
 echo "🔍 Validating YAML frontmatter in $SKILL_PATH/SKILL.md..."
 
-# Extract frontmatter
-FRONTMATTER=$(sed -n '/^---$/,/^---$/p' "$SKILL_PATH/SKILL.md" | sed '1d;$d')
+# Extract frontmatter — stop after the FIRST --- block so code examples don't pollute the check
+FRONTMATTER=$(awk 'BEGIN{count=0} /^---$/{count++; next} count==1{print} count==2{exit}' "$SKILL_PATH/SKILL.md")
 
 # Check required fields
 for field in name description license; do

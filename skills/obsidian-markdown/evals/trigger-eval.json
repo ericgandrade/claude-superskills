@@ -1,0 +1,26 @@
+{
+  "skill_name": "obsidian-markdown",
+  "description": "Triggers for creating and editing Obsidian Flavored Markdown notes with vault-specific syntax",
+  "queries": [
+    {"id": 1, "query": "Create an Obsidian note for my meeting with Sarah about the Q3 roadmap", "should_trigger": true},
+    {"id": 2, "query": "Write a new note about event sourcing for my Obsidian vault with wikilinks", "should_trigger": true},
+    {"id": 3, "query": "Add a warning callout to this section of my Obsidian note", "should_trigger": true},
+    {"id": 4, "query": "Embed the risks section from [[Risk Register]] into this note", "should_trigger": true},
+    {"id": 5, "query": "Make a daily note for today with proper Obsidian frontmatter and tags", "should_trigger": true},
+    {"id": 6, "query": "Add wikilinks to people and projects mentioned in this meeting note", "should_trigger": true},
+    {"id": 7, "query": "Create a Zettelkasten atomic note about systems thinking with block IDs", "should_trigger": true},
+    {"id": 8, "query": "Add a collapsible tip callout with installation instructions to this note", "should_trigger": true},
+    {"id": 9, "query": "Set frontmatter properties on this note: type meeting, tags project and q3", "should_trigger": true},
+    {"id": 10, "query": "Write a note that links to a specific heading in my Architecture Decisions file", "should_trigger": true},
+    {"id": 11, "query": "Create a GitHub README.md for my open source project", "should_trigger": false},
+    {"id": 12, "query": "Write a blog post in Markdown for my personal website", "should_trigger": false},
+    {"id": 13, "query": "Fix the broken wikilinks in my vault notes", "should_trigger": false},
+    {"id": 14, "query": "Standardize the frontmatter across all my vault notes", "should_trigger": false},
+    {"id": 15, "query": "Summarize this YouTube video", "should_trigger": false},
+    {"id": 16, "query": "Convert this PDF to Markdown", "should_trigger": false},
+    {"id": 17, "query": "Create a Mermaid diagram of the CI/CD pipeline", "should_trigger": false},
+    {"id": 18, "query": "Write a Python script to process text files", "should_trigger": false},
+    {"id": 19, "query": "Format my resume as a Markdown document for LinkedIn", "should_trigger": false},
+    {"id": 20, "query": "Generate a CHANGELOG.md file for my GitHub repository", "should_trigger": false}
+  ]
+}
