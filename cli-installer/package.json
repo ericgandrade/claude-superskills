@@ -7,7 +7,7 @@
     "claude-superskills": "bin/cli.js"
   },
   "scripts": {
-    "test": "echo '✅ claude-superskills - test passed'",
+    "test": "node -e \"const pkg = require('./'); if (!pkg.detector || typeof pkg.detector.detectTools !== 'function') throw new Error('main entrypoint smoke test failed'); console.log('✅ claude-superskills - test passed')\"",
     "build": "cd .. && ./scripts/build-skills.sh",
     "prebuild": "cd .. && ./scripts/build-skills.sh",
     "link": "npm link",
