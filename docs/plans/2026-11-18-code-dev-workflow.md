@@ -3,9 +3,9 @@
 > **For Claude:** REQUIRED SUB-SKILL: Use `executing-plans` to implement this plan task-by-task.
 > **Status:** DRAFT — awaiting owner decisions in [Section 9](#9-open-decisions-owner-must-answer-before-wave-1). Do not start Wave 1 before they are answered.
 
-**Goal:** Turn claude-superskills into the home of **CODE**, a definitive, portable, spec-first AI software delivery workflow that combines the strongest ideas of Superpowers, Matt Pocock's skills, Addy Osmani's agent-skills and the BMad Method into one coherent set of skills.
+**Goal:** Turn claude-superskills into the home of **CODE — Context Engineering Development for Enterprise**, a definitive, portable, spec-first AI software delivery workflow that combines the strongest ideas of Superpowers, Matt Pocock's skills, Addy Osmani's agent-skills and the BMad Method into one coherent set of skills.
 
-**Architecture:** One router skill (`code-workflow`) sizes the work and walks it through four phases — **C**larify, **O**utline, **D**eliver, **E**vidence — each backed by focused skills that hand off through durable Markdown artifacts in the user's repository (SPEC, PLAN, tasks, verification log, ADRs, handover). Existing planning skills are upgraded in place (names kept for backward compatibility); new skills fill the gaps. Everything stays plain `SKILL.md` + `references/`, with no runtime dependency, so it keeps working on all 8 platforms.
+**Architecture:** Three layers. (1) **Brand:** CODE = Context Engineering Development for Enterprise — durable context artifacts plus enterprise governance (gates, audit trail, security, handover). (2) **Method:** four phases — **C**larify, **O**utline, **D**eliver, **E**vidence — with human approval gates. (3) **Lifecycle:** the classic software engineering cycle runs inside the phases — **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · **TE** Test · **DP** Deploy — each stage backed by focused skills that hand off through durable Markdown artifacts in the user's repository. One router skill (`code-workflow`) sizes the work and drives the stages. Existing skills are upgraded in place (names kept for backward compatibility); new skills fill the gaps. Everything stays plain `SKILL.md` + `references/`, with no runtime dependency, so it keeps working on all 8 platforms.
 
 **Tech Stack:** Markdown skills (minimal YAML frontmatter), JSON eval fixtures, existing shell validators, Python catalog/index generators, `scripts/release.js`.
 
@@ -116,24 +116,47 @@ Sources reviewed (shallow clones, November 18, 2026; all **MIT-licensed**):
 
 ## 3. The CODE Workflow
 
-```
-              ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐
-  request ──▶ │  C CLARIFY   │─▶│  O OUTLINE   │─▶│  D DELIVER   │─▶│  E EVIDENCE  │──▶ shipped + learned
-              │ context      │  │ spec         │  │ TDD slices   │  │ verify       │
-              │ brainstorm   │  │ plan / tasks │  │ subagents    │  │ review       │
-              │ grill        │  │ architecture │  │ debug        │  │ ship+handover│
-              └──────────────┘  └──────────────┘  └──────────────┘  │ retrospective│
-                     ▲          human gate ▲      human gate ▲      └──────┬───────┘
-                     └───────────────── learnings feed project context ────┘
-```
+### 3.0 Three layers
 
-### 3.1 Sizing routes (decided by `code-workflow` in Step 0)
-
-| Route | When | Path |
+| Layer | Content | Purpose |
 |---|---|---|
-| **Quick** | Clear, low-risk, ≤ ~1 file or a well-understood bug | TDD → verification-gate → (light review) → commit |
-| **Standard** | A feature or change that fits one session | grill/brainstorm → SPEC (short) → PLAN → execute → verify → review → ship |
-| **Full** | Multi-session, cross-cutting, risky, or brownfield modernization | project-context → brainstorm + grill-with-docs → SPEC + architecture/ADRs → task graph → subagent execution → verify → review (incl. security) → ship + handover → retrospective |
+| **Brand** | **CODE = Context Engineering Development for Enterprise** | *Context engineering*: every stage writes durable context (AGENTS.md, CONSTRAINTS, GLOSSARY, SPEC, ADRs, PLAN) that the next stage and the next session read. *Enterprise*: human gates, audit trail, security (SSDF), operational handover. |
+| **Method** | **C**larify · **O**utline · **D**eliver · **E**vidence | Four phases with human approval gates. The method's initials spell the brand's. |
+| **Lifecycle** | **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · **TE** Test · **DP** Deploy | The classic software engineering cycle, one stage per concern, each with skills, an artifact and an exit criterion. |
+
+```
+  CODE ─ Context Engineering Development for Enterprise
+  ┌────────────── C CLARIFY ──────────────┐ ┌─ O OUTLINE ─┐ ┌─ D DELIVER ─┐ ┌───────── E EVIDENCE ─────────┐
+  │  PL  Plan        │  AN  Analyze       │ │ DE  Design  │ │ BU  Build   │ │  TE  Test      │  DP  Deploy  │
+  │  context, sizing │  requirements,     │ │ architecture│ │ TDD slices, │ │  verify,       │  release,    │
+  │  scope, ideas    │  SPEC, ACs         │ │ ADRs, PLAN  │ │ subagents   │ │  review, sec.  │  handover    │
+  └──────────────────┴────────────────────┘ └─────────────┘ └─────────────┘ └────────────────┴──────────────┘
+          ▲   gate: SPEC approved ─────────▲ gate: PLAN ──▲             gate: evidence ──▲                │
+          └───────────────────── retrospective: learnings feed PL (project context) ─────────────────────┘
+```
+
+### 3.1 Lifecycle stages
+
+| Stage | Phase | Question it answers | Skills | Artifact (context written) | Exit criterion / gate |
+|---|---|---|---|---|---|
+| **PL** Plan | C | Why, for whom, how big, which route? | `code-workflow` (sizing), `project-context`, `brainstorming` | Route decision; AGENTS.md CODE block; CONSTRAINTS.md; design brief | Route approved by human |
+| **AN** Analyze | C | What exactly must be true when done? | `grill-me` (docs mode), `spec-driven-development`, `codebase-modernization` (inventory mode, brownfield) | SPEC.md (ACs, boundaries, rollback, baseline + indicators); GLOSSARY.md | **Gate 1:** SPEC approved |
+| **DE** Design | O | How will it be built and in what order? | `senior-solution-architect`, `writing-plans` | ADRs; architecture notes; PLAN.md task graph (each task → `AC-n`) | **Gate 2:** PLAN approved |
+| **BU** Build | D | Build it, slice by slice, test-first | `test-driven-development`, `executing-plans`, `systematic-debugging`, `codebase-modernization` (change mode) | Code + tests + atomic commits | All tasks done, tests green |
+| **TE** Test | E | Does it provably meet the SPEC, safely? | `test-strategy`, `verification-gate`, `multi-axis-code-review`, `security-hardening` | TEST-PLAN (AC → test map); VERIFICATION.md; review findings | **Gate 3:** every AC has evidence; no open Critical findings |
+| **DP** Deploy | E | Ship it, operate it, learn from it | `deployment-pipeline`, `shipping-and-handover`, `retrospective` | PR/release notes; rollout + rollback plan; HANDOVER.md + runbook; RETRO.md | Released (or PR merged) + handover accepted |
+
+`security-hardening` is cross-cutting: invoked in AN (threats and sensitive data in the SPEC), DE (secure design decisions) and TE (security review lens).
+
+### 3.1.1 Sizing routes (decided by `code-workflow` in PL)
+
+| Route | When | Stages |
+|---|---|---|
+| **Quick** | Clear, low-risk, ≤ ~1 file or a well-understood bug | PL (mini) → BU (TDD) → TE (verification-gate, light review) → DP (commit/PR) |
+| **Standard** | A feature or change that fits one session | PL → AN (short SPEC) → DE (PLAN) → BU → TE → DP |
+| **Full** | Multi-session, cross-cutting, risky, or brownfield modernization | PL (project-context) → AN (grill-with-docs + SPEC + inventory) → DE (architecture/ADRs + task graph) → BU (subagent execution) → TE (test strategy + verification + multi-axis review + security) → DP (pipeline, staged rollout, handover, retrospective) |
+
+The router shows progress as `C[PL ▸ AN] ▸ O[DE] ▸ D[BU] ▸ E[TE ▸ DP]` and accepts direct stage entry (`plan`, `analyze`, `design`, `build`, `test`, `deploy`), resuming from artifacts already in the repo.
 
 ### 3.2 Non-negotiable rules (shared across all CODE skills)
 
@@ -155,37 +178,45 @@ Sources reviewed (shallow clones, November 18, 2026; all **MIT-licensed**):
 ├── docs/adr/NNNN-*.md           # decision records
 └── docs/code/<YYYY-MM-DD-feature>/
     ├── SPEC.md                  # objectives, non-goals, acceptance criteria, boundaries, rollback, baseline+indicators
-    ├── PLAN.md                  # task graph with blocking edges
+    ├── PLAN.md                  # DE: task graph with blocking edges
     ├── tasks/NN-*.md            # optional one-file-per-task
-    ├── VERIFICATION.md          # evidence log: commands + outputs per acceptance criterion
-    └── HANDOVER.md              # what changed, how to operate, runbook, open risks, indicators
+    ├── TEST-PLAN.md             # TE: AC → test level → test case map
+    ├── VERIFICATION.md          # TE: evidence log — commands + outputs per acceptance criterion
+    ├── HANDOVER.md              # DP: what changed, how to operate, runbook, open risks, indicators
+    └── RETRO.md                 # DP: acceptance decision, indicators vs baseline, environment fixes
 ```
 
 If the repo already has conventions (e.g., `docs/plans/`, `specs/`, an issue tracker), the skills adopt them instead of forcing these paths.
 
 ---
 
-## 4. Target Skill Inventory (18 → 29)
+## 4. Target Skill Inventory (18 → 31)
 
-| # | Skill | Phase | Action | Primary sources |
+| # | Skill | Phase · Stage | Action | Primary sources |
 |---|---|---|---|---|
-| 1 | `code-workflow` | Router | **NEW** | Addy lifecycle, BMad routes + correct-course, Matt ask-matt + phase boundaries |
-| 2 | `project-context` | C | **NEW** | BMad project-context, Addy context-engineering + constraint-driven, Matt domain-modeling |
-| 3 | `brainstorming` | C | UPGRADE | Superpowers brainstorming, Addy idea-refine, Matt prototype |
-| 4 | `grill-me` | C | UPGRADE | Matt grilling + grill-with-docs |
-| 5 | `spec-driven-development` | O | **NEW** | Addy spec-driven, Matt to-spec, BMad spec, Addy doubt-driven |
-| 6 | `writing-plans` | O | UPGRADE | Superpowers writing-plans, Matt to-tickets, Addy planning-and-task-breakdown |
-| 7 | `senior-solution-architect` | O | MINOR UPGRADE | BMad architecture, Addy documentation-and-adrs |
-| 8 | `test-driven-development` | D | **NEW** | Superpowers TDD, Matt tdd + codebase-design, Addy TDD |
-| 9 | `executing-plans` | D | UPGRADE | Superpowers executing-plans + subagent-driven + worktrees, Matt implement-spec, Addy incremental-implementation |
-| 10 | `systematic-debugging` | D | **NEW** | Superpowers systematic-debugging, Matt diagnosing-bugs, Addy debugging-and-error-recovery |
-| 11 | `codebase-modernization` | D | **NEW** | Addendum §3.3, Addy deprecation-and-migration, BMad existing-codebase path |
-| 12 | `verification-gate` | E | **NEW** | Superpowers verification-before-completion, Addy VERIFY phase |
-| 13 | `multi-axis-code-review` | E | **NEW** | Addy code-review-and-quality, Matt code-review, Superpowers requesting/receiving review, BMad review lenses |
-| 14 | `security-hardening` | E (cross-cutting) | **NEW** | Addy security-and-hardening, NIST SP 800-218 SSDF, Addendum §3.1/§3.4 |
-| 15 | `shipping-and-handover` | E | **NEW** | Superpowers finishing-a-branch, Addy shipping-and-launch, Matt pr, BMad walkthrough |
-| 16 | `retrospective` | E | **NEW** | Matt retro, BMad retrospective |
+| 1 | `code-workflow` | Router (all stages) | **NEW** | Addy lifecycle, BMad routes + correct-course, Matt ask-matt + phase boundaries |
+| 2 | `project-context` | C · PL | **NEW** | BMad project-context, Addy context-engineering + constraint-driven, Matt domain-modeling |
+| 3 | `brainstorming` | C · PL | UPGRADE | Superpowers brainstorming, Addy idea-refine, Matt prototype |
+| 4 | `grill-me` | C · AN | UPGRADE | Matt grilling + grill-with-docs |
+| 5 | `spec-driven-development` | C · AN | **NEW** | Addy spec-driven, Matt to-spec, BMad spec, Addy doubt-driven |
+| 6 | `senior-solution-architect` | O · DE | MINOR UPGRADE | BMad architecture, Addy documentation-and-adrs + api-and-interface-design |
+| 7 | `writing-plans` | O · DE | UPGRADE | Superpowers writing-plans, Matt to-tickets, Addy planning-and-task-breakdown |
+| 8 | `test-driven-development` | D · BU | **NEW** | Superpowers TDD, Matt tdd + codebase-design, Addy TDD |
+| 9 | `executing-plans` | D · BU | UPGRADE | Superpowers executing-plans + subagent-driven + worktrees, Matt implement-spec, Addy incremental-implementation |
+| 10 | `systematic-debugging` | D · BU | **NEW** | Superpowers systematic-debugging, Matt diagnosing-bugs, Addy debugging-and-error-recovery |
+| 11 | `codebase-modernization` | C · AN (inventory) + D · BU (change) | **NEW** | Addendum §3.3, Addy deprecation-and-migration, BMad existing-codebase path |
+| 12 | `test-strategy` | E · TE | **NEW** | BMad qa-generate-e2e-tests + Test Architect concepts, Addy test pyramid / browser-testing, Matt integration-first testing |
+| 13 | `verification-gate` | E · TE | **NEW** | Superpowers verification-before-completion, Addy VERIFY phase |
+| 14 | `multi-axis-code-review` | E · TE | **NEW** | Addy code-review-and-quality, Matt code-review, Superpowers requesting/receiving review, BMad review lenses |
+| 15 | `security-hardening` | Cross-cutting (AN · DE · TE) | **NEW** | Addy security-and-hardening, NIST SP 800-218 SSDF, Addendum §3.1/§3.4 |
+| 16 | `deployment-pipeline` | E · DP | **NEW** | Addy ci-cd-and-automation + observability-and-instrumentation + shipping-and-launch |
+| 17 | `shipping-and-handover` | E · DP | **NEW** | Superpowers finishing-a-branch, Addy shipping-and-launch, Matt pr, BMad walkthrough |
+| 18 | `retrospective` | E · DP (loops to PL) | **NEW** | Matt retro, BMad retrospective |
 | — | `agent-skill-orchestrator` | — | MINOR UPGRADE | Recognize CODE route for software-delivery requests |
+
+Totals: **13 new**, **6 upgraded** (incl. orchestrator), 18 skills in the `code` bundle; repository 18 → **31** skills.
+
+Coverage check — every lifecycle stage has at least two skills and one artifact: PL (3) · AN (3 + security) · DE (2 + security) · BU (4) · TE (4) · DP (3).
 
 Naming notes: `multi-axis-code-review` avoids a collision with the built-in Claude Code `/code-review`; `security-hardening` avoids the built-in `/security-review`. Existing names are kept so current users do not break.
 
@@ -272,6 +303,20 @@ Each skill follows repo rules: frontmatter only `name`, `description` ("This ski
 - Staged rollout + rollback plan when deploying; docs drift check; ADRs finalized.
 - HANDOVER.md + runbook; optional guided walkthrough for the human reviewer.
 
+### 5.17 `test-strategy` (TE)
+- Derive TEST-PLAN.md from SPEC: map every `AC-n` → test level (unit / integration / end-to-end / non-functional) → concrete test case; flag ACs with no test.
+- Test pyramid guidance favoring integration tests at real seams over mock-heavy suites; regression suite selection for changed areas.
+- Non-functional checks when the SPEC demands them: performance budget, accessibility, resilience/recovery (backup restore, failover), data migration verification.
+- **E2E mode:** add API/end-to-end tests for features that already work, following the project's existing harness (discovered, never assumed).
+- Hands evidence to `verification-gate`; never replaces TDD in BU — it covers what unit-level TDD cannot.
+
+### 5.18 `deployment-pipeline` (DP)
+- Discover existing CI/CD (GitHub Actions, Azure DevOps, GitLab CI…) before proposing changes; add quality gates (build, test, lint, security scan, dependency audit) matching CONSTRAINTS.md.
+- Deployment strategy selection: direct, blue-green, canary, feature flag; environment promotion (dev → staging → prod) with approval points.
+- Rollback rehearsal: the SPEC rollback is executable and tested before production.
+- Observability minimum: structured logs without sensitive data, key metrics tied to SPEC indicators, alerts, health checks.
+- Never runs a production deploy or pushes release tags without explicit human approval.
+
 ### 5.16 `retrospective`
 - Gather evidence (SPEC, PLAN, VERIFICATION, diffs, commits, session notes) → acceptance decision (accepted / accepted with follow-ups / rejected) → indicators vs baseline → findings with sources.
 - Environment improvements: mechanical mistakes → automated checks; judgment calls → CONSTRAINTS/AGENTS.md pitfalls (via `project-context`).
@@ -294,20 +339,23 @@ Standard loop for **every skill task** (the "test" for a Markdown skill is its e
 5. Commit: `git commit -m "feat: add <name> skill v1.0.0"` (or `feat(<name>): …` for upgrades).
 
 ### Wave 0 — Foundations
-- **Task 0.1** Save this evaluation as `docs/research/2026-11-18-dev-workflow-frameworks-evaluation.md` (full matrix + per-skill notes).
+- **Task 0.1** Save this evaluation as `docs/research/2026-11-18-dev-workflow-frameworks-evaluation.md` (full matrix + per-skill notes + stage coverage map).
 - **Task 0.2** Create `THIRD_PARTY_NOTICES.md` with MIT copyright notices for Superpowers (Jesse Vincent), Matt Pocock, Addy Osmani and BMad Code, LLC; note that content is adapted/synthesized, and that "BMad"/"BMAD-METHOD" are trademarks of BMad Code, LLC (named only for attribution).
 - **Task 0.3** Write shared templates `skills/code-workflow/references/artifacts.md` (SPEC, PLAN, VERIFICATION, HANDOVER, ADR, CONSTRAINTS templates).
 - **Task 0.4** Write `skills/code-workflow/references/rules.md` (§3.2) — referenced by all CODE skills to keep wording DRY.
 
-### Wave 1 — Router, Clarify, Outline
-- Task 1.1 `code-workflow` (NEW) · Task 1.2 `project-context` (NEW) · Task 1.3 `brainstorming` (UPGRADE) · Task 1.4 `grill-me` (UPGRADE) · Task 1.5 `spec-driven-development` (NEW) · Task 1.6 `writing-plans` (UPGRADE) · Task 1.7 `senior-solution-architect` (MINOR)
-- **Checkpoint A:** owner reviews the router + spec templates before Deliver skills are written.
+### Wave 1 — Router + C·Clarify (PL, AN) + O·Outline (DE)
+- **PL:** Task 1.1 `code-workflow` (NEW) · Task 1.2 `project-context` (NEW) · Task 1.3 `brainstorming` (UPGRADE)
+- **AN:** Task 1.4 `grill-me` (UPGRADE) · Task 1.5 `spec-driven-development` (NEW)
+- **DE:** Task 1.6 `senior-solution-architect` (MINOR) · Task 1.7 `writing-plans` (UPGRADE)
+- **Checkpoint A:** owner reviews the router, stage model and SPEC/PLAN templates before Build skills are written.
 
-### Wave 2 — Deliver
+### Wave 2 — D·Deliver (BU)
 - Task 2.1 `test-driven-development` · Task 2.2 `executing-plans` (UPGRADE) · Task 2.3 `systematic-debugging` · Task 2.4 `codebase-modernization`
 
-### Wave 3 — Evidence
-- Task 3.1 `verification-gate` · Task 3.2 `multi-axis-code-review` · Task 3.3 `security-hardening` · Task 3.4 `shipping-and-handover` · Task 3.5 `retrospective`
+### Wave 3 — E·Evidence (TE, DP)
+- **TE:** Task 3.1 `test-strategy` · Task 3.2 `verification-gate` · Task 3.3 `multi-axis-code-review` · Task 3.4 `security-hardening`
+- **DP:** Task 3.5 `deployment-pipeline` · Task 3.6 `shipping-and-handover` · Task 3.7 `retrospective`
 - **Checkpoint B:** owner reviews the full set.
 
 ### Wave 4 — Integration and quality
@@ -317,15 +365,15 @@ Standard loop for **every skill task** (the "test" for a Markdown skill is its e
 - **Task 4.4** Run `skill-creator` eval loop on the 5 highest-traffic skills (`code-workflow`, `spec-driven-development`, `writing-plans`, `executing-plans`, `test-driven-development`).
 
 ### Wave 5 — Bundles, docs, release (documentation consistency rule)
-- **Task 5.1** `bundles.json`: add `code` bundle (all 16 CODE skills incl. upgraded ones); update `essential`, `planning`, and `all` (29).
-- **Task 5.2** Docs: `README.md` (CODE section with diagram, category table, `skills-29` badge), `CLAUDE.md` (architecture tree, Skill Types, bundle list, counts), `CATALOG.md` + `skills_index.json` (`npm run generate-all --prefix cli-installer`), `.claude-plugin/marketplace.json`, `cli-installer/README.md`, `cli-installer/package.json` description, `docs/guides/skill-anatomy.md`, `docs/guides/getting-started.md`, `docs/bundles/bundles.md`, new `docs/guides/code-workflow.md` (user guide).
+- **Task 5.1** `bundles.json`: add `code` bundle (all 18 CODE skills incl. upgraded ones, ordered PL → DP); update `essential`, `planning`, and `all` (31).
+- **Task 5.2** Docs: `README.md` (CODE section with diagram, category table, `skills-31` badge), `CLAUDE.md` (architecture tree, Skill Types, bundle list, counts), `CATALOG.md` + `skills_index.json` (`npm run generate-all --prefix cli-installer`), `.claude-plugin/marketplace.json`, `cli-installer/README.md`, `cli-installer/package.json` description, `docs/guides/skill-anatomy.md`, `docs/guides/getting-started.md`, `docs/bundles/bundles.md`, new `docs/guides/code-workflow.md` (user guide).
 - **Task 5.3** Run consistency checks:
   ```bash
   ./scripts/build-skills.sh
   ./scripts/check-doc-consistency.sh
   ./scripts/verify-version-sync.sh
   ```
-  Expected: 29 skills, no mismatches.
+  Expected: 31 skills, no mismatches.
 - **Task 5.4** Release: `node scripts/release.js <minor|major>` (see decision D3), `CHANGELOG.md` entry, `./scripts/package-plugin.sh`, `graphify update .`.
 - **Task 5.5** Push branch `claude/superskills-dev-workflow-kppj2r`; open PR only when the owner asks. Tag push and `gh repo edit` About update happen only after merge, by the owner (or with explicit approval).
 
@@ -333,10 +381,10 @@ Standard loop for **every skill task** (the "test" for a Markdown skill is its e
 
 ## 7. Validation Criteria (definition of done)
 
-- 11 new + 6 upgraded skills pass YAML and content validators; every skill has `evals/evals.json` and `evals/trigger-eval.json`.
+- 13 new + 6 upgraded skills pass YAML and content validators; every skill has `evals/evals.json` and `evals/trigger-eval.json`.
 - Trigger audit shows no unresolved overlaps between CODE skills or with built-in Claude Code skills.
 - Dogfood runs (Quick + Standard) complete with all artifacts produced and every gate honored.
-- `check-doc-consistency.sh` and `verify-version-sync.sh` pass; all docs list 29 skills and the `code` bundle.
+- `check-doc-consistency.sh` and `verify-version-sync.sh` pass; all docs list 31 skills and the `code` bundle; README shows the CODE three-layer model (brand · method · PL→DP lifecycle).
 - `THIRD_PARTY_NOTICES.md` present; every adapted skill's README credits its sources.
 - No skills committed under platform directories (`.claude/skills/`, etc.).
 
@@ -349,12 +397,13 @@ Standard loop for **every skill task** (the "test" for a Markdown skill is its e
 | Token bloat | ≤2000 words per SKILL.md, shared `references/rules.md` and templates |
 | License/attribution gaps | MIT notices + Influences sections; synthesize, do not copy verbatim at length |
 | Platforms without subagents | Every subagent step has an inline fallback |
+| Stage model confusion (phases vs stages) | README diagram + router gauge always show both layers together |
 | Doc drift across 10+ files | Wave 5 checklist + consistency scripts |
 
 ## 9. Open Decisions (owner must answer before Wave 1)
 
-- **D1 — What "CODE" means.** The Addendum describes the practice but does not define the name. Proposal: **C**larify · **O**utline · **D**eliver · **E**vidence. Confirm or provide the intended meaning.
+- ~~**D1 — What "CODE" means.**~~ **Resolved (2026-11-18):** CODE = *Context Engineering Development for Enterprise* (brand); method phases Clarify · Outline · Deliver · Evidence; lifecycle stages PL · AN · DE · BU · TE · DP run inside the phases (§3).
 - **D2 — Product scope.** (a) CODE is the dev-workflow core *inside* claude-superskills (recommended; keeps npm name, marketplace, users) vs (b) rebrand the whole package/repo as CODE.
-- **D3 — Version.** 3.0.0 (recommended: product repositioning, 18 → 29 skills) vs 2.1.0 (CLAUDE.md default for new skills).
+- **D3 — Version.** 3.0.0 (recommended: product repositioning, 18 → 31 skills) vs 2.1.0 (CLAUDE.md default for new skills).
 - **D4 — Naming.** Keep existing names (`writing-plans`, `executing-plans`, …) and add new descriptive names (recommended) vs prefix everything `code-*` (clear branding, breaks existing users).
 - **D5 — Healthcare/HIPAA flavor.** Keep CODE domain-neutral with generic sensitive-data guardrails (recommended; ACS-specific content stays in `acs-health-maturity-kit`) vs embed healthcare-specific guidance in CODE skills.
