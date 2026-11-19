@@ -1,0 +1,39 @@
+{
+  "skill_name": "spec-driven-development",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We agreed in brainstorming: managers can export the currently filtered report as CSV, up to 50,000 rows, behind a feature flag. Customer names and order totals are included. Write the spec.",
+      "expected_output": "A SPEC in synthesize mode with numbered, testable acceptance criteria, boundaries, rollback, indicators and a Gate 1 request",
+      "expectations": [
+        "Output lists assumptions before or alongside the draft",
+        "Output numbers acceptance criteria as AC-1, AC-2, ... in Given/When/Then form",
+        "Output includes unhappy-path criteria such as missing permission, row limit exceeded, and CSV injection",
+        "Output includes boundaries (always / ask first / never), a rollback via the feature flag, and at least one measurable indicator",
+        "Output performs or describes a doubt pass and asks explicitly for Gate 1 approval without writing code"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Validate this spec: 'Objective: make search better. AC-1: search is fast. AC-2: results are relevant and the UI is user-friendly. Rollback: revert.'",
+      "expected_output": "Validate mode report identifying untestable criteria and missing sections with concrete fixes",
+      "expectations": [
+        "Output flags 'fast', 'relevant' and 'user-friendly' as not testable and proposes measurable rewrites",
+        "Output flags AC-2 as combining multiple behaviors and suggests splitting it",
+        "Output notes missing sections such as non-goals, boundaries, indicators and a concrete rollback",
+        "Output presents findings with severity and does not rewrite the spec without approval"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "SPEC revision 1 for CSV export was approved yesterday and is frozen. Product now wants Excel export too. Update the spec.",
+      "expected_output": "Revise mode following the change protocol with a new revision and re-approval",
+      "expectations": [
+        "Output does not edit revision 1 in place",
+        "Output performs an impact analysis on criteria, tasks, tests, rollback and dependencies",
+        "Output adds new criteria with new IDs while keeping existing AC IDs stable",
+        "Output creates revision 2 and requests Gate 1 re-approval, recording it in GATES.md"
+      ]
+    }
+  ]
+}

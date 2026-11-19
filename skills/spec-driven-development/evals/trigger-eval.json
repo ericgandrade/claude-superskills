@@ -1,0 +1,20 @@
+{
+  "skill_name": "spec-driven-development",
+  "description": "Triggers for writing, synthesizing, validating or revising a specification with numbered acceptance criteria before code",
+  "queries": [
+    {"id": 1, "query": "Write a spec with acceptance criteria for the CSV export before anyone codes it", "should_trigger": true},
+    {"id": 2, "query": "Turn what we just discussed into a SPEC — no need to interview me again", "should_trigger": true},
+    {"id": 3, "query": "Check this spec before we approve it — are the acceptance criteria testable?", "should_trigger": true},
+    {"id": 4, "query": "Product changed the requirement after approval, update the spec properly", "should_trigger": true},
+    {"id": 5, "query": "Define the requirements, boundaries and rollback for password reset via email", "should_trigger": true},
+    {"id": 6, "query": "Spec out the customer portal: login, billing, notifications and usage reports", "should_trigger": true},
+    {"id": 7, "query": "Convert this brainstorming brief into buildable requirements with Given/When/Then criteria", "should_trigger": true},
+    {"id": 8, "query": "Write a PRD-style specification for the reporting module with success metrics", "should_trigger": true},
+    {"id": 9, "query": "Brainstorm different ways to approach notifications", "should_trigger": false},
+    {"id": 10, "query": "Break the approved spec into implementation tasks with file paths", "should_trigger": false},
+    {"id": 11, "query": "Grill me on this design", "should_trigger": false},
+    {"id": 12, "query": "Write an ADR comparing Kafka and RabbitMQ", "should_trigger": false},
+    {"id": 13, "query": "Implement the export endpoint now", "should_trigger": false},
+    {"id": 14, "query": "Generate end-to-end tests for the checkout flow that already works", "should_trigger": false}
+  ]
+}
