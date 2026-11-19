@@ -41,6 +41,18 @@
 | D6 | Agile V is **concept-only** (CC BY-SA 4.0). No text, templates, table layouts or file structures from it. |
 | D7 | `grill-me` asks up to four independent frontier questions per round (owner may revert to one-at-a-time — ask at Checkpoint A2). |
 
+### 1.3.1 Open design questions (resolve with the owner at Checkpoint A1)
+
+Conflicts surfaced by the inventories, with the recommended resolution:
+
+| ID | Conflict | Recommendation |
+|---|---|---|
+| Q1 | **Refactor inside TDD:** Matt Pocock keeps refactoring out of the TDD loop; Superpowers/Addy keep red-green-refactor. | Allow small local refactors under green tests inside the loop; structural refactors become their own task or a review finding. |
+| Q2 | **File paths in artifacts:** Matt bans paths in specs and tickets (they rot); Superpowers plans require exact paths. | Decide by artifact lifetime: no paths in SPEC or long-lived task files; exact paths allowed in a PLAN executed immediately. |
+| Q3 | **Debugging hypotheses:** Matt ranks 3–5 hypotheses before testing; master plan says "single hypothesis". | Rank 3–5 falsifiable hypotheses, then test one at a time. |
+| Q4 | **Regression test for every bug:** Matt requires one only where a correct seam exists; otherwise the missing seam is itself the finding. | Keep rule 4, add the exception: when no correct seam exists, record the missing seam as a finding (feeds `codebase-modernization` / architecture) instead of writing a brittle test. |
+| Q5 | **User-only skills:** Matt uses `disable-model-invocation`; this repo's CLAUDE.md allows only `name`, `description`, `license`. | Keep the frontmatter rule; enforce user-only triggering through strict descriptions (as `grill-me` does). |
+
 ### 1.4 License rules for absorbing content
 
 | Source | License | Allowed |
