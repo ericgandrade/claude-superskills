@@ -1,0 +1,20 @@
+{
+  "skill_name": "project-context",
+  "description": "Triggers for setting up or auditing repository agent instructions, defining the quality bar in CONSTRAINTS.md, building a domain glossary, or recording an agent mistake",
+  "queries": [
+    {"id": 1, "query": "Set up an AGENTS.md for this repository so coding agents know how to build and test it", "should_trigger": true},
+    {"id": 2, "query": "Our CLAUDE.md is 400 lines and stale — clean it up without losing important rules", "should_trigger": true},
+    {"id": 3, "query": "Agents keep adding ts-ignore to get green builds. Write a quality bar they can't weaken", "should_trigger": true},
+    {"id": 4, "query": "Create a CONSTRAINTS.md with coverage and security thresholds for this project", "should_trigger": true},
+    {"id": 5, "query": "Record this: the agent ran pytest outside the virtualenv again, don't let it happen next time", "should_trigger": true},
+    {"id": 6, "query": "Build a glossary — 'account' means three different things in this codebase", "should_trigger": true},
+    {"id": 7, "query": "Audit our agent instructions: are the commands in AGENTS.md still correct?", "should_trigger": true},
+    {"id": 8, "query": "Prepare the project context before we start the V-Method on this repo", "should_trigger": true},
+    {"id": 9, "query": "Write the README for end users explaining how to install the app", "should_trigger": false},
+    {"id": 10, "query": "Write an ADR for choosing Postgres over MongoDB", "should_trigger": false},
+    {"id": 11, "query": "Review this diff for code quality", "should_trigger": false},
+    {"id": 12, "query": "Brainstorm features for our next release", "should_trigger": false},
+    {"id": 13, "query": "Show me all installed skills and MCP servers on this machine", "should_trigger": false},
+    {"id": 14, "query": "Set up a GitHub Actions pipeline that deploys to staging", "should_trigger": false}
+  ]
+}

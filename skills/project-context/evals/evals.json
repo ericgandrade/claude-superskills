@@ -1,0 +1,41 @@
+{
+  "skill_name": "project-context",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Set up agent instructions for this Node.js repo. It has package.json with scripts test (vitest), lint (eslint) and build (tsc), a .github/workflows/ci.yml, and no AGENTS.md or CLAUDE.md.",
+      "expected_output": "Discovers commands from files, verifies them, asks only gap questions, and proposes a small V-Method block before writing",
+      "expectations": [
+        "Output reads package.json and CI configuration before asking questions",
+        "Output does not ask the user to confirm commands already stated in package.json",
+        "Output verifies or plans to verify each command before stating it",
+        "Output proposes a compact block between V-METHOD markers including build, test and lint commands and a reference to CONSTRAINTS.md",
+        "Output shows the block and waits for approval before writing"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Agents keep adding @ts-ignore and skipping tests to get CI green. I don't have target numbers. Make it stop.",
+      "expected_output": "Constraints mode producing CONSTRAINTS.md with floor rules, enforced checks with commands, ratchets and exceptions",
+      "expectations": [
+        "Output includes floor rules banning new suppression comments and skipped or deleted tests without a reason",
+        "Output proposes measuring today's values and holding the line (ratchet) since no numbers were given",
+        "Output names the exact command that checks each enforced dimension",
+        "Output asks at most four questions and offers defaults",
+        "Output adds a rule that CONSTRAINTS.md must not be weakened to make a change pass"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Our CLAUDE.md has 300 lines from three different people over two years. Adopt it into the V-Method format.",
+      "expected_output": "Adopt mode with a ledger that preserves existing instructions and proposes explicit decisions",
+      "expectations": [
+        "Output treats existing content as the baseline instead of rewriting from scratch",
+        "Output builds or describes a ledger with a decision per instruction (retain, rewrite, relocate, automate, delete) and reasons",
+        "Output requires explicit approval for deletions",
+        "Output proposes automated checks for rules a tool can enforce",
+        "Output only modifies content between the V-METHOD markers unless a ledger entry is approved"
+      ]
+    }
+  ]
+}

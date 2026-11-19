@@ -203,16 +203,31 @@ Self-review disclosure: <independent reviewer used? yes/no>
 ```markdown
 # CONSTRAINTS — quality bar contract
 
-Changing a threshold requires an ADR. Reviews flag any diff that weakens this bar.
+Last reviewed: YYYY-MM-DD by <name>. Loosening any rule requires an ADR. Reviews flag any diff that weakens this bar.
 
-| Dimension | Threshold | Enforced by |
+## Floor (always enforced)
+- No new suppression comments (`@ts-ignore`, `eslint-disable`, `# noqa`, `# type: ignore`)
+- No unimplemented stubs or empty catch blocks
+- No skipped or deleted tests without a reason in the commit message
+- No secrets in source
+- This file is not weakened to make a change pass
+
+## Enforced with numbers
+| Dimension | Rule | Checked by (exact command) | Runs at |
+|---|---|---|---|
+| Types / lint | zero errors | `npm run lint && npm run typecheck` | every task |
+| Coverage | changed lines ≥ 80% | `<coverage command>` + git diff | task end, CI |
+| Dependencies | nothing at high or above | `<audit command>` | CI |
+| Accessibility | zero critical/serious on new UI | `<a11y command>` | preview |
+
+## Measured, not yet enforced (ratchets)
+| Metric | Today | Direction |
 |---|---|---|
-| Test coverage (changed lines) | ≥ 80% | CI coverage job |
-| Lint / type check | zero errors | `npm run lint && npm run typecheck` |
-| Dependencies | no known critical vulnerabilities | dependency audit in CI |
-| Performance | p95 < 300 ms on <endpoint> | load test |
-| Accessibility | WCAG 2.1 AA for new UI | automated + manual check |
-| Secrets | none in repo | secret scanning |
+| Project coverage | 62.4% | must not fall |
+
+## Exceptions
+| ID | Rule | Path | Reason | Owner | Expires |
+|---|---|---|---|---|---|
 ```
 
 ## AGENTS.md / CLAUDE.md block (PL)
