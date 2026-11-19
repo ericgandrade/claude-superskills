@@ -247,6 +247,11 @@ Follow `CLAUDE.md` "New Skill Checklist" and "Documentation Consistency Rule":
 - Status vocabulary for subagent reports must be identical across `executing-plans`, `multi-axis-code-review`, `test-strategy` and `verification-gate` (define once in `skills/agentic-v-method/references/rules.md` or a new `references/subagent-contracts.md`).
 - Skill handoffs must match both ends (if A says "hand off to B", B's "When to Use" covers it).
 - Scratch state (execution ledgers, review packages, worktrees) may be cleaned up at the end, but **only after** its rulings, deferred findings and test evidence are copied into VERIFICATION.md, GATES.md and TRACEABILITY.md — Superpowers deletes its ledger, which would break V-Method traceability.
+- **Router is not a paraphrasing orchestrator** (Addy's orchestration guide rejects that pattern): `agentic-v-method` is a skill the main session follows; each stage reads the artifacts directly (SPEC, PLAN, GATES), never a summary written by the router; the router stops at every gate.
+- **Gate turn rule:** after producing a gated artifact (SPEC, PLAN, Gate 3 evidence), end the turn — no further tool calls or downstream work. Approval counts only when it arrives in a later turn and is an explicit yes; "sounds good about something else" or "whatever you think" is not approval. Record the approver's exact words in GATES.md.
+- **One severity scale** across all skills: Critical / Important / Minor; map security severities (critical/high/medium/low) onto it in `security-hardening`.
+- **References live inside each skill's own directory** (never a repo-root shared folder that per-skill installs would drop); cross-skill references must have a standalone fallback in the referencing skill.
+- **Orchestration lives inside skills**, never only in host-specific command wrappers (unavailable on several of the 8 platforms).
 - No telemetry or remote assets in any helper (e.g., do not adopt Superpowers' visual-companion server, which loads a vendor logo remotely).
 
 ## 7. Notes for Codex specifically
