@@ -253,7 +253,7 @@ Each skill follows repo rules: frontmatter only `name`, `description` ("This ski
 - **Step 1 — Size (PL):** ask ≤3 questions (scope, risk, reversibility) → Quick / Standard / Full; show the route and get approval.
 - **Step 2 — Drive stages:** invoke stage skills in order; enforce the three gates and §3.4 rules; record approvals in GATES.md; show `PL ▸ AN ▸ DE ▸ BU ▸ TE ▸ DP`.
 - **Change protocol:** when requirements change after Gate 1 → impact analysis on SPEC/PLAN/tasks/tests → new SPEC revision → re-approval.
-- **references/**: `v-model.md` (the V, pairings, traceability), `phase-boundaries.md` (continue / clear / handoff / subagent / compact decision tree), `artifacts.md` (§3.5 templates), `rules.md` (§3.4), `routes.md`, `skill-map.md`.
+- **references/**: `v-model.md` (the V, stage-to-skill map, pairings, traceability, gates, routes), `phase-boundaries.md` (continue / delegate / clear / hand off / compact decision tree), `artifacts.md` (§3.5 templates), `rules.md` (§3.4 + change protocol).
 
 ### 5.2 `project-context` (PL)
 - Modes: **setup** (scan repo: languages, build/test/lint commands, conventions → write the V-Method block in AGENTS.md/CLAUDE.md), **constraints** (interview the quality bar → CONSTRAINTS.md with default thresholds), **glossary**, **pitfall** (record an observed agent mistake), **audit** (detect drift between docs and repo).
