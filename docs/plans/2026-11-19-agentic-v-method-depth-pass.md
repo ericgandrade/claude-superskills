@@ -246,6 +246,8 @@ Follow `CLAUDE.md` "New Skill Checklist" and "Documentation Consistency Rule":
 - Consistent vocabulary: SPEC, PLAN, `AC-n`, `Tn`, Gate 1/2/3, GATES.md, VERIFICATION.md, TRACEABILITY.md, HANDOVER.md, RETRO.md, Quick/Standard/Full.
 - Status vocabulary for subagent reports must be identical across `executing-plans`, `multi-axis-code-review`, `test-strategy` and `verification-gate` (define once in `skills/agentic-v-method/references/rules.md` or a new `references/subagent-contracts.md`).
 - Skill handoffs must match both ends (if A says "hand off to B", B's "When to Use" covers it).
+- Scratch state (execution ledgers, review packages, worktrees) may be cleaned up at the end, but **only after** its rulings, deferred findings and test evidence are copied into VERIFICATION.md, GATES.md and TRACEABILITY.md — Superpowers deletes its ledger, which would break V-Method traceability.
+- No telemetry or remote assets in any helper (e.g., do not adopt Superpowers' visual-companion server, which loads a vendor logo remotely).
 
 ## 7. Notes for Codex specifically
 
