@@ -105,7 +105,7 @@ Each entry: stage(s), source, what it is concretely, the failure it prevents, an
 #### BM-06 · Review depth selection tied to route
 - **Stage:** TE
 - **Source:** `method/bmad-build/customize.toml` (`review`, `quick_lenses`, `thorough_lenses`); `help/review-choices.md`
-- **What:** `none` (no lenses, no triage; for throwaways), `quick` (one reviewer: acceptance criteria, repo agent rules, bugs), `thorough` (four independent lenses: Blind Hunter, Edge Case Hunter, Verification Gap, Intent Alignment), `auto` (oneshot → quick, full → thorough). Recorded in plan frontmatter with `review_source` and `lenses_ran` (ids in launch order). Standalone code review defaults to thorough.
+- **What:** `none` (no lenses, no triage; for throwaways), `quick` (one reviewer: acceptance criteria, repo agent rules, bugs), `thorough` (four independent lenses: Blind Hunter, Edge Case Hunter, Verification Gap, Intent Alignment), `auto` (oneshot → quick, full → thorough). Shipped default for both build skills is `quick`. Recorded in plan frontmatter with `review_source` and `lenses_ran` (ids in launch order). Standalone code review defaults to thorough.
 - **Prevents:** uniform review cost regardless of risk; untraceable "we reviewed it" claims.
 - **Target:** `multi-axis-code-review` (depth by route) and router. **Adapt:** map Quick → light review (spec compliance + correctness), Standard → full multi-axis, Full → multi-axis + security. Record which axes ran in VERIFICATION.md.
 
@@ -267,7 +267,7 @@ Each entry: stage(s), source, what it is concretely, the failure it prevents, an
 - **Source:** `method/bmad-build/customize.toml` (`blind-hunter`)
 - **What:** Sees only the diff (no plan, no intent). "Look for what's missing, not only what's wrong." Finding floor: N = min(floor(sqrt(kB) + 1), 10), where kB is the diff file's size; state the arithmetic in one line, then find at least N issues. Zero findings → re-check and keep thinking.
 - **Prevents:** lazy "LGTM" from a reviewer; context-induced blindness (the reviewer cannot rationalize with the plan).
-- **Target:** `multi-axis-code-review` correctness axis. **Adapt:** keep the floor formula as a quota for the diff-only reviewer, but rely on triage (BM-31) to reject padding.
+- **Target:** `multi-axis-code-review` correctness axis. **Adapt:** keep the floor formula as a quota for the diff-only reviewer, but rely on triage (BM-32) to reject padding.
 
 #### BM-28 · Edge Case Hunter lens (exhaustive path tracer)
 - **Stage:** TE
@@ -753,3 +753,203 @@ Each entry: stage(s), source, what it is concretely, the failure it prevents, an
 - **Target:** `codebase-modernization`, `project-context`, `retrospective`, artifact conventions (`references/artifacts.md`). **Keep.**
 
 ---
+
+## 3. Templates and artifact formats worth adapting
+
+Short quotes are MIT-licensed excerpts, marked with their source path. Everything else is a description in this repository's words.
+
+| Artifact (source) | Purpose | Required parts | Rules worth keeping | V-Method home |
+|---|---|---|---|---|
+| **Build plan** (`method/bmad-build/plan-template.md`) | One session-sized change: the contract between planning, implementation and review | Frontmatter state (status, baseline, route, risk, review, lenses, loop counter, context); frozen block (Intent: Problem/Approach; Boundaries: Always/Never; I/O & Edge-Case Matrix); Code Map; Tasks & Acceptance; Implementation Notes; Plan Change Log; Review Triage Log; Design Notes; Verification | Frozen block is human-owned after approval; delete empty sections ("Do not write 'N/A' or 'None'"); 900–1600 tokens; tasks `FILE -- ACTION -- RATIONALE`; ACs Given/When/Then and surface-anchored; append-only logs | SPEC.md (frozen part) + PLAN.md / `tasks/NN-*.md` (agent part) — BM-12, BM-13 |
+| **Ticket** (`method/bmad-agent-po/assets/ticket-template.md`) | The spec at its altitude (initiative / epic / story) | Description, Outcome, Requirements (`R<n> (source)`), Constraints, Done when (3–6 checks), Boundaries (touch points, Must not change, tracer path), References (`type — location, section`), Notes (marked lines) | Requirements say what is possible and what shows it was met; never copy the parent; no code paths unless the snippet is the decision; UI tickets link design, keep criteria functional | SPEC.md sections — BM-49, BM-50, BM-53 |
+| **Bug** (`.../bug-template.md`) | A defect with proof criteria | Severity P0–P3, Reproduction, Cause Hypothesis, ACs: fixed / regression test / or no change needed with proof | Quote: "Where the defect likely lives and why. Never a prescribed fix." | `systematic-debugging` intake — BM-54 |
+| **Spike** (`.../spike-template.md`) | Time-boxed question | Question title, who waits, Approach with time box and "good enough", `Verify:` criteria (compared, prototyped, recorded where waiters find it, accepted) | A question several groups wait on is a shared decision | SPEC open question → spike task — BM-54 |
+| **Work-item list** (`.../tickets-template.toml`) | Ordered breakdown | `id, type, title, description, verify, covers, after, hitl, risk` (+ `unknown, refine, plan_checkpoint, done_checkpoint, estimate`) | Order is build order; `after` = real prerequisites only; ids never reused; `estimate` only when the user gives one | PLAN.md task table — BM-57 |
+| **Architecture spine** (`method/bmad-architecture/assets/spine-template.md`) | Consistency contract across separately built units | Paradigm, Inherited Invariants, Invariants & Rules (`AD-n`: Binds, Prevents, Rule), Conventions table, Stack (name + version), Structural Seed, Capability → Architecture Map, Deferred | Quote: "Decisions, not rationale (rationale lives in the memlog). Carry shape in diagrams; prose only where it must." Every structural dimension decided, deferred or open | Architecture notes beside ADRs — BM-43, BM-44 |
+| **Decision record** (`method/bmod-method/doc-templates/template-decision-record.md`) | One decision | Status (one of five), Context, Drivers, Options (incl. doing nothing), Decision ("We will …"), Consequences, Confirmation, Links | Context without arguing for the outcome; supersede, never rewrite; write one only when hard to reverse, surprising, and a real trade-off | `docs/adr/NNNN-*.md` — BM-66 |
+| **Security review** (`.../template-security-review.md`, `methods-security.csv`) | A system walked against OWASP Top 10 2025 or STRIDE | Scope/standard, data flows with trust boundaries, key flows, Findings (pass / gap / unverified / not applicable + severity), Risk decisions, Remediation plan, Open questions | Quote: "Record no test result, CVE, scan output or compliance statement the user did not supply." | `security-hardening` TE lens — BM-67 |
+| **PRD / agent spec** (`method/bmad-agent-pm/assets/template-prd.md`, `template-agent-spec.md`) | Requirements at an altitude; one feature for a coding agent | UJ-N journeys, FR-N, RULE-N, SM-N with counter-metrics, OQ-N; agent spec adds independent test per story, SC-N, "highest seam where the tests run" | Capabilities, not implementation; ceilings by altitude; non-goals detailed at every level | SPEC.md (Standard/Full depth) — BM-61–BM-63 |
+| **Prototype plan / experiment card** (`template-prototype-plan.md`, `template-experiment.md`) | Learning before committing | Ask and goal with kill result written first; thresholds before data; Outcome/Result written after | Quote: "a threshold moved after the data is a new experiment." | `brainstorming` prototype detour; PL indicators — BM-64 |
+| **Launch plan** (`template-launch.md`) | Coordinated release | Roles, objective, metrics, channels with owners, Readiness incl. rollback owner, Go/no-go criteria and who calls it | Settle driver, approver and go/no-go first | `deployment-pipeline`, `shipping-and-handover` — BM-65 |
+| **AGENTS.md block** (`method/bmad-project-context/references/template.md`) | Small verified agent instructions | Markers + provenance line (date, SHA); Orientation, Policy, Where things are, Running and verifying, Conventions that differ, Known pitfalls | Quote: "A prohibition names the alternative. At most two emphasis markers in the whole block." | `project-context` — BM-80, BM-81 |
+| **Retrospective document** (`method/bmad-retrospective/references/retro-document.md`) | Epic-level evidence review and verdict | Frontmatter `epic, date, verdict, criteria (declared/profiled), headless`; Epic summary + evidence inventory, Findings with sources and dispositions, Behavior verification, Previous-retro follow-through, Action items (owned), Decision records, Acceptance verdict, Open questions, Assumptions (headless) | Created as a skeleton and filled per phase; no time estimates; the only file written besides approved ADRs | RETRO.md — BM-84–BM-87 |
+| **Walkthrough narrative + log** (`method/bmad-walkthrough/workflow.md`, `templates/log-template.md`) | Human review of a change | Blocks: Intent, Broad strokes, Slices, Periphery (checkboxes owned by the user); log entries: Action, Result (fixed/accepted/deferred/open), Evidence, Open | Log is append-only, ≤150 tokens per entry, written for another LLM; narrative uses relative links | HANDOVER.md walkthrough option — BM-83 |
+| **Codebase research document** (`core/bmad-deep-recon/assets/codebase.template.md`) | How code works at one commit and why | Frontmatter (ask, repository, commit, branch, validation, claims counts); numbered questions; one section per question with `path:line (symbol) @ sha` citations; Where the answers meet; Open questions; Prior documents; Decisions found | No recommendations; questions never state the intent | `codebase-modernization` inventory — BM-77 |
+| **Meeting / retro-meeting notes** (`bmod-core-tools/ingest-templates/template-meeting.md`, `bmod-method/ingest-templates/template-retrospective.md`) | Raw input made actionable | Summary, Decisions, Action items (owner, due), Open questions, Discussion by topic; retro: Actions agreed vs Discussed, not agreed | Nothing proposed shown as decided | SPEC synthesize input — BM-79 |
+| **Deferred work ledger** (`method/bmad-build/step-01-clarify-and-route.md`) | Follow-ups split off a change | `- source_plan / summary / evidence` entries, append-only | Never edit old entries or dedupe | `DEFERRED.md` or PLAN section — BM-10 |
+
+## 4. Review lenses and elicitation / brainstorming method lists
+
+### 4.1 Code and document review lenses
+
+| Lens | Sees | One-line description | Source |
+|---|---|---|---|
+| Quick | Plan ACs + `context:` files + AGENTS/CLAUDE files of root and touched dirs + diff | Unmet acceptance criteria, broken repo rules, bugs; each with location and evidence | `method/bmad-build/customize.toml` |
+| Blind Hunter | Diff only | What is missing as well as wrong; finding floor N = min(floor(√kB + 1), 10) | same |
+| Edge Case Hunter | Diff (+ claims file, read last) | Exhaustive path tracing: unhandled branches, implicit enum branches, handle lifetime, call-site signature mismatches; then deletion check and claims check; JSON output | `review-prompts/edge-case-hunter.md` |
+| Verification Gap | Diff + repo tests | Changed behavior no test would catch: regression, missing-adoption, broken-verification, stale-verification gaps | `review-prompts/verification-gap.md` |
+| Intent Alignment Auditor | Verbatim intent + diff | Enumerate defensible readings, which one the diff implements, and the surface mismatch | `customize.toml` (`intent-alignment`) |
+| Adversarial | Any content | At least ten concrete issues; look for what is missing | `core/bmad-review/references/lens-adversarial.md` |
+| Editorial Structure | Documents | Shape vs one of five structure models; CUT / MERGE / MOVE / CONDENSE / QUESTION / PRESERVE with word impact | `lens-structure.md`, `structure-models.md` |
+| Editorial Prose | Documents (after Structure) | Clinical copy-edit for comprehension, smallest fix, voice preserved, reader calibration humans vs llm | `lens-prose.md`, `editorial-common.md` |
+| Spine rubric walker | Architecture spine | Good-spine checklist incl. silent dimensions (operational envelope) | `method/bmad-architecture/references/reviewer-gate.md` |
+| Spine currency reviewer | Architecture spine | Every committed decision web- or reality-checked, not asserted from training data | `method/bmad-architecture/customize.toml` |
+| Spine adversary | Architecture spine | Two units obeying every AD that still build incompatibly | same |
+| Planning rubric walker | Planning documents | Decision-ready, Earned, Testable, Honest scope, Usable downstream | `core/bmad-facilitate/references/rubric-planning.md` |
+| Fresh reader | Document only | What it would still need answered to use it, ranked, one round | `core/bmad-facilitate/SKILL.md` |
+| UX rubric walker | DESIGN.md + EXPERIENCE.md | Flow, token, component, state and visual-reference coverage; bloat, inheritance, shape fit | `method/bmad-ux/references/validate.md` |
+| Research verifier / red team | Claims ledger | Independent-source check per claim; skeptic hunting disconfirming evidence for each major conclusion | `core/bmad-deep-recon/references/verification.md` |
+| Ticket / Set / Tree / Dependencies / Closure checks | Work breakdown | Coverage, real prerequisites, collisions between parallel items, closure against evidence | `method/bmad-agent-po/references/validate-checks.md` |
+
+Triage verdict scale (all code review): `high` (data loss or corruption, security exposure, silently wrong result, path broken with no workaround) · `medium` (broken but noticed or worked around, or limited reach) · `low` (cosmetic, minor inconvenience) · `false` (disproved) · `maybe-false` (undecidable from code; state what would settle it). Routes: build `intent_gap / bad_plan / patch / defer`; code review `decision_needed / patch / defer` (plus reject).
+
+### 4.2 Advanced elicitation methods (`core/bmad-advanced-elicitation/assets/methods.csv`)
+
+Directions: **wrong** (find errors), **missing** (find gaps), **premise** (question the framing), **future** (project forward), **simplify** (remove), **other-side** (argue against). Tier `core` = default index; `more` = on request. Each method has a "form" line that fixes the shape of the reviewer's return.
+
+| # | Method | Dir. | Tier | What it does |
+|---|---|---|---|---|
+| 1 | Critique and Refine | wrong | more | Strengths to keep, weaknesses with fixes |
+| 2 | Edge Case Sweep | wrong | core | Table of boundary inputs (empty, zero, max, malformed) and what the draft does |
+| 3 | Failure Mode Analysis | wrong | core | Per component: failure, effect, detection, prevention |
+| 4 | Consistency Check | wrong | core | Pairs of conflicting claims and which to keep |
+| 5 | Stakeholder Lens | missing | core | Each affected stakeholder says what the draft owes them |
+| 6 | Second-Order Thinking | missing | core | First-order effect, what it causes next, response |
+| 7 | Assumption Audit | missing | core | Assumptions rated by confidence and impact; weakest three stress-tested |
+| 8 | Expert Panel | missing | core | Independent experts read from their own fields |
+| 9 | Six Thinking Hats | missing | more | Facts, feelings, caution, optimism, creativity, process |
+| 10 | First Principles Analysis | premise | core | Strip assumptions, rebuild from known truths |
+| 11 | 5 Whys | premise | more | Chain to the root cause |
+| 12 | Inversion Analysis | future | more | Recipe for guaranteed failure, then avoid each step |
+| 13 | Question the Question | premise | core | Is the stated problem the real one |
+| 14 | Abstraction Laddering | premise | core | One level up (why), one down (how), pick the altitude |
+| 15 | Subtraction | simplify | core | What to remove, with what is lost and gained |
+| 16 | Occam's Razor | simplify | more | Simplest sufficient version |
+| 17 | Adjust for Audience | simplify | core | Depth matched to the reader |
+| 18 | Feynman Technique | simplify | core | Explain simply; each stall is a gap |
+| 19 | Problem Decomposition | simplify | core | Independent parts, reassembly order, where the draft's split differs |
+| 20 | Pre-mortem Analysis | future | core | Written after failure: what went wrong, in order |
+| 21 | Hindsight Reflection | future | core | Written a year after success: what mattered, what never counted |
+| 22 | Cascading Failure Simulation | future | core | Break one thing, trace propagation, name amplifiers and single points |
+| 23 | What If Scenarios | future | core | Three unplanned situations and how the draft fares |
+| 24 | Steelmanning | other-side | core | Strongest opposing case, then what honestly survives |
+| 25 | Red Team | other-side | core | Attacker's plan step by step, then hardening |
+| 26 | Devil's Advocate | other-side | more | Case against, pressed at the weakest point |
+| 27 | Socratic Questioning | other-side | core | Questions answered from the draft until one it cannot answer |
+| 28 | Explain Reasoning | wrong | core | Steps marked given, inferred or asserted |
+| 29 | Code Review Gauntlet | wrong | more | Reviewers with different philosophies on the same code |
+| 30 | Performance Profiler Panel | wrong | more | Database, frontend, ops specialists rank bottleneck suspects |
+| 31 | Source Triangulation | wrong | more | Three independent kinds of evidence per claim |
+| 32 | Comparative Analysis Matrix | premise | more | Options scored against weighted criteria |
+| 33 | Map Is Not the Territory | wrong | more | Where the model or diagram departs from the real system |
+| 34 | Delphi Method | missing | more | Independent estimates with reasoning |
+| 35 | User Focus Group | missing | more | Users react in their own words |
+| 36 | Cross-Functional War Room | missing | more | Product, engineering, design trade-offs |
+| 37 | Morphological Analysis | premise | more | Parameter × option grid, untried combinations |
+| 38 | Tree of Thoughts | premise | more | Several reasoning paths, judged |
+| 39 | SCAMPER Method | premise | more | Substitute, combine, adapt, modify, other use, eliminate, reverse |
+| 40 | Analogy Mapping | premise | more | Borrow a solved problem's structure |
+| 41 | Reverse Engineering | premise | more | From the end state back to the path |
+| 42 | Constraint Injection | premise | more | Add a hard limit, see what it forces |
+| 43 | Architecture Decision Record | premise | more | Options, trade-offs, decision, rationale vs the draft's choice |
+| 44 | Identify Potential Risks | future | more | Risks by category with mitigations |
+| 47 | Debate | other-side | more | Each side argues alone at full strength |
+| 48 | Investor Pitch | other-side | more | Moat and numbers questions the draft can and cannot answer |
+| 49 | Thesis Defense | other-side | more | Committee challenges and defenses |
+| 50 | Security Audit Personas | other-side | more | Attacker, defender, auditor threat models |
+
+(Numbers 45–46 are absent in the catalog.) Highest value for the V-Method doubt pass and `grill-me`: 2, 3, 4, 7, 13, 14, 19, 20, 22, 25, 27, 28, 33.
+
+### 4.3 Brainstorming techniques (`core/bmad-brainstorming/assets/brain-methods.csv`, 108 techniques)
+
+Each row carries `category, technique_name, description, detail, provenance, good_for, audience`. Categories, counts and techniques:
+
+- **collaborative (8):** Yes And Building; Brain Writing Round Robin; Random Stimulation; Role Playing; Ideation Relay Race; Idea Hot Potato; Steal And Upgrade; Fold The Paper.
+- **creative (10):** What If Scenarios (detonate one constraint at a time); Analogical Thinking; First Principles Thinking; Forced Relationships; Time Shifting; Metaphor Mapping; Cross-Pollination (how another industry would solve it); Concept Blending; Reverse Brainstorming (how to make it fail, then invert); Sensory Exploration.
+- **deep (13):** Five Whys; Provocation Technique; Assumption Reversal; Question Storming (questions only); Constraint Mapping (real vs imagined constraints); Failure Analysis; Emergent Thinking; Causal Loop Mapping; Morphological Analysis; Laddering; TRIZ Contradiction; Fishbone Diagram; Build on What Works.
+- **introspective_delight (8):** Inner Child Conference; Shadow Work Mining; Values Archaeology; Future Self Interview; Body Wisdom Dialogue; Permission Giving; Secret Wish Confession; Mood Weather Report.
+- **structured (15):** SCAMPER; Six Thinking Hats; Decision Tree Mapping; Solution Matrix; Trait Transfer; Lotus Blossom; Worst Possible Idea; Disney Method (Dreamer, Realist, Critic); Starbursting (who/what/where/when/why/how questions); Mind Mapping; Crazy 8s; How Might We; Job to Be Done; Empathy Map; Backcasting.
+- **theatrical (7):** Time Travel Talk Show; Alien Anthropologist; Dream Fusion Laboratory; Emotion Orchestra; Parallel Universe Cafe; Persona Journey; Devil's Advocate Courtroom.
+- **wild (7):** Chaos Engineering; Guerrilla Gardening Ideas; Pirate Code Brainstorm; Zombie Apocalypse Planning; Drunk History Retelling; Anti-Solution; Elemental Forces.
+- **biomimetic (6):** Nature's Solutions; Ecosystem Thinking; Evolutionary Pressure; Predator & Prey; Metamorphosis Stages; Swarm Logic.
+- **quantum (6):** Observer Effect; Entanglement Thinking; Superposition Collapse; Relativity Frame Shift; Field Lines; Quantum Tunneling.
+- **cultural (7):** Indigenous Wisdom; Fusion Cuisine; Ritual Innovation; Mythic Frameworks; Proverb Mining; Ancestor Council; Trickster's Gambit.
+- **absurdist (6):** Villain's Monologue; Explain It to a Golden Retriever; Infomercial at 3AM; Drunk Uncle at Thanksgiving; Cursed Genie (wish granted disastrously, patch loopholes); Three Rounds of Stupid.
+- **constraint (7):** Kill the Crown Jewel; 1000x Budget; Ship in 60 Minutes; The $0 Mandate; One Feature Only; Crank the Dial to 11; Constraint Roulette.
+- **speculative_future (8):** Time Horizon Ladder (1 / 10 / 100 years); Post-Scarcity Test; Utopia vs Dystopia Split-Screen; Sci-Fi Artifact From the Future; Emerging Tech Collision; What-If-The-World-Changed Card Flip; Future Anthropologist Dig; Scenario Cross (2×2 uncertainties).
+
+**Convergence moves** (`references/converge.md`, run only after divergence): Affinity Clustering; Impact–Effort; NUF Test (New, Useful, Feasible 1–10); Forced Ranking / Dot Vote; PMI (Plus / Minus / Interesting); MoSCoW. In-chat technique selection modes: Facilitator Chosen (default, 3–4 techniques), Browse, Category draw, Inventive Flow (invent at least three new techniques).
+
+**For the V-Method `brainstorming` skill**, a curated set fits software design: How Might We, Job to Be Done, First Principles, Assumption Reversal, Constraint Mapping, Reverse Brainstorming / Anti-Solution, SCAMPER, Morphological Analysis, Disney Method, Starbursting, Backcasting, Kill the Crown Jewel, Ship in 60 Minutes, One Feature Only; then Impact–Effort or MoSCoW to converge.
+
+### 4.4 Security key-question catalog (`method/bmod-method/doc-templates/methods-security.csv`)
+
+OWASP Top 10 (2025 labels as shipped): A01 Broken Access Control (incl. SSRF), A02 Security Misconfiguration, A03 Software Supply Chain Failures, A04 Cryptographic Failures, A05 Injection (incl. prompts mixing user input with instructions), A06 Insecure Design, A07 Authentication Failures, A08 Software or Data Integrity Failures, A09 Security Logging & Alerting Failures, A10 Mishandling of Exceptional Conditions. STRIDE: Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege. Each row has 4–5 key questions (e.g. A10: "When a dependency times out or errors, does the system fail closed?").
+
+## 5. Cross-skill workflow
+
+### 5.1 The delivery loop
+
+1. **Shape (optional, any order):** brainstorming / forge-idea (no clear idea) → research (decision evidence) → brief or PRFAQ (written account / stress test) → PRD (several people must agree or several epics must not diverge) → UX (screens and flows). None builds anything; outputs are condensed before hand-off ("a few tens of thousands of tokens" is the practical input ceiling).
+2. **Specify:** the Product Owner writes the top-level ticket's Requirements and Constraints from whatever exists (BM-48–BM-53), with a decision log beside it; open questions and assumptions are walked with the user.
+3. **Slice:** initiative → thin epics (`refined: false`) in build order with `covers` and `after` (BM-55); shared decisions → architecture spine adopted as a companion (BM-43); each epic refined just before its stories are planned; stories planned as entries (tracer bullet first, refactor sweep last) and validated by fresh-context checks (BM-56, BM-59).
+4. **Build, one session per entry:** `bmad-build` (attended; risky and foundational work, human approves the plan) or `bmad-build-auto` (unattended; settled patterns). Each run: clarify and route → investigate and plan → checkpoint → implement via fresh subagent → stage diff, verify, matrix audit → parallel review lenses → verify-then-verdict triage → patch / loop back / defer → commit locally → plan at `built` (BM-05–BM-40).
+5. **Validate:** the user marks done; optional standalone code review, guided walkthrough, or e2e test generation (BM-38, BM-39, BM-82, BM-83).
+6. **Change mid-flight:** replan through the Product Owner, resuming at the earliest affected step (BM-60).
+7. **Close the epic:** retrospective over the whole epic diff with aggregate views and a verdict that gates the next epic (BM-84–BM-87); the Product Owner closes only after the closure check and user confirmation.
+8. **Learn:** prevention dispositions and observed agent mistakes go into the AGENTS.md block via project-context `record` (BM-81).
+
+### 5.2 Routing and hand-offs
+
+- A router skill (`core/bmad/SKILL.md`) answers "what next" only from installed modules' help documents (`help/help.md`) plus the current artifacts, never from memory; it recommends one next skill "in a fresh context" and runs sequences only when asked, checking each result with the user before the next.
+- Hand-offs are by **file path**, never by pasted content: the ticket, the plan, the diff file, the claims file. Every skill names its next steps at close (e.g. architecture → "lead with" the Product Owner to adopt the spine; brainstorming → intent doc to the Product Owner; build → PR, walkthrough or another change).
+- Misroutes are detected on the first message (a PRD request to the analyst is redirected to the PM, and so on).
+- **Phase boundary advice:** start Build in a fresh chat; run elicitation or multi-perspective review "ideally in another session to avoid context bloat"; "Approve and stop" leaves a plan `ready-for-dev` for a fresh implementation session.
+
+### 5.3 State tracking
+
+- **Plan frontmatter** owns live status (BM-18), baseline (BM-19), risk, route, review depth, lenses run, loop counter and, for unattended runs, warnings, deferred list and follow-up flag.
+- **Work queue** (`tickets.toml` per container) owns order, ids, coverage and prerequisites; readiness is computed, never stored (BM-58).
+- **Decision logs** (`.memlog.md`) own decisions and requirement ids; specs are re-derived from them (BM-47).
+- **Append-only ledgers:** `deferred-work.md`, Plan Change Log, Review Triage Log, Code Review blocks, walkthrough log.
+- **Gate artifacts:** retrospective frontmatter `verdict` (machine-readable gate for the next epic), plan `status: built` vs user-set `done`.
+- v6's `sprint-status.yaml` and `epics.md` are gone; their content maps to ticket entries and plan statuses (`migration-1.toml`: `backlog` → entry only, `ready-for-dev`/`in-progress`/`in-review`/`done`/`blocked` carried over, `drafted`/`contexted` → `ready-for-dev`).
+
+## 6. What NOT to adopt, and why
+
+| Item | Why not | Keep instead |
+|---|---|---|
+| Thin-shell SKILL.md + `uv run render_skill.py` + Jinja templating | Hard runtime dependency (uv, Python 3.11, jinja2) and a `_bmad/` install; unusable across the 8 target platforms; content invisible to anyone reading the skill | Plain Markdown with route-labeled subsections and `references/` loaded per stage (BM-01) |
+| `customize.toml` three-layer merge, activation prepend/append hooks, persistent facts, `on_complete` | Configuration machinery the V-Method's zero-config philosophy rejects | A "Project conventions" step that reads AGENTS.md/CLAUDE.md and CONSTRAINTS.md |
+| `tickets.py`, tracker stores (Jira, Linear, GitHub, Notion, Trello config), `mirror`/`mark`/`pull`/`move` verbs | Script dependency and tracker integration outside scope | PLAN.md task table with prerequisites and a status column; optional tracker export as prose instructions |
+| Named personas (Sofia, John, Mary, Winston, Amelia, Sally), icons, menus, persona-carrying activation | Brand voice and trademark adjacency; personas add tokens without improving verification; plan §2.3 already rejects role-play agents | Stage names (PL…DP) and plain skill roles |
+| Party mode, HTML keepsakes, wax-seal forge reports, composer HTML page, HTML briefings and validation reports | Entertainment and presentation layers; heavy token cost; not evidence | Markdown artifacts; the "spawn independent reviewers only when divergence is the value" rule (merged into BM-71) |
+| `memlog.py` script with typed entries | Script dependency | A dated, append-only "Decision log" section (BM-47) |
+| Initiative / parent-initiative / epic folder tree with `tickets/` subfolders and `_bmad-output` | Too deep for most repos; conflicts with plan §3.5 conventions | `docs/v-method/<date-feature>/` with SPEC/PLAN/…; adopt existing repo conventions when present |
+| Twelve PM document templates (charter, narrative, business case, pitch, opportunity, SRS) and BRD/PRFAQ | Product-management scope beyond a software delivery method | Borrow only altitude rules, counter-metrics, change boundary and kill criteria (BM-61–BM-64) |
+| UX DESIGN.md token spec and creative tools (Excalidraw, HTML mocks, design handoffs) | Visual design is out of V-Method scope | State coverage and surface closure checks (BM-88) |
+| Customization authoring (`bmad-customize`), module packaging (`bmod.toml`), migrations, setup/doctor | Distribution plumbing for BMad's own ecosystem | This repo's existing installer |
+| Blind Hunter finding quota as a hard rule in every review | Quotas invite padding when triage is weak | Keep the quota only for the diff-only reviewer, always followed by verify-then-verdict triage (BM-27, BM-32) |
+| Route rule "≤100 LOC → oneshot" as the sole criterion | LOC is a weak proxy for risk; BMad's own docs describe a risk-based test | Intent gaps / irreversible actions / footprint, with LOC as fallback (BM-05) |
+| Time estimates in plans or retros | BMad itself bans them ("AI has changed development speed") | Same ban; use risk and size anchors |
+| Self-improvement auto-iterate loop for skills | Powerful but out of scope for method skills | Manual eval with baseline/variant/trigger modes (BM-89) |
+
+## 7. Top 15 mechanisms ranked by value to the Agentic V-Method
+
+1. **BM-32 Verify-then-verdict triage** — verify each finding's claim at the cited line, one verdict (high/medium/low/false/maybe-false), reject false and costly-low, group by true root cause → `multi-axis-code-review`.
+2. **BM-33 Root-cause routing with cascading loopbacks** — intent_gap → SPEC revision, bad_plan → PLAN amendment with KEEP list, patch → same implementer, defer → ledger; loop cap 5 → `multi-axis-code-review` + router change protocol.
+3. **BM-12 Frozen human-owned intent block** — approved intent, boundaries (Always/Never) and I/O edge matrix are read-only after approval; agent sections append-only → `spec-driven-development` + `writing-plans`.
+4. **BM-30 Verification Gap lens** — four gap shapes and the list of things that do not count as a test → `test-strategy` + `multi-axis-code-review`.
+5. **BM-87 Acceptance verdict with fail-safe rules** — accepted / accepted-with-open-items / rejected; unfinished work forces rejected; never silently accepted; declared vs profiled criteria → `retrospective`.
+6. **BM-13 READY FOR DEVELOPMENT standard** — Actionable, Logical, Testable, Surface-anchored, Complete, Sufficient, Coherent as the Gate 2 checklist → `writing-plans`.
+7. **BM-25 Parallel, context-free review lenses** — fresh subagents, file paths not pasted diffs, no severity from reviewers, launched together → `multi-axis-code-review`.
+8. **BM-29 Claims check** — the change's narrative is testimony, read only after independent tracing, falsify each claim → `verification-gate` + `multi-axis-code-review`.
+9. **BM-20 Plan-as-sole-source handoff** — three-line dispatch, no parent restatement, `context:` files loaded by the subagent → `executing-plans`.
+10. **BM-80/BM-81 Verified AGENTS.md block with ledger and deletion grounds** — admit/exclude rules, provenance SHA, prefer a check over a line, pitfalls only from observed mistakes → `project-context`.
+11. **BM-56 Story slicing rules** — tracer bullet first, least-certain second, same-code lanes, split-never-shrink, tests in every slice, refactor sweep last → `writing-plans`.
+12. **BM-60 Replan protocol** — required-vs-delivery distinction, never edit an in-progress plan, re-derive with stable ids, dated decisions → `agentic-v-method` change protocol.
+13. **BM-85 Aggregate views** — architecture delta, duplication, size growth, pattern divergence, spec reconciliation across task seams → `retrospective` (and Full-route integration review).
+14. **BM-22 Matrix test audit** — every edge-case row has a test that actually ran and passed; never edit the expectation to match the code → `verification-gate` + `test-driven-development`.
+15. **BM-77 Codebase research with question firewall** — factual questions that hide the intent, git-at-commit reading, `path:line (symbol) @ sha` citations, anchors check → `codebase-modernization` (inventory mode).
+
+Honorable mentions: BM-05 (route self-upgrade), BM-15 (open-questions protocol), BM-46 (adversarial "two compliant units" spine review), BM-50 (Spec Law), BM-73 (cold-reader elicitation brief with settled list), BM-82 (e2e test protocol), BM-86 (dual disposition per retro finding).

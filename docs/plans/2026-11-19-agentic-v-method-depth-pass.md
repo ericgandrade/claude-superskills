@@ -51,6 +51,7 @@ Conflicts surfaced by the inventories, with the recommended resolution:
 | Q2 | **File paths in artifacts:** Matt bans paths in specs and tickets (they rot); Superpowers plans require exact paths. | Decide by artifact lifetime: no paths in SPEC or long-lived task files; exact paths allowed in a PLAN executed immediately. |
 | Q3 | **Debugging hypotheses:** Matt ranks 3–5 hypotheses before testing; master plan says "single hypothesis". | Rank 3–5 falsifiable hypotheses, then test one at a time. |
 | Q4 | **Regression test for every bug:** Matt requires one only where a correct seam exists; otherwise the missing seam is itself the finding. | Keep rule 4, add the exception: when no correct seam exists, record the missing seam as a finding (feeds `codebase-modernization` / architecture) instead of writing a brittle test. |
+| Q6 | **Route sizing rule:** BMad's code picks the light route at ≤ 100 changed lines; its docs describe a risk test (intent gaps, irreversible actions, footprint). | Risk test first (scope, risk, reversibility, intent clarity) with risk triggers that force a minimum route (Agile V concept AV-34); line count only as a tiebreaker. |
 | Q5 | **User-only skills:** Matt uses `disable-model-invocation`; this repo's CLAUDE.md allows only `name`, `description`, `license`. | Keep the frontmatter rule; enforce user-only triggering through strict descriptions (as `grill-me` does). |
 
 ### 1.4 License rules for absorbing content
@@ -88,17 +89,19 @@ All Wave 1 skills pass `validate-skill-yaml.sh`; their content is **shallow and 
 
 ### 2.2 Deep inventories (input for everything that follows)
 
-Five subagents were launched on 2026-11-19 to read every SKILL.md **and every supporting file** of each framework and write a mechanism catalog:
+Five subagents read every SKILL.md **and every supporting file** of each framework on 2026-11-19 and wrote mechanism catalogs. **All five are complete and committed** (~92,500 words total):
 
-| File | Content |
-|---|---|
-| `docs/research/inventory/superpowers.md` | SP-xx mechanisms, prompts/templates, scripts, rationalization tables, workflow, top 15 |
-| `docs/research/inventory/mattpocock.md` | MP-xx mechanisms, formats (glossary, ADR, agent brief, PR), vocabularies, workflow, top 15 |
-| `docs/research/inventory/addyosmani.md` | AO-xx mechanisms, consolidated checklists, agent personas, scripts, lifecycle, top 15 |
-| `docs/research/inventory/bmad.md` | BM-xx mechanisms, artifact formats, review lenses, elicitation methods, delivery loop, top 15 |
-| `docs/research/inventory/agile-v-concepts.md` | AV-xx concepts in original wording, differentiation notes, top 10 |
+| File | Mechanisms | Words | Content |
+|---|---|---|---|
+| `docs/research/inventory/superpowers.md` | 73 (SP-01…73) | ~20,200 | Mechanisms, subagent prompts/templates, scripts, rationalization tables, workflow, top 15 |
+| `docs/research/inventory/mattpocock.md` | 83 (MP-01…83) | ~18,400 | Mechanisms, formats (glossary, ADR, agent brief, PR), vocabularies, workflow, top 15 |
+| `docs/research/inventory/addyosmani.md` | 120 (AO-01…120) | ~26,300 | Mechanisms, consolidated checklists, agent personas, scripts, lifecycle, top 15 |
+| `docs/research/inventory/bmad.md` | 91 (BM-01…91) | ~23,300 | Mechanisms (from the real v7 workflow files and `customize.toml`), artifact formats, review lenses, elicitation lists, delivery loop, top 15 |
+| `docs/research/inventory/agile-v-concepts.md` | 40 concepts (AV-01…40) | ~4,300 | Concepts in original wording (verified: zero 8-word overlap with the source body), differentiation notes, top 10 |
 
-**If any inventory file is missing or thin** (fewer than ~40 mechanisms for MIT sources, or obviously description-level), regenerate it with Task 0.1's procedure before continuing.
+Each file ends with a **Top 15** (Top 10 for Agile V) ranked for the V-Method — start the matrix (Task A.2) from those lists, then sweep the full catalogs.
+
+Notable cross-inventory findings already recorded as rules in §6 or questions in §1.3.1: gate turn rule and explicit-yes approval (AO-10/11), router must not paraphrase between stages (Addy orchestration guide), one severity scale, references inside each skill directory, ledger retention before cleanup (SP-30), no telemetry (Superpowers visual companion), BMad v7 moved spec/epics/sprint/correct-course into its Product Owner agent (see bmad.md §5.3), Agile V has no NIST SSDF mapping (our `ssdf-mapping.md` fills that gap).
 
 ### 2.3 Read before starting (in this order)
 
@@ -151,7 +154,7 @@ Every Agentic V-Method skill must meet all of these before it is considered done
 
 ### Phase A — Inventories and synthesis
 
-**Task A.1 — Verify the five inventories.** For each file in §2.2: count mechanisms, spot-check five entries against the source files, confirm the Agile V file contains no copied text. Regenerate any inventory that fails (procedure: read every file of the framework's skills and supporting directories; write the catalog with the structure used by the other inventories). Commit: `docs: add deep framework inventories`.
+**Task A.1 — Verify the five inventories** (already spot-checked on 2026-11-19: counts and source paths confirmed; Agile V overlap check clean — repeat a light spot-check only). For each file in §2.2: count mechanisms, spot-check five entries against the source files, confirm the Agile V file contains no copied text. Regenerate any inventory that fails (procedure: read every file of the framework's skills and supporting directories; write the catalog with the structure used by the other inventories). Commit: `docs: add deep framework inventories`.
 
 **Task A.2 — Build the cross-framework mechanism matrix.** Create `docs/research/2026-11-19-mechanism-matrix.md`:
 - One section per stage (PL, AN, DE, BU, TE, DP, cross-cutting, router).
