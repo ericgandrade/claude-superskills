@@ -133,7 +133,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `skills/executing-plans/SKILL.md`, `skills/subagent-driven-development/SKILL.md`
 - **What it is:** Concrete context-budget rules for long runs: narrate at most one short line between tool calls; every tool call re-reads the whole context, so bookkeeping (ledger append) rides in the same call as real work (e.g. the commit); redirect long test output to a file in the workspace and read only its tail; read a task brief, not the whole plan; hand artifacts to subagents as file paths, never pasted text; never paste accumulated prior-task history into a dispatch (the source cites a 42k-character dispatch that was 99% pasted history).
 - **Failure mode prevented:** Context exhaustion and early compaction in multi-hour sessions; cost blow-up from re-reading pasted history every turn.
-- **Target:** `executing-plans` (both modes), `agentic-v-method` (`phase-boundaries.md`). **Keep** all of it; it is platform-neutral. **Change:** "file in the workspace" → the V-Method workspace path (see SP-36).
+- **Target:** `executing-plans` (both modes), `agentic-v-method` (`phase-boundaries.md`). **Keep** all of it; it is platform-neutral. **Change:** "file in the workspace" → the V-Method workspace path (see SP-30).
 
 ### B. PL Plan: intent discovery (brainstorming)
 
@@ -221,7 +221,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `skills/writing-plans/SKILL.md` (Overview; What a Step Contains)
 - **What it is:** Write for an engineer who has seen neither the codebase nor the spec, writes idiomatic code once given the exact interface and test, and makes reasonable choices wherever the plan leaves one. Document only what they cannot know: which files, names and signatures, spec values, which tests prove each task. A step is done when the implementer can write exactly one reasonable thing from it ("unambiguous, not complete"). Two failure poles: a plan longer than the code has written the code (transcript); lines that decide nothing ("TBD", "handle edge cases", "add appropriate validation", "write tests for the above", a type no task defines) are gaps. README framing: plans clear enough for "an enthusiastic junior engineer with poor taste, no judgement, no project context, and an aversion to testing."
 - **Failure mode prevented:** Plans that are either code dumps (rot, token cost, reviewer confusion) or vague wish lists.
-- **Target:** `writing-plans`. **Keep** both poles and the placeholder blacklist as a self-check. Pair with the proportion check (SP-23).
+- **Target:** `writing-plans`. **Keep** both poles and the placeholder blacklist as a self-check. Pair with the proportion check (SP-24).
 
 #### SP-18 · Scope check and file-structure map before tasks
 - **Stage:** DE
@@ -261,7 +261,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 #### SP-23 · Task template with Interfaces block and Expected outputs
 - **Stage:** DE
 - **Source:** `skills/writing-plans/SKILL.md` (Task Structure; What a Step Contains)
-- **What it is:** Each task: `### Task N: [Component]`; **Files** (`Create: exact/path`, `Modify: exact/path:123-145`, `Test: tests/exact/path`); **Interfaces** (`Consumes:` exact signatures from earlier tasks; `Produces:` exact names, parameter and return types later tasks rely on; "a task's implementer sees only their own task; this block is how they learn the names neighbors use"); checkbox steps: (1) write failing test with code including spec values; (2) `Run: <cmd>` + `Expected: FAIL with "<message>"`; (3) "Implement `fn(input: T) -> R` in `path`" with one line on approach only if the signature and test leave a choice, a code block only for an algorithm they don't determine; (4) `Run:` + `Expected: PASS`; (5) commit with exact `git add` paths and message. Step content rules: test step = name and assertions as code with exact values; code step = signature + file + pinned values, implementer writes the body; verification = command + output meaning pass; cross-task reference = point at the Interfaces block, never repeat code. The task heading must use the English literal "Task" because the brief extractor depends on it (SP-38).
+- **What it is:** Each task: `### Task N: [Component]`; **Files** (`Create: exact/path`, `Modify: exact/path:123-145`, `Test: tests/exact/path`); **Interfaces** (`Consumes:` exact signatures from earlier tasks; `Produces:` exact names, parameter and return types later tasks rely on; "a task's implementer sees only their own task; this block is how they learn the names neighbors use"); checkbox steps: (1) write failing test with code including spec values; (2) `Run: <cmd>` + `Expected: FAIL with "<message>"`; (3) "Implement `fn(input: T) -> R` in `path`" with one line on approach only if the signature and test leave a choice, a code block only for an algorithm they don't determine; (4) `Run:` + `Expected: PASS`; (5) commit with exact `git add` paths and message. Step content rules: test step = name and assertions as code with exact values; code step = signature + file + pinned values, implementer writes the body; verification = command + output meaning pass; cross-task reference = point at the Interfaces block, never repeat code. The task heading must use the English literal "Task" because the brief extractor depends on it (SP-32).
 - **Failure mode prevented:** Interface drift between tasks; implementers unable to tell if a step succeeded; executors needing the whole plan in context.
 - **Target:** `writing-plans`. **Keep** the template almost verbatim. **Add** a `**Satisfies:** AC-2, AC-5` line and `**Blocked by:** Task 1` line per task; commit message template carrying `(Task N, AC-2)`.
 
@@ -307,7 +307,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `skills/executing-plans/SKILL.md`, `skills/subagent-driven-development/SKILL.md`, `skills/using-git-worktrees/SKILL.md`
 - **What it is:** Execution starts in an isolated workspace (worktree or branch). Never implement on main/master without explicit consent.
 - **Failure mode prevented:** Half-done work on the default branch.
-- **Target:** `executing-plans`. **Keep**. Details in SP-57.
+- **Target:** `executing-plans`. **Keep**. Details in SP-66.
 
 #### SP-30 · Per-plan workspace and progress ledger (compaction recovery)
 - **Stage:** BU
