@@ -22,6 +22,21 @@ Converts specs or requirements into a detailed, executable implementation plan b
 - "Plan the refactor of the payment module before we start coding."
 - "Write a detailed migration plan to AWS — don't execute yet, just plan."
 
+## What's New in v3.0
+
+- **Agentic V-Method DE stage** — plans from an approved SPEC revision; Gate 2 approval recorded in GATES.md
+- **Task graph** — tracer-bullet vertical slices with `Satisfies: AC-n`, `Implements: ADR`, `Blocked by:` edges
+- **Wide refactors** — expand → migrate → contract sequencing
+- **Coverage check** — every acceptance criterion has a task, every task serves a criterion or is an explicit enabler
+- **Traceable commits** — commit messages carry `[Tn, AC-n]`
+- **Fixed handoff** — points to `executing-plans` (subagent or inline mode) instead of external skill names
+
+## Influences
+
+- **Superpowers** (MIT): `writing-plans` — bite-sized TDD steps, exact paths and commands, zero-context executor.
+- **Matt Pocock — skills** (MIT): `to-tickets` — tracer-bullet slices, blocking edges, expand–contract for wide refactors, prefactoring.
+- **Addy Osmani — agent-skills** (MIT): `planning-and-task-breakdown` — ordered, sized tasks.
+
 ## What's New in v2.0
 
 - **Progress Tracking** — 4-phase gauge bar (Requirements Analysis → Step Sequencing → Dependency Mapping → Plan Review) displayed during execution
@@ -34,11 +49,11 @@ Converts specs or requirements into a detailed, executable implementation plan b
 
 | Field | Value |
 |-------|-------|
-| Version | 2.0.0 |
+| Version | 3.0.0 |
 | Author | Eric Andrade |
 | Created | 2026-02-20 |
-| Updated | 2026-03-19 |
+| Updated | 2026-11-19 |
 | Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | planning |
-| Tags | planning, implementation-plan, task-breakdown, tdd |
+| Tags | agentic-v-method, planning, implementation-plan, task-graph, task-breakdown, tdd |
 | Risk | safe |
