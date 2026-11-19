@@ -29,17 +29,28 @@ Comprehensive authority for designing, reviewing, and documenting complex softwa
 - **EVals** — `evals/evals.json` with 3 realistic test cases; `evals/trigger-eval.json` with 20 queries (10 trigger / 10 no-trigger) for description optimization
 - **Standardized description** — SKILL.md description updated to Anthropic skill-creator format
 
+## What's New in v2.2
+
+- **Agentic V-Method DE stage** — inputs, outputs and Gate 2 behavior when invoked by the router
+- **ADR conventions** — `docs/adr/NNNN-<slug>.md`, status lifecycle, supersede instead of edit, links to SPEC and `AC-n`
+- Standard sections (Purpose, When to Use, Example Usage) added
+
+## Influences
+
+- **BMad Method** (MIT): `bmad-architecture` — short, decision-focused architecture documents.
+- **Addy Osmani — agent-skills** (MIT): `documentation-and-adrs`, `api-and-interface-design`.
+
 ---
 
 ## Metadata
 
 | Field | Value |
 |-------|-------|
-| Version | 2.1.0 |
+| Version | 2.2.0 |
 | Author | Eric Andrade |
 | Created | 2026-03-01 |
-| Updated | 2026-03-19 |
+| Updated | 2026-11-19 |
 | Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | architecture |
-| Tags | architecture, c4-model, adr, systems-design, clean-architecture |
+| Tags | agentic-v-method, architecture, c4-model, adr, systems-design, clean-architecture |
 | Risk | safe |

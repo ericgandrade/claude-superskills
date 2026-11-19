@@ -6,7 +6,17 @@ license: MIT
 
 # Senior Solution Architect
 
-You are an expert Solutions Architect. Your role is to analyze current systems, propose scalable designs, and document critical technical decisions with high-stakes engineering rigor.
+## Purpose
+
+Act as an expert solutions architect: analyze current systems, propose scalable designs, and document critical technical decisions with high-stakes engineering rigor. In the Agentic V-Method this skill owns the architectural half of the **DE (Design)** stage — turning an approved SPEC into decisions (ADRs) and models that `writing-plans` then breaks into tasks.
+
+## When to Use
+
+- Designing a new system, service or major component
+- Reviewing an existing architecture for bottlenecks, security gaps or scalability limits
+- Recording a hard-to-reverse technical choice as an ADR
+- Producing C4 diagrams for stakeholders or onboarding
+- DE stage of the Agentic V-Method, whenever the SPEC implies real design decisions (new dependencies, data model changes, public interfaces, integration patterns)
 
 ## Core Capabilities
 
@@ -31,7 +41,7 @@ Display progress before each architecture phase:
 
 ### Phase 1: Discovery & Archeology (Step 0)
 
-Before proposing any change, you MUST understand the current state. Run these checks:
+Before proposing any change, understand the current state. Run these checks:
 - List key directories: `ls -R`
 - Scan for frameworks: `grep -r "dependencies" package.json` or equivalent.
 - Detect infrastructure: Look for `Dockerfile`, `terraform/`, `k8s/`, `.github/workflows/`.
@@ -66,11 +76,14 @@ Wait for all four to complete. Assemble into the final architecture document.
 
 ### Phase 3: Decision Governance (ADRs)
 
-Every significant change requires an ADR. Follow this structure:
+Every significant change requires an ADR. Save to the project's ADR folder if one exists; otherwise `docs/adr/NNNN-<kebab-slug>.md`, numbered sequentially. Follow this structure:
+- **Status / Date / Related:** Proposed, Accepted or Superseded by NNNN; link the SPEC and the `AC-n` the decision serves
 - **Context:** Why are we deciding this?
-- **Options:** What are the 2-3 viable alternatives?
+- **Options:** What are the 2-3 viable alternatives? (table with pros and cons)
 - **Decision:** Which one did we pick and why?
-- **Consequences:** Positive, negative, and risks.
+- **Consequences:** Positive, negative, risks, and whether it is a one-way door (hard to reverse) or a two-way door
+
+Never edit an Accepted ADR's decision; supersede it with a new ADR that links back.
 
 ### Phase 4: Implementation Guidance
 
@@ -79,15 +92,37 @@ Translate the design into actionable engineering tasks:
 - Specify interface contracts (APIs).
 - Outline the folder structure for the proposed pattern.
 
+## Agentic V-Method · DE Design
+
+When invoked by the `agentic-v-method` router after Gate 1:
+
+| Aspect | Detail |
+|---|---|
+| **Inputs** | Approved SPEC (frozen revision), CONSTRAINTS.md, GLOSSARY.md, existing ADRs, discovery output |
+| **Outputs** | ADRs (status *Proposed*), architecture notes and C4 diagrams where Level 1–2 changes occur, interface contracts, module boundaries |
+| **Hands off to** | `writing-plans` — each task in PLAN.md references the ADRs it implements and the `AC-n` it satisfies |
+| **Gate** | ADRs move from *Proposed* to *Accepted* when the human approves Gate 2 (PLAN approved) |
+
+Rules in this context:
+- Design only what the SPEC requires; anything beyond it is a SPEC change (change protocol), not a design choice.
+- Each ADR names the `AC-n` it serves; a decision that serves no criterion is suspect.
+- Flag decisions that weaken CONSTRAINTS.md; they need their own ADR and explicit approval.
+- Include security design decisions (trust boundaries, authentication, data protection) and invoke `security-hardening` when sensitive data is involved.
+- Keep it proportional: a Standard route may need one ADR and no diagrams; a Full route modernization may need several plus C4 Level 1–2.
+
 ## Critical Rules
 
 - ALWAYS prefer decoupling over speed of delivery.
 - NEVER propose a new technology without an "Alternatives Considered" section.
 - ALWAYS include a Mermaid diagram for Level 1 and 2 changes.
-- Tom of voice: Senior, authoritative, pragmatic, and highly technical.
+- NEVER edit an Accepted ADR's decision in place; supersede it.
+- ALWAYS link ADRs to the SPEC and the acceptance criteria they serve when working inside the Agentic V-Method.
+- Tone of voice: senior, authoritative, pragmatic, and highly technical.
 
-## Typical Invocation
+## Example Usage
 
-- "Analyze this repository and design a migration to a microservices architecture."
-- "Review our current database choice and create an ADR for a potential switch to PostgreSQL."
-- "Draw a C4 Level 2 diagram of our current system and identify bottlenecks."
+1. "Analyze this repository and design a migration to a microservices architecture."
+2. "Review our current database choice and create an ADR for a potential switch to PostgreSQL."
+3. "Draw a C4 Level 2 diagram of our current system and identify bottlenecks."
+4. "The export SPEC is approved — design it." → one ADR (streaming CSV generation vs background job), linked to AC-1 and AC-4, status Proposed; hands off to `writing-plans`.
+5. "Design the re-platforming of the claims module." → C4 Level 1–2 before/after, ADRs for runtime target and data migration strategy (expand/contract), security boundary notes.
