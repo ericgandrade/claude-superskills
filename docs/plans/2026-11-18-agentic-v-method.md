@@ -1,7 +1,7 @@
 # Agentic V-Method Implementation Plan
 
 > **For Claude:** REQUIRED SUB-SKILL: Use `executing-plans` to implement this plan task-by-task.
-> **Status:** APPROVED FOR EXECUTION — all owner decisions resolved on 2026-11-18 ([Section 9](#9-decision-log)). Start at Wave 0.
+> **Status:** Wave 0 and a first (shallow) Wave 1 done. **Execution continues in `docs/plans/2026-11-19-agentic-v-method-depth-pass.md`**, which supersedes the wave order below from Wave 1 onward. Design (§3), inventory (§4) and decisions (§9) here remain authoritative.
 
 **Goal:** Turn claude-superskills into the home of the **Agentic V-Method**, a definitive, portable, spec-first AI software delivery method that runs the classic software engineering lifecycle (Plan · Analyze · Design · Build · Test · Deploy) in a V shape, combining the strongest ideas of Superpowers, Matt Pocock's skills, Addy Osmani's agent-skills and the BMad Method.
 
