@@ -1,22 +1,90 @@
 [
-  { "query": "grill me on this architecture", "should_trigger": true },
-  { "query": "grill me on my migration plan", "should_trigger": true },
-  { "query": "I want you to grill me before I present this to the team", "should_trigger": true },
-  { "query": "I want you to grill me hard on this plan", "should_trigger": true },
-  { "query": "stress-test this design with me", "should_trigger": false },
-  { "query": "poke holes in my carve-out plan", "should_trigger": false },
-  { "query": "play devil's advocate on this approach", "should_trigger": false },
-  { "query": "challenge every assumption in my plan", "should_trigger": false },
-  { "query": "I need someone to pressure-test this before we commit", "should_trigger": false },
-  { "query": "ask me hard questions about this architecture", "should_trigger": false },
-  { "query": "review this plan and tell me what's wrong", "should_trigger": false },
-  { "query": "give me feedback on this design doc", "should_trigger": false },
-  { "query": "write me an implementation plan for this feature", "should_trigger": false },
-  { "query": "what do you think of this approach?", "should_trigger": false },
-  { "query": "help me brainstorm ideas for this system", "should_trigger": false },
-  { "query": "explain the trade-offs between these two options", "should_trigger": false },
-  { "query": "can you summarize this architecture doc?", "should_trigger": false },
-  { "query": "what questions should I be asking about this design?", "should_trigger": false },
-  { "query": "help me prepare for a design review meeting", "should_trigger": false },
-  { "query": "is this a good plan?", "should_trigger": false }
+  {
+    "query": "grill me on this architecture",
+    "should_trigger": true
+  },
+  {
+    "query": "grill me on my migration plan",
+    "should_trigger": true
+  },
+  {
+    "query": "I want you to grill me before I present this to the team",
+    "should_trigger": true
+  },
+  {
+    "query": "I want you to grill me hard on this plan",
+    "should_trigger": true
+  },
+  {
+    "query": "stress-test this design with me",
+    "should_trigger": false
+  },
+  {
+    "query": "poke holes in my carve-out plan",
+    "should_trigger": false
+  },
+  {
+    "query": "play devil's advocate on this approach",
+    "should_trigger": false
+  },
+  {
+    "query": "challenge every assumption in my plan",
+    "should_trigger": false
+  },
+  {
+    "query": "I need someone to pressure-test this before we commit",
+    "should_trigger": false
+  },
+  {
+    "query": "ask me hard questions about this architecture",
+    "should_trigger": false
+  },
+  {
+    "query": "review this plan and tell me what's wrong",
+    "should_trigger": false
+  },
+  {
+    "query": "give me feedback on this design doc",
+    "should_trigger": false
+  },
+  {
+    "query": "write me an implementation plan for this feature",
+    "should_trigger": false
+  },
+  {
+    "query": "what do you think of this approach?",
+    "should_trigger": false
+  },
+  {
+    "query": "help me brainstorm ideas for this system",
+    "should_trigger": false
+  },
+  {
+    "query": "explain the trade-offs between these two options",
+    "should_trigger": false
+  },
+  {
+    "query": "can you summarize this architecture doc?",
+    "should_trigger": false
+  },
+  {
+    "query": "what questions should I be asking about this design?",
+    "should_trigger": false
+  },
+  {
+    "query": "help me prepare for a design review meeting",
+    "should_trigger": false
+  },
+  {
+    "query": "is this a good plan?",
+    "should_trigger": false
+  },
+  {
+    "query": "Grill me on the billing service design and write down the decisions as ADRs",
+    "should_trigger": true
+  },
+  {
+    "query": "Write the spec for the billing service",
+    "should_trigger": false
+  }
 ]
