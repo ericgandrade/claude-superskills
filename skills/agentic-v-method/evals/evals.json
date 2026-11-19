@@ -1,0 +1,41 @@
+{
+  "skill_name": "agentic-v-method",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Using the Agentic V-Method, add a CSV export button to the reports page of our Express + React app. The export includes customer names and order totals for the currently filtered rows.",
+      "expected_output": "Routes the work through PL sizing, proposes the Standard route, and drives AN toward a SPEC before any code",
+      "expectations": [
+        "Output checks the repository for existing method artifacts or conventions before creating new ones",
+        "Output asks at most three sizing questions (scope, risk, reversibility) or infers them, and proposes a route with justification",
+        "Output identifies the sensitive-data and CSV-injection risk and recommends at least the Standard route",
+        "Output does not write production code before a SPEC with numbered acceptance criteria is approved (Gate 1)",
+        "Output shows the stage progress (PL, AN, DE, BU, TE, DP) and names the next skill to invoke"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Continue the payments refactor. The folder docs/v-method/2026-11-02-payments-refactor has SPEC.md (revision 2, approved), PLAN.md with tasks T1-T8, and GATES.md showing Gate 1 and Gate 2 approved. Git log shows commits for T1 through T5.",
+      "expected_output": "Detects state from artifacts and resumes the Build stage at T6 after confirming with the user",
+      "expectations": [
+        "Output reads or references the existing artifacts instead of restarting planning",
+        "Output determines the current stage is BU and the next task is T6",
+        "Output asks the user to confirm before resuming",
+        "Output names executing-plans (and test-driven-development) as the skills for the next step",
+        "Output does not re-run Gate 1 or Gate 2 without a reason"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We approved the SPEC for the export feature yesterday and started building. Now product says the export must also support Excel. Just add it to the current task, it's small.",
+      "expected_output": "Applies the change protocol instead of silently expanding scope",
+      "expectations": [
+        "Output declines to silently add the requirement to the current task",
+        "Output performs or outlines an impact analysis (new acceptance criterion, tasks, tests, rollback)",
+        "Output proposes a new SPEC revision and re-approval of Gate 1 (and Gate 2 if the plan changes)",
+        "Output records or proposes recording the decision in GATES.md",
+        "Output keeps the explanation short and offers to proceed once approved"
+      ]
+    }
+  ]
+}
