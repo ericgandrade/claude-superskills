@@ -1,5 +1,7 @@
 # Agentic SDLC Implementation Plan
 
+> ⛔ **SUPERSEDED (2026-11-20) by `docs/plans/2026-11-20-agentic-sdlc-execution-plan.md` (decision D10).** This file describes the earlier V-shaped design and is kept for history only. Do not execute it.
+
 > ⚠️ **Design superseded (2026-11-20):** this master plan describes the earlier **V-shaped, six-stage** design (then called "Agentic V-Method"). The owner replaced it with the **Agentic SDLC**: a continuous cycle of eight stages (PL · AN · DE · BU · TE · RV · DP · OP), one AI agent role per stage, named human checkpoints CP1–CP5 and an Operate → Plan feedback loop (decision D8). Authoritative design: `skills/agentic-sdlc/references/lifecycle.md` and `references/agents.md`; execution plan: `docs/plans/2026-11-19-agentic-sdlc-depth-pass.md`. Names in this file were updated mechanically; V-specific sections (§3) are kept for history only. Sections §1 (business alignment), §2 (framework evaluation) and the license/naming rules remain valid.
 
 > **For Claude:** REQUIRED SUB-SKILL: Use `executing-plans` to implement this plan task-by-task.

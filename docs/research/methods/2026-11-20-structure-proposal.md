@@ -1,6 +1,6 @@
 # Agentic SDLC — Structure Proposal (for owner decision D10)
 
-**Status:** PROPOSAL — not applied to any skill. Awaiting owner confirmation item by item (§9).
+**Status:** APPROVED by the owner on 2026-11-20 as decision D10, with agents named by function (option C: Planner, Implementer, Reviewer + Architect, Test Engineer, Security Auditor, Release Engineer, SRE). Execution: `docs/plans/2026-11-20-agentic-sdlc-execution-plan.md`.
 
 **Evidence base** (all in `docs/research/methods/`):
 - `classic-and-standards.md` — ISO/IEC/IEEE 12207, SWEBOK v4, Waterfall, V-model, Spiral, RUP/OpenUP, IEC 62304, DO-178C (48 sources; † marks claims from search excerpts not re-read in the primary text)

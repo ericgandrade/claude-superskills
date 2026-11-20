@@ -1,5 +1,7 @@
 # Agentic SDLC — Depth Pass & Continuation Plan (handoff)
 
+> ⛔ **SUPERSEDED (2026-11-20) by `docs/plans/2026-11-20-agentic-sdlc-execution-plan.md` (decision D10).** This file describes the earlier 8-stage cycle and is kept for history only. Do not execute it.
+
 > 🛑 **STRUCTURE UNDER REVIEW (2026-11-20).** The owner rejected the current stage structure (8-stage cycle and the 3-loop variant) as unclear and not aligned with standard software-engineering vocabulary. A broad comparative research of ~20 methods is in progress (`docs/research/methods/`: classic and standards, agile/flow/DevOps, AI-native methods). **Do not start Phase B or any skill rewrite until decision D10 (final structure) is recorded here.** Phase A (mechanism matrix) may proceed only for stage-independent capabilities.
 
 > **For the executing agent (Codex, Claude Code or any other):** this document is self-contained. Read it fully, then read the files listed in §2.3 before touching anything. Execute task by task with the `executing-plans` discipline: one task at a time, verify, commit, move on. Stop at every **Checkpoint** and wait for the owner.
