@@ -1,6 +1,6 @@
 ---
 name: grill-me
-description: Relentless Socratic interview that walks down every branch of a plan or design, resolving decisions round by round and, inside a repository, recording glossary terms and ADRs as it goes (Analyze stage of the Agentic V-Method). Trigger ONLY when the user explicitly says "grill me" or the PT equivalent "me grille", or when the agentic-v-method router invokes it with the user's agreement. Do NOT trigger for stress-test, poke holes, devil's advocate, challenge, review, or feedback requests.
+description: Relentless Socratic interview that walks down every branch of a plan or design, resolving decisions round by round and, inside a repository, recording glossary terms and ADRs as it goes (Analyze stage of the Agentic SDLC). Trigger ONLY when the user explicitly says "grill me" or the PT equivalent "me grille", or when the agentic-sdlc router invokes it with the user's agreement. Do NOT trigger for stress-test, poke holes, devil's advocate, challenge, review, or feedback requests.
 license: MIT
 ---
 
@@ -10,7 +10,7 @@ license: MIT
 
 Stress-test a plan, design or idea through relentless questioning until every branch of the decision tree is resolved and nothing is silently assumed. The agent finds the facts; the human makes the decisions.
 
-Inside a repository, run in **docs mode**: resolved vocabulary goes into `GLOSSARY.md` and hard-to-reverse decisions become ADRs, so the interview leaves a durable trail. In the Agentic V-Method this is an **AN (Analyze)** tool: the closing summary is the raw material for `spec-driven-development`.
+Inside a repository, run in **docs mode**: resolved vocabulary goes into `GLOSSARY.md` and hard-to-reverse decisions become ADRs, so the interview leaves a durable trail. In the Agentic SDLC this is an **AN (Analyze)** tool: the closing summary is the raw material for `spec-driven-development`.
 
 ## When to Use
 
@@ -20,7 +20,7 @@ Trigger ONLY when the user explicitly uses the word "grill" — e.g.:
 - "I want you to grill me before I present"
 - PT: "me grille sobre esse plano"
 
-Also run when the `agentic-v-method` router proposes it during Analyze and the user agrees.
+Also run when the `agentic-sdlc` router proposes it during Analyze and the user agrees.
 
 Do NOT trigger for synonyms or near-misses, even when the intent seems similar:
 - "stress-test this" → not grill-me
@@ -35,7 +35,7 @@ Do NOT trigger for synonyms or near-misses, even when the intent seems similar:
 
 ### Step 0 — Understand the subject and choose the mode
 
-Read the plan, design or idea provided. If working in a codebase, explore the relevant files, `GLOSSARY.md`, existing ADRs (`docs/adr/`) and the V-Method artifacts (`docs/v-method/**`) before asking anything that the code or docs can answer.
+Read the plan, design or idea provided. If working in a codebase, explore the relevant files, `GLOSSARY.md`, existing ADRs (`docs/adr/`) and the Agentic SDLC artifacts (`docs/agentic-sdlc/**`) before asking anything that the code or docs can answer.
 
 - **Docs mode** (default inside a repository): record terms and decisions as they settle.
 - **Conversation mode** (no repository, or the user declines files): same interview, nothing written.
@@ -101,7 +101,7 @@ The session ends when the frontier is empty: every branch visited, nothing left 
 - **Candidate acceptance criteria** — observable statements that emerged ("Given…, when…, then…")
 - **Docs written** — glossary entries and ADRs (docs mode)
 
-In the Agentic V-Method, hand the summary to `spec-driven-development` (synthesize mode) to produce the SPEC.
+In the Agentic SDLC, hand the summary to `spec-driven-development` (synthesize mode) to produce the SPEC.
 
 ## Critical Rules
 
@@ -128,7 +128,7 @@ Reads the repo and existing ADRs. Round 1: Q1 sync vs async invoicing, Q2 single
 
 Conversation mode. Rounds on cutover strategy, data migration downtime, DNS rollback, cost ceiling. Pushes back on "we'll just restore from backup" by asking when the restore was last tested.
 
-**3. Inside the V-Method**
+**3. Inside the Agentic SDLC**
 > Router: "Open decisions remain on the export feature. Run grill-me?" User: "Yes, grill me."
 
 Two short rounds settle file format, row limit and permission model; the summary goes straight to `spec-driven-development`.

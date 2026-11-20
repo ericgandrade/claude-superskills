@@ -1,6 +1,6 @@
 # spec-driven-development
 
-Analyze-stage (AN) skill of the **Agentic V-Method**: writes the SPEC — objectives, numbered acceptance criteria (`AC-n`), boundaries, rollback and success indicators — and runs **Gate 1**. The approved revision is frozen and becomes the baseline every later artifact traces back to.
+Analyze-stage (AN) skill of the **Agentic SDLC**: writes the SPEC — objectives, numbered acceptance criteria (`AC-n`), boundaries, rollback and success indicators — and runs **CP2**. The approved revision is frozen and becomes the baseline every later artifact traces back to.
 
 ## When to use
 
@@ -15,12 +15,12 @@ Analyze-stage (AN) skill of the **Agentic V-Method**: writes the SPEC — object
 |---|---|
 | create | Short interview needed |
 | synthesize | Answers already exist in the conversation or brief |
-| validate | Check an existing spec before Gate 1 |
+| validate | Check an existing spec before CP2 |
 | revise | Change an approved spec via the change protocol |
 
 ## What is included
 
-- `SKILL.md` — scope check, assumptions, SPEC sections, acceptance-criteria rules, doubt pass, Gate 1, revise and validate modes
+- `SKILL.md` — scope check, assumptions, SPEC sections, acceptance-criteria rules, doubt pass, CP2, revise and validate modes
 - `evals/evals.json` — 3 scenarios (synthesize, validate, revise)
 - `evals/trigger-eval.json` — 14 trigger queries (8 positive, 6 negative)
 
@@ -49,5 +49,5 @@ Analyze-stage (AN) skill of the **Agentic V-Method**: writes the SPEC — object
 | Updated | 2026-11-19 |
 | Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | planning |
-| Tags | agentic-v-method, specification, acceptance-criteria, requirements, spec-driven |
+| Tags | agentic-sdlc, specification, acceptance-criteria, requirements, spec-driven |
 | Risk | safe |

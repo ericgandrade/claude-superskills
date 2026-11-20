@@ -4,13 +4,13 @@
     {
       "id": 1,
       "prompt": "We agreed in brainstorming: managers can export the currently filtered report as CSV, up to 50,000 rows, behind a feature flag. Customer names and order totals are included. Write the spec.",
-      "expected_output": "A SPEC in synthesize mode with numbered, testable acceptance criteria, boundaries, rollback, indicators and a Gate 1 request",
+      "expected_output": "A SPEC in synthesize mode with numbered, testable acceptance criteria, boundaries, rollback, indicators and a CP2 request",
       "expectations": [
         "Output lists assumptions before or alongside the draft",
         "Output numbers acceptance criteria as AC-1, AC-2, ... in Given/When/Then form",
         "Output includes unhappy-path criteria such as missing permission, row limit exceeded, and CSV injection",
         "Output includes boundaries (always / ask first / never), a rollback via the feature flag, and at least one measurable indicator",
-        "Output performs or describes a doubt pass and asks explicitly for Gate 1 approval without writing code"
+        "Output performs or describes a doubt pass and asks explicitly for CP2 approval without writing code"
       ]
     },
     {
@@ -32,7 +32,7 @@
         "Output does not edit revision 1 in place",
         "Output performs an impact analysis on criteria, tasks, tests, rollback and dependencies",
         "Output adds new criteria with new IDs while keeping existing AC IDs stable",
-        "Output creates revision 2 and requests Gate 1 re-approval, recording it in GATES.md"
+        "Output creates revision 2 and requests CP2 re-approval, recording it in CHECKPOINTS.md"
       ]
     }
   ]

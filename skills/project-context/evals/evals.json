@@ -4,12 +4,12 @@
     {
       "id": 1,
       "prompt": "Set up agent instructions for this Node.js repo. It has package.json with scripts test (vitest), lint (eslint) and build (tsc), a .github/workflows/ci.yml, and no AGENTS.md or CLAUDE.md.",
-      "expected_output": "Discovers commands from files, verifies them, asks only gap questions, and proposes a small V-Method block before writing",
+      "expected_output": "Discovers commands from files, verifies them, asks only gap questions, and proposes a small Agentic SDLC block before writing",
       "expectations": [
         "Output reads package.json and CI configuration before asking questions",
         "Output does not ask the user to confirm commands already stated in package.json",
         "Output verifies or plans to verify each command before stating it",
-        "Output proposes a compact block between V-METHOD markers including build, test and lint commands and a reference to CONSTRAINTS.md",
+        "Output proposes a compact block between AGENTIC-SDLC markers including build, test and lint commands and a reference to CONSTRAINTS.md",
         "Output shows the block and waits for approval before writing"
       ]
     },
@@ -27,14 +27,14 @@
     },
     {
       "id": 3,
-      "prompt": "Our CLAUDE.md has 300 lines from three different people over two years. Adopt it into the V-Method format.",
+      "prompt": "Our CLAUDE.md has 300 lines from three different people over two years. Adopt it into the Agentic SDLC format.",
       "expected_output": "Adopt mode with a ledger that preserves existing instructions and proposes explicit decisions",
       "expectations": [
         "Output treats existing content as the baseline instead of rewriting from scratch",
         "Output builds or describes a ledger with a decision per instruction (retain, rewrite, relocate, automate, delete) and reasons",
         "Output requires explicit approval for deletions",
         "Output proposes automated checks for rules a tool can enforce",
-        "Output only modifies content between the V-METHOD markers unless a ledger entry is approved"
+        "Output only modifies content between the AGENTIC-SDLC markers unless a ledger entry is approved"
       ]
     }
   ]

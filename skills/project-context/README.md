@@ -1,6 +1,6 @@
 # project-context
 
-Plan-stage (PL) foundation of the **Agentic V-Method**: gives every agent session in a repository the same verified starting context — commands, conventions, the quality bar, domain vocabulary and known agent pitfalls.
+Plan-stage (PL) foundation of the **Agentic SDLC**: gives every agent session in a repository the same verified starting context — commands, conventions, the quality bar, domain vocabulary and known agent pitfalls.
 
 ## When to use
 
@@ -40,5 +40,5 @@ Plan-stage (PL) foundation of the **Agentic V-Method**: gives every agent sessio
 | Updated | 2026-11-19 |
 | Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | planning |
-| Tags | agentic-v-method, agents-md, claude-md, constraints, glossary, context-engineering |
+| Tags | agentic-sdlc, agents-md, claude-md, constraints, glossary, context-engineering |
 | Risk | safe |

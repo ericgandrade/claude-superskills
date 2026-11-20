@@ -1,6 +1,6 @@
 ---
 name: writing-plans
-description: This skill should be used when the user has a spec or requirements for a multi-step task before touching code — breaking the work into a task graph of test-first vertical slices with exact files, commands, expected outputs and links to acceptance criteria (the Design stage and Gate 2 of the Agentic V-Method).
+description: This skill should be used when the user has a spec or requirements for a multi-step task before touching code — breaking the work into a task graph of test-first vertical slices with exact files, commands, expected outputs and links to acceptance criteria (the Design stage and CP3 of the Agentic SDLC).
 license: MIT
 ---
 
@@ -8,7 +8,7 @@ license: MIT
 
 ## Purpose
 
-Turn an approved specification into an executable, low-ambiguity plan that another engineer — or a fresh agent with no context — can run task by task with predictable outcomes. The plan is a **task graph**: vertical slices, each declaring the acceptance criteria it satisfies and the tasks that block it. It is the **DE (Design)** artifact of the Agentic V-Method and the subject of **Gate 2**.
+Turn an approved specification into an executable, low-ambiguity plan that another engineer — or a fresh agent with no context — can run task by task with predictable outcomes. The plan is a **task graph**: vertical slices, each declaring the acceptance criteria it satisfies and the tasks that block it. It is the **DE (Design)** artifact of the Agentic SDLC and the subject of **CP3**.
 
 Write as if the executor is skilled but knows nothing about this codebase, its tools or its domain, and has questionable taste in test design. Spell out everything: files, code intent, commands, expected output. DRY. YAGNI. TDD. Frequent commits.
 
@@ -19,7 +19,7 @@ Write as if the executor is skilled but knows nothing about this codebase, its t
 - A SPEC (or equivalent requirements) exists and implementation has not started
 - Work spans several files, layers or sessions and needs coordination
 - A handoff-ready plan is needed for another session, engineer or subagents
-- DE stage of the Agentic V-Method, after Gate 1 (and after `senior-solution-architect` when real design decisions exist)
+- DE stage of the Agentic SDLC, after CP2 (and after `senior-solution-architect` when real design decisions exist)
 
 Not for a one-file Quick-route fix — `test-driven-development` alone is enough there.
 
@@ -29,14 +29,14 @@ Not for a one-file Quick-route fix — `test-driven-development` alone is enough
 [█████░░░░░░░░░░░░░░░] 25% — Phase 1/4: Gathering Context & Constraints
 [██████████░░░░░░░░░░] 50% — Phase 2/4: Slicing Into a Task Graph
 [███████████████░░░░░] 75% — Phase 3/4: Specifying Files, Code & Commands
-[████████████████████] 100% — Phase 4/4: Coverage Check, Gate 2 & Handoff
+[████████████████████] 100% — Phase 4/4: Coverage Check, CP3 & Handoff
 ```
 
 ## Workflow
 
 ### Phase 1 — Gather context and constraints
 
-1. Read the approved SPEC (note its revision), the ADRs it produced, CONSTRAINTS.md, GLOSSARY.md and the V-Method block in AGENTS.md/CLAUDE.md.
+1. Read the approved SPEC (note its revision), the ADRs it produced, CONSTRAINTS.md, GLOSSARY.md and the Agentic SDLC block in AGENTS.md/CLAUDE.md.
 2. Explore the code the plan will touch: entry points, existing tests and their harness, conventions, similar features to imitate.
 3. Look for **prefactoring** opportunities — "make the change easy, then make the easy change." A prefactor becomes the first task.
 4. Use the domain vocabulary from GLOSSARY.md in task titles and descriptions.
@@ -116,10 +116,10 @@ Rules for the detail:
 - **Non-code tasks** (docs, config, Markdown skills, infrastructure) still get a verification step: the command or check that proves the task is done (validator, lint, dry run, `terraform plan`).
 - Reference relevant skills by name where they apply (`test-driven-development`, `systematic-debugging`, `security-hardening`).
 
-### Phase 4 — Coverage check, Gate 2, handoff
+### Phase 4 — Coverage check, CP3, handoff
 
 1. **Coverage both ways:** every `AC-n` in the SPEC maps to at least one task; every task satisfies at least one `AC-n` or is an explicit enabler (prefactor, setup). Show the check as a short list; fix gaps before proceeding.
-2. **Save the plan** to the project convention, or `docs/v-method/YYYY-MM-DD-<feature>/PLAN.md` (standalone use: `docs/plans/YYYY-MM-DD-<feature>.md`). Optionally write one file per task under `tasks/NN-<slug>.md` for subagent execution or export to an issue tracker, keeping the `Blocked by` edges.
+2. **Save the plan** to the project convention, or `docs/agentic-sdlc/YYYY-MM-DD-<feature>/PLAN.md` (standalone use: `docs/plans/YYYY-MM-DD-<feature>.md`). Optionally write one file per task under `tasks/NN-<slug>.md` for subagent execution or export to an issue tracker, keeping the `Blocked by` edges.
 3. **Plan header:**
 
 ```markdown
@@ -131,7 +131,7 @@ Rules for the detail:
 **Goal:** <one sentence> · **Architecture:** <2–3 sentences> · **Tech stack:** <key technologies>
 ```
 
-4. **Gate 2:** present the task graph, coverage check and any risks; ask explicitly: "Approve this plan for execution?" Record the decision in `GATES.md`; ADRs referenced by the plan move from *Proposed* to *Accepted*.
+4. **CP3:** present the task graph, coverage check and any risks; ask the Tech lead explicitly: "Approve this design and plan for execution?" End the turn. Record the decision in `CHECKPOINTS.md`; ADRs referenced by the plan move from *Proposed* to *Accepted*.
 5. **Handoff:** offer the execution mode:
    - **Subagent mode (this session):** fresh subagent per task, spec-compliance review then quality review between tasks, parallel only across independent ready tasks.
    - **Inline mode or separate session:** batches with checkpoints, in this session or a new one opened on the plan file.
@@ -139,13 +139,13 @@ Rules for the detail:
 
 ## Critical Rules
 
-- **NEVER** plan against an unapproved SPEC on Standard or Full routes; report the missing Gate 1 instead.
+- **NEVER** plan against an unapproved SPEC on Standard or Full routes; report the missing CP2 instead.
 - **NEVER** leave steps abstract — every step names files, code intent, commands and expected output.
 - **NEVER** slice horizontally by layer except for wide refactors sequenced expand → migrate → contract.
 - **NEVER** add tasks that satisfy no criterion and enable nothing; that is scope creep — raise it as a SPEC change.
 - **ALWAYS** declare `Satisfies` and `Blocked by` on every task.
 - **ALWAYS** start each code task with a failing test and its expected failure.
-- **ALWAYS** run the coverage check before Gate 2.
+- **ALWAYS** run the coverage check before CP3.
 - **ALWAYS** keep secrets and real personal or client data out of plan examples and fixtures.
 
 ## Example Usage
@@ -153,7 +153,7 @@ Rules for the detail:
 **1. From an approved SPEC**
 > "SPEC rev 1 for CSV export is approved — write the plan."
 
-Reads the SPEC and ADR-0007, finds the report query duplicated in two places, makes a prefactor T1, slices T2–T5 by criterion, shows the graph, gets agreement, writes TDD steps, passes the coverage check, requests Gate 2.
+Reads the SPEC and ADR-0007, finds the report query duplicated in two places, makes a prefactor T1, slices T2–T5 by criterion, shows the graph, gets agreement, writes TDD steps, passes the coverage check, requests CP3.
 
 **2. Wide refactor**
 > "Plan renaming `customer_id` to `account_id` across the monorepo."
@@ -173,4 +173,4 @@ Tasks include `terraform plan` verification steps, a feature-flagged dual-run ta
 **5. Coverage gap found**
 > Coverage check shows AC-4 (row limit) has no task.
 
-Adds T5 before Gate 2 and reports the fix.
+Adds T5 before CP3 and reports the fix.

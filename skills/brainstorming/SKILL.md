@@ -1,6 +1,6 @@
 ---
 name: brainstorming
-description: This skill should be used when the user needs pre-implementation ideation for creative work, such as creating features, building components, adding functionality, or modifying behavior — exploring the problem, generating and comparing approaches, and agreeing on a design brief before any specification or code (the Plan stage of the Agentic V-Method).
+description: This skill should be used when the user needs pre-implementation ideation for creative work, such as creating features, building components, adding functionality, or modifying behavior — exploring the problem, generating and comparing approaches, and agreeing on a design brief before any specification or code (the Plan stage of the Agentic SDLC).
 license: MIT
 ---
 
@@ -8,7 +8,7 @@ license: MIT
 
 ## Purpose
 
-Turn a raw idea into an agreed design brief through collaborative dialogue: understand the real problem, widen the option space, converge on one direction with explicit trade-offs, and write down what will and will not be built. In the Agentic V-Method this is the **PL (Plan)** stage's ideation step; its output feeds `spec-driven-development` in AN.
+Turn a raw idea into an agreed design brief through collaborative dialogue: understand the real problem, widen the option space, converge on one direction with explicit trade-offs, and write down what will and will not be built. In the Agentic SDLC this is the **PL (Plan)** stage's ideation step; its output feeds `spec-driven-development` in AN.
 
 ## When to Use
 
@@ -17,7 +17,7 @@ Turn a raw idea into an agreed design brief through collaborative dialogue: unde
 - Several viable approaches exist and trade-offs must be weighed
 - A design must be agreed before a specification or code is written
 
-Skip it when the approach is already agreed and only the details remain — go straight to `spec-driven-development`. For a well-understood bug, use the Quick route of `agentic-v-method` instead.
+Skip it when the approach is already agreed and only the details remain — go straight to `spec-driven-development`. For a well-understood bug, use the Quick route of `agentic-sdlc` instead.
 
 ## Progress Tracking
 
@@ -75,7 +75,7 @@ Keep each option to two or three lines. Do not evaluate yet.
 
 ### Phase 5 — Write the brief and hand off
 
-Save the brief using the project's convention if one exists (e.g., `docs/plans/YYYY-MM-DD-<topic>-design.md`); otherwise `docs/v-method/YYYY-MM-DD-<topic>/BRIEF.md`.
+Save the brief using the project's convention if one exists (e.g., `docs/plans/YYYY-MM-DD-<topic>-design.md`); otherwise `docs/agentic-sdlc/YYYY-MM-DD-<topic>/BRIEF.md`.
 
 ```markdown
 # BRIEF — <topic>
@@ -92,7 +92,7 @@ Save the brief using the project's convention if one exists (e.g., `docs/plans/Y
 ```
 
 Commit the brief only with the user's go-ahead. Then hand off:
-- **Agentic V-Method / most cases:** invoke `spec-driven-development` to turn the brief into a SPEC with numbered acceptance criteria (AN stage).
+- **Agentic SDLC / most cases:** invoke `spec-driven-development` to turn the brief into a SPEC with numbered acceptance criteria (AN stage).
 - **Spec already exists or the user explicitly wants to skip it:** invoke `writing-plans`.
 - Do not invoke implementation skills from brainstorming.
 
@@ -103,7 +103,7 @@ Commit the brief only with the user's go-ahead. Then hand off:
 - **NEVER** ask more than one question per message, or ask what the repository already answers.
 - **NEVER** evaluate while diverging — generate first, judge second.
 - **ALWAYS** confirm the problem statement before generating solutions.
-- **ALWAYS** capture a success indicator so the Deploy stage can measure the outcome.
+- **ALWAYS** capture a success indicator so the Operate stage can measure the outcome after release.
 - **ALWAYS** record "Not doing" items with reasons — they prevent scope creep later.
 - **ALWAYS** keep prototypes throwaway and outside the main branch.
 
@@ -115,7 +115,7 @@ Commit the brief only with the user's go-ahead. Then hand off:
 | "The user already said what they want" | They said a solution. Confirm the need behind it. |
 | "One good option is enough" | Without an alternative there is no trade-off, only a guess. |
 | "We can figure out success later" | Without an indicator, Deploy cannot tell whether it worked. |
-| "The prototype works, let's ship it" | Prototypes skip tests and edge cases by design. Carry the learning, rewrite through the V. |
+| "The prototype works, let's ship it" | Prototypes skip tests and edge cases by design. Carry the learning, rebuild it through the cycle. |
 
 ## Red Flags — Stop and Reset
 

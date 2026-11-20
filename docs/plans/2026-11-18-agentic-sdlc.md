@@ -1,11 +1,13 @@
-# Agentic V-Method Implementation Plan
+# Agentic SDLC Implementation Plan
+
+> ⚠️ **Design superseded (2026-11-20):** this master plan describes the earlier **V-shaped, six-stage** design (then called "Agentic V-Method"). The owner replaced it with the **Agentic SDLC**: a continuous cycle of eight stages (PL · AN · DE · BU · TE · RV · DP · OP), one AI agent role per stage, named human checkpoints CP1–CP5 and an Operate → Plan feedback loop (decision D8). Authoritative design: `skills/agentic-sdlc/references/lifecycle.md` and `references/agents.md`; execution plan: `docs/plans/2026-11-19-agentic-sdlc-depth-pass.md`. Names in this file were updated mechanically; V-specific sections (§3) are kept for history only. Sections §1 (business alignment), §2 (framework evaluation) and the license/naming rules remain valid.
 
 > **For Claude:** REQUIRED SUB-SKILL: Use `executing-plans` to implement this plan task-by-task.
-> **Status:** Wave 0 and a first (shallow) Wave 1 done. **Execution continues in `docs/plans/2026-11-19-agentic-v-method-depth-pass.md`**, which supersedes the wave order below from Wave 1 onward. Design (§3), inventory (§4) and decisions (§9) here remain authoritative.
+> **Status:** Wave 0 and a first (shallow) Wave 1 done. **Execution continues in `docs/plans/2026-11-19-agentic-sdlc-depth-pass.md`**, which supersedes the wave order below from Wave 1 onward. Design (§3), inventory (§4) and decisions (§9) here remain authoritative.
 
-**Goal:** Turn claude-superskills into the home of the **Agentic V-Method**, a definitive, portable, spec-first AI software delivery method that runs the classic software engineering lifecycle (Plan · Analyze · Design · Build · Test · Deploy) in a V shape, combining the strongest ideas of Superpowers, Matt Pocock's skills, Addy Osmani's agent-skills and the BMad Method.
+**Goal:** Turn claude-superskills into the home of the **Agentic SDLC**, a definitive, portable, spec-first AI software delivery method that runs the classic software engineering lifecycle (Plan · Analyze · Design · Build · Test · Deploy) in a V shape, combining the strongest ideas of Superpowers, Matt Pocock's skills, Addy Osmani's agent-skills and the BMad Method.
 
-**Architecture:** A V-shaped lifecycle of six stages — **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · **TE** Test · **DP** Deploy — where the left arm defines (objectives, specification, design), the bottom builds, and the right arm proves each left-arm commitment, linked end to end by acceptance-criterion IDs (`AC-n`). Three human approval gates separate the stages. One router skill (`agentic-v-method`) sizes the work and drives the stages; focused skills hand off through durable Markdown artifacts in the user's repository. Existing skills are upgraded in place (names kept for backward compatibility); new skills fill the gaps. Everything stays plain `SKILL.md` + `references/`, with no runtime dependency, so it keeps working on all 8 platforms.
+**Architecture:** A V-shaped lifecycle of six stages — **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · **TE** Test · **DP** Deploy — where the left arm defines (objectives, specification, design), the bottom builds, and the right arm proves each left-arm commitment, linked end to end by acceptance-criterion IDs (`AC-n`). Three human approval gates separate the stages. One router skill (`agentic-sdlc`) sizes the work and drives the stages; focused skills hand off through durable Markdown artifacts in the user's repository. Existing skills are upgraded in place (names kept for backward compatibility); new skills fill the gaps. Everything stays plain `SKILL.md` + `references/`, with no runtime dependency, so it keeps working on all 8 platforms.
 
 **Tech Stack:** Markdown skills (minimal YAML frontmatter), JSON eval fixtures, existing shell validators, Python catalog/index generators, `scripts/release.js`.
 
@@ -15,12 +17,12 @@
 
 ### 1.1 Business alignment (Business Plan Addendum, November 2026)
 
-The Addendum describes how Andrade Consulting Services will deliver its services. The Agentic V-Method is the engineering practice behind those statements, made executable by AI agents:
+The Addendum describes how Andrade Consulting Services will deliver its services. The Agentic SDLC is the engineering practice behind those statements, made executable by AI agents:
 
-| Addendum statement | Where it lives in the Agentic V-Method |
+| Addendum statement | Where it lives in the Agentic SDLC |
 |---|---|
 | §3.1 *Evidence before recommendation* — every finding traced to inventory, configuration, documentation or code | Right arm of the V (TE/DP); `verification-gate`; traceability matrix |
-| §3.1 *Specification before change* — scope, acceptance criteria and rollback agreed before any system is modified | AN stage: SPEC.md requires acceptance criteria + rollback; **Gate 1** |
+| §3.1 *Specification before change* — scope, acceptance criteria and rollback agreed before any system is modified | AN stage: SPEC.md requires acceptance criteria + rollback; **CP2** |
 | §3.1 *AI-assisted, human-accountable* — an engineer approves every material finding and change | Three human gates; "facts are the agent's job, decisions are the human's" rule |
 | §3.1 *Protection of health information* | `security-hardening` sensitive-data guardrails (no PHI/PII/secrets in prompts, fixtures or logs) |
 | §3.1 *Operational handover* — decision records, tests and runbooks | DP stage: `shipping-and-handover` (ADRs, runbook, HANDOVER.md) |
@@ -125,27 +127,27 @@ Sources reviewed (shallow clones, November 18, 2026):
 
 ### 2.4 Naming and differentiation
 
-- The method name is **Agentic V-Method**. "V-Model" is a generic software engineering term (German V-Modell, 1980s); the word "Agile" is never part of our name, to stay clearly distinct from Agile V™ and the `agentic-agile-v` project.
+- The method name is **Agentic SDLC**. "V-Model" is a generic software engineering term (German V-Modell, 1980s); the word "Agile" is never part of our name, to stay clearly distinct from Agile V™ and the `agentic-agile-v` project.
 - README includes a short "Relationship to other V-model approaches" note crediting Agile V as related prior work.
 - Before the name is cited in the Business Plan, the owner runs a USPTO trademark search (ideally with counsel). A web search is not a trademark clearance.
 
 ---
 
-## 3. The Agentic V-Method
+## 3. The Agentic SDLC
 
 ### 3.1 The V
 
 ```
-  Agentic V-Method — define on the left, prove on the right, linked by AC-n
+  Agentic SDLC — define on the left, prove on the right, linked by AC-n
 
   PL  Plan ─────────────────────────────────────────────── DP  Deploy
    objectives, route, indicators                          release, handover, indicators measured
        AN  Analyze ───────────────────────────────── TE  Test
         SPEC, acceptance criteria AC-n               evidence per AC-n, security, review
-     [Gate 1: SPEC approved]                        [Gate 3: every AC proven, no Critical findings]
+     [CP2: SPEC approved]                        [CP4: every AC proven, no Critical findings]
             DE  Design ─────────────────────── (TE: design/standards review)
              architecture, ADRs, PLAN
-          [Gate 2: PLAN approved]
+          [CP3: PLAN approved]
                         BU  Build
                    TDD slices, subagents, commits
 
@@ -158,11 +160,11 @@ Each left-arm commitment has a right-arm proof: PL objectives/indicators ↔ DP 
 
 | Stage | V arm | Question it answers | Skills | Artifact | Exit criterion / gate |
 |---|---|---|---|---|---|
-| **PL** Plan | Left | Why, for whom, how big, which route? | `agentic-v-method` (sizing), `project-context`, `brainstorming` | Route decision; AGENTS.md block; CONSTRAINTS.md; design brief; target indicators | Route approved by human |
-| **AN** Analyze | Left | What exactly must be true when done? | `grill-me` (docs mode), `spec-driven-development`, `codebase-modernization` (inventory mode), `security-hardening` (threats, sensitive data) | SPEC.md (ACs, boundaries, rollback, baseline + indicators); GLOSSARY.md | **Gate 1:** SPEC approved → frozen baseline |
-| **DE** Design | Left | How will it be built and in what order? | `senior-solution-architect`, `writing-plans`, `security-hardening` (secure design) | ADRs; architecture notes; PLAN.md task graph (each task → `AC-n`) | **Gate 2:** PLAN approved |
+| **PL** Plan | Left | Why, for whom, how big, which route? | `agentic-sdlc` (sizing), `project-context`, `brainstorming` | Route decision; AGENTS.md block; CONSTRAINTS.md; design brief; target indicators | Route approved by human |
+| **AN** Analyze | Left | What exactly must be true when done? | `grill-me` (docs mode), `spec-driven-development`, `codebase-modernization` (inventory mode), `security-hardening` (threats, sensitive data) | SPEC.md (ACs, boundaries, rollback, baseline + indicators); GLOSSARY.md | **CP2:** SPEC approved → frozen baseline |
+| **DE** Design | Left | How will it be built and in what order? | `senior-solution-architect`, `writing-plans`, `security-hardening` (secure design) | ADRs; architecture notes; PLAN.md task graph (each task → `AC-n`) | **CP3:** PLAN approved |
 | **BU** Build | Bottom | Build it, slice by slice, test-first | `test-driven-development`, `executing-plans`, `systematic-debugging`, `codebase-modernization` (change mode) | Code + tests + atomic commits (each → `AC-n`/task) | All tasks done, tests green |
-| **TE** Test | Right | Does it provably meet the SPEC, safely? | `test-strategy`, `verification-gate`, `multi-axis-code-review`, `security-hardening` (review lens) | TEST-PLAN.md; VERIFICATION.md; TRACEABILITY.md; review findings | **Gate 3:** every AC has evidence; no open Critical findings |
+| **TE** Test | Right | Does it provably meet the SPEC, safely? | `test-strategy`, `verification-gate`, `multi-axis-code-review`, `security-hardening` (review lens) | TEST-PLAN.md; VERIFICATION.md; TRACEABILITY.md; review findings | **CP4:** every AC has evidence; no open Critical findings |
 | **DP** Deploy | Right | Ship it, operate it, learn from it | `deployment-pipeline`, `shipping-and-handover`, `retrospective` | PR/release notes; rollout + rollback plan; HANDOVER.md + runbook; RETRO.md | Released (or PR merged) + handover accepted |
 
 ### 3.3 Sizing routes (decided in PL)
@@ -190,18 +192,18 @@ The router shows progress as `PL ▸ AN ▸ DE ▸ BU ▸ TE ▸ DP` and accepts
 
 ```
 <project>/
-├── AGENTS.md / CLAUDE.md        # V-Method block: commands, conventions, pitfalls (project-context)
+├── AGENTS.md / CLAUDE.md        # Agentic SDLC block: commands, conventions, pitfalls (project-context)
 ├── CONSTRAINTS.md               # quality bar contract (project-context)
 ├── GLOSSARY.md                  # domain vocabulary (grill-me docs mode)
 ├── docs/adr/NNNN-*.md           # decision records
-└── docs/v-method/<YYYY-MM-DD-feature>/
+└── docs/agentic-sdlc/<YYYY-MM-DD-feature>/
     ├── SPEC.md                  # AN: objectives, non-goals, AC-n, boundaries, rollback, baseline+indicators
     ├── PLAN.md                  # DE: task graph with blocking edges, each task → AC-n
     ├── tasks/NN-*.md            # optional one-file-per-task
     ├── TEST-PLAN.md             # TE: AC-n → test level → test case
     ├── VERIFICATION.md          # TE: evidence log — commands + outputs per AC-n
     ├── TRACEABILITY.md          # TE: matrix AC-n → task → commit → test → evidence → release
-    ├── GATES.md                 # approvals: gate, approver, date, evidence, residual risk
+    ├── CHECKPOINTS.md                 # approvals: gate, approver, date, evidence, residual risk
     ├── HANDOVER.md              # DP: what changed, how to operate, runbook, open risks, indicators
     └── RETRO.md                 # DP: acceptance decision, indicators vs baseline, environment fixes
 ```
@@ -214,7 +216,7 @@ If the repo already has conventions (e.g., `docs/plans/`, `specs/`, an issue tra
 
 | # | Skill | Stage | Action | Primary sources |
 |---|---|---|---|---|
-| 1 | `agentic-v-method` | Router (all) | **NEW** | Addy lifecycle, BMad routes + correct-course, Matt ask-matt + phase boundaries |
+| 1 | `agentic-sdlc` | Router (all) | **NEW** | Addy lifecycle, BMad routes + correct-course, Matt ask-matt + phase boundaries |
 | 2 | `project-context` | PL | **NEW** | BMad project-context, Addy context-engineering + constraint-driven, Matt domain-modeling |
 | 3 | `brainstorming` | PL | UPGRADE | Superpowers brainstorming, Addy idea-refine, Matt prototype |
 | 4 | `grill-me` | AN | UPGRADE | Matt grilling + grill-with-docs |
@@ -232,9 +234,9 @@ If the repo already has conventions (e.g., `docs/plans/`, `specs/`, an issue tra
 | 16 | `deployment-pipeline` | DP | **NEW** | Addy ci-cd-and-automation + observability-and-instrumentation + shipping-and-launch |
 | 17 | `shipping-and-handover` | DP | **NEW** | Superpowers finishing-a-branch, Addy shipping-and-launch, Matt pr, BMad walkthrough |
 | 18 | `retrospective` | DP (loops to PL) | **NEW** | Matt retro, BMad retrospective |
-| — | `agent-skill-orchestrator` | — | MINOR UPGRADE | Recognize software-delivery requests and propose the Agentic V-Method |
+| — | `agent-skill-orchestrator` | — | MINOR UPGRADE | Recognize software-delivery requests and propose the Agentic SDLC |
 
-Totals: **13 new**, **6 upgraded** (incl. orchestrator), 18 skills in the `v-method` bundle; repository 18 → **31** skills.
+Totals: **13 new**, **6 upgraded** (incl. orchestrator), 18 skills in the `agentic-sdlc` bundle; repository 18 → **31** skills.
 
 Coverage check — every stage has at least two skills and one artifact: PL (3) · AN (3 + security) · DE (2 + security) · BU (4) · TE (4) · DP (3).
 
@@ -246,18 +248,18 @@ Absorbed (not separate skills): doubt-driven review → spec + review; handoff +
 
 ## 5. Per-Skill Specifications
 
-Each skill follows repo rules: frontmatter only `name`, `description` ("This skill should be used when…", single line), `license: MIT`; sections Purpose / When to Use / Workflow / Critical Rules / Example Usage; 1500–2000 words ideal (max 5000), heavier material in `references/`; imperative voice, no second person; English only; README.md with `## Metadata` table and an `## Influences` section crediting sources. Every method skill states its stage (e.g., "Agentic V-Method · TE Test") in its Purpose section.
+Each skill follows repo rules: frontmatter only `name`, `description` ("This skill should be used when…", single line), `license: MIT`; sections Purpose / When to Use / Workflow / Critical Rules / Example Usage; 1500–2000 words ideal (max 5000), heavier material in `references/`; imperative voice, no second person; English only; README.md with `## Metadata` table and an `## Influences` section crediting sources. Every method skill states its stage (e.g., "Agentic SDLC · TE Test") in its Purpose section.
 
-### 5.1 `agentic-v-method` (router)
+### 5.1 `agentic-sdlc` (router)
 - **Step 0 — Detect state:** look for existing SPEC/PLAN/VERIFICATION/GATES in the repo and resume at the right stage.
 - **Step 1 — Size (PL):** ask ≤3 questions (scope, risk, reversibility) → Quick / Standard / Full; show the route and get approval.
-- **Step 2 — Drive stages:** invoke stage skills in order; enforce the three gates and §3.4 rules; record approvals in GATES.md; show `PL ▸ AN ▸ DE ▸ BU ▸ TE ▸ DP`.
-- **Change protocol:** when requirements change after Gate 1 → impact analysis on SPEC/PLAN/tasks/tests → new SPEC revision → re-approval.
-- **references/**: `v-model.md` (the V, stage-to-skill map, pairings, traceability, gates, routes), `phase-boundaries.md` (continue / delegate / clear / hand off / compact decision tree), `artifacts.md` (§3.5 templates), `rules.md` (§3.4 + change protocol).
+- **Step 2 — Drive stages:** invoke stage skills in order; enforce the three gates and §3.4 rules; record approvals in CHECKPOINTS.md; show `PL ▸ AN ▸ DE ▸ BU ▸ TE ▸ DP`.
+- **Change protocol:** when requirements change after CP2 → impact analysis on SPEC/PLAN/tasks/tests → new SPEC revision → re-approval.
+- **references/**: `lifecycle.md` (the V, stage-to-skill map, pairings, traceability, gates, routes), `phase-boundaries.md` (continue / delegate / clear / hand off / compact decision tree), `artifacts.md` (§3.5 templates), `rules.md` (§3.4 + change protocol).
 
 ### 5.2 `project-context` (PL)
-- Modes: **setup** (scan repo: languages, build/test/lint commands, conventions → write the V-Method block in AGENTS.md/CLAUDE.md), **constraints** (interview the quality bar → CONSTRAINTS.md with default thresholds), **glossary**, **pitfall** (record an observed agent mistake), **audit** (detect drift between docs and repo).
-- Rule: never overwrite user content outside a marked `<!-- V-METHOD:BEGIN --> … <!-- V-METHOD:END -->` block.
+- Modes: **setup** (scan repo: languages, build/test/lint commands, conventions → write the Agentic SDLC block in AGENTS.md/CLAUDE.md), **constraints** (interview the quality bar → CONSTRAINTS.md with default thresholds), **glossary**, **pitfall** (record an observed agent mistake), **audit** (detect drift between docs and repo).
+- Rule: never overwrite user content outside a marked `<!-- AGENTIC-SDLC:BEGIN --> … <!-- AGENTIC-SDLC:END -->` block.
 
 ### 5.3 `brainstorming` (PL, upgrade)
 - Keep: one question at a time, 2–3 approaches with trade-offs, design presented in short chunks, approval gate.
@@ -268,13 +270,13 @@ Each skill follows repo rules: frontmatter only `name`, `description` ("This ski
 - Add **docs mode**: when inside a repo, capture resolved terms into GLOSSARY.md and hard-to-reverse decisions as ADRs; show the frontier of open decisions each round.
 
 ### 5.5 `spec-driven-development` (AN)
-- Modes: **create** (short interview), **synthesize** (from current conversation, no re-interview), **validate**, **revise** (new baseline revision after Gate 1).
+- Modes: **create** (short interview), **synthesize** (from current conversation, no re-interview), **validate**, **revise** (new baseline revision after CP2).
 - SPEC.md template: Problem & objectives · Non-goals · Users/actors · Acceptance criteria (Given/When/Then, numbered `AC-1…`) · Boundaries (Always / Ask first / Never) · Constraints referenced · Security & sensitive data · Risks & assumptions · **Rollback** · **Baseline & indicators** · Open questions · Revision history.
 - **Doubt pass:** a fresh-context subagent (when available) attacks the spec for gaps before approval.
-- Gate 1: no PLAN until SPEC approved; approved revision is frozen.
+- CP2: no PLAN until SPEC approved; approved revision is frozen.
 
 ### 5.6 `senior-solution-architect` (DE, minor)
-- Align ADR template/location with `docs/adr/NNNN-*.md`; add an "Agentic V-Method · DE Design" section describing inputs (SPEC) and outputs (ADRs, architecture notes referenced by PLAN).
+- Align ADR template/location with `docs/adr/NNNN-*.md`; add an "Agentic SDLC · DE Design" section describing inputs (SPEC) and outputs (ADRs, architecture notes referenced by PLAN).
 
 ### 5.7 `writing-plans` (DE, upgrade)
 - Plan header points to `executing-plans`; each task references the `AC-n` it satisfies.
@@ -311,7 +313,7 @@ Each skill follows repo rules: frontmatter only `name`, `description` ("This ski
 ### 5.13 `verification-gate` (TE)
 - Identify the command that proves each claim → run it fresh → read full output → compare to `AC-n` → record in VERIFICATION.md → update TRACEABILITY.md → only then claim.
 - Red-flag phrases ("should work", "looks good", "probably"); regression check; verification of subagent reports.
-- Prepares the Gate 3 record in GATES.md (evidence summary + residual risk) for human approval.
+- Prepares the CP4 record in CHECKPOINTS.md (evidence summary + residual risk) for human approval.
 
 ### 5.14 `multi-axis-code-review` (TE)
 - **Request mode** axes, run as parallel independent reviewers when subagents exist: (1) Spec compliance vs SPEC/ACs, (2) Design & standards vs ADRs/CONSTRAINTS/AGENTS.md, (3) Correctness & edge cases, (4) Security (OWASP + SSDF), (5) Simplicity/maintainability. Triage: Critical / Important / Minor with file:line and failure scenario.
@@ -321,7 +323,7 @@ Each skill follows repo rules: frontmatter only `name`, `description` ("This ski
 ### 5.15 `security-hardening` (cross-cutting)
 - AN: threats and sensitive data in the SPEC. DE: secure design decisions. TE: OWASP Top 10 checklist, secrets and dependency/supply-chain hygiene, input validation, authN/authZ, logging without sensitive data.
 - **AI-use guardrails:** never paste secrets/PHI/PII into prompts or test fixtures; synthetic data only; respect client-authorized environments.
-- `references/ssdf-mapping.md`: NIST SP 800-218 practice groups (PO, PS, PW, RV) → which V-Method stage produces the evidence.
+- `references/ssdf-mapping.md`: NIST SP 800-218 practice groups (PO, PS, PW, RV) → which Agentic SDLC stage produces the evidence.
 - States explicitly that it supports secure practices and does not certify compliance.
 
 ### 5.16 `deployment-pipeline` (DP)
@@ -360,11 +362,11 @@ Standard loop for **every skill task** (the "test" for a Markdown skill is its e
 ### Wave 0 — Foundations
 - **Task 0.1** Save this evaluation as `docs/research/2026-11-18-dev-workflow-frameworks-evaluation.md` (full matrix + per-skill notes + stage coverage map).
 - **Task 0.2** Create `THIRD_PARTY_NOTICES.md` with MIT copyright notices for Superpowers (Jesse Vincent), Matt Pocock, Addy Osmani and BMad Code, LLC; note that content is adapted/synthesized; trademarks ("BMad", "BMAD-METHOD", "Agile V") named only for attribution; Agile V listed as conceptual prior work with no content used.
-- **Task 0.3** Write `skills/agentic-v-method/references/artifacts.md` (SPEC, PLAN, TEST-PLAN, VERIFICATION, TRACEABILITY, GATES, HANDOVER, RETRO, ADR, CONSTRAINTS templates).
-- **Task 0.4** Write `skills/agentic-v-method/references/rules.md` (§3.4) and `references/v-model.md` (§3.1) — referenced by all method skills to keep wording DRY.
+- **Task 0.3** Write `skills/agentic-sdlc/references/artifacts.md` (SPEC, PLAN, TEST-PLAN, VERIFICATION, TRACEABILITY, GATES, HANDOVER, RETRO, ADR, CONSTRAINTS templates).
+- **Task 0.4** Write `skills/agentic-sdlc/references/rules.md` (§3.4) and `references/lifecycle.md` (§3.1) — referenced by all method skills to keep wording DRY.
 
 ### Wave 1 — Router + left arm (PL, AN, DE)
-- **PL:** Task 1.1 `agentic-v-method` (NEW) · Task 1.2 `project-context` (NEW) · Task 1.3 `brainstorming` (UPGRADE)
+- **PL:** Task 1.1 `agentic-sdlc` (NEW) · Task 1.2 `project-context` (NEW) · Task 1.3 `brainstorming` (UPGRADE)
 - **AN:** Task 1.4 `grill-me` (UPGRADE) · Task 1.5 `spec-driven-development` (NEW)
 - **DE:** Task 1.6 `senior-solution-architect` (MINOR) · Task 1.7 `writing-plans` (UPGRADE)
 - **Checkpoint A:** owner reviews the router, the V model and SPEC/PLAN templates before Build skills are written.
@@ -379,13 +381,13 @@ Standard loop for **every skill task** (the "test" for a Markdown skill is its e
 
 ### Wave 4 — Integration and quality
 - **Task 4.1** Trigger-collision audit: run every method skill's negative queries against neighbor descriptions (brainstorming ↔ spec ↔ grill-me ↔ writing-plans; test-strategy ↔ TDD ↔ verification-gate ↔ review). Adjust descriptions until no ambiguous overlaps remain.
-- **Task 4.2** Update `agent-skill-orchestrator` to recognize software-delivery requests and propose the Agentic V-Method.
+- **Task 4.2** Update `agent-skill-orchestrator` to recognize software-delivery requests and propose the Agentic SDLC.
 - **Task 4.3** Dogfood: in a scratch repo (outside this repo), run one **Quick** route (bug fix) and one **Standard** route (small feature) end to end; confirm every artifact, gate and traceability link is produced; fix skills.
-- **Task 4.4** Run `skill-creator` eval loop on the 5 highest-traffic skills (`agentic-v-method`, `spec-driven-development`, `writing-plans`, `executing-plans`, `test-driven-development`).
+- **Task 4.4** Run `skill-creator` eval loop on the 5 highest-traffic skills (`agentic-sdlc`, `spec-driven-development`, `writing-plans`, `executing-plans`, `test-driven-development`).
 
 ### Wave 5 — Bundles, docs, release (documentation consistency rule)
-- **Task 5.1** `bundles.json`: add `v-method` bundle (all 18 method skills incl. upgraded ones, ordered PL → DP); update `essential`, `planning`, and `all` (31).
-- **Task 5.2** Docs: `README.md` (Agentic V-Method section with the V diagram, category table, `skills-31` badge, "Relationship to other V-model approaches" note), `CLAUDE.md` (architecture tree, Skill Types, bundle list, counts), `CATALOG.md` + `skills_index.json` (`npm run generate-all --prefix cli-installer`), `.claude-plugin/marketplace.json`, `cli-installer/README.md`, `cli-installer/package.json` description, `docs/guides/skill-anatomy.md`, `docs/guides/getting-started.md`, `docs/bundles/bundles.md`, new `docs/guides/agentic-v-method.md` (user guide).
+- **Task 5.1** `bundles.json`: add `agentic-sdlc` bundle (all 18 method skills incl. upgraded ones, ordered PL → DP); update `essential`, `planning`, and `all` (31).
+- **Task 5.2** Docs: `README.md` (Agentic SDLC section with the V diagram, category table, `skills-31` badge, "Relationship to other V-model approaches" note), `CLAUDE.md` (architecture tree, Skill Types, bundle list, counts), `CATALOG.md` + `skills_index.json` (`npm run generate-all --prefix cli-installer`), `.claude-plugin/marketplace.json`, `cli-installer/README.md`, `cli-installer/package.json` description, `docs/guides/skill-anatomy.md`, `docs/guides/getting-started.md`, `docs/bundles/bundles.md`, new `docs/guides/agentic-sdlc.md` (user guide).
 - **Task 5.3** Run consistency checks:
   ```bash
   ./scripts/build-skills.sh
@@ -397,7 +399,7 @@ Standard loop for **every skill task** (the "test" for a Markdown skill is its e
 - **Task 5.5** Push branch `claude/superskills-dev-workflow-kppj2r`; open PR only when the owner asks. Tag push and `gh repo edit` About update happen only after merge, by the owner (or with explicit approval).
 
 ### Wave 6 — Business Plan update (outside the repo)
-- **Task 6.1** Draft replacement text for the Addendum (§1.1, §3 intro, §3.1, §3.3, §3.5, §4.4, §6, §8.4) naming the Agentic V-Method. Kept outside the public repo (contains case data). Owner applies it to the source document.
+- **Task 6.1** Draft replacement text for the Addendum (§1.1, §3 intro, §3.1, §3.3, §3.5, §4.4, §6, §8.4) naming the Agentic SDLC. Kept outside the public repo (contains case data). Owner applies it to the source document.
 - **Task 6.2** After the 3.0.0 release, fill in the real release date and version in the §6 progress row and the citation footnotes. Never cite unreleased work as completed.
 - **Task 6.3** Owner: USPTO name search and counsel review before filing.
 
@@ -408,7 +410,7 @@ Standard loop for **every skill task** (the "test" for a Markdown skill is its e
 - 13 new + 6 upgraded skills pass YAML and content validators; every skill has `evals/evals.json` and `evals/trigger-eval.json`.
 - Trigger audit shows no unresolved overlaps between method skills or with built-in Claude Code skills.
 - Dogfood runs (Quick + Standard) complete with all artifacts produced, every gate recorded and a complete traceability matrix.
-- `check-doc-consistency.sh` and `verify-version-sync.sh` pass; all docs list 31 skills and the `v-method` bundle; README shows the V and the PL→DP stages.
+- `check-doc-consistency.sh` and `verify-version-sync.sh` pass; all docs list 31 skills and the `agentic-sdlc` bundle; README shows the V and the PL→DP stages.
 - `THIRD_PARTY_NOTICES.md` present; every adapted skill's README credits its sources; no Agile V text anywhere in the repo.
 - No skills committed under platform directories (`.claude/skills/`, etc.).
 
@@ -429,7 +431,7 @@ Standard loop for **every skill task** (the "test" for a Markdown skill is its e
 
 | ID | Decision | Date |
 |---|---|---|
-| D1 | Method name: **Agentic V-Method**. Earlier candidate "CODE / Context Engineering Development for Enterprise" dropped (term already used by the owner's employer). | 2026-11-18 |
+| D1 | Method name: **Agentic SDLC**. Earlier candidate "CODE / Context Engineering Development for Enterprise" dropped (term already used by the owner's employer). | 2026-11-18 |
 | D1b | Structure: six lifecycle stages PL · AN · DE · BU · TE · DP in a V shape with three human gates; no separate phase layer. | 2026-11-18 |
 | D2 | The method lives inside claude-superskills; package, repo and marketplace names unchanged. | 2026-11-18 |
 | D3 | Release as **3.0.0** (product repositioning, 18 → 31 skills). | 2026-11-18 |

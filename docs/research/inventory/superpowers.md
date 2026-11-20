@@ -1,6 +1,8 @@
 # Mechanism Inventory: Superpowers
 
-> Research input for the Agentic V-Method (`docs/plans/2026-11-18-agentic-v-method.md`, sections 3–5).
+> **Naming note (2026-11-20):** this research was written when the method was the V-shaped, six-stage "Agentic V-Method". On 2026-11-20 the owner replaced it with the **Agentic SDLC** — a continuous cycle of eight stages (PL · AN · DE · BU · TE · RV · DP · OP), one AI agent role per stage and named human checkpoints CP1–CP5 (see `skills/agentic-sdlc/references/lifecycle.md`). Names were updated mechanically; read any remaining V-specific wording ("left arm", "right arm", "the V") as the cycle, and old Gate 1 / 2 / 3 as CP2 (SPEC) / CP3 (design and plan) / CP4 (PR approval).
+
+> Research input for the Agentic SDLC (`docs/plans/2026-11-18-agentic-sdlc.md`, sections 3–5).
 > This document catalogs concrete, re-implementable mechanisms. It is analysis, not a copy of the source.
 
 | Field | Value |
@@ -11,7 +13,7 @@
 | Commit inspected | `22f0b46` (Release v7.0.2: brainstorming tuning, harness bootstrap fixes, SDD helper fixes) |
 | Inventory date | 2026-11-19 |
 | Scope | Every file under `skills/` plus `README.md` |
-| Inspected by | Agentic V-Method research wave (inventory task) |
+| Inspected by | Agentic SDLC research wave (inventory task) |
 
 ## 1. Files read
 
@@ -96,7 +98,7 @@ Total skills material: about 61,800 words across 78 files (plus README).
 
 ## 2. Mechanism catalog
 
-Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · **TE** Test · **DP** Deploy · **X** cross-cutting. Target skills use the names in plan §4. "Keep / Change / Drop" notes cover portability across the 8 supported platforms and the V-Method's `AC-n` traceability and three gates.
+Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · **TE** Test · **DP** Deploy · **X** cross-cutting. Target skills use the names in plan §4. "Keep / Change / Drop" notes cover portability across the 8 supported platforms and the Agentic SDLC's `AC-n` traceability and three gates.
 
 ### A. Bootstrap and cross-cutting discipline
 
@@ -105,21 +107,21 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `skills/using-superpowers/SKILL.md`
 - **What it is:** A bootstrap skill, injected at session start (and re-injected after compaction where the harness supports it), that requires invoking any relevant skill *before any response or action*, including clarifying questions, codebase exploration or file checks. Threshold: "even a 1% chance a skill might apply." After invoking, the agent announces `Using [skill] to [purpose]` and creates one todo per checklist item in the skill. A skill that turns out not to fit may then be dropped. Special rule: before entering any "plan mode", run brainstorming first. The skill opens with a `<SUBAGENT-STOP>` block: a dispatched subagent executing a specific task ignores the bootstrap entirely, so workers do not re-route themselves into process skills.
 - **Failure mode prevented:** The agent "just starts" (explores, codes, asks questions) and never loads the process that would have shaped the work. Subagents spinning up brainstorming instead of doing their task.
-- **Target:** `agentic-v-method` (router) + `agent-skill-orchestrator`. **Keep:** the announce line and todo-per-checklist step (cheap, auditable). **Keep:** the subagent-stop idea as a sentence in every method skill ("If dispatched as a worker for one task, skip routing."). **Change:** the 1% threshold over-triggers and conflicts with the repo's explicit-trigger skills (e.g. `grill-me`); scope the rule to software-delivery requests detected by the router. **Drop:** reliance on a SessionStart hook; 4 of the 8 target platforms have no such hook, so trigger quality must come from descriptions.
+- **Target:** `agentic-sdlc` (router) + `agent-skill-orchestrator`. **Keep:** the announce line and todo-per-checklist step (cheap, auditable). **Keep:** the subagent-stop idea as a sentence in every method skill ("If dispatched as a worker for one task, skip routing."). **Change:** the 1% threshold over-triggers and conflicts with the repo's explicit-trigger skills (e.g. `grill-me`); scope the rule to software-delivery requests detected by the router. **Drop:** reliance on a SessionStart hook; 4 of the 8 target platforms have no such hook, so trigger quality must come from descriptions.
 
 #### SP-02 · Precedence and priority rules
 - **Stage:** X
 - **Source:** `skills/using-superpowers/SKILL.md`
 - **What it is:** Two ordering rules. (1) Precedence: user instructions (CLAUDE.md, AGENTS.md, GEMINI.md, direct requests) override skills, which override default behavior; skip a skill workflow only when the human explicitly says so. (2) Priority: when several skills apply, *process* skills run first (they set the approach), then implementation/domain skills. Canonical mappings: "Let's build X" → brainstorming first; "Fix this bug" → systematic-debugging first.
 - **Failure mode prevented:** Skills overriding explicit user wishes; domain skills running before the approach is decided.
-- **Target:** `agentic-v-method` (`references/rules.md`). **Keep both** verbatim in spirit. Add the V-Method mapping: "build/feature" → PL sizing; "bug" → `systematic-debugging` (Quick route); "modernize" → Full route with `codebase-modernization`.
+- **Target:** `agentic-sdlc` (`references/rules.md`). **Keep both** verbatim in spirit. Add the Agentic SDLC mapping: "build/feature" → PL sizing; "bug" → `systematic-debugging` (Quick route); "modernize" → Full route with `codebase-modernization`.
 
 #### SP-03 · Action vocabulary plus per-harness tool maps
 - **Stage:** X
 - **Source:** `skills/using-superpowers/references/*-tools.md`, README install section
 - **What it is:** Skills are written in harness-neutral verbs ("dispatch a subagent", "create a todo", "invoke a skill", "your instructions file"). One reference file per harness maps the verbs to concrete tools, including the fallback when a capability is missing (Antigravity has no todo tool → markdown checklist artifact; Pi has no subagent tool → optional package or inline execution). Codex needs `multi_agent = true` and `fork_turns: "none"` so children do not inherit the parent transcript.
 - **Failure mode prevented:** Skills that silently break on harnesses with different tool names; fabricated subagent dispatches where none exist.
-- **Target:** `agentic-v-method` `references/platforms.md` (new, small). **Keep** the verb vocabulary and an explicit "no subagent tool → do X in a separate pass" fallback in every skill that dispatches. **Change:** map the repo's 8 platforms (Copilot CLI, Claude Code, Codex, OpenCode, Gemini CLI, Antigravity, Cursor, AdaL) instead of Superpowers' list. **Drop** tool-name-level detail that will rot; keep a capability matrix (subagents yes/no, todo tool yes/no, instruction file name).
+- **Target:** `agentic-sdlc` `references/platforms.md` (new, small). **Keep** the verb vocabulary and an explicit "no subagent tool → do X in a separate pass" fallback in every skill that dispatches. **Change:** map the repo's 8 platforms (Copilot CLI, Claude Code, Codex, OpenCode, Gemini CLI, Antigravity, Cursor, AdaL) instead of Superpowers' list. **Drop** tool-name-level detail that will rot; keep a capability matrix (subagents yes/no, todo tool yes/no, instruction file name).
 
 #### SP-04 · Description = trigger conditions only (never a workflow summary)
 - **Stage:** X (skill authoring)
@@ -133,7 +135,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `skills/executing-plans/SKILL.md`, `skills/subagent-driven-development/SKILL.md`
 - **What it is:** Concrete context-budget rules for long runs: narrate at most one short line between tool calls; every tool call re-reads the whole context, so bookkeeping (ledger append) rides in the same call as real work (e.g. the commit); redirect long test output to a file in the workspace and read only its tail; read a task brief, not the whole plan; hand artifacts to subagents as file paths, never pasted text; never paste accumulated prior-task history into a dispatch (the source cites a 42k-character dispatch that was 99% pasted history).
 - **Failure mode prevented:** Context exhaustion and early compaction in multi-hour sessions; cost blow-up from re-reading pasted history every turn.
-- **Target:** `executing-plans` (both modes), `agentic-v-method` (`phase-boundaries.md`). **Keep** all of it; it is platform-neutral. **Change:** "file in the workspace" → the V-Method workspace path (see SP-30).
+- **Target:** `executing-plans` (both modes), `agentic-sdlc` (`phase-boundaries.md`). **Keep** all of it; it is platform-neutral. **Change:** "file in the workspace" → the Agentic SDLC workspace path (see SP-30).
 
 ### B. PL Plan: intent discovery (brainstorming)
 
@@ -142,7 +144,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `skills/brainstorming/SKILL.md` (First: What Do You Actually Know?)
 - **What it is:** Before replying, classify: (a) everything that matters is in the request ("make the icon cornflower blue") → do it and say what was done; (b) something non-trivial is missing → start the conversation. In case (b), before implementing, four ordered obligations: lay out approaches in their own message and have the human pick; write the design doc (short or full); get approval of the doc; invoke the planning skill. If nothing is open and there is one sensible way, steps 1–3 compress into the first message. Two things are explicitly *not* implementing: an approved spike, and doing the task after the human opts out of questions.
 - **Failure mode prevented:** Interrogating people about trivial tasks; building on a thin, unverified belief about what they want.
-- **Target:** `agentic-v-method` (Step 1 sizing) and `brainstorming`. **Keep** as the Quick-route entry test. **Change:** map (a) → Quick route, (b) → Standard/Full route sizing questions. The four-step obligation becomes "PL exit = route approved"; the doc-approval step moves to AN Gate 1 for Standard/Full.
+- **Target:** `agentic-sdlc` (Step 1 sizing) and `brainstorming`. **Keep** as the Quick-route entry test. **Change:** map (a) → Quick route, (b) → Standard/Full route sizing questions. The four-step obligation becomes "PL exit = route approved"; the doc-approval step moves to AN CP2 for Standard/Full.
 
 #### SP-07 · Look before you ask (recon-first)
 - **Stage:** PL / AN
@@ -156,7 +158,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `skills/brainstorming/SKILL.md` (Your First Message)
 - **What it is:** Two shapes. **(1) They already said what they want:** about 200 words total: echo the request in own words (what, for whom, why), add findings (how it works today, what the change touches), flag anything that would change the request (constraint, conflict, cheaper path), one line inviting corrections; then if the *why* is unknown, one open question about it with no options; if the why is known, ask the single open decision that most changes the build, sketching named options with trade-offs and a pick; if nothing is open, end with the short design (approach, why others don't fit, design in a few lines) and ask for approval, which covers approach plus design. **(2) They haven't:** one open question about the biggest unsettled thing, stating what the answer changes (bakery example). Ending rule: if the human asked for brainstorming, end there; if not, add a one-line opt-out ("Or if you'd rather I just dive in, say so."); taking the opt-out ends the skill after stating any major how-it-gets-made choice in one line.
 - **Failure mode prevented:** Wall-of-text openers, menu-steering, forcing a design conversation on someone who wanted action.
-- **Target:** `brainstorming`. **Keep** the 200-word cap, echo + findings + one question, and the opt-out line. **Change:** the opt-out should route to the V-Method Quick route (still TDD + verification), not "normal workflow".
+- **Target:** `brainstorming`. **Keep** the 200-word cap, echo + findings + one question, and the opt-out line. **Change:** the opt-out should route to the Agentic SDLC Quick route (still TDD + verification), not "normal workflow".
 
 #### SP-09 · Question discipline
 - **Stage:** PL / AN
@@ -177,28 +179,28 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `skills/brainstorming/SKILL.md` (Play It Back)
 - **What it is:** As soon as one part is understood (purpose and audience, or one component's behavior), describe it back in about 200–300 words, then return to questions about the next part; playback and questions alternate through the whole conversation. Only what the human said is stated as theirs; anything filled in is labeled a proposal with reason. Each chunk ends by asking what is wrong or missing. Pre-send check: if the chunk describes something they will look at, attach a text sketch (or a visual companion mockup once accepted).
 - **Failure mode prevented:** A single giant design dump nobody reads; silently inferred requirements presented as agreed.
-- **Target:** `brainstorming`, `spec-driven-development` (presenting SPEC sections before Gate 1). **Keep** the chunk size and the theirs-vs-proposal labeling; in the SPEC, mark agent-proposed ACs (e.g. "AC-4 (proposed)") until Gate 1 approval.
+- **Target:** `brainstorming`, `spec-driven-development` (presenting SPEC sections before CP2). **Keep** the chunk size and the theirs-vs-proposal labeling; in the SPEC, mark agent-proposed ACs (e.g. "AC-4 (proposed)") until CP2 approval.
 
 #### SP-12 · Size the work (short vs. full design)
 - **Stage:** PL
 - **Source:** `skills/brainstorming/SKILL.md` (Size the Work; The Written Design)
 - **What it is:** After the approach is picked, state size in plain words (human may override): small change → short doc (what was covered, written down, each point a line or two, no builder check); project → full written design. If work grows mid-task, stop, say so, step up a size. If it is really several independent projects, say so, agree an order, brainstorm one at a time. Full design content: intent and why; goals, non-goals, anti-goals; constraints; approaches; the parts of the how the human decided, as decided; what is left to the builder. Location: `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md`, committed; human preference overrides.
 - **Failure mode prevented:** Over-documenting small changes; under-documenting projects; monolithic multi-project designs.
-- **Target:** `agentic-v-method` sizing (Quick/Standard/Full) and `spec-driven-development`. **Keep** the "step up a size mid-task" rule as part of the change protocol. **Change:** path → `docs/v-method/<YYYY-MM-DD-feature>/SPEC.md`; add the V-Method-required fields Superpowers lacks (numbered `AC-n` Given/When/Then, Boundaries, Rollback, Baseline & indicators, Security & sensitive data).
+- **Target:** `agentic-sdlc` sizing (Quick/Standard/Full) and `spec-driven-development`. **Keep** the "step up a size mid-task" rule as part of the change protocol. **Change:** path → `docs/agentic-sdlc/<YYYY-MM-DD-feature>/SPEC.md`; add the Agentic SDLC-required fields Superpowers lacks (numbered `AC-n` Given/When/Then, Boundaries, Rollback, Baseline & indicators, Security & sensitive data).
 
 #### SP-13 · Builder check (fresh-reader doubt pass) with three-pile triage
-- **Stage:** AN (pre-Gate 1)
+- **Stage:** AN (pre-CP2)
 - **Source:** `skills/brainstorming/SKILL.md` (Builder check), `builder-check-prompt.md`
 - **What it is:** For a full design only: dispatch a fresh general-purpose subagent playing "a talented [DOMAIN]" who must plan from the document without talking to its author, and must report only questions where a wrong guess would matter, each with why it changes the plan, ranked; skip what the doc leaves to the builder, what the builder can decide, and wording nitpicks; or reply "nothing important left". The author warns the human that a reviewer will read first and there may be one round of questions, and does not hand over the doc until the check returns. Triage into: **answered already** (put the answer in the doc), **minor** (settle it, mark as "my call" in the doc), **theirs** (only the human can answer and it changes the build). Bring "theirs" in one message, most important first; update; hand over with a short list of agent calls to check. Only one round. Without a subagent tool, the author reads the doc as that builder.
 - **Failure mode prevented:** Specs with hidden ambiguity discovered mid-build; endless question rounds.
-- **Target:** `spec-driven-development` "doubt pass" (plan §5.5). **Keep** the prompt shape, the ranking, the three piles, and the single round. **Change:** add `AC-n` checks to the prompt ("for each AC, could you write a test from it alone?") and require the "my call" list to be recorded in SPEC "Risks & assumptions" so Gate 1 approvers see it.
+- **Target:** `spec-driven-development` "doubt pass" (plan §5.5). **Keep** the prompt shape, the ranking, the three piles, and the single round. **Change:** add `AC-n` checks to the prompt ("for each AC, could you write a test from it alone?") and require the "my call" list to be recorded in SPEC "Risks & assumptions" so CP2 approvers see it.
 
 #### SP-14 · Hard gate: nothing built before design approval
-- **Stage:** PL → AN (Gate 1 analogue)
+- **Stage:** PL → AN (CP2 analogue)
 - **Source:** `skills/brainstorming/SKILL.md` (`<HARD-GATE>`, Red Flags)
 - **What it is:** Nothing gets built until the human approves the design doc (short or full). "Building" is defined: product code, scaffolding, installing dependencies, creating projects, invoking an implementation skill. Reading and exploring are fine. Exceptions: the human opted out of questions (skill and gate end), or an approved spike (stays labeled throwaway; keeping it is a new request back through the gate). After approval the only allowed next skill is the planning skill. Approval scope rule: "sounds good" to an idea is not approval of a doc that hasn't been written.
 - **Failure mode prevented:** Scaffolding before agreement; treating verbal enthusiasm as sign-off.
-- **Target:** `agentic-v-method` Gate 1 and `spec-driven-development`. **Keep** the explicit definition of "building" and the approval-scope rule. **Change:** record approval in `GATES.md` (gate, approver, date, evidence, residual risk); freeze the approved SPEC revision.
+- **Target:** `agentic-sdlc` CP2 and `spec-driven-development`. **Keep** the explicit definition of "building" and the approval-scope rule. **Change:** record approval in `CHECKPOINTS.md` (gate, approver, date, evidence, residual risk); freeze the approved SPEC revision.
 
 #### SP-15 · Spike detour
 - **Stage:** PL
@@ -235,14 +237,14 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `skills/writing-plans/SKILL.md` (Task Right-Sizing; Step Granularity), README
 - **What it is:** A task is "the smallest unit that carries its own test cycle and is worth a fresh reviewer's gate." Fold setup, configuration, scaffolding and docs into the task whose deliverable needs them; split only where a reviewer could reject one task while approving its neighbor; each task ends with an independently testable deliverable. Each step is one action with a checkable result (write failing test / run it to see it fail / implement minimal code / run tests to see pass / commit), roughly 2–5 minutes.
 - **Failure mode prevented:** Micro-tasks that waste review seats; mega-tasks reviewers cannot judge.
-- **Target:** `writing-plans`. **Keep** the reviewer-reject test for boundaries. Combine with the V-Method's tracer-bullet vertical slices and `Blocked by:` edges.
+- **Target:** `writing-plans`. **Keep** the reviewer-reject test for boundaries. Combine with the Agentic SDLC's tracer-bullet vertical slices and `Blocked by:` edges.
 
 #### SP-20 · Plan header contract
 - **Stage:** DE
 - **Source:** `skills/writing-plans/SKILL.md` (Plan Document Header)
 - **What it is:** Every plan starts with: H1 `[Feature] Implementation Plan`; a blockquote "For agentic workers: REQUIRED SUB-SKILL: use [executor A] (recommended) or [executor B]… Steps use checkbox (`- [ ]`) syntax"; **Goal** (one sentence); **Architecture** (2–3 sentences); **Tech Stack**; **Spec** (path to the spec this plan argues from; executors read both); **Global Constraints**; **Review Focus**; `---`. Location `docs/superpowers/plans/YYYY-MM-DD-<feature-name>.md`.
 - **Failure mode prevented:** Plans detached from their spec; executors not knowing which skill to use; untracked progress.
-- **Target:** `writing-plans` (fixes the stale `superpowers:executing-plans` reference noted in plan §5.7). **Keep** the header; **change** the sub-skill line to `executing-plans` (inline or subagent mode), add `**Route:**`, `**SPEC revision:**` (the frozen Gate 1 revision), and `**Gate 2:** pending/approved` lines.
+- **Target:** `writing-plans` (fixes the stale `superpowers:executing-plans` reference noted in plan §5.7). **Keep** the header; **change** the sub-skill line to `executing-plans` (inline or subagent mode), add `**Route:**`, `**SPEC revision:**` (the frozen CP2 revision), and `**CP3:** pending/approved` lines.
 
 #### SP-21 · Global Constraints section
 - **Stage:** DE
@@ -256,7 +258,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `skills/writing-plans/SKILL.md` (header; Self-Review item 4); `requesting-code-review/code-reviewer.md`; `executing-plans/SKILL.md` (Final Review)
 - **What it is:** The five input classes or failure modes the spec implies but no task's tests exercise that are most likely to bite a real user, one line each (input/condition + behavior a reasonable person expects), most likely first. Rationale: the spec says what software must do, not everything it will meet; "its silence on an input is not permission for that input to break the program." Each line then gets a test added to the task that owns the code. The final whole-branch reviewer receives this section verbatim and checks each deliberately. An empty section means "checked, found none", not "skipped".
 - **Failure mode prevented:** Happy-path-only test suites; reviewers grading findings Minor because "the spec didn't mention it".
-- **Target:** `writing-plans` (PLAN.md) and `test-strategy` (TEST-PLAN.md "implicit expectations" rows). **Keep** the cap of five and the "add the test to the owning task" rule. **Change:** give each line an ID (`RF-1…RF-5`) traced in TRACEABILITY.md alongside `AC-n`, so implicit-expectation coverage is visible at Gate 3.
+- **Target:** `writing-plans` (PLAN.md) and `test-strategy` (TEST-PLAN.md "implicit expectations" rows). **Keep** the cap of five and the "add the test to the owning task" rule. **Change:** give each line an ID (`RF-1…RF-5`) traced in TRACEABILITY.md alongside `AC-n`, so implicit-expectation coverage is visible at CP4.
 
 #### SP-23 · Task template with Interfaces block and Expected outputs
 - **Stage:** DE
@@ -270,14 +272,14 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `skills/writing-plans/SKILL.md` (Self-Review)
 - **What it is:** Run by the author, not a subagent, after the full plan exists: (1) **Spec coverage**: point to a task for each spec requirement, list gaps; (2) **Step scan**: every step yields exactly one reasonable thing, no line deciding nothing, no function body the signature/tests already determine; (3) **Type consistency**: names/signatures match across tasks (`clearLayers()` vs `clearFullLayers()` is a bug); (4) **Review Focus**: every implied input class has a test somewhere, top five uncovered listed; (5) **Proportion**: a plan several times longer than its spec is a transcript, replace bodies with signatures and assertions. Fix inline, no re-review loop; a missing requirement gets a new task.
 - **Failure mode prevented:** Plan defects discovered at execution time.
-- **Target:** `writing-plans`. **Keep**. Upgrade check (1) to an explicit `AC-n → Task` coverage table written into PLAN.md (feeds TRACEABILITY.md); any AC without a task blocks Gate 2.
+- **Target:** `writing-plans`. **Keep**. Upgrade check (1) to an explicit `AC-n → Task` coverage table written into PLAN.md (feeds TRACEABILITY.md); any AC without a task blocks CP3.
 
 #### SP-25 · Execution handoff with recommendation
-- **Stage:** DE → BU (Gate 2 analogue)
+- **Stage:** DE → BU (CP3 analogue)
 - **Source:** `skills/writing-plans/SKILL.md` (Execution Handoff)
 - **What it is:** After saving and self-reviewing, link the plan and ask the human to review it. If no execution method was supplied, offer exactly two options with costs: **Subagent-driven** (fresh implementer and fresh reviewer per task plus final whole-branch review; most thorough; costs a context per task and per review) and **Native/inline** (agent implements everything; one fresh reviewer on the most capable model at the end; cheapest; works on a mid-tier session model because the plan carries the design). Always recommend one with a one-sentence reason drawn from the plan (interface coupling between tasks, task count, cost of a shipped mistake). If a method was already supplied, only ask whether the plan captures what they want, and wait.
 - **Failure mode prevented:** Starting execution on an unreviewed plan; unexplained cost choices.
-- **Target:** `writing-plans` → Gate 2 in `agentic-v-method`. **Keep** the two-option menu with recommendation. **Change:** record the approval and chosen mode in GATES.md; on platforms with no subagent tool, present only inline mode and say why.
+- **Target:** `writing-plans` → CP3 in `agentic-sdlc`. **Keep** the two-option menu with recommendation. **Change:** record the approval and chosen mode in CHECKPOINTS.md; on platforms with no subagent tool, present only inline mode and say why.
 
 ### D. BU Build: plan execution (executing-plans, subagent-driven-development)
 
@@ -293,14 +295,14 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `skills/executing-plans/SKILL.md`, `skills/subagent-driven-development/SKILL.md` (top)
 - **What it is:** Do not pause between tasks to check in; "should I continue?" prompts and progress summaries waste the human's time. Conflicts, ambiguities, plan defects, and caps one would have asked to exceed are decided by the agent: spec = binding authority, plan = its argument, judgment settles what neither answers. Every decision is ledgered as `Ruling: <what was decided> — <why> — <what it costs if wrong>`. "Deviating from the plan without a ledgered ruling is a decision made in secret." Exactly four things stop execution: an irreversible or destructive operation; a security-sensitive action; a side effect outside the worktree that norms say to ask about (merge, push to shared branch, publish); a plan so broken that every path is a guess.
 - **Failure mode prevented:** Sessions parked for hours on trivial questions; silent deviations.
-- **Target:** `executing-plans`. **Keep** the ruling format and four stops. **Change:** add a fifth V-Method stop: any ruling that would change, drop, or reinterpret an `AC-n` or a Boundary ("Ask first") triggers the change protocol (impact analysis, SPEC revision, re-approval), because the SPEC is frozen after Gate 1. Rulings are later copied into VERIFICATION.md / GATES.md residual-risk.
+- **Target:** `executing-plans`. **Keep** the ruling format and four stops. **Change:** add a fifth Agentic SDLC stop: any ruling that would change, drop, or reinterpret an `AC-n` or a Boundary ("Ask first") triggers the change protocol (impact analysis, SPEC revision, re-approval), because the SPEC is frozen after CP2. Rulings are later copied into VERIFICATION.md / CHECKPOINTS.md residual-risk.
 
 #### SP-28 · Spec as binding authority; no-spec rulings are provisional
 - **Stage:** BU
 - **Source:** `skills/executing-plans/SKILL.md`, `skills/subagent-driven-development/SKILL.md` (Setup)
 - **What it is:** Read the plan once, note Global Constraints, create a todo per task. If the plan names a spec, read it: internal plan conflicts resolve against the spec. A plan with no reachable spec gets a ledger note, and all rulings made without one are marked provisional.
 - **Failure mode prevented:** Plan-internal contradictions resolved arbitrarily.
-- **Target:** `executing-plans`. **Keep**; in the V-Method the SPEC always exists for Standard/Full; for Quick route the "agreed acceptance test" plays the spec role.
+- **Target:** `executing-plans`. **Keep**; in the Agentic SDLC the SPEC always exists for Standard/Full; for Quick route the "agreed acceptance test" plays the spec role.
 
 #### SP-29 · Isolated workspace prerequisite
 - **Stage:** BU
@@ -314,14 +316,14 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `executing-plans/SKILL.md` (Setup), `subagent-driven-development/SKILL.md` (Setup), `references/resuming.md`, `scripts/sdd-workspace`
 - **What it is:** Each plan owns a git-ignored directory `<repo-root>/.superpowers/sdd/<plan-basename>/` holding the ledger (`progress.md`), task briefs, implementer reports, and review packages. Ledger first line is its identity: `# SDD ledger — plan: <plan file path>`. Resume rules: if the first line names this plan, every task with a `Task <N>: complete` line is done (do not redo); resume at the first task without one; a task whose last line is a fix round resumes the loop at the next round; a ledger naming another plan (or a stray legacy flat ledger) is left untouched and a fresh one started. After compaction, trust the ledger and `git log` over recollection; if `git clean -fdx` destroyed the workspace, recover from `git log`. Harness todos are a live view; the ledger is the record. Ledger line types: `Task N: complete (commits a..b, tests: <cmd> → <result>)` (inline) or `(commits a..b, review clean | K parked)` (subagent); `Task N: Ruling: …`; `Task N: fix round R/5 (X addressed, Y open — …; commits a..b)`; `Task N: minor (deferred): …`; `Task N: parked — <finding> — Ruling: …`; `Final: fixed <finding> — <test> RED→GREEN, suite N/N`; `Final: minor (deferred): …`; `Final review: self-review (no subagent tool)`; `Pre-flight: no shared interfaces`.
 - **Failure mode prevented:** The source calls it "the single most expensive failure observed": controllers that lost their place after compaction re-dispatched entire completed task sequences.
-- **Target:** `executing-plans`. **Keep** the ledger and its line grammar (it is plain markdown and portable). **Change:** location → `docs/v-method/<feature>/.work/` (git-ignored) or `.v-method/work/<plan>/`; add `AC-n` to `complete` lines; at finish, promote rulings and test evidence into VERIFICATION.md rather than deleting them with the workspace.
+- **Target:** `executing-plans`. **Keep** the ledger and its line grammar (it is plain markdown and portable). **Change:** location → `docs/agentic-sdlc/<feature>/.work/` (git-ignored) or `.v-method/work/<plan>/`; add `AC-n` to `complete` lines; at finish, promote rulings and test evidence into VERIFICATION.md rather than deleting them with the workspace.
 
 #### SP-31 · Pre-flight conflict scan
 - **Stage:** BU (entry)
 - **Source:** `subagent-driven-development/references/preflight.md`, `executing-plans/SKILL.md` (Setup)
 - **What it is:** Once, before Task 1. Output is a table, not a verdict: one row per pair of tasks sharing a file or interface (the two tasks, what one produces vs. what the other consumes, finding); one row per task for self-consistency (tests specified vs. code specified; files created vs. files later touched). Also flag tasks contradicting Global Constraints and anything the plan mandates that the review rubric treats as a defect (a test asserting nothing, verbatim duplicated logic). "The scan is clean" without rows is not a scan. Table and rulings go in the ledger; tasks sharing nothing → single line `Pre-flight: no shared interfaces`. Rule on each finding with the spec as authority before starting.
 - **Failure mode prevented:** Interface conflicts discovered three tasks in, after dependent work was built.
-- **Target:** `executing-plans` (both modes). **Keep**; cheap and high-value. It doubles as a Gate 2 sanity check that `writing-plans` can run at the end of self-review.
+- **Target:** `executing-plans` (both modes). **Keep**; cheap and high-value. It doubles as a CP3 sanity check that `writing-plans` can run at the end of self-review.
 
 #### SP-32 · Task brief extraction and BASE recording
 - **Stage:** BU
@@ -377,7 +379,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `implementer-prompt.md`, `task-reviewer-prompt.md`, `re-review-prompt.md`, `code-reviewer.md`, `subagent-driven-development/SKILL.md`
 - **What it is:** Every worker and reviewer prompt carries a section "You Do Not Dispatch Subagents": implementers never spawn helpers, and above all never a reviewer ("a reviewer you spawn duplicates that review at full cost, and its approval counts for nothing"); reviewers never spawn sub-reviewers; if the diff is too large, review in passes and say so. The source reports that in real sessions every worker-spawned reviewer duplicated the controller's review.
 - **Failure mode prevented:** Recursive agent spawning, duplicated review seats, cost explosion.
-- **Target:** All V-Method subagent templates (`executing-plans`, `multi-axis-code-review`, `test-strategy`, `spec-driven-development` doubt pass). **Keep**.
+- **Target:** All Agentic SDLC subagent templates (`executing-plans`, `multi-axis-code-review`, `test-strategy`, `spec-driven-development` doubt pass). **Keep**.
 
 #### SP-40 · Batching small same-shape work
 - **Stage:** BU
@@ -407,13 +409,13 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `task-reviewer-prompt.md` (Calibration), `code-reviewer.md` (Output Format)
 - **What it is:** Categories: **Critical (must fix)**: bugs, security issues, data loss, broken functionality. **Important (should fix)**: "this task cannot be trusted until it is fixed": incorrect or fragile behavior, missed requirement, merge-blocking maintainability damage (verbatim duplicated logic block, swallowed errors, tests that assert nothing). **Minor**: "coverage could be broader", style, polish. If the plan or brief mandates something the rubric calls a defect, report it as Important labeled *plan-mandated* ("the plan's authorship does not grade its own work; the human decides"). Acknowledge strengths first ("accurate praise helps the implementer trust the rest"). Each issue: file:line, what is wrong, why it matters, how to fix if not obvious. Verdict: Task quality `Approved | Needs fixes` (+1–2 sentence reasoning).
 - **Failure mode prevented:** Everything-is-critical noise; plans shielding their own bad requirements.
-- **Target:** `multi-axis-code-review`. **Keep** definitions; they map 1:1 to the plan's Critical / Important / Minor triage. Gate 3 rule "no open Critical findings" uses exactly these definitions.
+- **Target:** `multi-axis-code-review`. **Keep** definitions; they map 1:1 to the plan's Critical / Important / Minor triage. CP4 rule "no open Critical findings" uses exactly these definitions.
 
 #### SP-44 · Controller must not pre-judge findings
 - **Stage:** TE
 - **Source:** `subagent-driven-development/SKILL.md` (Review the task)
 - **What it is:** When writing a reviewer prompt: no open-ended directives without a task-specific reason ("check all uses", "run race tests if useful"); never ask reviewers to re-run tests the implementer ran; never instruct a reviewer to ignore or downgrade a specific issue. Tripwire phrases: "do not flag", "don't treat X as a defect", "at most Minor", "the plan chose" → stop, you are pre-judging, usually to avoid a review loop. False positives are adjudicated in the loop, not suppressed in the prompt.
-- **Failure mode prevented:** The builder steering its own reviewer (violates V-Method rule 5 "builder does not grade itself").
+- **Failure mode prevented:** The builder steering its own reviewer (violates Agentic SDLC rule 5 "builder does not grade itself").
 - **Target:** `multi-axis-code-review`, `verification-gate`. **Keep** the tripwire phrase list verbatim; strong, cheap, portable.
 
 #### SP-45 · Bounded fix loop with breaker
@@ -421,7 +423,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `subagent-driven-development/references/fix-loop.md`
 - **What it is:** Trigger: spec ❌, any Critical/Important, or a confirmed ⚠️ gap. Exits before the loop: Minor findings → ledger `Task N: minor (deferred): …` (final reviewer triages them; "a roll-up nobody reads is a silent discard"); plan-mandated or plan-conflicting findings → controller rules with spec as authority and ledgers before acting. Loop: a round = one fix dispatch + one scoped re-review; **maximum 5 rounds per task**. Rounds 1–3 resume the original implementer with findings verbatim (if the harness cannot message a live agent, fresh implementer with brief + report + findings; the report file is the persistent memory). Rounds 4–5: fresh implementer on a more capable model with framing "A prior implementer attempted this task [N] times; you own it now." Each round the implementer fixes, re-runs covering tests, appends a fix report; the controller confirms covering tests + command + output are present before dispatching the re-review. Ledger after each round: `Task N: fix round R/5 (X addressed, Y open — <one-liners>; commits a..b)`. The controller never fixes code itself (context stays clean; controller fixes skip review). **Breaker** after round 5: adjudicate each open finding: reviewer wrong or contestable → park with ruling; real but nothing downstream builds on it → park with "real and deferred" ruling; real and load-bearing (later task builds on it, or plan defect) → rule on the smallest unblocking change, ledger, carry into next dispatch; stop only if every path is a guess. Adjudicate only at the cap ("adjudicating earlier to end a loop is pre-judging with a different name"); silent discards forbidden.
 - **Failure mode prevented:** Infinite review ping-pong; silently dropped findings; controller self-fixes that skip review.
-- **Target:** `executing-plans` subagent mode and `multi-axis-code-review`. **Keep** the cap, escalation at round 4, and breaker taxonomy. **Change:** parked Critical findings automatically block Gate 3 and surface in GATES.md residual risk; the cap could be lowered to 3 for Standard route to save cost.
+- **Target:** `executing-plans` subagent mode and `multi-axis-code-review`. **Keep** the cap, escalation at round 4, and breaker taxonomy. **Change:** parked Critical findings automatically block CP4 and surface in CHECKPOINTS.md residual risk; the cap could be lowered to 3 for Standard route to save cost.
 
 #### SP-46 · Scoped re-review
 - **Stage:** TE
@@ -435,14 +437,14 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `subagent-driven-development/references/final-review.md`, `executing-plans/SKILL.md` (Final Review)
 - **What it is:** After all tasks: build a review package over `MERGE_BASE..HEAD` (`git merge-base main HEAD`); dispatch the reviewer on the most capable model using `code-reviewer.md`, giving package path, plan and spec paths, the plan's Review Focus verbatim, and pointers to the ledger's deferred-minor, parked, and `Ruling:` lines. **Subagent executor**: one fix subagent with the complete findings list (not one fixer per finding; the source reports a per-finding fix wave that cost more than all tasks combined), then exactly one scoped re-review, then adjudicate residuals as in the breaker; no second fix wave. **Inline executor**: re-grade findings by effect first ("a reviewer who set a finding at Minor because the spec was silent has graded the spec, not the effect"); rule on every "Declined to judge" line; Critical/Important → one fix pass by the implementer where each fix is a reproducing test RED→GREEN plus a green full suite, ledgered `Final: fixed …`; no re-review (covering tests answer "addressed", suite answers "broke nothing"); Minor → `Final: minor (deferred)` and listed, never fixed unasked; unfixed findings → `Final: Ruling:`. Without a subagent tool, perform the review personally as a separate pass, ledger `Final review: self-review (no subagent tool)`, and tell the human it is weaker.
 - **Failure mode prevented:** Integration defects invisible to task-scoped reviews; runaway final fix waves; unasked polish.
-- **Target:** `multi-axis-code-review` (request mode, whole-branch) feeding Gate 3; `verification-gate`. **Keep** the single-wave rule and "re-grade by effect". **Change:** final review runs the V-Method's five axes (spec compliance vs ACs, design/standards vs ADRs/CONSTRAINTS, correctness, security, simplicity); the self-review fallback must be flagged in GATES.md so the Gate 3 approver sees it.
+- **Target:** `multi-axis-code-review` (request mode, whole-branch) feeding CP4; `verification-gate`. **Keep** the single-wave rule and "re-grade by effect". **Change:** final review runs the Agentic SDLC's five axes (spec compliance vs ACs, design/standards vs ADRs/CONSTRAINTS, correctness, security, simplicity); the self-review fallback must be flagged in CHECKPOINTS.md so the CP4 approver sees it.
 
 #### SP-48 · "Rulings I made" and "Deferred minors" final report
 - **Stage:** TE → DP
 - **Source:** `final-review.md` (Finish), `executing-plans/SKILL.md` (Finish)
 - **What it is:** Before deleting the workspace, collect every ledger line containing `Ruling:` (preflight, parked, breaker, final) into the final message under "Rulings I made", in order, each with cost-if-wrong; and every `minor (deferred)` line under "Deferred minors". Both lists exhaustive. "A ruling that dies with the workspace was a decision made in secret." Then delete the plan's workspace (siblings untouched) and hand off to branch finishing.
 - **Failure mode prevented:** Agent decisions taken on the human's behalf that never reach the human.
-- **Target:** `verification-gate` (Gate 3 record) and `shipping-and-handover`. **Keep** the two exhaustive lists. **Change:** write them into GATES.md (Gate 3 residual risk) and HANDOVER.md "Open risks" instead of only the chat; keep the workspace deletion but only after promotion.
+- **Target:** `verification-gate` (CP4 record) and `shipping-and-handover`. **Keep** the two exhaustive lists. **Change:** write them into CHECKPOINTS.md (CP4 residual risk) and HANDOVER.md "Open risks" instead of only the chat; keep the workspace deletion but only after promotion.
 
 ### F. TE Test: requesting and receiving review
 
@@ -451,7 +453,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `skills/requesting-code-review/SKILL.md`
 - **What it is:** Mandatory review: after each task in subagent execution, after a major feature, before merge to main. Optional: when stuck, before refactoring (baseline), after fixing a complex bug. Get BASE/HEAD SHAs; dispatch a reviewer with crafted context (never session history; reviewing inline as coordinator burns the context needed to drive work). Act: fix Critical immediately, fix Important before proceeding, note Minor, push back with reasoning when the reviewer is wrong. Never skip because "it's simple", ignore Critical, proceed with unfixed Important, or argue with valid technical feedback.
 - **Failure mode prevented:** Unreviewed merges; review as optional ritual.
-- **Target:** `multi-axis-code-review` (request mode). **Keep** the trigger list; add "before Gate 3" as the V-Method mandatory point.
+- **Target:** `multi-axis-code-review` (request mode). **Keep** the trigger list; add "before CP4" as the Agentic SDLC mandatory point.
 
 #### SP-50 · Final reviewer template: vision document, "Declined to judge", read-only
 - **Stage:** TE
@@ -474,7 +476,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `skills/test-driven-development/SKILL.md`
 - **What it is:** "NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST." Code written before its test is deleted: not kept as reference, not adapted while writing tests, not looked at. Applies to new features, bug fixes, refactoring, behavior changes. Exceptions only with human permission: throwaway prototypes, generated code, configuration files. "Violating the letter of the rules is violating the spirit of the rules."
 - **Failure mode prevented:** Tests written after the fact that pass immediately and prove nothing.
-- **Target:** `test-driven-development` (plan §5.8). **Keep** verbatim. Add the V-Method exception list from plan (pure config/docs) and the Quick-route rule "agreed acceptance test first".
+- **Target:** `test-driven-development` (plan §5.8). **Keep** verbatim. Add the Agentic SDLC exception list from plan (pure config/docs) and the Quick-route rule "agreed acceptance test first".
 
 #### SP-53 · Red-green-refactor with verification criteria
 - **Stage:** BU
@@ -518,14 +520,14 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `systematic-debugging/SKILL.md` (Phase 1 step 4)
 - **What it is:** For pipelines (CI → build → signing; API → service → DB), before proposing fixes, add diagnostics at every component boundary: log data entering and exiting, verify environment/config propagation, check state per layer. Run once to find *where* it breaks, then investigate only that component. Example prints `SET/UNSET` for a secret at each layer (never the value) and shows the break between workflow and build script.
 - **Failure mode prevented:** Fixing the wrong layer of a pipeline.
-- **Target:** `systematic-debugging`, `deployment-pipeline` (CI failure triage). **Keep**; note the example's good practice of logging presence, not secret values (V-Method rule 7).
+- **Target:** `systematic-debugging`, `deployment-pipeline` (CI failure triage). **Keep**; note the example's good practice of logging presence, not secret values (Agentic SDLC rule 7).
 
 #### SP-59 · Three-failed-fixes architectural escalation
 - **Stage:** BU → DE
 - **Source:** `systematic-debugging/SKILL.md` (Phase 4 steps 4–5; Red Flags)
 - **What it is:** If a fix fails: stop and count. Fewer than 3 → back to Phase 1 with the new information. 3 or more → stop and question the architecture; no Fix #4 without discussing with the human. Signals of an architectural problem: each fix reveals new shared state or coupling elsewhere; fixes require "massive refactoring"; each fix creates symptoms elsewhere. Questions: is the pattern fundamentally sound? Are we continuing through inertia? Refactor vs. keep patching? "This is NOT a failed hypothesis - this is a wrong architecture." Human redirection signals that mean "return to Phase 1": "Is that not happening?", "Will it show us…?", "Stop guessing", "Ultra-think this", a frustrated "We're stuck?".
 - **Failure mode prevented:** Endless patching of a structurally wrong design.
-- **Target:** `systematic-debugging`; escalation path into `agentic-v-method` change protocol (back to DE with an ADR). **Keep** threshold 3 (matches plan §5.10).
+- **Target:** `systematic-debugging`; escalation path into `agentic-sdlc` change protocol (back to DE with an ADR). **Keep** threshold 3 (matches plan §5.10).
 
 #### SP-60 · Backward root-cause tracing
 - **Stage:** BU
@@ -562,7 +564,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `skills/verification-before-completion/SKILL.md`
 - **What it is:** "NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE": if the command was not run in this message, it cannot be claimed. Gate: (1) IDENTIFY the command that proves the claim; (2) RUN the full command fresh; (3) READ full output, exit code, failure count; (4) VERIFY whether output confirms the claim (no → state actual status with evidence; yes → state claim with evidence); (5) only then claim. "Skip any step = lying, not verifying." Claim → evidence table: tests pass ← test output with 0 failures (not a previous run or "should pass"); linter clean ← linter 0 errors; build succeeds ← build exit 0 (linter passing is not a build); bug fixed ← original symptom test passes; regression test works ← red-green cycle verified (write → pass → revert fix → MUST FAIL → restore → pass); agent completed ← VCS diff shows the changes (not the agent's report); requirements met ← line-by-line checklist against the plan (not "tests pass"). Applies before any success claim, expression of satisfaction ("Great!", "Done!"), commit, PR, task completion, moving to the next task, delegating; covers paraphrases and implications.
 - **Failure mode prevented:** False "done/fixed/passing" claims; trusting subagent self-reports.
-- **Target:** `verification-gate` (plan §5.13). **Keep** the gate and the table verbatim. **Change:** step 4 compares against the specific `AC-n`; step 5 writes a VERIFICATION.md row and updates TRACEABILITY.md; add "requirements met" as the Gate 3 evidence summary.
+- **Target:** `verification-gate` (plan §5.13). **Keep** the gate and the table verbatim. **Change:** step 4 compares against the specific `AC-n`; step 5 writes a VERIFICATION.md row and updates TRACEABILITY.md; add "requirements met" as the CP4 evidence summary.
 
 ### J. Parallelism, isolation, and finishing
 
@@ -585,9 +587,9 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `skills/finishing-a-development-branch/SKILL.md`
 - **What it is:** Step 1 run the full suite; failing → report and stop (menu only after green). Step 2 detect environment (git-dir vs common-dir; capture `WORKTREE_PATH` before any `cd`). Step 3 confirm the base branch ("This branch split from <guess> - is that correct?"). Step 4 present exactly: normal repo or named-branch worktree → 1. merge locally, 2. push and create PR, 3. keep as-is; detached HEAD → 1. push as new branch + PR, 2. keep. Discard is never offered; only on explicit request, after listing branch, commits, worktree, and requiring the typed word `discard`. Option 1: from main root, checkout base, pull, merge, re-run tests *on the merged result*; failing → stop, leave branch and worktree; green → cleanup then `git branch -d`. Option 2: push, open PR with the forge CLI following the repo PR template, report URL, keep worktree for PR feedback. Option 3: report preserved paths. Cleanup provenance: only remove worktrees under `.worktrees/` or `worktrees/` (`git worktree remove` + `prune`); others belong to the host. Removal refused due to untracked files → never `--force`; show `git status --porcelain -uall` and offer commit / move / delete. Never force-push on rejection.
 - **Failure mode prevented:** Merging red code, merging into the wrong base, destroying uncommitted files, unrequested deletion.
-- **Target:** `shipping-and-handover` (plan §5.17). **Keep** the menu, merged-result re-test, typed discard, and provenance cleanup. **Change:** before the menu, require Gate 3 approved in GATES.md; PR body uses the V-Method template (what & why, evidence, rollback, traceability summary).
+- **Target:** `shipping-and-handover` (plan §5.17). **Keep** the menu, merged-result re-test, typed discard, and provenance cleanup. **Change:** before the menu, require CP4 approved in CHECKPOINTS.md; PR body uses the Agentic SDLC template (what & why, evidence, rollback, traceability summary).
 
-### K. Meta: authoring and testing skills (applies to building the V-Method itself)
+### K. Meta: authoring and testing skills (applies to building the Agentic SDLC itself)
 
 #### SP-68 · TDD for skills (RED baseline, GREEN, REFACTOR)
 - **Stage:** X (skill development; Wave 4 of the plan)
@@ -601,21 +603,21 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `references/testing-skills-with-subagents.md`, `references/CLAUDE_MD_TESTING.md`
 - **What it is:** Scenario recipe: preamble "IMPORTANT: This is a real scenario. You must choose and act."; concrete A/B/C options; real constraints (times, money); real file paths; "What do you do?" not "What should you do?"; no easy out of deferring to the human. Combine 3+ pressures from: time, sunk cost, authority, economic, exhaustion, social, pragmatic. Canonical example: 3 hours / 200 lines / manually tested / 6pm with dinner at 6:30 / forgot TDD → A delete, B commit and test tomorrow, C write tests now. `CLAUDE_MD_TESTING.md` adds a variant campaign: NULL baseline vs soft suggestion vs directive vs emphatic vs process-oriented instruction text, each run on four scenarios (time + confidence, sunk cost + works already, authority + speed, familiarity + efficiency), compared on compliance, then meta-tested.
 - **Failure mode prevented:** "Academic" tests where agents recite rules but break them in practice.
-- **Target:** Wave 4 evals for the V-Method (e.g. "production is down, skip the SPEC?" for the router; "tests pass, claim done without running?" for `verification-gate`). **Keep** the recipe; store scenarios under each skill's `evals/` or the existing skill-creator eval format.
+- **Target:** Wave 4 evals for the Agentic SDLC (e.g. "production is down, skip the SPEC?" for the router; "tests pass, claim done without running?" for `verification-gate`). **Keep** the recipe; store scenarios under each skill's `evals/` or the existing skill-creator eval format.
 
 #### SP-70 · Match the form to the failure; micro-test wording
 - **Stage:** X
 - **Source:** `skills/writing-skills/SKILL.md` (Match the Form to the Failure; Micro-Test Wording)
 - **What it is:** Classify the baseline failure before writing guidance: skips a rule under pressure → prohibition + rationalization table + red flags; complies but wrong output shape → positive recipe/contract stating the output's parts in order (prohibitions backfire: in head-to-head tests the prohibition arm produced more unwanted content than the recipe arm and trended worse than no guidance); omits a required element → structural REQUIRED slot in the template; behavior should depend on a condition → conditional on an observable predicate. Rules: no nuance clauses ("don't X unless it matters" reopens negotiation; one nuance clause degraded a winning recipe from consistent to noisy); exemption clauses don't scope (restructure instead). Micro-test protocol: one fresh-context sample per call with the realistic surrounding context; always a no-guidance control (if the control doesn't fail, don't write the guidance); 5+ reps per variant; manually read every flagged match; variance is a metric (binding wording converges).
 - **Failure mode prevented:** Guidance that makes the targeted behavior worse; untested wording.
-- **Target:** Authoring guide for all V-Method skills (`docs/guides/quality-standards.md` update) and `skill-creator`. **Keep**; this is the most evidence-backed authoring advice in the corpus. It argues for templates with REQUIRED slots (SPEC, PLAN, GATES) over prose reminders.
+- **Target:** Authoring guide for all Agentic SDLC skills (`docs/guides/quality-standards.md` update) and `skill-creator`. **Keep**; this is the most evidence-backed authoring advice in the corpus. It argues for templates with REQUIRED slots (SPEC, PLAN, GATES) over prose reminders.
 
 #### SP-71 · Persuasion principles, cross-references, token budgets
 - **Stage:** X
 - **Source:** `references/persuasion-principles.md`, `references/discovery.md`, `references/flowcharts.md`, `references/graphviz-conventions.dot`, `writing-skills/SKILL.md`
 - **What it is:** Persuasion (citing Cialdini 2021; Meincke et al. 2025, N=28,000, compliance 33% → 72%): discipline skills use Authority (imperatives, "no exceptions") + Commitment (announce skill use, forced choices, todos) + Social Proof ("X without Y = failure. Every time."); guidance uses moderate authority + unity; collaborative uses unity + commitment; reference uses clarity only; avoid Liking (sycophancy) and Reciprocity; ethics test: would it serve the user if they fully understood it? Cross-references: `**REQUIRED SUB-SKILL:** Use <skill>` / `**REQUIRED BACKGROUND:**`; never `@file` links (force-load context). Token budgets: getting-started <150 words, frequently loaded <200, others <500 (stricter than this repo's 1500–2000). Flowcharts only for non-obvious decisions, loops where an agent might stop early, and A-vs-B choices; never for reference, code, or linear steps; graphviz conventions: diamond = question, box = action, plaintext = literal command, ellipse = state, red octagon = critical warning, doublecircle = start/end. Invoke bundled scripts via interpreter (`bash scripts/x.sh`), since some plugin packagers strip exec bits.
 - **Failure mode prevented:** Weak wording ignored under pressure; context burned by force-loaded references; unreadable diagrams.
-- **Target:** V-Method authoring conventions (Wave 0 foundations). **Keep** the REQUIRED SUB-SKILL marker convention (with repo skill names, no `superpowers:` prefix), the interpreter-invocation rule, and the flowchart restraint. **Change:** word budgets follow repo rules (1500–2000 target, max 5000) with heavy material in `references/`.
+- **Target:** Agentic SDLC authoring conventions (Wave 0 foundations). **Keep** the REQUIRED SUB-SKILL marker convention (with repo skill names, no `superpowers:` prefix), the interpreter-invocation rule, and the flowchart restraint. **Change:** word budgets follow repo rules (1500–2000 target, max 5000) with heavy material in `references/`.
 
 #### SP-72 · Anthropic skill-authoring practices bundled as reference
 - **Stage:** X
@@ -655,7 +657,7 @@ Short quotes are from MIT-licensed source (© 2025 Jesse Vincent) and marked wit
 - **Required sections:** Task Description (read the brief) · Context · Before You Begin (ask now) · Your Job (implement exactly, test per TDD, verify, commit, self-review, report) · You Do Not Dispatch Subagents · Code Organization · When You're in Over Your Head · Before Reporting Back: Self-Review · After Review Findings · Report Format.
 - **Output contract:** full report in file (implemented, tested + results, TDD Evidence RED/GREEN, files changed, self-review findings, concerns); returned message ≤15 lines: Status `DONE | DONE_WITH_CONCERNS | BLOCKED | NEEDS_CONTEXT`, commits, one-line test summary, concerns, report path.
 - **Key rules (quotes, `implementer-prompt.md`):** "It is always OK to stop and say 'this is too hard for me.' Bad work is worse than no work." · "Never silently produce work you're unsure about."
-- **Adaptation:** add `Satisfies: AC-n` to the context block and "ACs addressed" to the report; commit message must carry task and AC IDs; add V-Method rule 7 (no secrets/PII in fixtures or logs).
+- **Adaptation:** add `Satisfies: AC-n` to the context block and "ACs addressed" to the report; commit message must carry task and AC IDs; add Agentic SDLC rule 7 (no secrets/PII in fixtures or logs).
 
 ### 3.3 Task reviewer prompt (spec + quality)
 - **Source:** `skills/subagent-driven-development/task-reviewer-prompt.md`
@@ -682,7 +684,7 @@ Short quotes are from MIT-licensed source (© 2025 Jesse Vincent) and marked wit
 - **Required sections:** role · What Was Implemented · Requirements/Plan · Git Range · The spec is a vision document · Declined to judge · Read-Only Review · no-subagents · What to Check (plan alignment, code quality, architecture, testing, production readiness) · Calibration · Output Format · Critical Rules (DO/DON'T).
 - **Output contract:** Strengths · Issues (Critical/Important/Minor, each with file:line, issue, why, fix) · Recommendations · Assessment ("Ready to merge? Yes | No | With fixes" + reasoning) · plus the Declined-to-judge list before the verdict.
 - **Key rules (quotes, `code-reviewer.md`):** "a reasonable person's expectation is a requirement, and a spec's silence is not permission." · "Before your verdict, list every behavior you considered and set aside as outside the plan or spec, one line each, with the reason."
-- **Adaptation:** split into the five V-Method axes; each axis reviewer gets the same skeleton with its own What to Check list; the security axis adds OWASP/SSDF items from `security-hardening`.
+- **Adaptation:** split into the five Agentic SDLC axes; each axis reviewer gets the same skeleton with its own What to Check list; the security axis adds OWASP/SSDF items from `security-hardening`.
 
 ### 3.6 Parallel-agent task prompt shape
 - **Source:** `skills/dispatching-parallel-agents/SKILL.md`
@@ -713,21 +715,21 @@ Short quotes are from MIT-licensed source (© 2025 Jesse Vincent) and marked wit
 | Script | What it does | Inputs → outputs | Portability | Adaptation |
 |---|---|---|---|---|
 | `subagent-driven-development/scripts/sdd-repo` | Single source of truth for "which repository": `git rev-parse --show-toplevel` of the current directory, never inferred from the plan path. `--with-commit` also refuses a repo with no HEAD. Error message covers both "wrong directory" and "new project, run git init + first commit", and appends git's own first error line. | `[--with-commit]` → prints repo root; exit 2 with guidance | bash + git; works on Git Bash | Keep as a helper inside `executing-plans/scripts/`; the "plan path never picks the repo" rule matters for worktree setups. |
-| `…/scripts/sdd-workspace` | Resolves and creates the per-plan workspace `<root>/.superpowers/sdd/<plan-basename>/`. Writes a `plan-path` marker (repo-relative or absolute) so two plans with the same basename get `-<parentdir>` then `-<parentdir>-N` suffixes; marker-less legacy dirs are adopted. Creates a self-ignoring `.gitignore` (`*`) only if absent. Lives in the working tree, not `.git/`, because Claude Code blocks agent writes under `.git/`. `-C DIR` like `git -C`. Prints `C:/…` paths via `cygpath -m` on Windows. | `[-C DIR] PLAN_FILE` → workspace absolute path | bash; Windows-aware | Keep; rename base to `.v-method/work/` (or `docs/v-method/<feature>/.work/`). The collision handling and self-ignoring `.gitignore` are worth copying exactly. |
-| `…/scripts/task-brief` | awk extraction of one task's text. Task heading regex `^#+\s+Task\s+<ID>` where ID is alphanumeric, optionally dot-separated, containing a digit (so "Task Overview" is not a task). Whole-string ID match (Task 6 ≠ 6b, Task 1 ≠ 1.1); deeper sub-task headings (`#### Task 7a` under `### Task 7`) stay in the brief; fenced code blocks hide headings; an unclosed fence that would swallow later tasks aborts with exit 4; if no "Task" headings exist, lists up to five task-shaped headings (likely translated "Tarea 1") with a hint that the English word is required. | `[-C DIR] PLAN_FILE N [OUTFILE]` → `task-N-brief.md`, prints `wrote <path>: <n> lines`; exit 3 if not found | bash + POSIX awk; plan path passed via `ENVIRON` to keep Windows backslashes | Keep; V-Method PLAN.md must keep the `### Task N:` heading convention. If PLAN uses `tasks/NN-*.md` files, the brief is simply that file and the script is unnecessary. |
+| `…/scripts/sdd-workspace` | Resolves and creates the per-plan workspace `<root>/.superpowers/sdd/<plan-basename>/`. Writes a `plan-path` marker (repo-relative or absolute) so two plans with the same basename get `-<parentdir>` then `-<parentdir>-N` suffixes; marker-less legacy dirs are adopted. Creates a self-ignoring `.gitignore` (`*`) only if absent. Lives in the working tree, not `.git/`, because Claude Code blocks agent writes under `.git/`. `-C DIR` like `git -C`. Prints `C:/…` paths via `cygpath -m` on Windows. | `[-C DIR] PLAN_FILE` → workspace absolute path | bash; Windows-aware | Keep; rename base to `.v-method/work/` (or `docs/agentic-sdlc/<feature>/.work/`). The collision handling and self-ignoring `.gitignore` are worth copying exactly. |
+| `…/scripts/task-brief` | awk extraction of one task's text. Task heading regex `^#+\s+Task\s+<ID>` where ID is alphanumeric, optionally dot-separated, containing a digit (so "Task Overview" is not a task). Whole-string ID match (Task 6 ≠ 6b, Task 1 ≠ 1.1); deeper sub-task headings (`#### Task 7a` under `### Task 7`) stay in the brief; fenced code blocks hide headings; an unclosed fence that would swallow later tasks aborts with exit 4; if no "Task" headings exist, lists up to five task-shaped headings (likely translated "Tarea 1") with a hint that the English word is required. | `[-C DIR] PLAN_FILE N [OUTFILE]` → `task-N-brief.md`, prints `wrote <path>: <n> lines`; exit 3 if not found | bash + POSIX awk; plan path passed via `ENVIRON` to keep Windows backslashes | Keep; Agentic SDLC PLAN.md must keep the `### Task N:` heading convention. If PLAN uses `tasks/NN-*.md` files, the brief is simply that file and the script is unnecessary. |
 | `…/scripts/review-package` | Writes the reviewer's single input file: `# Review package: base..head`, `## Commits` (`git log --oneline`), `## Files changed` (`git diff --stat`), `## Diff` (`git diff -U10`). Guards: BASE and HEAD must resolve; BASE must be an ancestor of HEAD; range must be non-empty (exit 3). Default name `review-<base7>..<head7>.diff` so re-reviews get fresh files. | `[-C DIR] PLAN_FILE BASE HEAD [OUTFILE]` → path + commit count + bytes | bash + git | Keep; essential for the "builder does not grade itself" separation and context hygiene. Without bash, the skill text gives the three git commands redirected to one file. |
 | `executing-plans/scripts/task-start` | One call: runs `task-brief` and prints `brief: <path>` and `base: <HEAD sha>` (read from the repo `sdd-repo` names). Rationale: every tool call re-reads context, so combine. | `PLAN_FILE N` → brief path + BASE | bash | Keep in `executing-plans`. |
 | `executing-plans/scripts/task-done` | Runs the task's test command, saves full output to `task-N-tests.log`, prints the last 5 lines, and only on exit 0 appends `Task N: complete (commits <base7>..<head7>, tests: <cmd> → <last non-blank output line>)` to the ledger (creating it with its identity line if missing). Non-zero exit records nothing and propagates the status. | `PLAN_FILE N BASE -- <cmd…>` → ledger line; exit = test status | bash + git | Keep; extend to also append a VERIFICATION.md row with the task's `AC-n`. This script is the cleanest mechanical form of "evidence before claims". |
 | `systematic-debugging/find-polluter.sh` | Lists test files matching a glob (also tries the pattern with `**/` collapsed so top-level files match), runs each with `npm test <file>` one by one, and stops at the first after which the pollution path exists; skips (with a warning) when pollution pre-exists. Prints the polluter and follow-up commands; exit 1 when found, 0 when clean. | `<path_to_check> <test_glob>` → polluter file name | bash; hard-codes `npm test`; linear, not true bisection | Change: take the test command as a parameter (`-- pytest {file}`), clean the pollution between runs, and keep linear search (simple, deterministic). |
 | `systematic-debugging/condition-based-waiting-example.ts` | Reference implementations of `waitForEvent`, `waitForEventCount`, `waitForEventMatch` (10 ms poll, 5 s default timeout, descriptive timeout errors) plus before/after usage. | Library code (not run) | TypeScript, depends on the Lace codebase types | Keep as an example only; add one Python equivalent at most (the authoring guide warns against multi-language dilution). |
 | `brainstorming/scripts/start-server.sh` | Launches the visual-companion server. Flags: `--project-dir` (persist under `<project>/.superpowers/brainstorm/<pid>-<epoch>/`, remember port and key in `.last-port`/`.last-token`), `--host` (default 127.0.0.1), `--url-host`, `--idle-timeout-minutes` (default 240), `--open`, `--foreground`, `--background`. Auto-foreground under `CODEX_CI` and Windows-like shells (they reap background processes); `umask 077`; per-start server instance ID; owner PID = harness grandparent (disabled on MSYS); waits up to 5 s for `server-started`, then checks the process survives about 2 s. | flags → JSON `{type, port, url (with ?key=), screen_dir, state_dir}` or `{error}` | bash + Node; fragile across harnesses | Not adopted in v1 (see §7). |
-| `brainstorming/scripts/stop-server.sh` | Stops a session's server only if the PID's command line carries this session's `--brainstorm-server-id` (refuses stale PIDs after reboot or PID reuse); SIGTERM, then SIGKILL after about 2 s; writes `server-stopped` marker; deletes the session dir only if under `/tmp`. | `<session_dir>` → `{"status": stopped | not_running | stale_pid | failed}` | bash, `/proc` or `ps` | The "prove the PID is ours before signaling" pattern is worth reusing in any V-Method script that manages processes. |
+| `brainstorming/scripts/stop-server.sh` | Stops a session's server only if the PID's command line carries this session's `--brainstorm-server-id` (refuses stale PIDs after reboot or PID reuse); SIGTERM, then SIGKILL after about 2 s; writes `server-stopped` marker; deletes the session dir only if under `/tmp`. | `<session_dir>` → `{"status": stopped | not_running | stale_pid | failed}` | bash, `/proc` or `ps` | The "prove the PID is ours before signaling" pattern is worth reusing in any Agentic SDLC script that manages processes. |
 | `brainstorming/scripts/server.cjs` | Zero-dependency Node HTTP + RFC 6455 WebSocket server. Serves the newest `.html` in `content/` (fragments wrapped in `frame-template.html`; full documents served as-is) with `helper.js` injected; `/files/*` for assets with symlink, hard-link and path-escape checks; 32-byte random session key required as `?key=` or HttpOnly SameSite=Strict cookie (constant-time compare; defeats DNS rebinding); WebSocket origin check; security headers (no-referrer, no-store, frame DENY, CORP same-origin); appends click events with a `choice` to `state/events`; clears events on each new screen; broadcasts `reload` on file changes (100 ms debounce); idle shutdown (default 4 h) and owner-PID watchdog (60 s check); preferred-port reuse with one random fallback; optional telemetry logo (disable with `SUPERPOWERS_DISABLE_TELEMETRY`, `DISABLE_TELEMETRY`, or `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC`). | env vars → running server + `state/server-info` | Node ≥ 18 | Not adopted; note the telemetry default as a reason (§7). |
 | `brainstorming/scripts/helper.js` | Browser client: WebSocket with exponential backoff (500 ms → 30 s), "Companion paused" overlay after 15 s disconnected, status pill, event queue while offline, `toggleSelect` (single/multi-select within `.options`/`.cards`), `window.brainstorm.send/choice` API. | n/a | Browser | Not adopted. |
 | `brainstorming/scripts/frame-template.html` | CSS theme (light/dark via `prefers-color-scheme`) and frame with header, branding slot, status pill and `<!-- CONTENT -->`; component classes `.options/.option/.letter`, `.cards/.card/.card-image/.card-body`, `.mockup/.mockup-header/.mockup-body`, `.split`, `.pros-cons`, `.mock-nav/.mock-sidebar/.mock-content/.mock-button/.mock-input`, `.placeholder`, `.subtitle/.section/.label`. | n/a | Static | Not adopted. |
 | `writing-skills/render-graphs.js` | Extracts all ```` ```dot ```` blocks from a skill's SKILL.md and renders SVGs via graphviz `dot` (separately or `--combine` into clusters) into `<skill>/diagrams/`. | `<skill-dir> [--combine]` → SVG files | Node ESM + graphviz installed | Optional for maintainers; the repo prefers mermaid/ASCII in skills. Not needed at runtime. |
 
-**Cross-cutting script design rules observed (all worth copying into V-Method scripts):** one-call combination of related steps (each tool call re-reads context); invoke via `bash script` not a bare path (packagers strip exec bits); `-C DIR` instead of `cd DIR;` compounds (harness allowlists can't match varying compounds); explicit exit codes per failure class (2 usage, 3 not found/empty range, 4 malformed input); never infer the repository from a file path; print Windows-native paths when `cygpath` exists; outputs are short single lines naming the file written.
+**Cross-cutting script design rules observed (all worth copying into Agentic SDLC scripts):** one-call combination of related steps (each tool call re-reads context); invoke via `bash script` not a bare path (packagers strip exec bits); `-C DIR` instead of `cd DIR;` compounds (harness allowlists can't match varying compounds); explicit exit codes per failure class (2 usage, 3 not found/empty range, 4 malformed input); never infer the repository from a file path; print Windows-native paths when `cygpath` exists; outputs are short single lines naming the file written.
 
 ---
 
@@ -905,41 +907,41 @@ using-superpowers (bootstrap, every session)
   └─ "what went wrong?" ─▶ diagnosing-superpowers ─▶ report (optional issue / bundle)
 ```
 
-### 6.3 Gate equivalents in Superpowers vs. the V-Method
-| Superpowers checkpoint | Who decides | V-Method equivalent |
+### 6.3 Gate equivalents in Superpowers vs. the Agentic SDLC
+| Superpowers checkpoint | Who decides | Agentic SDLC equivalent |
 |---|---|---|
 | Approach pick (own message) | Human | PL route + AN design choice; ADR in DE |
-| Design-doc approval (HARD-GATE) | Human | **Gate 1: SPEC approved** (adds AC-n, rollback, indicators) |
-| Plan review + executor choice | Human | **Gate 2: PLAN approved** |
+| Design-doc approval (HARD-GATE) | Human | **CP2: SPEC approved** (adds AC-n, rollback, indicators) |
+| Plan review + executor choice | Human | **CP3: PLAN approved** |
 | Per-task review (spec + quality), fix loop | Fresh reviewer subagent + controller | TE micro-gate inside BU |
-| Final whole-branch review + single fix wave | Most capable reviewer + executor | **Gate 3 input** (plus test-strategy, verification-gate, security) |
-| "Rulings I made" list | Human reads after the fact | GATES.md residual risk, read *before* Gate 3 approval |
+| Final whole-branch review + single fix wave | Most capable reviewer + executor | **CP4 input** (plus test-strategy, verification-gate, security) |
+| "Rulings I made" list | Human reads after the fact | CHECKPOINTS.md residual risk, read *before* CP4 approval |
 | Integration menu | Human | DP `shipping-and-handover` |
 
-Superpowers has no PL indicators, no rollback field, no `AC-n` IDs, no traceability matrix, no security lens, no deployment/observability stage, and no retrospective; those are the V-Method's additions on top of this chain.
+Superpowers has no PL indicators, no rollback field, no `AC-n` IDs, no traceability matrix, no security lens, no deployment/observability stage, and no retrospective; those are the Agentic SDLC's additions on top of this chain.
 
 ---
 
 ## 7. What NOT to adopt, and why
 
 1. **The "1% chance" mandatory bootstrap and its SessionStart hook injection.** Over-triggers (every question routes through skills), conflicts with this repo's explicit-trigger skills (`grill-me`), and depends on hooks most of the 8 target platforms lack. Use precise descriptions plus the router instead.
-2. **`superpowers:` namespaced cross-references and `docs/superpowers/…` paths.** Replace with plain repo skill names and `docs/v-method/<feature>/` (or discovered project conventions).
+2. **`superpowers:` namespaced cross-references and `docs/superpowers/…` paths.** Replace with plain repo skill names and `docs/agentic-sdlc/<feature>/` (or discovered project conventions).
 3. **Visual companion server (Node WebSocket server, launch scripts, frame template).** About 6,000 words of code to maintain; background-process behavior differs per harness (Codex and Windows reap processes, Gemini/Copilot need foreground plus harness backgrounding); security surface (session keys, cookies) to audit; and the logo is fetched from the vendor's site by default (telemetry with opt-out env vars), which is unsuitable for client environments. Keep only the per-question "would seeing help?" rule and text sketches.
 4. **Model-name-specific guidance and nested-orchestrator trick.** Claude Code's three-level subagent nesting (`CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH`) is harness-specific; keep tier language only.
 5. **Per-harness tool-mapping files at tool-name granularity.** They rot quickly; keep a capability matrix.
 6. **Hard 5-round fix cap for every route.** Costly on Standard route; make the cap route-dependent (e.g. Quick: inline only, Standard: 3, Full: 5).
-7. **Deleting the workspace (and with it the ledger) at the end.** Conflicts with V-Method traceability; promote rulings, evidence and deferred minors into VERIFICATION.md, GATES.md and HANDOVER.md first, then delete the scratch.
+7. **Deleting the workspace (and with it the ledger) at the end.** Conflicts with Agentic SDLC traceability; promote rulings, evidence and deferred minors into VERIFICATION.md, CHECKPOINTS.md and HANDOVER.md first, then delete the scratch.
 8. **Complete code in plan steps (older Superpowers style; README still says "complete code").** The current skill already moved to signatures + tests; keep the newer rule and the proportion check.
 9. **Very low word budgets (<150/<200/<500 words).** Conflict with this repo's 1500–2000-word standard; keep the progressive-disclosure intent instead.
 10. **"Never thank" / forbidden-phrase lists as literal bans in user-facing tone.** Keep the substance (verify, then act; no performative agreement) but phrase as a positive contract (SP-70 says prohibitions backfire on shaping problems).
-11. **Transcript forensics, scrubbed bundle export, GitHub issue filing (diagnosing-superpowers).** Vendor-support tooling tied to harness session storage formats; the retrospective should audit V-Method artifacts and git history instead.
+11. **Transcript forensics, scrubbed bundle export, GitHub issue filing (diagnosing-superpowers).** Vendor-support tooling tied to harness session storage formats; the retrospective should audit Agentic SDLC artifacts and git history instead.
 12. **Test-polluter script hard-coded to `npm test`, TypeScript-only examples.** Generalize or present as one example per technique.
-13. **Brainstorming for non-software work ("a talk, a business, a renovation").** Out of scope for a software V-Method; keep the repo's brainstorming general but route only software delivery into the V-Method.
-14. **"Continuous execution, never check in" applied across stage boundaries.** Valid inside BU; never skips Gate 1/2/3 or the change protocol.
+13. **Brainstorming for non-software work ("a talk, a business, a renovation").** Out of scope for a software Agentic SDLC; keep the repo's brainstorming general but route only software delivery into the Agentic SDLC.
+14. **"Continuous execution, never check in" applied across stage boundaries.** Valid inside BU; never skips CP2/2/3 or the change protocol.
 
 ---
 
-## 8. Top 15 mechanisms for the Agentic V-Method (ranked)
+## 8. Top 15 mechanisms for the Agentic SDLC (ranked)
 
 1. **SP-64 Verification gate function + claim→evidence table** → `verification-gate`
 2. **SP-30 Per-plan progress ledger with typed lines and compaction recovery** → `executing-plans`
@@ -954,7 +956,7 @@ Superpowers has no PL indicators, no rollback field, no `AC-n` IDs, no traceabil
 11. **SP-54 + SP-56 "Name the break" gate and mutation check** → `test-driven-development` / `test-strategy`
 12. **SP-57 + SP-59 Four-phase debugging with 3-failed-fixes architectural escalation** → `systematic-debugging`
 13. **SP-34 Completion contract with test-gated ledger write (`task-done`)** → `executing-plans` / `verification-gate`
-14. **SP-48 Exhaustive "Rulings I made" + "Deferred minors" final report** → `verification-gate` (GATES.md) / `shipping-and-handover`
+14. **SP-48 Exhaustive "Rulings I made" + "Deferred minors" final report** → `verification-gate` (CHECKPOINTS.md) / `shipping-and-handover`
 15. **SP-67 Finishing menu with merged-result re-test, typed `discard`, provenance-based cleanup** → `shipping-and-handover`
 
 Honorable mentions: SP-44 controller anti-pre-judging tripwires (`multi-axis-code-review`); SP-31 pre-flight conflict scan (`executing-plans`); SP-51 receiving-review protocol (`multi-axis-code-review`); SP-70 match-the-form-to-the-failure (authoring guide).

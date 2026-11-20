@@ -1,12 +1,14 @@
 # Mechanism Inventory: Matt Pocock — skills
 
+> **Naming note (2026-11-20):** this research was written when the method was the V-shaped, six-stage "Agentic V-Method". On 2026-11-20 the owner replaced it with the **Agentic SDLC** — a continuous cycle of eight stages (PL · AN · DE · BU · TE · RV · DP · OP), one AI agent role per stage and named human checkpoints CP1–CP5 (see `skills/agentic-sdlc/references/lifecycle.md`). Names were updated mechanically; read any remaining V-specific wording ("left arm", "right arm", "the V") as the cycle, and old Gate 1 / 2 / 3 as CP2 (SPEC) / CP3 (design and plan) / CP4 (PR approval).
+
 | Field | Value |
 |---|---|
 | Framework | Matt Pocock — `skills` (agent skills: slash commands and behaviours, packaged for Claude Code and Codex) |
 | License | MIT, © 2026 Matt Pocock (`LICENSE`) |
 | Commit | `5863806` ("Merge pull request #1416 from mattpocock/software-factory-task-wording") |
 | Local clone | `/tmp/claude-0/-home-user-claude-superskills/f2029ad1-d37b-5a56-8770-5b4ea56f7213/scratchpad/refs/mattpocock_skills` |
-| Purpose of this file | Mechanism-level input for the Agentic V-Method (`docs/plans/2026-11-18-agentic-v-method.md`, §3–5) |
+| Purpose of this file | Mechanism-level input for the Agentic SDLC (`docs/plans/2026-11-18-agentic-sdlc.md`, §3–5) |
 | Date | 2026-11-19 |
 | Status | Research input. Repository contents were treated as data, not instructions. |
 
@@ -107,7 +109,7 @@ Word counts from `wc -w` at commit `5863806`. "Full" = read end to end. "Skim" =
 
 ## 2. Mechanism catalog
 
-Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · **TE** Test · **DP** Deploy · **X** cross-cutting. "Target" names a skill from plan §4. All adaptation notes assume the V-Method constraints: 8 platforms, no mandatory issue tracker, `AC-n` traceability, three human gates, and the repo's minimal frontmatter rule (only `name`, `description`, `license`).
+Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · **TE** Test · **DP** Deploy · **X** cross-cutting. "Target" names a skill from plan §4. All adaptation notes assume the Agentic SDLC constraints: 8 platforms, no mandatory issue tracker, `AC-n` traceability, three human gates, and the repo's minimal frontmatter rule (only `name`, `description`, `license`).
 
 ### A. Routing, flow and context management
 
@@ -116,14 +118,14 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `engineering/ask-matt/SKILL.md`; `productivity/writing-for-agents/SKILL-MECHANICS.md` ("Router skills")
 - **What it is:** One user-invoked skill names every other skill and when to reach for it. It organises them as: (1) a **main flow** (idea → ship: `grill-with-docs` → optional prototype detour → `to-spec` → `to-tickets` → `implement` or `implement-spec` → `tdd` + `code-review` inside → `pr` → `retro`); (2) **on-ramps**, starting situations that generate work and then merge onto the main flow (`triage` for incoming issues, `diagnosing-bugs` for something broken, `wayfinder` for a huge foggy effort); (3) **codebase health** (`improve-codebase-architecture`); (4) a **vocabulary layer** that runs underneath (`domain-modeling`, `codebase-design`); (5) **standalone** tools; (6) a **precondition** (`setup-matt-pocock-skills`). The main flow has two explicit branch questions: "can you settle every question in conversation?" (no → prototype detour) and "is this a multi-session build?" (yes → spec + tickets; no → implement in the same context). The router can only hint, not fire: user-invoked skills have no description, so nothing but the human can start them.
 - **Failure prevented:** the human forgets which of many skills exists. Users also take the wrong path, for example triaging tickets that `to-tickets` already made agent-ready.
-- **Target:** `agentic-v-method`. Keep the main-flow/on-ramp/vocabulary-layer structure: it maps cleanly onto PL▸AN▸DE▸BU▸TE▸DP with on-ramps (bug → `systematic-debugging`, brownfield → `codebase-modernization` inventory, incoming request → SPEC intake). Change: the V-Method router *does* invoke stage skills where the platform allows, so drop the "hint only" limitation. Encode the two branch questions in the sizing step (Quick/Standard/Full).
+- **Target:** `agentic-sdlc`. Keep the main-flow/on-ramp/vocabulary-layer structure: it maps cleanly onto PL▸AN▸DE▸BU▸TE▸DP with on-ramps (bug → `systematic-debugging`, brownfield → `codebase-modernization` inventory, incoming request → SPEC intake). Change: the Agentic SDLC router *does* invoke stage skills where the platform allows, so drop the "hint only" limitation. Encode the two branch questions in the sizing step (Quick/Standard/Full).
 
 #### MP-02 — "Read the skill before you describe it" rule
 - **Stage:** X
 - **Source:** `ask-matt/SKILL.md`
 - **What it is:** Before the router states what a skill does or recommends skipping a step, it must read that skill's `SKILL.md`. The router's own summaries are "for orientation only".
 - **Failure prevented:** the router drifts from the skills it describes, producing confident but stale advice about what a stage does or whether it can be skipped.
-- **Target:** `agentic-v-method` Critical Rules. Keep verbatim in spirit: "read the stage skill before claiming what it requires or advising a skip."
+- **Target:** `agentic-sdlc` Critical Rules. Keep verbatim in spirit: "read the stage skill before claiming what it requires or advising a skip."
 
 #### MP-03 — Phase-boundary decision tree (five options, ordered)
 - **Stage:** X (router)
@@ -136,28 +138,28 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
   5. **Compact** (the default, but the last option, not the first reach). Pass an instruction ("we're going to QA this area") so the summary keeps what matters.
   Underneath sits a **primary vs secondary source** table: Continue keeps full information with lots of noise and little room; compact/handoff are lossy with less noise and lots of room. "These are judgement calls": the value is asking in order, at the boundary.
 - **Failure prevented:** a fresh session that is "confidently wrong about a decision the summary flattened"; context rot from pushing past the smart zone; needless handoff files.
-- **Target:** `agentic-v-method` → `references/phase-boundaries.md` (already named in plan §5.1). Keep the ordered tree and the primary/secondary trade. Change: rename the harness commands generically ("clear context / start new session", "summarise and continue") because `/clear` and `/compact` are Claude Code commands. Map V-Method stage transitions to defaults: AN→DE usually Continue; DE→BU (Gate 2) usually clear or subagent per task; BU→TE always a separate context for review (Rule 5).
+- **Target:** `agentic-sdlc` → `references/phase-boundaries.md` (already named in plan §5.1). Keep the ordered tree and the primary/secondary trade. Change: rename the harness commands generically ("clear context / start new session", "summarise and continue") because `/clear` and `/compact` are Claude Code commands. Map Agentic SDLC stage transitions to defaults: AN→DE usually Continue; DE→BU (CP3) usually clear or subagent per task; BU→TE always a separate context for review (Rule 5).
 
 #### MP-04 — Smart zone and the one-window rule for left-arm work
 - **Stage:** PL/AN/DE
 - **Source:** `ask-matt/SKILL.md` §Context hygiene
 - **What it is:** The **smart zone** is the window (~150k tokens on current models) within which the model still reasons sharply. Steps 1–3 of the main flow (grill → spec → tickets) stay in **one unbroken context window**; don't compact or clear until after tickets exist, so all three build on the same thinking. Each `/implement` then starts fresh from its ticket. Run `retro` *in* the session it reviews, before clearing; afterwards, point it at that session's log. If the window approaches the smart-zone limit before tickets exist, compact at the nearest phase boundary rather than pushing on degraded.
 - **Failure prevented:** the SPEC and PLAN lose the reasoning from the interview; or work continues in a degraded window.
-- **Target:** `agentic-v-method` (route guidance) and `writing-plans`. Keep: "AN → DE in one context where possible; BU tasks start fresh from the task file." Express the token figure as approximate and model-dependent.
+- **Target:** `agentic-sdlc` (route guidance) and `writing-plans`. Keep: "AN → DE in one context where possible; BU tasks start fresh from the task file." Express the token figure as approximate and model-dependent.
 
 #### MP-05 — Handoff document
 - **Stage:** X (router; DP handover)
 - **Source:** `productivity/handoff/SKILL.md`; `in-progress/claude-handoff/SKILL.md`
 - **What it is:** Writes a summary of the conversation so a fresh agent can continue. Rules: save to the **OS temp directory** (`$TMPDIR`, else `/tmp`; `%TEMP%` on Windows), not the workspace. Include a **"suggested skills"** section naming which skills the next agent should load. **Do not duplicate** what already lives in other artifacts (specs, plans, ADRs, issues, commits, diffs): reference them by path or URL. **Redact** secrets and PII. Optional argument = what the next session is for; tailor the document to it. `claude-handoff` (beta) also launches a background agent seeded with the file (`claude --bg --name "<name>" -- "$(cat file)"`; passing the file avoids shell expansion of backticks and `$`).
 - **Failure prevented:** a new session restarts discovery from zero; handoff files duplicate and contradict canonical artifacts; secrets leak into prompts.
-- **Target:** `agentic-v-method` (handoff protocol). Keep the four rules. Change: the V-Method keeps state in `docs/v-method/<feature>/` artifacts, so the handoff is mostly a pointer list plus "current stage, next gate, open decisions". Drop `claude --bg` (Claude Code only); mention it as an optional platform-specific accelerator.
+- **Target:** `agentic-sdlc` (handoff protocol). Keep the four rules. Change: the Agentic SDLC keeps state in `docs/agentic-sdlc/<feature>/` artifacts, so the handoff is mostly a pointer list plus "current stage, next gate, open decisions". Drop `claude --bg` (Claude Code only); mention it as an optional platform-specific accelerator.
 
 #### MP-06 — Wait-what re-pitch
 - **Stage:** X
 - **Source:** `productivity/wait-what/SKILL.md`
 - **What it is:** A one-line user-invoked corrective: when a message did not land, the agent re-pitches it with the missing context, in **ASD-STE100 Simplified Technical English**, using the vocabulary in `GLOSSARY.md` (following `GLOSSARY-MAP.md` in multi-context repos). The router frames the upfront cure as a shared language agreed early (`grill-with-docs`).
 - **Failure prevented:** the human approves a gate or decision they did not understand because the agent used jargon.
-- **Target:** `agentic-v-method` Critical Rules (gate presentation): "present every gate decision in plain, simplified English using GLOSSARY terms." No separate skill.
+- **Target:** `agentic-sdlc` Critical Rules (gate presentation): "present every gate decision in plain, simplified English using GLOSSARY terms." No separate skill.
 
 ### B. Repository setup and project context
 
@@ -173,28 +175,28 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `setup-matt-pocock-skills/SKILL.md` §4; `in-progress/setup-ts-deep-modules/SKILL.md` §7
 - **What it is:** If `CLAUDE.md` exists, edit it; else if `AGENTS.md` exists, edit it; if neither exists, *ask* which to create. Never create one when the other exists. If the managed block (`## Agent skills`) already exists, update it **in place**, never append a duplicate, and don't touch the user's surrounding sections. The block is a list of one-line summaries, each with a **pointer** to a detail doc under `docs/agents/` (`issue-tracker.md`, `triage-labels.md`, `domain.md`). The block for `setup-ts-deep-modules` is a single pointer line ("Packages are deep modules: see ... before adding or importing one").
 - **Failure prevented:** duplicated or conflicting instruction files; clobbered user content; bloated always-loaded context.
-- **Target:** `project-context`. Keep the selection rule and pointer-only block. The plan's `<!-- V-METHOD:BEGIN/END -->` markers are a stronger form of "update in place"; combine both. Keep detail in `docs/v-method/` or `CONSTRAINTS.md`, and leave only one-line pointers in the always-loaded file (see MP-12, MP-15).
+- **Target:** `project-context`. Keep the selection rule and pointer-only block. The plan's `<!-- AGENTIC-SDLC:BEGIN/END -->` markers are a stronger form of "update in place"; combine both. Keep detail in `docs/agentic-sdlc/` or `CONSTRAINTS.md`, and leave only one-line pointers in the always-loaded file (see MP-12, MP-15).
 
 #### MP-09 — Tracker indirection document ("publish to the issue tracker")
 - **Stage:** X (AN/DE/BU)
 - **Source:** `setup-matt-pocock-skills/issue-tracker-{github,gitlab,local}.md`, `triage-labels.md`; every skill that says "The issue tracker should have been provided to you"
 - **What it is:** Skills never hard-code a tracker. They use abstract verbs ("publish to the issue tracker", "fetch the relevant ticket", "resolve each ticket the way the issue tracker closes work") and a per-repo doc translates each verb. **GitHub:** `gh issue create/view/list/comment/edit/close`, sub-issues (`--parent`, `--add-sub-issue`, or REST fallback), **native blocking** (`--blocked-by`, `--add-blocked-by`, REST with the database id, not `#number`), open-blocker count via `issue_dependencies_summary.blocked_by`, comment *then* close (because `close --comment` on a closed issue silently drops the comment), and a fork safety check (`gh repo view --json nameWithOwner` before the first create). **GitLab:** `glab` equivalents, `/blocked_by` quick action (Premium) with a `Blocked by:` line fallback. **Local markdown:** `.scratch/<feature>/spec.md`, `.scratch/<feature>/issues/<NN>-<slug>.md` (one file per ticket, from `01`), a `Status:` line, a `## Comments` section appended at the bottom. Labels are canonical **roles** mapped to real strings in a table.
 - **Failure prevented:** skills break on any repo that does not use GitHub; duplicate labels; comments lost on close; filing issues into the upstream repo from a fork.
-- **Target:** `writing-plans`, `spec-driven-development`, `project-context`. Keep the indirection pattern. Make **local markdown the default** (V-Method has no mandatory tracker) and treat GitHub/GitLab/Jira as optional *export* adapters described in a reference file. Keep the "comment then close" and fork-target checks in the GitHub adapter notes.
+- **Target:** `writing-plans`, `spec-driven-development`, `project-context`. Keep the indirection pattern. Make **local markdown the default** (Agentic SDLC has no mandatory tracker) and treat GitHub/GitLab/Jira as optional *export* adapters described in a reference file. Keep the "comment then close" and fork-target checks in the GitHub adapter notes.
 
 #### MP-10 — Domain-docs consumer rules
 - **Stage:** X
 - **Source:** `setup-matt-pocock-skills/domain.md`; repeated in `tdd`, `diagnosing-bugs`, `to-spec`, `to-tickets`, `triage`, `improve-codebase-architecture`
 - **What it is:** Before exploring, read `GLOSSARY.md` (or `GLOSSARY-MAP.md` → each relevant context glossary) and the ADRs touching the area (including `src/<context>/docs/adr/`). If they don't exist, **proceed silently**: don't flag absence or suggest creating them upfront. Use the glossary's terms in every output (issue titles, refactor proposals, hypotheses, test names). A needed concept missing from the glossary is a signal: either invented language (reconsider) or a real gap (note it for domain-modeling). If output contradicts an ADR, surface it explicitly: *"Contradicts ADR-0007 (...), but worth reopening because…"*.
 - **Failure prevented:** vocabulary drift between docs, code and tests; silent override of recorded decisions; nagging users to create docs.
-- **Target:** shared rule in every V-Method skill (put once in `agentic-v-method/references/rules.md` and point to it). Keep "proceed silently" and the ADR-conflict phrasing.
+- **Target:** shared rule in every Agentic SDLC skill (put once in `agentic-sdlc/references/rules.md` and point to it). Keep "proceed silently" and the ADR-conflict phrasing.
 
 #### MP-11 — Lazy artifact creation
 - **Stage:** X
 - **Source:** `domain-modeling/SKILL.md`, `ADR-FORMAT.md`, `GLOSSARY-FORMAT.md`, `teach/LEARNING-RECORD-FORMAT.md`
 - **What it is:** Create `GLOSSARY.md` when the first term is resolved and `docs/adr/` when the first ADR is needed, never upfront.
 - **Failure prevented:** empty scaffolding that rots and adds noise.
-- **Target:** all V-Method artifact rules (`references/artifacts.md`). Keep. Apply to `docs/v-method/<feature>/`: create each file when its stage produces content (for example no VERIFICATION.md before TE).
+- **Target:** all Agentic SDLC artifact rules (`references/artifacts.md`). Keep. Apply to `docs/agentic-sdlc/<feature>/`: create each file when its stage produces content (for example no VERIFICATION.md before TE).
 
 ### C. Writing documents for agents (skill-authoring mechanics)
 
@@ -203,42 +205,42 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `productivity/writing-for-agents/SKILL.md`
 - **What it is:** A **context pointer** is a reference held in context that names out-of-context material and encodes the condition for reaching it (a skill description, an `AGENTS.md` line naming a doc). The *wording* decides when and how reliably the agent reaches it, so a must-have target behind a weak pointer is a variance bug: sharpen the wording first, inline only if that fails. A pointer states what the material is and lists the **branches** that should trigger it. Rules: **front-load the leading word**; **one trigger per branch** (synonyms for one branch collapse); **cut identity the body already carries**. Two budgets: **context load** (always-loaded tokens) vs **cognitive load** (the human as index, which is the price of human agency, not something to minimise blindly).
 - **Failure prevented:** skills that never trigger or trigger erratically; bloated descriptions.
-- **Target:** all 18 V-Method skill descriptions (repo rule: single-line "This skill should be used when…"). Use: list distinct branches (for example "spec, acceptance criteria, requirements" as *one* branch) and front-load the stage keyword.
+- **Target:** all 18 Agentic SDLC skill descriptions (repo rule: single-line "This skill should be used when…"). Use: list distinct branches (for example "spec, acceptance criteria, requirements" as *one* branch) and front-load the stage keyword.
 
 #### MP-13 — Information hierarchy, progressive disclosure, co-location, sprawl
 - **Stage:** X (authoring)
 - **Source:** `writing-for-agents/SKILL.md`
 - **What it is:** Content is **steps** (ordered actions) or **reference** (consulted on demand). The ladder runs: (1) in-file step, (2) in-file reference, (3) disclosed reference behind a pointer (sibling file or external). **Progressive disclosure** moves material down the ladder to protect the hierarchy. It is not primarily a token saving. Branching is the test: inline what every branch needs; disclose what only some branches reach. **Co-location:** keep a concept's definition, rules and caveats under one heading. **Sprawl:** a document too long even when every line is live; cure by disclosure and splitting by branch or sequence.
 - **Failure prevented:** buried steps (attention becomes a "coin flip"); scattered rules.
-- **Target:** all V-Method skills; matches the repo's 1500–2000-word guidance with `references/`. Use the branching test to decide what goes into `references/` (for example `systematic-debugging/references/loop-construction.md`, `test-strategy/references/non-functional.md`).
+- **Target:** all Agentic SDLC skills; matches the repo's 1500–2000-word guidance with `references/`. Use the branching test to decide what goes into `references/` (for example `systematic-debugging/references/loop-construction.md`, `test-strategy/references/non-functional.md`).
 
 #### MP-14 — Completion criteria (clarity + demand) and split-by-sequence
 - **Stage:** X (authoring); directly relevant to gates
 - **Source:** `writing-for-agents/SKILL.md` §Steps and completion criteria, §When to split
 - **What it is:** Every step ends on a **completion criterion**. **Clarity:** can the agent tell done from not done? Vague bounds invite **premature completion**, pulled by visible **post-completion steps**. Defence order: sharpen the bound first; only if it is irreducibly fuzzy *and* rushing is observed, hide later steps by splitting across a **real context boundary** (handoff or subagent: an inline call clears nothing). **Demand:** how much the criterion requires ("every modified model accounted for" vs "produce a change list") drives legwork. The strongest criteria are "checkable and exhaustive". Merging sequences exposes later steps and invites rushing.
 - **Failure prevented:** agents declaring stages done early because the next stage is visible.
-- **Target:** every V-Method step and every gate. Give each step a "**Done when:**" line (Matt uses this format in `wizard`, `setup-ts-deep-modules`, `to-questionnaire`). Gate criteria should be exhaustive: "every AC-n has evidence", "every task maps to ≥1 AC-n". This also justifies splitting BU from TE across a context boundary.
+- **Target:** every Agentic SDLC step and every gate. Give each step a "**Done when:**" line (Matt uses this format in `wizard`, `setup-ts-deep-modules`, `to-questionnaire`). Gate criteria should be exhaustive: "every AC-n has evidence", "every task maps to ≥1 AC-n". This also justifies splitting BU from TE across a context boundary.
 
 #### MP-15 — Leading words and the negation failure mode
 - **Stage:** X (authoring)
 - **Source:** `writing-for-agents/SKILL.md` §Leading words
 - **What it is:** A **leading word** is a compact concept already in pretraining (*lesson*, *fog of war*, *tracer bullets*). Repeated as a *token*, not a sentence, it builds a distributed definition and anchors behaviour cheaply. It works twice: in execution (same behaviour each time the word appears) and in invocation (shared language across prompts, docs and code). Refactor triads into one word ("fast, deterministic, low-overhead" → *tight*; "a loop you believe in" → *red*). Prefer existing words over coined ones, since coined words recruit no priors. **Negation** steers badly ("don't think of an elephant"): state the positive target; use a prohibition only as a hard guardrail and pair it with the positive.
 - **Failure prevented:** verbose, low-salience instructions; prohibitions that prime the banned behaviour.
-- **Target:** all V-Method skills. Candidate leading words: *tight red loop*, *tracer bullet*, *frontier*, *seam*, *gate*, *evidence*, *one-way door*. Review Critical Rules (often written as NEVER lists) and pair each with the positive behaviour. Note the tension with the repo convention of NEVER/ALWAYS rules.
+- **Target:** all Agentic SDLC skills. Candidate leading words: *tight red loop*, *tracer bullet*, *frontier*, *seam*, *gate*, *evidence*, *one-way door*. Review Critical Rules (often written as NEVER lists) and pair each with the positive behaviour. Note the tension with the repo convention of NEVER/ALWAYS rules.
 
 #### MP-16 — Pruning: single source of truth, environment-as-cache, sediment, no-ops
 - **Stage:** X; also `project-context` audit mode and `retrospective`
 - **Source:** `writing-for-agents/SKILL.md` §Pruning; `retro/SKILL.md` (No-ops, Global AGENTS.md categories)
 - **What it is:** Each meaning lives in one place. **Duplication** inflates prominence and costs maintenance. The **environment** (scripts, config, layout, `--help`) is a source of truth, so restating it is a **cache**, worth it only when lookup is expensive. Cache only what the agent cannot find by looking: unwritten conventions, reasons, gotchas. **Relevance** test per line. **Sediment:** stale layers that pile up because adding feels safe and removing feels risky. **No-op** test: does the sentence change behaviour vs the model default? This is model-relative, so settle it by running, not debating. Delete the whole failing sentence; fix weak words with stronger ones (*thorough* → *relentless*).
 - **Failure prevented:** AGENTS.md bloat; stale command lists; instructions that do nothing.
-- **Target:** `project-context` (setup: don't restate `package.json` scripts the agent can read; audit: detect sediment/no-ops/drift) and `retrospective`. Keep the cache principle: the V-Method block should hold commands only when discovery is expensive or non-obvious.
+- **Target:** `project-context` (setup: don't restate `package.json` scripts the agent can read; audit: detect sediment/no-ops/drift) and `retrospective`. Keep the cache principle: the Agentic SDLC block should hold commands only when discovery is expensive or non-obvious.
 
 #### MP-17 — Invocation choice (user-invoked vs model-invoked) and shared reference
 - **Stage:** X (packaging)
 - **Source:** `writing-for-agents/SKILL-MECHANICS.md`; both READMEs; `agents/openai.yaml`
 - **What it is:** **Model-invoked** skills keep a model-facing description (permanent context load, but discoverable by the agent and by other skills). An all-reference model-invoked skill is a home for **shared reference** that several skills call (`codebase-design`, `domain-modeling`, `grilling`). **User-invoked** skills (`disable-model-invocation: true`; Codex `allow_implicit_invocation: false`) cost zero context but rely on the human to remember them; their description becomes a human one-liner. Two user-invoked skills cannot share reference via each other, so put it in a plain external file. Split off a model-invoked skill only for a distinct trigger word you actually use, or when another skill must reach it.
 - **Failure prevented:** context bloat from rarely used skills; unreachable shared vocabulary.
-- **Target:** V-Method packaging. **Constraint:** this repo forbids extra frontmatter fields (`disable-model-invocation` would violate the CLAUDE.md rule), so all V-Method skills are model-invoked. Adopt the *shared-reference skill* idea instead: deep-module vocabulary lives once (in `test-driven-development/references/` or `senior-solution-architect/references/`), and other skills point to it. Strict explicit-trigger descriptions (as `grill-me` already has) approximate user invocation.
+- **Target:** Agentic SDLC packaging. **Constraint:** this repo forbids extra frontmatter fields (`disable-model-invocation` would violate the CLAUDE.md rule), so all Agentic SDLC skills are model-invoked. Adopt the *shared-reference skill* idea instead: deep-module vocabulary lives once (in `test-driven-development/references/` or `senior-solution-architect/references/`), and other skills point to it. Strict explicit-trigger descriptions (as `grill-me` already has) approximate user invocation.
 
 ### D. Interview and decision capture (PL/AN)
 
@@ -254,14 +256,14 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `grilling/SKILL.md`; restated in `ask-matt` ("facts are the agent's job and decisions are yours")
 - **What it is:** When a frontier question needs a fact from the environment (filesystem, tools), dispatch a **fresh-context subagent** to find it. Never ask the user for something lookup-able. Don't block: a running exploration is an unsettled prerequisite, so only its downstream questions wait; ask the rest of the frontier now. Decisions go to the user, and the agent waits.
 - **Failure prevented:** wasting human attention on discoverable facts; the agent silently making decisions; the interview stalling on a slow lookup.
-- **Target:** `grill-me`, `spec-driven-development`, and V-Method Rule 3 (human-accountable). Keep exactly. This is the operational definition of Rule 3. Without subagents, the agent looks up inline before asking.
+- **Target:** `grill-me`, `spec-driven-development`, and Agentic SDLC Rule 3 (human-accountable). Keep exactly. This is the operational definition of Rule 3. Without subagents, the agent looks up inline before asking.
 
 #### MP-20 — Done when the frontier is empty and understanding is confirmed
-- **Stage:** AN (pre-Gate 1)
+- **Stage:** AN (pre-CP2)
 - **Source:** `grilling/SKILL.md`
 - **What it is:** The session ends when the frontier is empty (every branch visited, "nothing left silently assumed"). Do not act until the user confirms shared understanding.
 - **Failure prevented:** acting on half-resolved designs; silent assumptions.
-- **Target:** `grill-me` completion criterion; feeds Gate 1 readiness in `spec-driven-development` ("Open questions" must be empty or explicitly deferred).
+- **Target:** `grill-me` completion criterion; feeds CP2 readiness in `spec-driven-development` ("Open questions" must be empty or explicitly deferred).
 
 #### MP-21 — grill-with-docs composition (stateful interview)
 - **Stage:** AN
@@ -296,7 +298,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `productivity/to-questionnaire/SKILL.md`
 - **What it is:** When a blocking decision needs someone else's knowledge, interview the user only about the **send** (which they can always answer): (1) recipient role/expertise/relationship (one exchange), (2) what decisions or facts they need back (one exchange). Then write `to-questionnaire-<slug>.md` in the current directory. Template: title; **Purpose** (decision riding on it); **From/To/How your answers will be used**; **Context** (one paragraph); **How to answer** (deadline, effort, "I don't know" is useful); themed `##` sections with `###` one-idea questions (never compound), most important first, an answer stub (`>`) under each, and *Why this matters* only where misreadable; **Anything else?** catch-all. Done when every item from step 2 has a question.
 - **Failure prevented:** compound, context-free questions sent to stakeholders; asking the user things only a third party knows.
-- **Target:** `spec-driven-development` (Open questions → stakeholder questionnaire) and `grill-me`. Keep the template; write into `docs/v-method/<feature>/` rather than cwd. Useful for consulting contexts where the client holds domain knowledge.
+- **Target:** `spec-driven-development` (Open questions → stakeholder questionnaire) and `grill-me`. Keep the template; write into `docs/agentic-sdlc/<feature>/` rather than cwd. Useful for consulting contexts where the client holds domain knowledge.
 
 #### MP-26 — Research as a background agent against primary sources
 - **Stage:** PL/AN
@@ -333,7 +335,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `prototype/SKILL.md` rule 6, `LOGIC.md` §5, `UI.md` §6; `to-spec` and `to-tickets` "prototype snippet exception"
 - **What it is:** Fold the validated decision into the real code or spec. Commit the prototype itself to a throwaway branch (`prototype/<name>`, out of main) and leave a **context pointer** to it on the implementation issue. Record the verdict and the question it settled. Main keeps only the decision. Specs and tickets normally contain no code, *except* a prototype snippet that encodes a decision more precisely than prose (state machine, reducer, schema, type shape), trimmed to the decision-rich parts and marked as from a prototype.
 - **Failure prevented:** prototype code rotting in main; lost rationale; specs that misstate a validated state machine in prose.
-- **Target:** `brainstorming` → `spec-driven-development`. Keep the snippet exception in the SPEC template. Make the branch optional (some users won't want extra branches); the alternative is `docs/v-method/<feature>/prototypes/` with a "not production" note.
+- **Target:** `brainstorming` → `spec-driven-development`. Keep the snippet exception in the SPEC template. Make the branch optional (some users won't want extra branches); the alternative is `docs/agentic-sdlc/<feature>/prototypes/` with a "not production" note.
 
 ### F. Specification (AN)
 
@@ -349,14 +351,14 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `to-spec/SKILL.md` `<spec-template>`
 - **What it is:** Sections: **Problem Statement** (user's perspective); **Solution** (user's perspective); **User Stories** ("A LONG, numbered list", format "As an <actor>, I want a <feature>, so that <benefit>", "extremely extensive"); **Implementation Decisions** (modules built/modified, interfaces, technical clarifications, architectural decisions, schema changes, API contracts, specific interactions; **no file paths or code snippets**, apart from the prototype exception); **Testing Decisions** (what makes a good test, which modules are tested, prior art); **Out of Scope**; **Further Notes**.
 - **Failure prevented:** specs that go stale because of file paths; specs missing test intent or scope boundaries.
-- **Target:** `spec-driven-development`. Merge into the plan's SPEC.md template: numbered user stories become sources for **AC-n** (each story → ≥1 Given/When/Then AC); keep "Implementation decisions without file paths" (durable SPEC) while PLAN.md may hold exact paths (executed soon); keep Testing Decisions as "Test seams + prior art"; Out of Scope = Non-goals. Matt's template lacks rollback, baseline/indicators, security and boundaries; the V-Method adds those.
+- **Target:** `spec-driven-development`. Merge into the plan's SPEC.md template: numbered user stories become sources for **AC-n** (each story → ≥1 Given/When/Then AC); keep "Implementation decisions without file paths" (durable SPEC) while PLAN.md may hold exact paths (executed soon); keep Testing Decisions as "Test seams + prior art"; Out of Scope = Non-goals. Matt's template lacks rollback, baseline/indicators, security and boundaries; the Agentic SDLC adds those.
 
 #### MP-33 — Triage state machine
 - **Stage:** AN (intake on-ramp)
 - **Source:** `engineering/triage/SKILL.md`; `setup-matt-pocock-skills/triage-labels.md`
 - **What it is:** Two **category** roles (`bug`, `enhancement`) and five **state** roles (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`). Each triaged issue carries exactly one of each; conflicting states → flag and ask. Transitions: unlabeled → `needs-triage` → `needs-info` | `ready-for-agent` | `ready-for-human` | `wontfix`; `needs-info` → `needs-triage` when the reporter replies; maintainer overrides any time, unusual transitions flagged. External PRs are "an issue with attached code" in the same machine when enabled. Natural-language invocation ("Show me anything that needs my attention", "Move #42 to ready-for-agent"). Attention view: three buckets oldest-first: unlabeled; `needs-triage`; `needs-info` with reporter activity since last triage notes. Every tracker post begins with `> *This was generated by AI during triage.*`. **Quick override:** trust the maintainer, confirm the actions, skip grilling, ask about writing a brief. **Resume:** parse prior triage notes; never re-ask resolved questions.
 - **Failure prevented:** issues stuck in ambiguous states; AI posts mistaken for human ones; re-asking reporters.
-- **Target:** mostly *not* adopted as a skill (V-Method has no mandatory tracker). Absorb into `agentic-v-method` as an **intake on-ramp** (incoming request → classify bug/enhancement → route Quick/Standard or needs-info) and keep the **AI-generated disclaimer** rule for anything the method posts to a tracker or PR (`shipping-and-handover`).
+- **Target:** mostly *not* adopted as a skill (Agentic SDLC has no mandatory tracker). Absorb into `agentic-sdlc` as an **intake on-ramp** (incoming request → classify bug/enhancement → route Quick/Standard or needs-info) and keep the **AI-generated disclaimer** rule for anything the method posts to a tracker or PR (`shipping-and-handover`).
 
 #### MP-34 — Triage evidence checks: redundancy, prior rejection, verify-the-claim
 - **Stage:** AN
@@ -384,7 +386,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `triage/OUT-OF-SCOPE.md`
 - **What it is:** `.out-of-scope/<concept>.md`, one file per *concept* (not per issue), kebab-case name. Relaxed short-design-doc style: `# Concept`, a statement that the project does not do it, `## Why this is out of scope` (substantive and durable: scope/philosophy, technical constraints, strategic decisions; never "too busy right now", which is a deferral), optional code sample, `## Prior requests` list. Read all files during intake; match by **concept similarity**, not keyword ("night theme" → `dark-mode.md`); surface: "We rejected this before because [reason]. Do you still feel the same way?" The maintainer confirms (append to prior requests, close), reconsiders (delete/update file, proceed), or disagrees (distinct, proceed). Write only for **rejected enhancements**, never for "already implemented" (that would poison dedup) or bugs.
 - **Failure prevented:** re-litigating rejected features every six months; lost rationale.
-- **Target:** `spec-driven-development` (Non-goals that are durable product decisions) or `project-context`. Optional: adopt as `docs/v-method/out-of-scope/` only when the user wants persistent rejections; otherwise ADRs with "rejected alternative" serve.
+- **Target:** `spec-driven-development` (Non-goals that are durable product decisions) or `project-context`. Optional: adopt as `docs/agentic-sdlc/out-of-scope/` only when the user wants persistent rejections; otherwise ADRs with "rejected alternative" serve.
 
 ### G. Large-effort planning (Full route)
 
@@ -393,7 +395,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `engineering/wayfinder/SKILL.md`; tracker docs §Wayfinding operations
 - **What it is:** For efforts too big for one session and wrapped in fog. Name the **destination** first (a spec, a decision, or an in-place change); it fixes scope. The **map** (one issue labelled `wayfinder:map`, or local `.scratch/<effort>/map.md`) is an *index, not a store*: `## Destination`, `## Notes` (domain, skills every session should consult, standing preferences), `## Decisions so far` (one line per closed ticket: link + gist), `## Not yet specified` (fog), `## Out of scope`. Open tickets are not listed; they are found by query. **Tickets** are child issues whose body is `## Question`, sized to one ~100K-token session, labelled `wayfinder:<research|prototype|grilling|task>`, never triage labels. **Plan, don't do:** produce decisions, not deliverables; the urge to just do the work signals the map's edge. When clear, hand off to `to-spec` (which "collapses the map's linked decisions into a buildable plan"); go straight to implement only if the effort turned out small.
 - **Failure prevented:** charging at a huge foggy goal; losing decisions across sessions; mixing decisions with deliverables.
-- **Target:** `agentic-v-method` Full route (multi-session AN). Adopt the *map structure* as an optional `docs/v-method/<effort>/MAP.md` with decision tickets as local files; drop the tracker requirement and labels. Feed the map into SPEC creation (synthesize mode).
+- **Target:** `agentic-sdlc` Full route (multi-session AN). Adopt the *map structure* as an optional `docs/agentic-sdlc/<effort>/MAP.md` with decision tickets as local files; drop the tracker requirement and labels. Feed the map into SPEC creation (synthesize mode).
 
 #### MP-39 — Fog of war vs ticket test; Not yet specified vs Out of scope
 - **Stage:** AN
@@ -407,7 +409,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `wayfinder/SKILL.md` §Ticket Types, §Invocation, §Refer by name
 - **What it is:** Every ticket is **HITL** (resolved only through live exchange with a human; the agent never answers its own questions) or **AFK**. Types: **Research** (AFK, subagent), **Prototype** (HITL), **Grilling** (HITL, the default), **Task** (HITL or AFK: manual work that must happen before a decision, such as signing up for a service or provisioning access; its answer records resulting facts such as where credentials live, URLs and row counts). **Claim first:** assign the ticket before any work (the assignee *is* the claim) so concurrent sessions skip it. **Never resolve more than one ticket per session**, research excepted. Resolution: post an answer comment, close, append a context pointer to Decisions so far; then create newly surfaced tickets in a two-pass **create-then-wire** (ids first, then blocking edges and cross-references with real ids, because a placeholder `#<n>` auto-links to an unrelated issue). **Refer by name** in anything humans read (a name wraps its link; never a wall of `#42, #43`). Expect concurrent sessions editing the tracker.
 - **Failure prevented:** agents impersonating the human in HITL steps; two sessions on one ticket; illegible id-soup status reports; broken cross-links.
-- **Target:** `writing-plans` (task metadata: `Mode: HITL|AFK`) and `executing-plans` (claim before work when parallel; one task per fresh subagent). "Refer by name" belongs in V-Method reporting rules (progress, TRACEABILITY.md).
+- **Target:** `writing-plans` (task metadata: `Mode: HITL|AFK`) and `executing-plans` (claim before work when parallel; one task per fresh subagent). "Refer by name" belongs in Agentic SDLC reporting rules (progress, TRACEABILITY.md).
 
 ### H. Design vocabulary and architecture (DE)
 
@@ -465,7 +467,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `improve-codebase-architecture/HTML-REPORT.md`
 - **What it is:** A single self-contained HTML file in the OS temp dir (`<tmpdir>/architecture-review-<timestamp>.html`), opened with `xdg-open`/`open`/`start`, absolute path reported. **Tailwind via CDN + Mermaid ESM via CDN** (`mermaid@11`, theme neutral). Custom CSS classes `.seam` (dashed), `.leak` (red), `.deep` (dark gradient). Header: repo, date, legend (solid box = module, dashed line = seam, red arrow = leakage, thick dark box = deep module), no intro paragraph. Each candidate `<article>`: title naming the deepening; badge row (strength: emerald/amber/slate, plus dependency category); monospaced Files; **Before/After diagram** side by side (~320px tall); one-sentence Problem; one-sentence Solution; **Wins** bullets ≤6 words in glossary terms ("locality: bugs concentrate in one module"); optional amber ADR callout. Diagram patterns: Mermaid flowchart/sequence (with `classDef` for leaks), hand-built boxes and SVG arrows, **cross-section** (stacked bands for layers), **mass diagram** (interface vs implementation rectangles), **call-graph collapse**. Tone: "Use exactly: module, interface, implementation, depth, deep, shallow, seam, adapter, leverage, locality. Never substitute: component, service, unit... API, signature... boundary... layer, wrapper." Ban "easier to maintain"/"cleaner code". "If the diagram needs a paragraph to be understood, redraw the diagram."
 - **Failure prevented:** walls of architecture prose nobody reads; vague benefits.
-- **Target:** `codebase-modernization` (optional visual portfolio report). Adaptation: pin CDN versions per repo artifact rules; make the report optional (Markdown table default for platforms without browsers); save into `docs/v-method/<feature>/` if the user wants it kept, otherwise temp.
+- **Target:** `codebase-modernization` (optional visual portfolio report). Adaptation: pin CDN versions per repo artifact rules; make the report optional (Markdown table default for platforms without browsers); save into `docs/agentic-sdlc/<feature>/` if the user wants it kept, otherwise temp.
 
 ### I. Planning and task decomposition (DE)
 
@@ -474,7 +476,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `engineering/to-tickets/SKILL.md`
 - **What it is:** (1) Gather context from the conversation or a passed reference (full body + comments). (2) Optionally explore; look for **prefactoring**: "Make the change easy, then make the easy change." (3) Draft **tracer-bullet** tickets. Rules: each slice cuts a narrow but COMPLETE path through every layer (schema, API, UI, tests); demoable or verifiable alone; sized for **one fresh context window**; prefactoring first. Each ticket declares **blocking edges** (none = start now). (4) **Quiz the user** with a numbered list: Title / Blocked by / What it delivers (end-to-end behaviour). Ask: granularity right (too coarse/fine)? Edges correct (only genuine gates)? Merge or split? Iterate to approval. (5) Publish in dependency order (blockers first) so edges can reference real ids. Work the **frontier** (all blockers done). Don't close or modify the parent issue. Avoid file paths and snippets (prototype exception).
 - **Failure prevented:** horizontal layer-by-layer plans that only integrate at the end; plans too big for a context window; false dependencies that serialise parallelisable work.
-- **Target:** `writing-plans` (plan §5.7 already names tracer bullets + `Blocked by:`). Keep the slice rules, prefactor-first, the three quiz questions (become part of Gate 2 review), dependency-ordered numbering. Add `Satisfies: AC-n` per task and a check that every AC-n is covered by ≥1 task.
+- **Target:** `writing-plans` (plan §5.7 already names tracer bullets + `Blocked by:`). Keep the slice rules, prefactor-first, the three quiz questions (become part of CP3 review), dependency-ordered numbering. Add `Satisfies: AC-n` per task and a check that every AC-n is covered by ≥1 task.
 
 #### MP-50 — Expand–contract for wide refactors
 - **Stage:** DE / BU
@@ -488,14 +490,14 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `to-tickets/SKILL.md` `<local-ticket-template>`, `<issue-template>`
 - **What it is:** Local: `.scratch/<feature-slug>/issues/<NN>-<slug>.md`, numbered from `01` in dependency order, *one ticket per file, never a combined file*. Body: `# <NN>: <Title>` / **What to build:** (end-to-end behaviour, user perspective, not a layer list) / **Blocked by:** (numbers/titles or "None (can start immediately)") / **Status:** ready-for-agent / acceptance-criteria checkboxes. Tracker form: `## Parent` (omit if none) / `## What to build` / `## Acceptance criteria` / `## Blocked by` (omit when native edges are set).
 - **Failure prevented:** monolithic plan files that subagents must parse; tickets without done criteria.
-- **Target:** `writing-plans` → `docs/v-method/<feature>/tasks/NN-*.md` (plan §3.5). Keep the shape; add `Satisfies: AC-n`, `Mode: AFK|HITL`, and optional `Files:` for immediate execution.
+- **Target:** `writing-plans` → `docs/agentic-sdlc/<feature>/tasks/NN-*.md` (plan §3.5). Keep the shape; add `Satisfies: AC-n`, `Mode: AFK|HITL`, and optional `Files:` for immediate execution.
 
 #### MP-52 — Pre-agreed test seams ("highest seam, ideally one")
 - **Stage:** AN / DE / BU
 - **Source:** `to-spec/SKILL.md` step 2; `tdd/SKILL.md` §Seams
 - **What it is:** Before any test is written, write down the seams under test and confirm them with the user; "No test is written at an unconfirmed seam." Ask "What's the public interface, and which seams should we test?" and give each proposed seam a one-line note on **what it catches and what it misses**. In spec writing: prefer existing seams; use the highest seam possible; the ideal number across the codebase is one.
 - **Failure prevented:** test effort spread across every edge case instead of critical paths; tests at seams the human doesn't trust.
-- **Target:** `spec-driven-development` (Test seams section, approved at Gate 1), `test-strategy` (TEST-PLAN derives from them), `test-driven-development` (only test at agreed seams). Keep the "catches/misses" note format.
+- **Target:** `spec-driven-development` (Test seams section, approved at CP2), `test-strategy` (TEST-PLAN derives from them), `test-driven-development` (only test at agreed seams). Keep the "catches/misses" note format.
 
 ### J. Build (BU)
 
@@ -511,7 +513,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `tdd/SKILL.md` §Anti-patterns; `tdd/tests.md`
 - **What it is:** (1) **Implementation-coupled**: mocks internal collaborators, tests private methods, verifies through a side channel (querying the DB instead of using the interface). Tell: breaks on refactor without behaviour change. (2) **Tautological**: the expected value is recomputed the way the code computes it (`expect(add(a,b)).toBe(a+b)`, a reduce over items mirroring the implementation, a constant asserted equal to itself); it passes by construction. Expected values must come from an independent source of truth (known-good literal, worked example, the spec). (3) **Horizontal slicing**: all tests first, then all code, which tests imagined shape rather than behaviour. Work in vertical slices, each test a **tracer bullet** that responds to what the last cycle taught. Red flags list: mocking internals, private methods, asserting call counts/order, name describes HOW not WHAT, verifying outside the interface. Good test: behaviour callers care about, public API only, survives refactors, WHAT not HOW, one logical assertion. Example pair: "createUser saves to database" (DB query) vs "createUser makes user retrievable" (via `getUser`).
 - **Failure prevented:** green suites that prove nothing; brittle suites that block refactoring.
-- **Target:** `test-driven-development` (rationalization/anti-pattern table), `test-strategy` (independent expected values from the SPEC: AC-n literals), `multi-axis-code-review` (correctness axis checks for tautological tests). The tautology rule pairs directly with V-Method independent test design: expected values come from the SPEC, not the code.
+- **Target:** `test-driven-development` (rationalization/anti-pattern table), `test-strategy` (independent expected values from the SPEC: AC-n literals), `multi-axis-code-review` (correctness axis checks for tautological tests). The tautology rule pairs directly with Agentic SDLC independent test design: expected values come from the SPEC, not the code.
 
 #### MP-55 — Mock only at system boundaries; SDK-style interfaces
 - **Stage:** BU / TE
@@ -532,7 +534,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `engineering/implement-spec/SKILL.md`
 - **What it is:** Goal: the whole spec on one **integration branch**, every ticket resolved. Tickets are a **task graph**, so there is always a **frontier**. Every subagent starts with fresh context. Communication is sparse, mainly **context pointers** (spec, tickets, research notes, previous commits); don't duplicate what pointers reach. Steps: (1) read spec + tickets → task graph; (2) optional **exploration subagent** that saves markdown notes to a directory *outside the repo* accessible to all later subagents; (3) create integration branch; open a draft PR after the first merge if the tracker closes work through PRs (a branch with no commits ahead of main can't open one); (4) one fresh **implementer subagent per ticket**, each in its **own worktree/branch**; it confirms its worktree is based on the integration branch (reset if not), runs TDD, and **merges the integration tip into its branch before reporting done**; implementers run in the background for concurrency; (5) a **merger subagent** merges completed work into the integration branch; (6) when the frontier changes, launch more implementers; (7) after all tickets, run **one code-review** on the integration branch; fix all findings in **a single fresh implementer**; (8) mark the draft PR ready or resolve tickets; (9) clean up worktrees.
 - **Failure prevented:** serial execution of parallelisable work; merge conflicts discovered late; orchestrator context bloat; implementers re-exploring.
-- **Target:** `executing-plans` subagent mode (plan §5.9). Keep frontier dispatch, worktree per task, implementer-merges-integration-tip, merger role, exploration notes, pointer-based comms. **Change:** the V-Method requires per-task spec-compliance and quality review (Superpowers style) in addition to Matt's single end review; keep both. Restrict parallelism to frontier tasks with no shared files (plan §5.9). Store exploration notes in `docs/v-method/<feature>/notes/` or a temp dir (repo-agnostic choice).
+- **Target:** `executing-plans` subagent mode (plan §5.9). Keep frontier dispatch, worktree per task, implementer-merges-integration-tip, merger role, exploration notes, pointer-based comms. **Change:** the Agentic SDLC requires per-task spec-compliance and quality review (Superpowers style) in addition to Matt's single end review; keep both. Restrict parallelism to frontier tasks with no shared files (plan §5.9). Store exploration notes in `docs/agentic-sdlc/<feature>/notes/` or a temp dir (repo-agnostic choice).
 
 #### MP-58 — Diagnosis Phase 1: build a feedback loop (ten constructions)
 - **Stage:** BU
@@ -581,7 +583,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `diagnosing-bugs/SKILL.md` Phase 5
 - **What it is:** Write the regression test **before the fix**, but only at a **correct seam**: one where the test exercises the real bug pattern as it occurs at the call site. A seam that is too shallow (single-caller test for a multi-caller bug; a unit test that can't replicate the chain) gives false confidence. If no correct seam exists, **that is the finding**: architecture prevents locking the bug down; flag it (router: take it to `improve-codebase-architecture`). With a seam: minimised repro → failing test → watch it fail (if red was forced by mutating code/fixtures, `diff` against a pristine copy to prove the mutation landed) → fix → watch it pass → re-run the original un-minimised Phase 1 loop.
 - **Failure prevented:** regression tests that pass regardless of the bug; hidden architectural testability gaps.
-- **Target:** `systematic-debugging` Phase 5 and `test-driven-development` (bug-fix variant). Feed "no correct seam" into `codebase-modernization` / `retrospective` as an environment finding. **Conflict:** V-Method Rule 4 says "a bug fix starts with a failing regression test"; add Matt's exception (document the missing seam instead of writing a false-confidence test) explicitly in the skill.
+- **Target:** `systematic-debugging` Phase 5 and `test-driven-development` (bug-fix variant). Feed "no correct seam" into `codebase-modernization` / `retrospective` as an environment finding. **Conflict:** Agentic SDLC Rule 4 says "a bug fix starts with a failing regression test"; add Matt's exception (document the missing seam instead of writing a false-confidence test) explicitly in the skill.
 
 #### MP-65 — Debug cleanup checklist and hypothesis-in-commit
 - **Stage:** BU / TE
@@ -595,7 +597,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `diagnosing-bugs/SKILL.md` §Redact; `handoff`, `claude-handoff`
 - **What it is:** Before showing any command, output or captured artifact, replace every secret with `<REDACTED>`. Build loops against **environment variables** so credentials stay in the environment, not in shown text. Captured artifacts carry auth headers: quote only the lines that carry the signal. If redacted output isn't enough, say so and ask. Handoff summaries redact keys, passwords and PII "since the summary becomes the agent's prompt".
 - **Failure prevented:** secrets leaking into transcripts, handoff files, PR bodies and VERIFICATION.md evidence.
-- **Target:** `security-hardening` (AI-use guardrails) and `verification-gate` (evidence logs are redacted). Directly implements V-Method Rule 7. Keep verbatim.
+- **Target:** `security-hardening` (AI-use guardrails) and `verification-gate` (evidence logs are redacted). Directly implements Agentic SDLC Rule 7. Keep verbatim.
 
 #### MP-67 — Human-in-the-loop reproduction script
 - **Stage:** BU
@@ -611,14 +613,14 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `engineering/code-review/SKILL.md`
 - **What it is:** Review the diff from a fixed point along **Standards** (does it conform to documented coding standards plus a smell baseline?) and **Spec** (does it faithfully implement the originating issue/spec?). Both run as **parallel subagents with fresh context** "so they don't pollute each other's context". Aggregate under `## Standards` and `## Spec`, verbatim or lightly cleaned. **Do not merge or rerank** across axes. End with a one-line summary: findings per axis and the worst issue *within each axis*, never a single winner. Rationale: "Standards pass, Spec fail" (follows every rule, wrong thing) and "Spec pass, Standards fail" are both real; separate reporting stops one masking the other.
 - **Failure prevented:** a clean-code review hiding a wrong implementation, or vice versa; reviewer context contamination.
-- **Target:** `multi-axis-code-review`. Keep the per-axis isolation and **the no-rerank rule** across the plan's five axes (spec, design/standards, correctness, security, simplicity): each axis reports its own severity triage; the summary gives the worst per axis. Gate 3 then needs "no open Critical in any axis".
+- **Target:** `multi-axis-code-review`. Keep the per-axis isolation and **the no-rerank rule** across the plan's five axes (spec, design/standards, correctness, security, simplicity): each axis reports its own severity triage; the summary gives the worst per axis. CP4 then needs "no open Critical in any axis".
 
 #### MP-69 — Pin the fixed point and fail early; spec-source discovery order
 - **Stage:** TE
 - **Source:** `code-review/SKILL.md` steps 1–2
 - **What it is:** Use the user's fixed point (SHA, branch, tag, `main`, `HEAD~5`); ask if missing. Capture once: `git diff <fixed-point>...HEAD` (three-dot = against the merge-base) and `git log <fixed-point>..HEAD --oneline`. Confirm `git rev-parse <fixed-point>` resolves and the diff is non-empty **before** spawning subagents ("A bad ref or empty diff should fail here, not inside two parallel sub-agents"). Spec source, in order: (1) issue refs in commit messages (`#123`, `Closes #45`, `!67`); (2) a path the user passed; (3) a spec file under `docs/`, `specs/`, `.scratch/` matching the branch/feature; (4) ask; if there is none, the Spec axis reports "no spec available".
 - **Failure prevented:** reviewing the wrong diff; parallel agents failing on a bad ref; reviewing without the spec.
-- **Target:** `multi-axis-code-review`, `verification-gate`. Add V-Method location first: `docs/v-method/*/SPEC.md` and AC-n refs in commit messages.
+- **Target:** `multi-axis-code-review`, `verification-gate`. Add Agentic SDLC location first: `docs/agentic-sdlc/*/SPEC.md` and AC-n refs in commit messages.
 
 #### MP-70 — Fowler smell baseline with repo-override and judgement labelling
 - **Stage:** TE
@@ -639,7 +641,7 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `retro/SKILL.md` §Implementation vs Review, §Files
 - **What it is:** Implementation agents carry the most **context pressure** (exploration, code, debugging); review agents the least (they get a diff, need no exploration, and often write no code). Therefore the **review** agent imposes coding standards. File roles: `CLAUDE.md`/`AGENTS.md` are pushed into every agent's context, so use them "incredibly sparingly", mostly for navigation pointers; `CODING_STANDARDS.md` is read *during review, not implementation* (add pointers to docs if it exceeds 1,000 lines); docs are pointed-to references; skills for docs whose description should load, or for user commands.
 - **Failure prevented:** implementer context drowning in rules; standards nobody enforces.
-- **Target:** `project-context` (where rules go: CONSTRAINTS.md read at TE, short pointer block in AGENTS.md) and `multi-axis-code-review` (design/standards axis loads CONSTRAINTS/standards). Adopt as a design principle of the V-Method artifact layout.
+- **Target:** `project-context` (where rules go: CONSTRAINTS.md read at TE, short pointer block in AGENTS.md) and `multi-axis-code-review` (design/standards axis loads CONSTRAINTS/standards). Adopt as a design principle of the Agentic SDLC artifact layout.
 
 ### L. Ship and learn (DP)
 
@@ -704,21 +706,21 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Source:** `in-progress/loop-me/SKILL.md`
 - **What it is:** Vocabulary for designing workflows: **Trigger** (event or schedule; events usually more efficient); **Checkpoint** (human verify/decide point; optional); **Push right** (defer the checkpoint as late as possible, doing maximal work first so the human is asked once, late, with everything prepared); **Brief** (what a checkpoint presents: a tight, decision-ready summary of what was produced, why, and a link to the asset; never the raw output; "Speed of review is imperative"). "Mandate nothing structural." Definition of done for a workflow spec: an implementer agent could build it "without asking a single question".
 - **Failure prevented:** gates that dump raw drafts on the human; too many early interruptions.
-- **Target:** `agentic-v-method` gate presentation: every gate shows a **brief** (evidence summary, residual risk, links to SPEC/PLAN/VERIFICATION), not the raw artifact. "Push right" fits within-stage questions; the three V-Method gates remain fixed. The "no single question remaining" bar is a good Gate 2 criterion for PLAN.md.
+- **Target:** `agentic-sdlc` gate presentation: every gate shows a **brief** (evidence summary, residual risk, links to SPEC/PLAN/VERIFICATION), not the raw artifact. "Push right" fits within-stage questions; the three Agentic SDLC gates remain fixed. The "no single question remaining" bar is a good CP3 criterion for PLAN.md.
 
 #### MP-82 — Wiki memory that records history, not the present
 - **Stage:** DP → PL (long-running memory)
 - **Source:** `in-progress/chief-of-staff/SKILL.md`
 - **What it is:** A coordinating agent thinks on two tracks: **tactical** (finish this task) and **strategic** (improve the environment for the next one). All work runs in subagents (protect the coordinator window), background where possible, with sparse pointer-based comms. Memory is a **wiki**: `index.md` (every page, one-line summary, grouped) plus one page per thing (decision, recurring problem, subsystem, preference), interlinked; sources are cited, never copied or edited. Operations: **Ingest** (update every page touched and the index), **Query** (read the index before decisions; file valuable answers), **Lint** (contradictions, orphans, missing links, overtaken claims; schedule it). **Write history, not the present:** date every claim ("On 2026-10-13, Matt decided…"); cite the commit for code claims ("As of `repo@abc1234`, …"); never "currently/now/is" about code without a date or commit; supersede rather than rewrite. Strategic view: **pit of success** (constrained APIs, correctness-forcing lint, CODING_STANDARDS for reviewers), **data sources** (dev-server logs, test DBs, browser), **"no workarounds"** rule. Procedures: retro roughly one in five subagent sessions (failures first).
 - **Failure prevented:** memory files that silently go stale and assert outdated facts as current.
-- **Target:** `retrospective` (RETRO.md claims dated and commit-anchored) and `project-context` (pitfall entries dated with commit SHA). Adopt "write history, not the present" for all V-Method records (GATES.md, RETRO.md, HANDOVER.md).
+- **Target:** `retrospective` (RETRO.md claims dated and commit-anchored) and `project-context` (pitfall entries dated with commit SHA). Adopt "write history, not the present" for all Agentic SDLC records (CHECKPOINTS.md, RETRO.md, HANDOVER.md).
 
 #### MP-83 — Stateful workspace with decision-grade records (teach pattern)
 - **Stage:** X (pattern reference)
 - **Source:** `productivity/teach/SKILL.md`, `LEARNING-RECORD-FORMAT.md`, `MISSION-FORMAT.md`, `RESOURCES-FORMAT.md`
 - **What it is:** The current directory is a stateful workspace across sessions: `MISSION.md` (Why, Success looks like, Constraints, Out of scope; ≤ one screen; push back on vagueness: "A bad mission is worse than no mission"), `RESOURCES.md` (annotated high-trust sources, Knowledge vs Wisdom, explicit `## Gaps`), `learning-records/NNNN-slug.md` (ADR-equivalents for *evidence of understanding*, with supersession instead of deletion; "Coverage is not learning. Wait for evidence."), `NOTES.md` (preferences). Lessons are tightly scoped HTML with one tangible win. Quiz rule: answers the same length, correct position varied, no formatting clues.
 - **Failure prevented:** multi-session work restarting from zero; records written for coverage rather than evidence.
-- **Target:** not a V-Method skill. Transferable ideas: MISSION's "Success looks like" (observable outcomes) maps to SPEC **Baseline & indicators** (PL↔DP pair); "evidence, not coverage" maps to Rule 2; supersession instead of deletion maps to SPEC revisions after Gate 1. The quiz-fairness rule applies if `test-strategy` ever generates multiple-choice checks.
+- **Target:** not a Agentic SDLC skill. Transferable ideas: MISSION's "Success looks like" (observable outcomes) maps to SPEC **Baseline & indicators** (PL↔DP pair); "evidence, not coverage" maps to Rule 2; supersession instead of deletion maps to SPEC revisions after CP2. The quiz-fairness rule applies if `test-strategy` ever generates multiple-choice checks.
 
 ---
 
@@ -855,17 +857,17 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 - **Shared config:** every engineering skill expects the tracker and label vocabulary from `docs/agents/*.md` and tells the user to run setup if missing.
 - **Learning loop:** `diagnosing-bugs` → `retro` (what would have prevented this?) → checks/standards; "no seam" → `improve-codebase-architecture` → back into `grill-with-docs`.
 
-**Mapping to the V.** PL ≈ setup + grill (destination) + prototype + research; AN ≈ grill-with-docs + to-spec (+ wayfinder for Full); DE ≈ codebase-design/Design It Twice + ADRs + to-tickets; BU ≈ implement / implement-spec + tdd + diagnosing-bugs; TE ≈ code-review (two axes; no separate verification or test-plan skill); DP ≈ pr + wizard + retro. **Gaps the V-Method must fill itself:** explicit gates with recorded approval, AC-n IDs, independent test design (TEST-PLAN), verification evidence log, security review, deployment/rollback/observability, handover/runbook, baseline indicators. Matt has strong "evidence" habits (Phase 1 command shown, PR before/after) but no formal evidence artifact.
+**Mapping to the V.** PL ≈ setup + grill (destination) + prototype + research; AN ≈ grill-with-docs + to-spec (+ wayfinder for Full); DE ≈ codebase-design/Design It Twice + ADRs + to-tickets; BU ≈ implement / implement-spec + tdd + diagnosing-bugs; TE ≈ code-review (two axes; no separate verification or test-plan skill); DP ≈ pr + wizard + retro. **Gaps the Agentic SDLC must fill itself:** explicit gates with recorded approval, AC-n IDs, independent test design (TEST-PLAN), verification evidence log, security review, deployment/rollback/observability, handover/runbook, baseline indicators. Matt has strong "evidence" habits (Phase 1 command shown, PR before/after) but no formal evidence artifact.
 
 ---
 
 ## 7. What NOT to adopt, and why
 
-1. **Mandatory issue tracker and `gh`/`glab`-first design.** Every engineering skill begins "The issue tracker should have been provided to you. If not, tell the user to run `/setup-...`". The V-Method has no mandatory tracker. Use local files in `docs/v-method/` as the default and offer tracker export as an optional adapter.
+1. **Mandatory issue tracker and `gh`/`glab`-first design.** Every engineering skill begins "The issue tracker should have been provided to you. If not, tell the user to run `/setup-...`". The Agentic SDLC has no mandatory tracker. Use local files in `docs/agentic-sdlc/` as the default and offer tracker export as an optional adapter.
 2. **`disable-model-invocation`, `argument-hint`, `metadata.credits` frontmatter and `agents/openai.yaml`.** The repo's CLAUDE.md forbids frontmatter beyond `name`/`description`/`license` (loading failures in Claude Code are the stated reason). Approximate user invocation with strict trigger descriptions; put credits in README `## Influences`.
 3. **"Call the Skill tool with X" composition.** This is Claude Code wording. Across 8 platforms, write "apply the `<skill>` workflow (see its SKILL.md)" or inline the needed rules in `references/`.
 4. **Harness-specific commands (`/clear`, `/compact`, `claude --bg`, `claude agents`, PreToolUse hooks).** Keep the decisions (phase-boundary tree, handoff), drop the command names, or mark them "Claude Code: …" as optional accelerators.
-5. **Triage labels and state machine as a skill.** Valuable for maintainers of open-source repos; outside the V-Method's delivery scope. Keep only the intake routing, redundancy/prior-rejection checks and AI disclaimer.
+5. **Triage labels and state machine as a skill.** Valuable for maintainers of open-source repos; outside the Agentic SDLC's delivery scope. Keep only the intake routing, redundancy/prior-rejection checks and AI disclaimer.
 6. **Wayfinder as a separate skill with tracker labels, sub-issues and assignee claims.** Too heavy and tracker-bound; the router's own docs call it "the most cognitively demanding flow". Absorb the map structure and fog-of-war test into the Full route as an optional MAP.md.
 7. **"Refactoring is not part of the loop."** Conflicts with the plan's red-green-refactor and with most TDD literature; adopt a limited local refactor under green and leave structural refactoring to review findings (see MP-53).
 8. **Blanket "no file paths" in every planning artifact.** Right for durable SPECs and briefs; wrong for an immediately executed PLAN (Superpowers' exact-paths approach reduces executor guessing). Apply by artifact lifetime.
@@ -876,20 +878,20 @@ Stage codes: **PL** Plan · **AN** Analyze · **DE** Design · **BU** Build · *
 13. **`software-factory` as a skill.** A design language for autonomous agent factories, beta, with fast-staling vendor surveys ("Surveyed 2026-10, and not guaranteed to be up to date"). Keep only the brakes, ratchet, question-every-task and cap-loops ideas.
 14. **`chief-of-staff` "all work in subagents".** Assumes subagent and background-agent support that several target platforms lack. Keep the wiki-history principle and the tactical/strategic split.
 15. **"Do NOT interview the user" as a universal rule for spec writing.** Correct only for synthesize mode; create mode still interviews (plan §5.5 has both).
-16. **Single end-of-spec code review only (implement-spec).** The V-Method's Rule 5 and Superpowers practice need per-task spec-compliance checks; keep Matt's end review in addition.
+16. **Single end-of-spec code review only (implement-spec).** The Agentic SDLC's Rule 5 and Superpowers practice need per-task spec-compliance checks; keep Matt's end review in addition.
 17. **Fowler smells as hard violations, or a smell list larger than 12.** Matt deliberately keeps them as labelled judgement calls overridable by repo standards; don't escalate them to Critical.
-18. **Persona voice and the "Ask Matt" / "Matt Pocock" naming.** Credit the source in Influences; don't present V-Method skills under the author's name.
+18. **Persona voice and the "Ask Matt" / "Matt Pocock" naming.** Credit the source in Influences; don't present Agentic SDLC skills under the author's name.
 
 ---
 
-## 8. Top 15 mechanisms ranked by value to the Agentic V-Method
+## 8. Top 15 mechanisms ranked by value to the Agentic SDLC
 
 1. **MP-18/19/20 Grilling frontier rounds with recommended answers, and facts vs decisions:** convergent AN interview that operationalises Rule 3. → `grill-me`
 2. **MP-58/59/60 Tight, red-capable feedback loop as a hard Phase 1 gate (ten constructions, completion checklist):** → `systematic-debugging`
 3. **MP-68/71 Parallel isolated review axes with no cross-axis reranking and cited briefs (≤400 words, quote spec line / AC-n):** → `multi-axis-code-review`
 4. **MP-49 Tracer-bullet vertical slices with blocking edges, prefactor-first and the three-question user quiz:** → `writing-plans`
 5. **MP-57 Task-graph execution over the ready frontier (worktree per task, implementer merges integration tip, merger role, context-pointer comms):** → `executing-plans`
-6. **MP-03/04 Phase-boundary decision tree, primary/secondary sources and smart-zone context hygiene:** → `agentic-v-method` (`references/phase-boundaries.md`)
+6. **MP-03/04 Phase-boundary decision tree, primary/secondary sources and smart-zone context hygiene:** → `agentic-sdlc` (`references/phase-boundaries.md`)
 7. **MP-41/42/43/44 Deep-module vocabulary, deletion test, interface-as-test-surface, dependency categories:** → shared reference used by `test-driven-development`, `test-strategy`, `senior-solution-architect`, `codebase-modernization`
 8. **MP-54/52 Test anti-patterns (tautological, implementation-coupled, horizontal) and pre-agreed seams with catches/misses notes:** → `test-driven-development` + `test-strategy`
 9. **MP-74/75/72 Environment-focused retro (seven categories), mechanical → check vs judgement → standard, reviewer owns standards:** → `retrospective` + `project-context`

@@ -31,7 +31,7 @@ Comprehensive authority for designing, reviewing, and documenting complex softwa
 
 ## What's New in v2.2
 
-- **Agentic V-Method DE stage** — inputs, outputs and Gate 2 behavior when invoked by the router
+- **Agentic SDLC DE stage** — inputs, outputs and CP3 behavior when invoked by the router
 - **ADR conventions** — `docs/adr/NNNN-<slug>.md`, status lifecycle, supersede instead of edit, links to SPEC and `AC-n`
 - Standard sections (Purpose, When to Use, Example Usage) added
 
@@ -52,5 +52,5 @@ Comprehensive authority for designing, reviewing, and documenting complex softwa
 | Updated | 2026-11-19 |
 | Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | architecture |
-| Tags | agentic-v-method, architecture, c4-model, adr, systems-design, clean-architecture |
+| Tags | agentic-sdlc, architecture, c4-model, adr, systems-design, clean-architecture |
 | Risk | safe |

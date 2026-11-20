@@ -9,7 +9,7 @@
     {"id": 5, "query": "Record this: the agent ran pytest outside the virtualenv again, don't let it happen next time", "should_trigger": true},
     {"id": 6, "query": "Build a glossary — 'account' means three different things in this codebase", "should_trigger": true},
     {"id": 7, "query": "Audit our agent instructions: are the commands in AGENTS.md still correct?", "should_trigger": true},
-    {"id": 8, "query": "Prepare the project context before we start the V-Method on this repo", "should_trigger": true},
+    {"id": 8, "query": "Prepare the project context before we start the Agentic SDLC on this repo", "should_trigger": true},
     {"id": 9, "query": "Write the README for end users explaining how to install the app", "should_trigger": false},
     {"id": 10, "query": "Write an ADR for choosing Postgres over MongoDB", "should_trigger": false},
     {"id": 11, "query": "Review this diff for code quality", "should_trigger": false},

@@ -1,6 +1,6 @@
 ---
 name: project-context
-description: This skill should be used when the user wants to set up, refresh or audit the agent instructions for a repository (AGENTS.md or CLAUDE.md), define the project's quality bar in CONSTRAINTS.md, build a GLOSSARY.md of domain terms, or record a mistake an AI agent made so it is not repeated — the Plan-stage context foundation of the Agentic V-Method.
+description: This skill should be used when the user wants to set up, refresh or audit the agent instructions for a repository (AGENTS.md or CLAUDE.md), define the project's quality bar in CONSTRAINTS.md, build a GLOSSARY.md of domain terms, or record a mistake an AI agent made so it is not repeated — the Plan-stage context foundation of the Agentic SDLC.
 license: MIT
 ---
 
@@ -8,23 +8,23 @@ license: MIT
 
 ## Purpose
 
-Give every agent session in a repository the same verified starting context: how to build, test and run the project, which conventions apply, which quality bar must never be lowered, what the domain words mean, and which mistakes agents have already made here. This is the **PL (Plan)** foundation of the Agentic V-Method — later stages read these files instead of re-discovering them, and the `retrospective` skill writes its learnings back here.
+Give every agent session in a repository the same verified starting context: how to build, test and run the project, which conventions apply, which quality bar must never be lowered, what the domain words mean, and which mistakes agents have already made here. This is the **PL (Plan)** foundation of the Agentic SDLC — later stages read these files instead of re-discovering them, and the `retrospective` skill writes its learnings back here.
 
 It manages four files, all plain Markdown at the repository root unless the project already keeps them elsewhere:
 
 | File | Content | Mode |
 |---|---|---|
-| `AGENTS.md` / `CLAUDE.md` | A small verified block between `<!-- V-METHOD:BEGIN -->` and `<!-- V-METHOD:END -->` | setup, adopt, refresh |
+| `AGENTS.md` / `CLAUDE.md` | A small verified block between `<!-- AGENTIC-SDLC:BEGIN -->` and `<!-- AGENTIC-SDLC:END -->` | setup, adopt, refresh |
 | `CONSTRAINTS.md` | The quality bar contract: floor rules, thresholds with the command that checks each, ratchets, exceptions | constraints |
 | `GLOSSARY.md` | Domain terms, one meaning each, with aliases to avoid | glossary |
 | Pitfalls (inside the block) | Observed agent mistakes and the correct behavior | pitfall |
 
-Templates live in `../agentic-v-method/references/artifacts.md` when the method router is installed; the essentials are repeated below so this skill also works alone.
+Templates live in `../agentic-sdlc/references/artifacts.md` when the method router is installed; the essentials are repeated below so this skill also works alone.
 
 ## When to Use
 
 - A repository has no agent instructions, or they are stale, contradictory or bloated
-- Starting a Standard or Full route of the Agentic V-Method and the V-Method block is missing
+- Starting a Standard or Full route of the Agentic SDLC and the Agentic SDLC block is missing
 - The team wants a written quality bar that agents cannot quietly weaken
 - Domain vocabulary is confusing ("account" means three things)
 - An agent just made a mistake worth preventing next time
@@ -39,8 +39,8 @@ Do not use for writing product documentation, READMEs for end users, or architec
 | Situation | Mode |
 |---|---|
 | No instruction file, or only empty scaffolding | **setup** |
-| Instruction file with real content but no V-Method block | **adopt** (existing content is the baseline, never discarded) |
-| V-Method block exists | **refresh** |
+| Instruction file with real content but no Agentic SDLC block | **adopt** (existing content is the baseline, never discarded) |
+| Agentic SDLC block exists | **refresh** |
 | User reports or the session observed an agent mistake | **pitfall** |
 | User asks about the quality bar | **constraints** |
 | User asks about terms | **glossary** |
@@ -71,21 +71,21 @@ Ask one question at a time, only about what no file reveals:
 
 Never ask the user to confirm something a file already states. When the repository contradicts the user, show the evidence and ask which is right.
 
-### Step 3 — Compose the V-Method block
+### Step 3 — Compose the Agentic SDLC block
 
 Keep it small — every line is paid for in every future session. Include only what an agent would get wrong without it:
 
 ```markdown
-<!-- V-METHOD:BEGIN -->
-## Agentic V-Method
+<!-- AGENTIC-SDLC:BEGIN -->
+## Agentic SDLC
 - Build: `<verified command>` · Test: `<verified command>` · Lint: `<verified command>` · Run: `<verified command>`
-- Artifacts: `docs/v-method/<date-feature>/` · ADRs: `docs/adr/` · Quality bar: `CONSTRAINTS.md` · Vocabulary: `GLOSSARY.md`
+- Artifacts: `docs/agentic-sdlc/<date-feature>/` · ADRs: `docs/adr/` · Quality bar: `CONSTRAINTS.md` · Vocabulary: `GLOSSARY.md`
 - Conventions: <only non-obvious ones>
 - Read CONSTRAINTS.md before writing code. Never weaken it to make a change pass.
 - Pitfalls:
   - <YYYY-MM-DD> — <observed mistake> → <correct behavior>
 <!-- Verified: <YYYY-MM-DD> at <commit SHA> -->
-<!-- V-METHOD:END -->
+<!-- AGENTIC-SDLC:END -->
 ```
 
 Leave out what the manifests already say plainly, generic advice ("write clean code"), and anything a tool enforces better. For each candidate rule, ask first whether a lint rule, hook or CI check could enforce it; if yes, propose the check and keep the line only as a fallback.
@@ -127,7 +127,7 @@ Re-verify every command and path in the block, compare against `git log` since t
 ## Critical Rules
 
 - **NEVER** state an unverified command as fact; run it, read its script, or mark it TODO.
-- **NEVER** overwrite or delete content outside the `V-METHOD` markers without an approved ledger entry.
+- **NEVER** overwrite or delete content outside the `AGENTIC-SDLC` markers without an approved ledger entry.
 - **NEVER** discard existing instructions during adoption — they are the baseline.
 - **NEVER** weaken CONSTRAINTS.md to make a change pass; loosening the bar requires an ADR and explicit approval.
 - **ALWAYS** discover before asking, and ask one question at a time.

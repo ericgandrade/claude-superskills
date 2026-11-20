@@ -24,7 +24,7 @@ Pre-implementation ideation skill that generates structured design options for f
 
 ## What's New in v3.0
 
-- **Agentic V-Method integration** — brainstorming is the PL (Plan) stage ideation step; hands off to `spec-driven-development` (AN) by default
+- **Agentic SDLC integration** — brainstorming is the PL (Plan) stage ideation step; hands off to `spec-driven-development` (AN) by default
 - **Divergent → convergent phases** — 5–8 options generated with deliberate lenses before evaluation
 - **Problem-first** — confirms a "How might we…" statement and a success indicator before generating solutions
 - **Prototype detour** — throwaway prototype on its own branch for questions that cannot be settled on paper
@@ -54,5 +54,5 @@ Pre-implementation ideation skill that generates structured design options for f
 | Updated | 2026-11-19 |
 | Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | planning |
-| Tags | agentic-v-method, brainstorming, design, requirements, pre-implementation |
+| Tags | agentic-sdlc, brainstorming, design, requirements, pre-implementation |
 | Risk | safe |

@@ -1,6 +1,6 @@
 ---
 name: spec-driven-development
-description: This skill should be used when the user needs a written specification before code — turning an idea, brief, interview or conversation into a SPEC with numbered acceptance criteria, boundaries, rollback and success indicators, validating or revising an existing spec, or splitting a large initiative into module specs (the Analyze stage and Gate 1 of the Agentic V-Method).
+description: This skill should be used when the user needs a written specification before code — turning an idea, brief, interview or conversation into a SPEC with numbered acceptance criteria, boundaries, rollback and success indicators, validating or revising an existing spec, or splitting a large initiative into module specs (the Analyze stage and CP2 of the Agentic SDLC).
 license: MIT
 ---
 
@@ -8,7 +8,7 @@ license: MIT
 
 ## Purpose
 
-Write down what must be true when the work is done — before any code exists — so the human and the agents share one source of truth. The SPEC defines objectives, numbered acceptance criteria (`AC-n`), boundaries, rollback and how success will be measured. It is the **AN (Analyze)** artifact of the Agentic V-Method and the subject of **Gate 1**: once approved, the revision is frozen and every later artifact (PLAN tasks, commits, tests, evidence) traces back to its `AC-n` IDs.
+Write down what must be true when the work is done — before any code exists — so the human and the agents share one source of truth. The SPEC defines objectives, numbered acceptance criteria (`AC-n`), boundaries, rollback and how success will be measured. It is the **AN (Analyze)** artifact of the Agentic SDLC and the subject of **CP2**: once approved, the revision is frozen and every later artifact (PLAN tasks, commits, tests, evidence) traces back to its `AC-n` IDs.
 
 Code without a spec is guessing; a spec without testable criteria is a wish.
 
@@ -17,7 +17,7 @@ Code without a spec is guessing; a spec without testable criteria is a wish.
 - A feature, change or migration is about to be built and no approved spec exists
 - A brainstorming brief or a grill-me summary needs to become buildable requirements
 - Requirements are scattered across a conversation, tickets or meeting notes
-- An existing spec must be validated before Gate 1, or revised after a requirement change
+- An existing spec must be validated before CP2, or revised after a requirement change
 - One request bundles several independently shippable capabilities
 
 Not for single-line fixes or unambiguous mechanical changes — on the Quick route, agree one or more acceptance tests in the conversation instead.
@@ -30,10 +30,10 @@ Not for single-line fixes or unambiguous mechanical changes — on the Quick rou
 |---|---|
 | **create** | Little written input; a short interview is needed |
 | **synthesize** | The conversation, brief or grill-me summary already holds the answers — no re-interview |
-| **validate** | A SPEC exists and must be checked before Gate 1 |
+| **validate** | A SPEC exists and must be checked before CP2 |
 | **revise** | An approved SPEC must change (change protocol) |
 
-Discover before asking: read the brief (`BRIEF.md` or design doc), `GLOSSARY.md`, `CONSTRAINTS.md`, relevant ADRs and code. If the project already uses a spec system (OpenSpec, GitHub Spec Kit, `specs/`, issue templates), keep its format and location and apply this skill's content and gates to it.
+Discover before asking: read the brief (`BRIEF.md` or design doc), `GLOSSARY.md`, `CONSTRAINTS.md`, relevant ADRs and code. If the project already uses a spec system (OpenSpec, GitHub Spec Kit, `specs/`, issue templates), keep its format and location and apply this skill's content and checkpoints to it.
 
 ### Step 1 — Scope check (only when needed)
 
@@ -65,7 +65,7 @@ Never fill an ambiguity silently. An unstated assumption is the most expensive k
 
 ### Step 3 — Draft the SPEC
 
-Write to the project convention, or `docs/v-method/YYYY-MM-DD-<feature>/SPEC.md`. Use the template in `../agentic-v-method/references/artifacts.md` when available. Required sections:
+Write to the project convention, or `docs/agentic-sdlc/YYYY-MM-DD-<feature>/SPEC.md`. Use the template in `../agentic-sdlc/references/artifacts.md` when available. Required sections:
 
 1. **Problem and objectives** — why, for whom, what outcome
 2. **Non-goals** — explicitly out of scope (carry over the brief's "Not doing")
@@ -77,7 +77,7 @@ Write to the project convention, or `docs/v-method/YYYY-MM-DD-<feature>/SPEC.md`
 8. **Risks and assumptions** — each with a mitigation or a way to verify
 9. **Rollback** — exact steps to undo, and how to confirm the previous state is restored
 10. **Baseline and indicators** — what will be measured after release, today's value, target, method
-11. **Open questions** — must be empty or explicitly deferred with an owner before Gate 1
+11. **Open questions** — must be empty or explicitly deferred with an owner before CP2
 12. **Revision history**
 
 Keep the SPEC as short as the route allows: a Standard-route SPEC often fits on one screen.
@@ -112,16 +112,16 @@ Before presenting for approval, attack the draft — in a fresh-context subagent
 
 Fix what the doubt pass finds; list what remains as open questions or risks.
 
-### Step 6 — Gate 1
+### Step 6 — CP2
 
 Present a short summary: objective, `AC` list, boundaries, rollback, indicators, doubt-pass findings, open items. Ask explicitly: "Approve SPEC revision 1 as the build baseline?" On approval:
 - Set status to *Approved (frozen)* and record the approver and date in the revision history
-- Record the gate in `GATES.md` (gate, date, approver, evidence reviewed, residual risk, decision)
+- Record CP2 in `CHECKPOINTS.md` (checkpoint, date, role = Product owner, person, exact words, evidence reviewed, residual risk, decision)
 - Hand off to `senior-solution-architect` (if real design decisions exist) or `writing-plans`
 
-### Revise mode (after Gate 1)
+### Revise mode (after CP2)
 
-Follow the change protocol: write the change request, analyze impact on `AC`s, tasks, tests, rollback and indicators, create revision N+1 (never edit a frozen revision in place without a new revision entry), mark changed and new criteria, and re-run Gate 1. Notify `writing-plans` to update the plan if tasks changed.
+Follow the change protocol: write the change request, analyze impact on `AC`s, tasks, tests, rollback and indicators, create revision N+1 (never edit a frozen revision in place without a new revision entry), mark changed and new criteria, and re-run CP2. Notify `writing-plans` to update the plan if tasks changed.
 
 ### Validate mode
 
@@ -129,7 +129,7 @@ Run Steps 4 and 5 against an existing SPEC and report findings as a table: secti
 
 ## Critical Rules
 
-- **NEVER** start or allow implementation before Gate 1 approval (Standard and Full routes).
+- **NEVER** start or allow implementation before CP2 approval (Standard and Full routes).
 - **NEVER** fill an ambiguity silently; surface assumptions and ask.
 - **NEVER** edit a frozen SPEC revision in place; create a new revision through the change protocol.
 - **NEVER** write implementation details as acceptance criteria.
@@ -144,7 +144,7 @@ Run Steps 4 and 5 against an existing SPEC and report findings as a table: secti
 **1. Synthesize from a brief**
 > "We agreed the export design in brainstorming — write the spec."
 
-Synthesize mode, no re-interview. Lists three assumptions, drafts SPEC with AC-1..AC-6 including CSV injection and permission criteria, rollback by feature flag, indicator "support tickets requesting exports per month". Doubt pass adds the row-limit criterion. Gate 1 approved; hands off to `writing-plans`.
+Synthesize mode, no re-interview. Lists three assumptions, drafts SPEC with AC-1..AC-6 including CSV injection and permission criteria, rollback by feature flag, indicator "support tickets requesting exports per month". Doubt pass adds the row-limit criterion. CP2 approved; hands off to `writing-plans`.
 
 **2. Create with a short interview**
 > "Write a spec for password reset via email."
@@ -164,4 +164,4 @@ Reports: two criteria not testable ("fast", "user-friendly"), missing rollback f
 **5. Requirement change**
 > "Product now wants Excel export too."
 
-Revise mode: impact analysis adds AC-7 and AC-8, notes a new dependency (ask-first boundary), creates revision 2, re-runs Gate 1, records it in GATES.md.
+Revise mode: impact analysis adds AC-7 and AC-8, notes a new dependency (ask-first boundary), creates revision 2, re-runs CP2, records it in CHECKPOINTS.md.

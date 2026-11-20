@@ -1,10 +1,10 @@
 # grill-me
 
-Relentless Socratic interview that walks every branch of a plan or design until nothing is silently assumed. Inside a repository it runs in **docs mode**, recording glossary terms and ADRs as decisions settle. Analyze-stage (AN) tool of the **Agentic V-Method**.
+Relentless Socratic interview that walks every branch of a plan or design until nothing is silently assumed. Inside a repository it runs in **docs mode**, recording glossary terms and ADRs as decisions settle. Analyze-stage (AN) tool of the **Agentic SDLC**.
 
 ## When to use
 
-- Only when the user explicitly says "grill me" / "me grille", or agrees when the `agentic-v-method` router proposes it.
+- Only when the user explicitly says "grill me" / "me grille", or agrees when the `agentic-sdlc` router proposes it.
 - Not for "stress-test", "poke holes", "devil's advocate", "review" or "feedback" requests.
 
 ## How it works
@@ -45,5 +45,5 @@ Relentless Socratic interview that walks every branch of a plan or design until 
 | Updated | 2026-11-19 |
 | Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | planning |
-| Tags | agentic-v-method, planning, stress-test, socratic, decision-tree, glossary, adr |
+| Tags | agentic-sdlc, planning, stress-test, socratic, decision-tree, glossary, adr |
 | Risk | safe |

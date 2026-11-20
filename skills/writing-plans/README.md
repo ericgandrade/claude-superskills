@@ -24,7 +24,7 @@ Converts specs or requirements into a detailed, executable implementation plan b
 
 ## What's New in v3.0
 
-- **Agentic V-Method DE stage** — plans from an approved SPEC revision; Gate 2 approval recorded in GATES.md
+- **Agentic SDLC DE stage** — plans from an approved SPEC revision; CP3 approval recorded in CHECKPOINTS.md
 - **Task graph** — tracer-bullet vertical slices with `Satisfies: AC-n`, `Implements: ADR`, `Blocked by:` edges
 - **Wide refactors** — expand → migrate → contract sequencing
 - **Coverage check** — every acceptance criterion has a task, every task serves a criterion or is an explicit enabler
@@ -55,5 +55,5 @@ Converts specs or requirements into a detailed, executable implementation plan b
 | Updated | 2026-11-19 |
 | Platforms | GitHub Copilot CLI, Claude Code, OpenAI Codex, OpenCode, Gemini CLI, Antigravity, Cursor IDE, AdaL CLI |
 | Category | planning |
-| Tags | agentic-v-method, planning, implementation-plan, task-graph, task-breakdown, tdd |
+| Tags | agentic-sdlc, planning, implementation-plan, task-graph, task-breakdown, tdd |
 | Risk | safe |

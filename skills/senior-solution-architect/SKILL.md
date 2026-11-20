@@ -8,7 +8,7 @@ license: MIT
 
 ## Purpose
 
-Act as an expert solutions architect: analyze current systems, propose scalable designs, and document critical technical decisions with high-stakes engineering rigor. In the Agentic V-Method this skill owns the architectural half of the **DE (Design)** stage — turning an approved SPEC into decisions (ADRs) and models that `writing-plans` then breaks into tasks.
+Act as an expert solutions architect: analyze current systems, propose scalable designs, and document critical technical decisions with high-stakes engineering rigor. In the Agentic SDLC this skill owns the architectural half of the **DE (Design)** stage — turning an approved SPEC into decisions (ADRs) and models that `writing-plans` then breaks into tasks.
 
 ## When to Use
 
@@ -16,7 +16,7 @@ Act as an expert solutions architect: analyze current systems, propose scalable 
 - Reviewing an existing architecture for bottlenecks, security gaps or scalability limits
 - Recording a hard-to-reverse technical choice as an ADR
 - Producing C4 diagrams for stakeholders or onboarding
-- DE stage of the Agentic V-Method, whenever the SPEC implies real design decisions (new dependencies, data model changes, public interfaces, integration patterns)
+- DE stage of the Agentic SDLC, whenever the SPEC implies real design decisions (new dependencies, data model changes, public interfaces, integration patterns)
 
 ## Core Capabilities
 
@@ -92,16 +92,16 @@ Translate the design into actionable engineering tasks:
 - Specify interface contracts (APIs).
 - Outline the folder structure for the proposed pattern.
 
-## Agentic V-Method · DE Design
+## Agentic SDLC · DE Design
 
-When invoked by the `agentic-v-method` router after Gate 1:
+When invoked by the `agentic-sdlc` router after CP2:
 
 | Aspect | Detail |
 |---|---|
 | **Inputs** | Approved SPEC (frozen revision), CONSTRAINTS.md, GLOSSARY.md, existing ADRs, discovery output |
 | **Outputs** | ADRs (status *Proposed*), architecture notes and C4 diagrams where Level 1–2 changes occur, interface contracts, module boundaries |
 | **Hands off to** | `writing-plans` — each task in PLAN.md references the ADRs it implements and the `AC-n` it satisfies |
-| **Gate** | ADRs move from *Proposed* to *Accepted* when the human approves Gate 2 (PLAN approved) |
+| **Checkpoint** | ADRs move from *Proposed* to *Accepted* when the Tech lead signs off CP3 (design and PLAN) |
 
 Rules in this context:
 - Design only what the SPEC requires; anything beyond it is a SPEC change (change protocol), not a design choice.
@@ -116,7 +116,7 @@ Rules in this context:
 - NEVER propose a new technology without an "Alternatives Considered" section.
 - ALWAYS include a Mermaid diagram for Level 1 and 2 changes.
 - NEVER edit an Accepted ADR's decision in place; supersede it.
-- ALWAYS link ADRs to the SPEC and the acceptance criteria they serve when working inside the Agentic V-Method.
+- ALWAYS link ADRs to the SPEC and the acceptance criteria they serve when working inside the Agentic SDLC.
 - Tone of voice: senior, authoritative, pragmatic, and highly technical.
 
 ## Example Usage

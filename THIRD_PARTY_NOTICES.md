@@ -1,6 +1,6 @@
 # Third-Party Notices
 
-claude-superskills is released under the MIT License (see `LICENSE`). Some skills — in particular the skills of the **Agentic V-Method** — adapt and synthesize ideas and content from the open-source projects listed below. Each adapted skill credits its sources in the `## Influences` section of its `README.md`. Content was rewritten and combined rather than copied wholesale; the notices below are reproduced as the MIT License requires for any substantial portions.
+claude-superskills is released under the MIT License (see `LICENSE`). Some skills — in particular the skills of the **Agentic SDLC** — adapt and synthesize ideas and content from the open-source projects listed below. Each adapted skill credits its sources in the `## Influences` section of its `README.md`. Content was rewritten and combined rather than copied wholesale; the notices below are reproduced as the MIT License requires for any substantial portions.
 
 Trademarks mentioned here belong to their owners and are named only for attribution. No endorsement by any of these projects or owners is implied.
 
@@ -38,7 +38,7 @@ SOFTWARE.
 ## Matt Pocock — skills
 
 - Repository: https://github.com/mattpocock/skills
-- Used in: `grill-me`, `project-context`, `spec-driven-development`, `writing-plans`, `executing-plans`, `test-driven-development`, `systematic-debugging`, `multi-axis-code-review`, `shipping-and-handover`, `retrospective`, `agentic-v-method`
+- Used in: `grill-me`, `project-context`, `spec-driven-development`, `writing-plans`, `executing-plans`, `test-driven-development`, `systematic-debugging`, `multi-axis-code-review`, `shipping-and-handover`, `retrospective`, `agentic-sdlc`
 
 ```
 MIT License
@@ -67,7 +67,7 @@ SOFTWARE.
 ## Addy Osmani — agent-skills
 
 - Repository: https://github.com/addyosmani/agent-skills
-- Used in: `agentic-v-method`, `project-context`, `brainstorming`, `spec-driven-development`, `senior-solution-architect`, `writing-plans`, `executing-plans`, `test-driven-development`, `systematic-debugging`, `codebase-modernization`, `test-strategy`, `multi-axis-code-review`, `security-hardening`, `deployment-pipeline`, `shipping-and-handover`
+- Used in: `agentic-sdlc`, `project-context`, `brainstorming`, `spec-driven-development`, `senior-solution-architect`, `writing-plans`, `executing-plans`, `test-driven-development`, `systematic-debugging`, `codebase-modernization`, `test-strategy`, `multi-axis-code-review`, `security-hardening`, `deployment-pipeline`, `shipping-and-handover`
 
 ```
 MIT License
@@ -96,7 +96,7 @@ SOFTWARE.
 ## BMad Method
 
 - Repository: https://github.com/bmad-code-org/BMAD-METHOD
-- Used in: `agentic-v-method`, `project-context`, `spec-driven-development`, `senior-solution-architect`, `test-strategy`, `multi-axis-code-review`, `shipping-and-handover`, `retrospective`
+- Used in: `agentic-sdlc`, `project-context`, `spec-driven-development`, `senior-solution-architect`, `test-strategy`, `multi-axis-code-review`, `shipping-and-handover`, `retrospective`
 - "BMad" and "BMAD-METHOD" are trademarks of BMad Code, LLC.
 
 ```
@@ -131,7 +131,7 @@ SOFTWARE.
 
 - Repository: https://github.com/Agile-V/agile_v_skills — licensed CC BY-SA 4.0
 - "Agile V" is a trademark claimed by its author.
-- Relationship: Agile V is an independent V-model-based assurance framework for AI-assisted engineering. The Agentic V-Method was designed separately; a few general engineering concepts that Agile V also emphasizes (a frozen requirement baseline, test design derived independently from requirements, verification separate from the builder, recorded human approvals) are expressed here in original wording. **No text, templates or files from Agile V are included in this repository.**
+- Relationship: Agile V is an independent V-model-based assurance framework for AI-assisted engineering. The Agentic SDLC was designed separately; a few general engineering concepts that Agile V also emphasizes (a frozen requirement baseline, test design derived independently from requirements, verification separate from the builder, recorded human approvals) are expressed here in original wording. **No text, templates or files from Agile V are included in this repository.**
 
 ### Standards referenced
 

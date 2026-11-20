@@ -1,17 +1,19 @@
-# Agentic V-Method — Artifact Templates
+# Agentic SDLC — Artifact Templates
 
 All artifacts are plain Markdown in the user's repository. **Discover first:** if the project already has conventions (e.g., `docs/plans/`, `specs/`, `adr/`, an issue tracker), use them and map these templates onto them. Otherwise use the default layout:
 
 ```
 <project>/
-├── AGENTS.md / CLAUDE.md        # V-Method block (project-context)
+├── AGENTS.md / CLAUDE.md        # Agentic SDLC block (project-context)
 ├── CONSTRAINTS.md               # quality bar contract (project-context)
 ├── GLOSSARY.md                  # domain vocabulary (grill-me docs mode)
 ├── docs/adr/NNNN-<slug>.md      # decision records
-└── docs/v-method/<YYYY-MM-DD-feature>/
+└── docs/agentic-sdlc/<YYYY-MM-DD-feature>/
     ├── SPEC.md  PLAN.md  tasks/NN-<slug>.md
-    ├── TEST-PLAN.md  VERIFICATION.md  TRACEABILITY.md  GATES.md
-    └── HANDOVER.md  RETRO.md
+    ├── TRIAGE.md  (PL)
+    ├── TEST-PLAN.md  VERIFICATION.md  TRACEABILITY.md  CHECKPOINTS.md
+    ├── HANDOVER.md  (DP)
+    └── OPERATIONS.md  RETRO.md  (OP: SLO report, incidents, postmortems)
 ```
 
 Keep each artifact as short as the route allows: a Quick route may produce only a commit message and a VERIFICATION entry; a Full route produces everything.
@@ -62,7 +64,7 @@ Keep each artifact as short as the route allows: a Quick route may produce only 
 |---|---|---|---|---|
 
 ## 11. Open questions
-- <Must be empty before Gate 1, or explicitly deferred with owner>
+- <Must be empty before CP2, or explicitly deferred with owner>
 
 ## Revision history
 | Rev | Date | Change | Approved by |
@@ -135,16 +137,18 @@ Self-review disclosure: <independent reviewer used? yes/no>
 | AC-1 | T1 | a1b2c3d | `auth.spec.ts::rejects_expired` | V1 | v1.4.0 | — |
 ```
 
-## GATES.md
+## CHECKPOINTS.md
 
 ```markdown
-# GATES — <feature name>
+# CHECKPOINTS — <feature name>
 
-| Gate | Date | Approver | Evidence reviewed | Residual risk accepted | Decision |
-|---|---|---|---|---|---|
-| Gate 1 (SPEC) | | | SPEC rev 1, doubt-pass notes | | approved / with conditions / rejected |
-| Gate 2 (PLAN) | | | PLAN, AC↔task coverage | | |
-| Gate 3 (Evidence) | | | VERIFICATION, TRACEABILITY, review findings | | |
+| CP | Stage | Date | Role | Person | Exact words | Evidence reviewed | Residual risk accepted | Decision |
+|---|---|---|---|---|---|---|---|---|
+| CP1 | PL | | Product owner | | | Triage record, route | | approved / with conditions / rejected |
+| CP2 | AN | | Product owner | | | SPEC rev 1, doubt-pass notes | | |
+| CP3 | DE | | Tech lead | | | ADRs, PLAN, AC↔task coverage | | |
+| CP4 | RV | | Engineer | | | VERIFICATION, TRACEABILITY, review findings | | |
+| CP5 | DP | | Release manager | | | Rollout plan, rollback rehearsal, monitoring | | |
 ```
 
 ## HANDOVER.md (DP)
@@ -176,7 +180,7 @@ Self-review disclosure: <independent reviewer used? yes/no>
 ## Indicators vs baseline
 | Indicator | Baseline | Target | Measured | Source |
 |---|---|---|---|---|
-## Findings (each with source: file, commit, log, gate record)
+## Findings (each with source: file, commit, log, checkpoint record)
 ## Environment improvements
 | Finding | Type | Change | Where (check / CONSTRAINTS / AGENTS.md pitfall / tooling) |
 |---|---|---|---|
@@ -233,12 +237,12 @@ Last reviewed: YYYY-MM-DD by <name>. Loosening any rule requires an ADR. Reviews
 ## AGENTS.md / CLAUDE.md block (PL)
 
 ```markdown
-<!-- V-METHOD:BEGIN -->
-## Agentic V-Method
+<!-- AGENTIC-SDLC:BEGIN -->
+## Agentic SDLC
 - Build: `<command>` · Test: `<command>` · Lint: `<command>` · Run: `<command>`
-- Artifacts: `docs/v-method/<date-feature>/` · ADRs: `docs/adr/` · Quality bar: `CONSTRAINTS.md` · Vocabulary: `GLOSSARY.md`
+- Artifacts: `docs/agentic-sdlc/<date-feature>/` · ADRs: `docs/adr/` · Quality bar: `CONSTRAINTS.md` · Vocabulary: `GLOSSARY.md`
 - Conventions: <naming, branching, commit format>
 - Pitfalls (observed agent mistakes):
   - <date> — <mistake> → <correct behavior>
-<!-- V-METHOD:END -->
+<!-- AGENTIC-SDLC:END -->
 ```

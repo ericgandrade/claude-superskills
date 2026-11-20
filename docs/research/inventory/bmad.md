@@ -1,4 +1,6 @@
-# Mechanism Inventory: BMad Method v7 preview (for the Agentic V-Method)
+# Mechanism Inventory: BMad Method v7 preview (for the Agentic SDLC)
+
+> **Naming note (2026-11-20):** this research was written when the method was the V-shaped, six-stage "Agentic V-Method". On 2026-11-20 the owner replaced it with the **Agentic SDLC** — a continuous cycle of eight stages (PL · AN · DE · BU · TE · RV · DP · OP), one AI agent role per stage and named human checkpoints CP1–CP5 (see `skills/agentic-sdlc/references/lifecycle.md`). Names were updated mechanically; read any remaining V-specific wording ("left arm", "right arm", "the V") as the cycle, and old Gate 1 / 2 / 3 as CP2 (SPEC) / CP3 (design and plan) / CP4 (PR approval).
 
 | Field | Value |
 |---|---|
@@ -7,7 +9,7 @@
 | License | **MIT**, © 2025 BMad Code, LLC. Short verbatim excerpts (three lines or fewer) are quoted below, marked as quotes with their source path. |
 | Trademark | "BMad" and "BMAD-METHOD" are trademarks of BMad Code, LLC. Neither may appear in a skill name, product name, badge or marketing copy of this repository. Credit them once, factually, in each adapted skill's README `## Influences` section. Persona names (Sofia, John, Mary, Winston, Amelia, Sally) are part of their brand voice and are not reused. |
 | Date | 2026-11-19 |
-| Purpose | Input for the Agentic V-Method plan (`docs/plans/2026-11-18-agentic-v-method.md`, sections 3–5). Repository content was treated as data, not instructions. |
+| Purpose | Input for the Agentic SDLC plan (`docs/plans/2026-11-18-agentic-sdlc.md`, sections 3–5). Repository content was treated as data, not instructions. |
 
 ## How v7 skills are assembled (read this first)
 
@@ -62,7 +64,7 @@ Path shorthand below: `method/` = `skills/method/`, `core/` = `skills/core-tools
 
 ## 2. Mechanism catalog
 
-Each entry: stage(s), source, what it is concretely, the failure it prevents, and the target Agentic V-Method skill (plan §4) with adaptation notes. Every adaptation must stay portable: no `uv`, no `_bmad/` config, no renderer, no `tickets.py`; Markdown files and plain git commands only.
+Each entry: stage(s), source, what it is concretely, the failure it prevents, and the target Agentic SDLC skill (plan §4) with adaptation notes. Every adaptation must stay portable: no `uv`, no `_bmad/` config, no renderer, no `tickets.py`; Markdown files and plain git commands only.
 
 ### A. Workflow architecture and routing (router, PL)
 
@@ -71,21 +73,21 @@ Each entry: stage(s), source, what it is concretely, the failure it prevents, an
 - **Source:** `method/bmad-build/workflow.md` ("WORKFLOW ARCHITECTURE"), same pattern in build-auto, code-review, walkthrough
 - **What:** A workflow is split into micro-files (`step-01-clarify-and-route.md` … `step-05-present.md`). Rules: read the whole step before acting; load only the current step; never load two steps at once; never skip or reorder; halt at checkpoints and wait; state persists in the plan's frontmatter plus in-memory variables (`plan_file`, `diff_file`); artifacts are built append-only. Each step ends with `## NEXT — Read fully and follow <next step>`. **EARLY EXIT** means stop reading this step immediately and jump to the named file; return only if a later step says so.
 - **Prevents:** context rot from loading a 10k-word workflow up front; the agent "optimizing" by skipping review or merging phases.
-- **Target:** `agentic-v-method` router and every multi-phase method skill. **Adapt:** keep the rule set as a short "How to run this skill" block and put per-stage detail in `references/` files loaded only when the stage starts. Drop rendering and conditional templates; express route differences as plainly labeled subsections ("Quick route only").
+- **Target:** `agentic-sdlc` router and every multi-phase method skill. **Adapt:** keep the rule set as a short "How to run this skill" block and put per-stage detail in `references/` files loaded only when the stage starts. Drop rendering and conditional templates; express route differences as plainly labeled subsections ("Quick route only").
 
 #### BM-02 · HALT protocol and explicit stop conditions
 - **Stage:** cross-cutting
 - **Source:** `method/bmad-build/SKILL.md`; `method/bmad-build-auto/workflow.md` ("HALT"); every step file
 - **What:** `HALT` is a first-class instruction: stop, report the reason, wait for the human (attended) or write a terminal status and exit (unattended). Attended HALT points in Build: dirty tree or branch mismatch, multi-goal detected, plan over budget, open questions, checkpoint approval, finding whose smallest fix is not trivial, review loop over 5 iterations, verification that cannot be fixed, matrix row ambiguous. Unattended HALT always carries a named blocking condition (`unclear intent`, `intent gap`, `no subagents`, `ticket not resolved`, `version-control metadata not writable`, `plan failed ready-for-development standard`, `missing plan_file before implementation`, `implementation verification failed`, `review repair loop exceeded 5 iterations (non-convergence)`, `blocked plan supplied`, `finalization left repository dirty`).
 - **Prevents:** agents guessing past a decision the human owns; silent stalls with no recorded reason.
-- **Target:** router rules (`references/rules.md`) and `executing-plans` stop conditions. **Keep** the named-condition vocabulary; write the reason into the current artifact (PLAN.md or GATES.md) so a resumed session sees it.
+- **Target:** router rules (`references/rules.md`) and `executing-plans` stop conditions. **Keep** the named-condition vocabulary; write the reason into the current artifact (PLAN.md or CHECKPOINTS.md) so a resumed session sees it.
 
 #### BM-03 · Routing by "smallest safe path" from the state of the spec
 - **Stage:** PL (router)
 - **Source:** `help/help.md` (Routing flowchart, "Rules the diagram leans on"); `docs/plan/choose-a-planning-path.md`
 - **What:** A decision tree: (1) obvious low-risk edit → just edit, no skill; (2) one session can understand, build, review and finish it → Build; (3) otherwise, does the top-level spec exist? If not, choose an upstream shaping tool by what is missing (cannot name customer/problem → brainstorm/forge; unsure it is worth building → PRFAQ or prototype; wants it written down → brief; needs stakeholders/compliance/integrations → PRD; thinks in screens → UX), then write the spec. (4) With a spec: open questions → resolve; new input → update spec; not sliced → slice into epics; shared decisions across epics → architecture; each epic: unrefined → refine; refined with no stories → plan stories; story needs criteria → refine; ready → build per story; blocked → decide or spike; mid-build change → replan; all stories finished → retrospective, then close. Rules: phases describe kinds of help, not a mandatory sequence; mid-path, recommend the next unfinished step, not a restart; after a change, resume at the earliest affected step and do not replay unaffected work; work is complete when intent is satisfied, chosen checks pass and no chosen review leaves material findings open, "not when every skill has run".
 - **Prevents:** ceremony on small work; restarting the whole process after a change; declaring done because every step ran.
-- **Target:** `agentic-v-method` Step 0 (detect state) and Step 2 (drive stages). **Adapt:** replace BMad's ticket-tree state with V-Method artifacts (SPEC.md status, PLAN.md status, VERIFICATION.md, GATES.md) and keep the "resume at earliest affected stage" and "done = intent + checks + no open material findings" rules verbatim in spirit.
+- **Target:** `agentic-sdlc` Step 0 (detect state) and Step 2 (drive stages). **Adapt:** replace BMad's ticket-tree state with Agentic SDLC artifacts (SPEC.md status, PLAN.md status, VERIFICATION.md, CHECKPOINTS.md) and keep the "resume at earliest affected stage" and "done = intent + checks + no open material findings" rules verbatim in spirit.
 
 #### BM-04 · Size and stakes are separate axes
 - **Stage:** PL
@@ -93,7 +95,7 @@ Each entry: stage(s), source, what it is concretely, the failure it prevents, an
 - **What:** One session = one goal, about 500 changed lines (tests excluded) in a handful of files. Several sessions with one coherent outcome = an epic. Several epics or about 20+ sessions = a project. Risk, unclear requirements, architectural reach, cross-system effects or several people push work up a tier even when small; a large hobby project keeps planning light; a small change to a regulated system may not. Every path reuses the same implementation unit; larger work adds shared context around it rather than a different delivery system.
 - **Prevents:** sizing by line count alone; regulated or risky small changes slipping through on the light path.
 - **Target:** router sizing questions (scope, risk, reversibility → Quick/Standard/Full). **Keep** the explicit numeric anchor (~500 LOC per session, ~20 sessions for multi-epic) as guidance, and make risk an independent override.
-- **Also (intake by container):** the Product Owner sizes new work as standalone (one ticket), epic (stories), initiative (epics) or several initiatives (a parent initiative, "not epics inside epics"); a user override is recorded as a dated `Decision:` line; before work starts, changes go through the spec writer, after it starts, through replan (the V-Method's before/after Gate 1 split).
+- **Also (intake by container):** the Product Owner sizes new work as standalone (one ticket), epic (stories), initiative (epics) or several initiatives (a parent initiative, "not epics inside epics"); a user override is recorded as a dated `Decision:` line; before work starts, changes go through the spec writer, after it starts, through replan (the Agentic SDLC's before/after CP2 split).
 
 #### BM-05 · Oneshot vs full route selection after investigation
 - **Stage:** PL/DE (inside build)
@@ -114,7 +116,7 @@ Each entry: stage(s), source, what it is concretely, the failure it prevents, an
 - **Source:** `method/bmad-build/step-01-clarify-and-route.md` ("Intent check"); `docs/build/autonomous-development-loops.md` ("Resume Input")
 - **What:** Resolve state in order and stop at the first that applies: (1) explicit argument (ticket ref, plan file with recognized `status`, other file = starting intent); (2) recent conversation; (3) the work queue's next ready item; (4) scan for active plans (`draft`, `ready-for-dev`, `in-progress`, `in-review`), list them all and HALT with choices: resume one / next item / new. A plan file routes by status: `draft` → planning; `ready-for-dev`/`in-progress` → implement; `in-review`/`built` → review (a `built` plan re-entered = another review pass); `done` → context only; `blocked` → show reason and halt; `dropped` → halt. An unformatted intent file is ingested as intent, never guessed into a state.
 - **Prevents:** duplicate plans for the same work; resuming from the wrong phase; losing a half-finished plan.
-- **Target:** `agentic-v-method` Step 0. **Keep** the ordered checks and the status→stage table, applied to SPEC/PLAN/VERIFICATION statuses.
+- **Target:** `agentic-sdlc` Step 0. **Keep** the ordered checks and the status→stage table, applied to SPEC/PLAN/VERIFICATION statuses.
 
 #### BM-08 · The invocation is input, not authority
 - **Stage:** cross-cutting
@@ -147,18 +149,18 @@ Each entry: stage(s), source, what it is concretely, the failure it prevents, an
 ### B. Plan and specification artifacts (AN, DE)
 
 #### BM-12 · Plan template with a frozen, human-owned intent block
-- **Stage:** AN/DE (Gate 2)
+- **Stage:** AN/DE (CP3)
 - **Source:** `method/bmad-build/plan-template.md`; `method/bmad-build-auto/plan-template.md`
 - **What:** Frontmatter: `title, type (feature|bugfix|refactor|chore), ticket, created, status, baseline_revision, route, route_source, risk, review, review_source, lenses_ran, review_loop_iteration, context[]` (+ auto: `followup_review_recommended, warnings, deferred`). Body: `<frozen-after-approval reason="human-owned intent — do not modify unless human renegotiates">` containing **Intent** (Problem, Approach: one or two sentences each, "the what, not the how"), **Boundaries & Constraints** (Always: invariant rules; Never: non-goals and forbidden approaches), **I/O & Edge-Case Matrix** (Scenario | Input/State | Expected Output/Behavior | Error Handling; delete if none, never "N/A"). Then agent-owned sections: **Code Map** (`FILE -- ROLE`), **Tasks & Acceptance** (`FILE -- ACTION -- RATIONALE` checklist, one task per file preferred; ACs in Given/When/Then covering system behavior not already in the matrix; include a task to unit-test matrix rows), **Implementation Notes** (append-only), **Plan Change Log** (append-only, written by review loopbacks), **Review Triage Log** (append-only), **Design Notes** (only when non-obvious; 5–10 line golden examples), **Verification** (commands with expected result; manual checks if no CLI). After approval, only the human can change the frozen block. Unattended runs use `<intent-contract>` instead.
 - **Prevents:** agents silently reinterpreting intent during build or review; "N/A" padding; plans that restate the investigation at dispatch.
 - **Target:** `spec-driven-development` (SPEC.md frozen revision) and `writing-plans` (PLAN.md). **Adapt:** the frozen block maps to the approved SPEC revision (AC-n, boundaries, I/O matrix); PLAN.md keeps Code Map, task list with `AC-n` references, Plan Change Log, Verification. Keep "delete empty sections, never write N/A".
 
 #### BM-13 · READY FOR DEVELOPMENT standard
-- **Stage:** DE (Gate 2 check)
+- **Stage:** DE (CP3 check)
 - **Source:** `method/bmad-build/workflow.md`; `method/bmad-build-auto/workflow.md`
 - **What:** A full plan is ready when it is **Actionable** (every task has a file path and specific action), **Logical** (dependency order), **Testable** (all ACs Given/When/Then, each provable "without pointing at code"), **Surface-anchored** (ACs observe the outermost surface the intent references, never an internal proxy — auto version), **Complete** (no placeholders/TBDs), **Sufficient** (no known requirement, acceptance, dependency or implementation gaps), **Coherent** (no unresolved ambiguity or contradiction). A oneshot plan is ready when intent is clear, complete, coherent, sufficient, and the route choice is recorded. Step 2 self-reviews against it: what the repo can answer is fixed by looking; what a human must decide becomes an Open Question; "Do not invent the answer". Unattended: repair once, re-read from disk, re-check; still failing → HALT `plan failed ready-for-development standard` with failing criteria.
 - **Prevents:** plans that look complete but hide TBDs; ACs that test an internal function instead of the user-visible behavior.
-- **Target:** `writing-plans` validate step before Gate 2; "Surface-anchored" also belongs in `spec-driven-development` validate mode. **Keep** all seven criteria verbatim in meaning.
+- **Target:** `writing-plans` validate step before CP3; "Surface-anchored" also belongs in `spec-driven-development` validate mode. **Keep** all seven criteria verbatim in meaning.
 
 #### BM-14 · Investigate before asking; Code Map as the investigation's landing place
 - **Stage:** DE
@@ -172,28 +174,28 @@ Each entry: stage(s), source, what it is concretely, the failure it prevents, an
 - **Source:** `method/bmad-build/step-02-plan.md` items 4–6; `step-oneshot.md` ("Implement")
 - **What:** An intent gap is something "the user would notice in the result" that the intent does not settle. Each becomes an `## Open Questions` entry: the choice, the options, what each option means. "Never write an intent gap into the frozen block as an assumption." Present as numbered questions with options, HALT, write each answer into the frozen block as a decision, delete the entry; an answer may expose a new gap → ask again; when empty, delete the section. Unattended: several defensible readings with observably different outcomes and nothing to select between them = intent gap → HALT `intent gap` (never pick a reading).
 - **Prevents:** agent assumptions becoming unapproved design decisions.
-- **Target:** `spec-driven-development` (open questions block Gate 1) and `writing-plans`. **Keep** "never encode a gap as an assumption" and the numbered-options format.
+- **Target:** `spec-driven-development` (open questions block CP2) and `writing-plans`. **Keep** "never encode a gap as an assumption" and the numbered-options format.
 
 #### BM-16 · Risk score on every plan and ticket
 - **Stage:** AN/DE
 - **Source:** `method/bmad-build/step-02-plan.md` item 2; `method/bmad-agent-po/references/ticket.md`; `help/unattended-builds.md`
 - **What:** `risk: low | medium | high` = business impact if the change is wrong. Proposed with a one-line reason; user decides. A plan from a ticket starts at the ticket's risk and may only be raised (unattended: never lowered; attended: lowered only on the user's word). A high-risk ticket names in Notes one check beyond its criteria. The value is machine-readable so CI can decide how much review a change gets.
 - **Prevents:** uniform scrutiny; risk silently downgraded during planning.
-- **Target:** router (sizing input) and `spec-driven-development` (SPEC header). **Keep**; feed it into review depth and Gate 3 strictness.
+- **Target:** router (sizing input) and `spec-driven-development` (SPEC header). **Keep**; feed it into review depth and CP4 strictness.
 
 #### BM-17 · Approval checkpoint with re-read-from-disk and lock
-- **Stage:** DE (Gate 2)
+- **Stage:** DE (CP3)
 - **Source:** `method/bmad-build/step-02-plan.md` ("CHECKPOINT 1")
 - **What:** Only when Open Questions is empty. Present a summary with the plan's risk and reason, a clickable plan path, the token count if over budget, and a note that the user can edit the file, ask questions, or run elicitation/party mode "ideally in another session to avoid context bloat". Choices: **Approve and continue**; **Approve and stop** (leave `ready-for-dev` so a fresh session implements); **Review plan** (subagent review, discuss, then approve). Before acting on approval, re-read the plan from disk: missing → HALT without recreating; changed → acknowledge external edits and use them. Then set `ready-for-dev`; the frozen block is locked.
 - **Prevents:** approving a plan the user edited in their editor but the agent never re-read; carrying a bloated planning context into implementation.
-- **Target:** router Gate 2 record in GATES.md. **Keep** all three options and the re-read rule; "Approve and stop" matches the plan's "clear / hand off" phase boundary.
+- **Target:** router CP3 record in CHECKPOINTS.md. **Keep** all three options and the re-read rule; "Approve and stop" matches the plan's "clear / hand off" phase boundary.
 
 #### BM-18 · Plan status lifecycle and board-state mapping
 - **Stage:** cross-cutting (state tracking)
 - **Source:** `method/bmad-build/plan-template.md`; `tools/ticket-tree-rules.md` ("Status"); `method/bmad-agent-po/scripts/tickets.py` (`STATE_OF`)
 - **What:** `draft → ready-for-dev → in-progress → in-review → built → done`, plus `blocked` and `dropped`. Build skills write `draft` through `built`; unattended build writes `blocked`; only the user or an orchestrator writes `done`; only the PO writes `dropped` on the user's word. "No skill moves a ticket past `built`." Board states: none/draft/ready-for-dev → backlog; in-progress/blocked → in-progress; in-review/built → review; done; dropped. `blocked_at`, `blocked_reason` and `assignee` sit in the plan's frontmatter, not the ticket.
 - **Prevents:** agents declaring their own work done; status scattered across ticket files and trackers.
-- **Target:** router state + GATES.md. **Adapt:** SPEC.md and PLAN.md each carry `status`; only a human-approved Gate 3 record moves work to "done". Keep "the builder's last status is built".
+- **Target:** router state + CHECKPOINTS.md. **Adapt:** SPEC.md and PLAN.md each carry `status`; only a human-approved CP4 record moves work to "done". Keep "the builder's last status is built".
 
 #### BM-19 · Baseline revision as the trace anchor
 - **Stage:** BU → TE → DP
@@ -310,7 +312,7 @@ Each entry: stage(s), source, what it is concretely, the failure it prevents, an
 - **Source:** `method/bmad-build/step-04-review.md` (items 3–4); build-auto step-04
 - **What:** Each grouped finding routes to one category. This change's problems: **intent_gap** (root cause inside the frozen intent; cannot be resolved from the plan; infer only if exactly one reading), **bad_plan** (the plan should have prevented it, including deviations from the plan; "when in doubt between bad_plan and patch, prefer bad_plan"), **patch** (smallest fix is trivial, adds no public surface, guards no undemonstrated state). Not this change's problem: **defer** (pre-existing; or all-`maybe-false` that would be medium/high if true; or a fix that edits agent-context files). Out-of-scope only when the intent itself excludes it, not because the plan or diff shape does — otherwise it is intent_gap or bad_plan. Cascade: intent_gap or bad_plan present → lower entries are moot (code will be re-derived). intent_gap → revert code, ask the human, re-plan. bad_plan → extract KEEP instructions, revert, amend non-frozen plan sections respecting the Plan Change Log, append a change-log entry (trigger, amendment, known-bad state avoided, KEEPs), re-implement. Increment `review_loop_iteration` before each loopback; >5 → HALT. Code review (no plan to regenerate) uses **decision_needed** (ambiguous choice; list options, one line each, with a recommendation) / **patch** / **defer**, and "an entry this change caused, with a verified member, is never defer".
 - **Prevents:** patching symptoms of a bad plan; endless fix loops; mislabeling caused defects as "pre-existing".
-- **Target:** `multi-axis-code-review` → router change protocol (intent_gap → SPEC revision; bad_plan → PLAN amendment). **Keep**; map intent_gap to the V-Method's post-Gate-1 change protocol.
+- **Target:** `multi-axis-code-review` → router change protocol (intent_gap → SPEC revision; bad_plan → PLAN amendment). **Keep**; map intent_gap to the Agentic SDLC's post-Gate-1 change protocol.
 
 #### BM-34 · KEEP instructions and the Plan Change Log
 - **Stage:** DE/BU
@@ -361,7 +363,7 @@ Each entry: stage(s), source, what it is concretely, the failure it prevents, an
 - **What:** Another pass is worth it after material fixes. Stop when findings are mostly minor notes on unlikely corner cases ("accidental complexity, not quality"). Real findings on a third pass point upstream (weak spec, unclear repo rules): fix that instead. Unattended `followup_review_recommended`: default false; first pass → true if any patched entry was `high` or ≥2 `medium` patched; follow-up pass → true only if it patched a `high`; a true must name the specific unverified risk; patch volume alone never counts.
 - **Prevents:** infinite review cycles; review theater.
 - **Target:** `multi-axis-code-review` and `verification-gate`. **Keep** the third-pass heuristic and the convergence rule.
-- **Also (who reviews what):** in-build review (agents, fixes clear findings itself), standalone code review (agents, the human chooses fixes), walkthrough (the human, guided, fixes nothing unless asked), retrospective (agents across tasks, proposes action items only). A standalone review right after a thorough in-build review "is the same four lenses again". Map these roles in the router's `v-model.md`.
+- **Also (who reviews what):** in-build review (agents, fixes clear findings itself), standalone code review (agents, the human chooses fixes), walkthrough (the human, guided, fixes nothing unless asked), retrospective (agents across tasks, proposes action items only). A standalone review right after a thorough in-build review "is the same four lenses again". Map these roles in the router's `lifecycle.md`.
 
 ### E. Unattended execution (BU, router)
 
@@ -377,7 +379,7 @@ Each entry: stage(s), source, what it is concretely, the failure it prevents, an
 - **Source:** `method/bmad-agent-po/assets/tickets-template.toml` (`plan_checkpoint`, `done_checkpoint`); `method/bmad-build-auto/step-02-plan.md` ("Halt after planning."); build-auto step-04 intent_gap
 - **What:** Per work item: `plan_checkpoint = true` → a person reviews the plan first (dispatch with "Halt after planning.", which stops at `ready-for-dev`; the next dispatch implements); `done_checkpoint = true` → pause after this item until a person says continue. The worker never reads these; the orchestrator honors them; propose plan checkpoints on risky items. When review halts on intent_gap, save the attempted change as `<plan>.patch` beside the plan, reference it from the triage log, revert; if the reading was right, `git apply` it and resume review.
 - **Prevents:** risky items built without human review; losing a possibly-correct attempt when halting.
-- **Target:** `executing-plans` (per-task "pause for human" flags; Gate 2 approval per risky task). **Keep** both flags as optional task fields and the patch-preservation trick.
+- **Target:** `executing-plans` (per-task "pause for human" flags; CP3 approval per risky task). **Keep** both flags as optional task fields and the patch-preservation trick.
 - **Also (machine-readable run result):** on finish write `## Auto Run Result`: summary, files changed (one line each), review breakdown (patches, deferrals, every rejected finding with reason), follow-up recommendation with patched counts by verdict, verification commands and outcomes, residual risks. Deferred findings go into one YAML `deferred:` list (`summary`, `evidence`, optional `location`, `severity`, maybe-false marked "(unverified)"), serialized as block scalars and re-parsed to verify; `warnings: [oversized, multiple-goals]`; with no plan, a fallback result file holds status and blocking condition. Orchestrators read files, never chat.
 
 ### F. Architecture (DE)
@@ -398,7 +400,7 @@ Each entry: stage(s), source, what it is concretely, the failure it prevents, an
 - **Source:** `method/bmad-architecture/assets/spine-template.md`; `SKILL.md` ("How a run works")
 - **What:** Each surviving decision is `### AD-n — {decision}` with **Binds** (requirement ids, units, areas or `all`), **Prevents** (the divergence it stops), **Rule** (the enforceable constraint), tagged `[ADOPTED]` when the user or existing reality already settled it. IDs ascend, are never reused or renumbered; updates amend a Rule in place or add the next id. Template sections: Design Paradigm (layers → directories), Inherited Invariants (parent ids, read-only), Invariants & Rules (with a dependency-direction Mermaid diagram), Consistency Conventions (naming; data formats/ids/dates/error shapes; state/errors/logging/config/auth), Stack (name + pinned version only), Structural Seed (only non-obvious shapes; deployment and environments when this altitude owns them), Capability → Architecture Map (requirement → where it lives → what governs it), Deferred (each with why it can wait).
 - **Prevents:** decisions without enforceable rules; renumbering that breaks downstream citations.
-- **Target:** `senior-solution-architect` and `writing-plans` (tasks cite AD/ADR ids). **Adapt:** V-Method ADRs (`docs/adr/NNNN-*.md`) hold rationale; an optional architecture note uses AD-n blocks with Binds → `AC-n`.
+- **Target:** `senior-solution-architect` and `writing-plans` (tasks cite AD/ADR ids). **Adapt:** Agentic SDLC ADRs (`docs/adr/NNNN-*.md`) hold rationale; an optional architecture note uses AD-n blocks with Binds → `AC-n`.
 - **Also (altitude and inheritance):** a spine's altitude mirrors what it augments (initiative → features, feature → epics, epic → stories). A child spine loads the parent's ADs as binding and read-only, lists them under Inherited Invariants by original id, decides only what the parent deferred, and treats a contradicting new AD as "a conflict to surface, not a local override".
 
 #### BM-45 · Coaching path vs fast path with `[ASSUMPTION]` tags
@@ -413,7 +415,7 @@ Each entry: stage(s), source, what it is concretely, the failure it prevents, an
 - **Source:** `method/bmad-architecture/references/reviewer-gate.md`; `scripts/lint_spine.py`; `SKILL.md` ("Finalize")
 - **What:** Finalize order: distill from the decision log → reconcile inputs (one subagent per input returns what did not land, "especially a quiet requirement (a tone, a constraint)") → gate → triage open questions/assumptions (blockers resolved one at a time, rest deferred with revisit condition) → optional renderings → close. Gate: deterministic lint first (placeholders TBD/TODO/"similar to AD-n"/unfilled `{tokens}`, duplicate or non-monotonic AD ids, AD blocks missing Binds/Prevents/Rule, Stack rows without versions); then parallel fresh-context reviewers each writing `reviews/review-{lens}.md` and returning only verdict + top findings: a **rubric walker** (fixes the real divergence points; every Rule enforceable; nothing Deferred lets units diverge; tech verified; ratifies brownfield; covers every requirement; no weakened inherited AD; every dimension decided/deferred/open — "a whole dimension left silent is a finding, especially the operational/environmental envelope"), the **currency** reviewer, and the **adversary**: "construct two units one level down that each obey every AD to the letter yet still build incompatibly"; each pair found is a hole. Findings tiered: one-sentence verdict, critical+high, the rest counted. "An inline self-check does not count."
 - **Prevents:** architecture gaps found only during integration; missing deployment/operations decisions.
-- **Target:** `senior-solution-architect` (DE exit) feeding Gate 2. **Keep** the adversarial-pair lens and the "silent dimension" check; implement lint as a checklist rather than a script.
+- **Target:** `senior-solution-architect` (DE exit) feeding CP3. **Keep** the adversarial-pair lens and the "silent dimension" check; implement lint as a checklist rather than a script.
 
 #### BM-47 · Append-only decision log, artifact distilled at the end
 - **Stage:** cross-cutting
@@ -447,7 +449,7 @@ Each entry: stage(s), source, what it is concretely, the failure it prevents, an
 - **Also (load-bearing test and companions):** a claim is load-bearing if any consumer (downstream skill, implementer, verification pass) would change a decision without it. Multi-line content (tables, diagrams, long reference) goes into a companion file ("a line growing sub-bullets wants one"); spec-authored companions may be edited on update; adopted ones (DESIGN.md, existing docs) are listed in `companions:` and never edited or duplicated. Keeps SPEC.md lean.
 
 #### BM-51 · Two-pass self-validation (coherence, preservation)
-- **Stage:** AN (pre-Gate 1)
+- **Stage:** AN (pre-CP2)
 - **Source:** `method/bmad-agent-po/customize.toml` (`spec_self_validate`)
 - **What:** Before presenting any create or update: **Pass 1 Coherence** — check against Spec Law rules 1–6 and 8; fix failures without inventing content; unconfirmed calls become `Assumption:` lines, unfilled gaps `Open question:` lines. **Pass 2 Preservation** — every load-bearing source claim lands in the ticket or a companion; log each wrapper-only drop as an event. Record each pass's verdict in the log; mention a pass to the user only when it changed something they approved.
 - **Prevents:** specs that read well but lost a requirement from the source document.
@@ -503,11 +505,11 @@ Each entry: stage(s), source, what it is concretely, the failure it prevents, an
 - **Target:** `executing-plans` (ready frontier for parallel dispatch). **Keep** the classification rules as prose; "in review satisfies a dependency, dropped blocks" is a useful policy.
 
 #### BM-59 · Fresh-context validation checks by scope
-- **Stage:** AN/DE (Gate 1 and Gate 2 checks)
+- **Stage:** AN/DE (CP2 and CP3 checks)
 - **Source:** `method/bmad-agent-po/references/validate.md`, `validate-checks.md`
 - **What:** Fresh-context subagents run named check sections against a file path. **Ticket:** references open; no placeholders; assumptions marked; nothing contradicts epic, companions, architecture or a recorded decision; each entry has a description, a known `unknown`, a `verify` a non-builder can run. **Set:** entries cover every requirement not deferred with the user; tickets sharing an id say which part each delivers; UX/architecture/constraint/integration work is covered even without ids ("citing an id alone is not coverage"); every `after` is a real prerequisite; no cycles; a builder could write each story's ACs from epic + entry + references (else fix the epic, not the entry); tracer bullet and refactor sweep present. **Tree:** every initiative requirement has an accountable epic or agreed deferral; source ids resolve; every unit touched is an epic, out of scope, or a touch point; each shared decision has one home; every epic has Outcome, Done when (with production delivery), Boundaries; opens with a platform baseline or a Decision saying why not. **Dependencies:** what each item needs to start and to run its check is built by it or its prerequisites; items with no dependency path share no code, config, schema or setup (else add an edge or merge); shared setup owned by the earliest item; handoffs stated on both sides. **Closure:** verify Done when, requirements, constraints and companions against implementation evidence, not child status. Findings sorted into fix (mechanical) / suggest (with reason) / ask.
 - **Prevents:** plans with hidden collisions between "parallel" items; coverage by citation only; closing on child status.
-- **Target:** `writing-plans` (Gate 2 validation: coverage + dependency checks), `spec-driven-development` (ticket check), `retrospective` (closure). **Keep** the Dependencies "collisions" check for parallel subagent dispatch.
+- **Target:** `writing-plans` (CP3 validation: coverage + dependency checks), `spec-driven-development` (ticket check), `retrospective` (closure). **Keep** the Dependencies "collisions" check for parallel subagent dispatch.
 - **Also (closure is a check, not a count):** "Closing every child does not close the parent." Before closing, offer the retrospective, run the closure check against requirements and Done when, and get the user's confirmation; drop only after a `Dropped:` line explains why; never delete an entry from an approved breakdown; repoint dependents.
 
 #### BM-60 · Replan (mid-flight change protocol)
@@ -515,7 +517,7 @@ Each entry: stage(s), source, what it is concretely, the failure it prevents, an
 - **Source:** `method/bmad-agent-po/references/replan.md`; `docs/plan/break-work-into-stories-and-track-it.md` ("Replan")
 - **What:** Goal: "Leave the remaining tickets true and nothing already built rewritten. No proposal file." Steps: (1) name the change (what, source, evidence); read the ticket, its log, breakdown, finished children and touched architecture/design; say whether **what is required** changed or only **how it is delivered**; propose adjust remaining / roll back built work / cut scope, with reason; the user decides; an in-progress item: ask whether its build stops, never edit its plan; (2) if requirements changed, re-run the spec writer with the change as input (ids kept; name entries whose covers cite a changed id); (3) re-slice affected epics; (4) drop what no longer belongs (with a Dropped line) and clear what waited on it; (5) record the reason as a dated Decision in each touched container; invalidated architecture/design → note it and offer the owning skill, never edit the companion. Report what changed, was dropped, and is ready.
 - **Prevents:** scope changes that silently invalidate built work or leave stale tasks; ad hoc edits to in-flight plans.
-- **Target:** `agentic-v-method` change protocol (impact on SPEC/PLAN/tasks/tests → new SPEC revision → re-approval). **Keep** the required-vs-delivery distinction and "never edit an in-progress plan".
+- **Target:** `agentic-sdlc` change protocol (impact on SPEC/PLAN/tasks/tests → new SPEC revision → re-approval). **Keep** the required-vs-delivery distinction and "never edit an in-progress plan".
 
 ### H. Upstream planning documents (PL, AN)
 
@@ -531,7 +533,7 @@ Each entry: stage(s), source, what it is concretely, the failure it prevents, an
 - **Source:** `method/bmad-agent-pm/assets/template-prd.md`
 - **What:** Journeys `UJ-N` with a named protagonist and inline persona (not "the user"), entry state, 3–5 beats, a climax where value lands, resolution, optionally one failure, ending with the FRs that realize it; captured from the user's narration, not authored. Requirements `FR-N`: "[Actor] can [capability] [under conditions]" plus out-of-scope bounds. `RULE-N` (rules spanning features; quality constraints carry a threshold and the user outcome they protect, "no generic non-functional list"). `SM-N` metrics with current value, target, FRs validated, and **counter-metrics** naming the metric they balance. `OQ-N` with owner, needed-by and what it blocks. Conditional sections (`include when:`): Change boundary (existing product: what stays, changes, is added, must not change), AI behavior and evaluation (must-never, failure modes from real outputs, ship/rollback eval thresholds, fallbacks), Data and compliance, SLOs, Consumer migration, Stakeholders/risks/rollout. MVP scope: after requirements, coach leanness — name what could wait and why; press hardest on an idea being tested, ease off where a mandate fixes scope; headless lists candidates as an open question and cuts nothing. Done when: every FR checkable and traced to a journey or need, every journey beat that needs the product has an FR, counter-metrics named above hobby stakes, "the user remembers making every decision in it". Next: the PRD is revisited after each epic lands.
 - **Prevents:** generic NFR lists; metrics gamed without counter-metrics; scope bloat; requirements the user never chose.
-- **Target:** `spec-driven-development` (Baseline & indicators with counter-indicators; Change boundary for brownfield; AI behavior section when applicable). **Adapt** selectively; the V-Method SPEC is a feature spec, not a PRD.
+- **Target:** `spec-driven-development` (Baseline & indicators with counter-indicators; Change boundary for brownfield; AI behavior section when applicable). **Adapt** selectively; the Agentic SDLC SPEC is a feature spec, not a PRD.
 
 #### BM-63 · Agent-spec template (one feature for a coding agent)
 - **Stage:** AN
@@ -583,7 +585,7 @@ Each entry: stage(s), source, what it is concretely, the failure it prevents, an
 - **Source:** `core/bmad-facilitate/SKILL.md` ("Review", "Finalize"); `scripts/check_ids.py`
 - **What:** (1) Decision-log audit: each meaningful entry lands in the document or is set aside; id check (undefined, duplicate, withdrawn-but-referenced ids; stale or out-of-order table of contents). (2) Reconciliation: one subagent per user input returns what the document dropped, "above all tone and feel". (3) Review: rubric walker + a **fresh reader** given only the document ("what it would still need answered to use it, ranked", one round) + configured reviewers, chosen by stakes, run as parallel subagents writing `review-<lens>.md`. Lead with a one-sentence verdict and the three fixes that matter most; walk critical/high one at a time; "A claim put in the user's mouth that they never made is high." (4) Triage assumptions and open questions: resolve blockers one at a time; "Many blockers is itself a finding." (5) Polish within the template's length (count words, cut). (6) Rebuild TOC. (7) Tell the user what was set aside and the three decisions you are least confident about; wait. (8) Handoffs. (9) Close: `status: final` unless a blocking question remains.
 - **Prevents:** documents that lose input content, overrun length, or close with blocking unknowns.
-- **Target:** `spec-driven-development` (pre-Gate 1 sequence: preservation → doubt pass → fresh reader → triage). **Keep** the fresh-reader reviewer and "three least-confident decisions".
+- **Target:** `spec-driven-development` (pre-CP2 sequence: preservation → doubt pass → fresh reader → triage). **Keep** the fresh-reader reviewer and "three least-confident decisions".
 - **Also (planning rubric):** rate each dimension strong / adequate / thin / broken against purpose and stakes: Decision-ready (trade-offs stated, one thesis), Earned (no persona, novelty, boilerplate-NFR or generic-vision theater), Testable (flag vague adjectives), Honest scope (non-goals, tagged inferences), Usable downstream (consistent terms, ids resolve); then check the template's Done when; output a two-sentence verdict, the three fixes that matter most, and findings by dimension with severity, location and fix. Use as the SPEC validation rubric.
 
 #### BM-70 · Stakes ladder, assumption tag and level-below discipline
@@ -667,7 +669,7 @@ Each entry: stage(s), source, what it is concretely, the failure it prevents, an
 - **Source:** `method/bmad-project-context/SKILL.md`, `references/best-practices.md`, `references/template.md`; `docs/existing-codebases/theory-of-project-context.md`
 - **What:** A small block in `AGENTS.md` between `<!-- bmad:context -->` markers with a provenance line (date + verified SHA). Sections in order, omitted when empty: Orientation (3–4 sentences), Policy, Where things are, Running and verifying, Conventions that differ from defaults, Known pitfalls. Terse imperative lines; a bare fact appears only as the justification clause of an instruction; every prohibition names the alternative; at most two emphasis markers. **Admit:** policy the code cannot express (stated by a human or read off an enforcing config); what config files cannot say about running the project (the correction, the caveat, the right command when the obvious one is wrong); divergences from ecosystem defaults; pitfalls with observed evidence only ("A surprising scan finding is a question to ask, not a line to write"); runtime behavior invisible from the repo once confirmed; cross-component rules; required versions from project files, never from this session's environment; entry points. **Exclude:** overviews, trees, stack lists, interesting facts, self-enforceable style (propose a check), platitudes, transcribed obvious commands, pasted code, aspirational state, history. Test for every line: "would removing it change agent behavior?" Evidence cited: derivable repo summaries show no success gain and ~20% more inference cost; an always-loaded compressed index of non-derivable knowledge reached 100% vs 53%; agents skip retrieval they must choose. Pointers out of the block must name an observable trigger (path, file type, named task).
 - **Prevents:** bloated AGENTS.md files that cost tokens and do not help; rules that agents skip because they sit behind a judgment-based pointer.
-- **Target:** `project-context` (setup mode). **Keep** the admit/exclude lists, the marker block (as `<!-- V-METHOD:BEGIN/END -->` per plan §5.2), the provenance SHA and the observable-trigger rule.
+- **Target:** `project-context` (setup mode). **Keep** the admit/exclude lists, the marker block (as `<!-- AGENTIC-SDLC:BEGIN/END -->` per plan §5.2), the provenance SHA and the observable-trigger rule.
 
 #### BM-81 · Ledger-based adoption, deletion grounds, record and audit modes
 - **Stage:** PL (and DP → PL learning loop)
@@ -729,7 +731,7 @@ Each entry: stage(s), source, what it is concretely, the failure it prevents, an
 - **Source:** `method/bmad-ux/SKILL.md`, `references/validate.md`
 - **What:** Elicit, never impose (no volunteered colors or patterns). Two peer documents: DESIGN.md (visual tokens in frontmatter + Brand & Style, Colors, Typography, Layout & Spacing, Elevation, Shapes, Components, Do's and Don'ts, order locked) and EXPERIENCE.md (Foundation/form factor, Information Architecture, Voice and Tone, Component Patterns, State Patterns, Interaction Primitives, Accessibility Floor, Key Flows with named protagonists and a climax beat), cross-referencing tokens by name; spines win over mocks. **Surface closure:** IA closes when every stated need has a surface that delivers it and every surface has a journey that lands there; when closure fails, probe, never invent. Rubric walker: flow coverage, token completeness (missing hex is critical), component coverage in both files, **state coverage** per surface (empty, cold-load, focus, error, offline, permission-denied), visual reference coverage, bloat, inheritance discipline (names verbatim from requirements), shape fit.
 - **Prevents:** UI built without empty/error/offline states; requirements with no screen.
-- **Target:** `spec-driven-development` (UI features: state coverage table per surface) and `test-strategy` (states → test cases). **Adapt** the state-coverage and surface-closure checks only; full UX spines are out of V-Method scope.
+- **Target:** `spec-driven-development` (UI features: state coverage table per surface) and `test-strategy` (states → test cases). **Adapt** the state-coverage and surface-closure checks only; full UX spines are out of Agentic SDLC scope.
 
 #### BM-89 · Skill evaluation methodology
 - **Stage:** cross-cutting (repo quality, plan Wave 4)
@@ -743,7 +745,7 @@ Each entry: stage(s), source, what it is concretely, the failure it prevents, an
 - **Source:** `help/working-in-an-organization.md`
 - **What:** Each moment produces a written result an approval can attach to: concept verdict holds back the PRD; PRD validation holds back design and architecture; architecture review holds back per-epic requirements; breakdown approval accepts the plan and its dependencies; the retrospective verdict holds back the next epic. Each document has one owning skill and thus one owner; changes are applied to the owning document and later skills re-run. Never hand-edit a generated document.
 - **Prevents:** approvals with nothing concrete attached; two documents both claiming to be the source.
-- **Target:** router GATES.md (Gate 1 SPEC, Gate 2 PLAN, Gate 3 evidence, plus DP acceptance). **Keep** "every gate attaches to a written artifact" and "one owner per artifact".
+- **Target:** router CHECKPOINTS.md (CP2 SPEC, CP3 PLAN, CP4 evidence, plus DP acceptance). **Keep** "every gate attaches to a written artifact" and "one owner per artifact".
 
 #### BM-91 · Keep docs small, refactor regularly, keep plans as evidence
 - **Stage:** DP/PL
@@ -758,7 +760,7 @@ Each entry: stage(s), source, what it is concretely, the failure it prevents, an
 
 Short quotes are MIT-licensed excerpts, marked with their source path. Everything else is a description in this repository's words.
 
-| Artifact (source) | Purpose | Required parts | Rules worth keeping | V-Method home |
+| Artifact (source) | Purpose | Required parts | Rules worth keeping | Agentic SDLC home |
 |---|---|---|---|---|
 | **Build plan** (`method/bmad-build/plan-template.md`) | One session-sized change: the contract between planning, implementation and review | Frontmatter state (status, baseline, route, risk, review, lenses, loop counter, context); frozen block (Intent: Problem/Approach; Boundaries: Always/Never; I/O & Edge-Case Matrix); Code Map; Tasks & Acceptance; Implementation Notes; Plan Change Log; Review Triage Log; Design Notes; Verification | Frozen block is human-owned after approval; delete empty sections ("Do not write 'N/A' or 'None'"); 900–1600 tokens; tasks `FILE -- ACTION -- RATIONALE`; ACs Given/When/Then and surface-anchored; append-only logs | SPEC.md (frozen part) + PLAN.md / `tasks/NN-*.md` (agent part) — BM-12, BM-13 |
 | **Ticket** (`method/bmad-agent-po/assets/ticket-template.md`) | The spec at its altitude (initiative / epic / story) | Description, Outcome, Requirements (`R<n> (source)`), Constraints, Done when (3–6 checks), Boundaries (touch points, Must not change, tracer path), References (`type — location, section`), Notes (marked lines) | Requirements say what is possible and what shows it was met; never copy the parent; no code paths unless the snippet is the decision; UI tickets link design, keep criteria functional | SPEC.md sections — BM-49, BM-50, BM-53 |
@@ -858,7 +860,7 @@ Directions: **wrong** (find errors), **missing** (find gaps), **premise** (quest
 | 49 | Thesis Defense | other-side | more | Committee challenges and defenses |
 | 50 | Security Audit Personas | other-side | more | Attacker, defender, auditor threat models |
 
-(Numbers 45–46 are absent in the catalog.) Highest value for the V-Method doubt pass and `grill-me`: 2, 3, 4, 7, 13, 14, 19, 20, 22, 25, 27, 28, 33.
+(Numbers 45–46 are absent in the catalog.) Highest value for the Agentic SDLC doubt pass and `grill-me`: 2, 3, 4, 7, 13, 14, 19, 20, 22, 25, 27, 28, 33.
 
 ### 4.3 Brainstorming techniques (`core/bmad-brainstorming/assets/brain-methods.csv`, 108 techniques)
 
@@ -880,7 +882,7 @@ Each row carries `category, technique_name, description, detail, provenance, goo
 
 **Convergence moves** (`references/converge.md`, run only after divergence): Affinity Clustering; Impact–Effort; NUF Test (New, Useful, Feasible 1–10); Forced Ranking / Dot Vote; PMI (Plus / Minus / Interesting); MoSCoW. In-chat technique selection modes: Facilitator Chosen (default, 3–4 techniques), Browse, Category draw, Inventive Flow (invent at least three new techniques).
 
-**For the V-Method `brainstorming` skill**, a curated set fits software design: How Might We, Job to Be Done, First Principles, Assumption Reversal, Constraint Mapping, Reverse Brainstorming / Anti-Solution, SCAMPER, Morphological Analysis, Disney Method, Starbursting, Backcasting, Kill the Crown Jewel, Ship in 60 Minutes, One Feature Only; then Impact–Effort or MoSCoW to converge.
+**For the Agentic SDLC `brainstorming` skill**, a curated set fits software design: How Might We, Job to Be Done, First Principles, Assumption Reversal, Constraint Mapping, Reverse Brainstorming / Anti-Solution, SCAMPER, Morphological Analysis, Disney Method, Starbursting, Backcasting, Kill the Crown Jewel, Ship in 60 Minutes, One Feature Only; then Impact–Effort or MoSCoW to converge.
 
 ### 4.4 Security key-question catalog (`method/bmod-method/doc-templates/methods-security.csv`)
 
@@ -920,34 +922,34 @@ OWASP Top 10 (2025 labels as shipped): A01 Broken Access Control (incl. SSRF), A
 | Item | Why not | Keep instead |
 |---|---|---|
 | Thin-shell SKILL.md + `uv run render_skill.py` + Jinja templating | Hard runtime dependency (uv, Python 3.11, jinja2) and a `_bmad/` install; unusable across the 8 target platforms; content invisible to anyone reading the skill | Plain Markdown with route-labeled subsections and `references/` loaded per stage (BM-01) |
-| `customize.toml` three-layer merge, activation prepend/append hooks, persistent facts, `on_complete` | Configuration machinery the V-Method's zero-config philosophy rejects | A "Project conventions" step that reads AGENTS.md/CLAUDE.md and CONSTRAINTS.md |
+| `customize.toml` three-layer merge, activation prepend/append hooks, persistent facts, `on_complete` | Configuration machinery the Agentic SDLC's zero-config philosophy rejects | A "Project conventions" step that reads AGENTS.md/CLAUDE.md and CONSTRAINTS.md |
 | `tickets.py`, tracker stores (Jira, Linear, GitHub, Notion, Trello config), `mirror`/`mark`/`pull`/`move` verbs | Script dependency and tracker integration outside scope | PLAN.md task table with prerequisites and a status column; optional tracker export as prose instructions |
 | Named personas (Sofia, John, Mary, Winston, Amelia, Sally), icons, menus, persona-carrying activation | Brand voice and trademark adjacency; personas add tokens without improving verification; plan §2.3 already rejects role-play agents | Stage names (PL…DP) and plain skill roles |
 | Party mode, HTML keepsakes, wax-seal forge reports, composer HTML page, HTML briefings and validation reports | Entertainment and presentation layers; heavy token cost; not evidence | Markdown artifacts; the "spawn independent reviewers only when divergence is the value" rule (merged into BM-71) |
 | `memlog.py` script with typed entries | Script dependency | A dated, append-only "Decision log" section (BM-47) |
-| Initiative / parent-initiative / epic folder tree with `tickets/` subfolders and `_bmad-output` | Too deep for most repos; conflicts with plan §3.5 conventions | `docs/v-method/<date-feature>/` with SPEC/PLAN/…; adopt existing repo conventions when present |
+| Initiative / parent-initiative / epic folder tree with `tickets/` subfolders and `_bmad-output` | Too deep for most repos; conflicts with plan §3.5 conventions | `docs/agentic-sdlc/<date-feature>/` with SPEC/PLAN/…; adopt existing repo conventions when present |
 | Twelve PM document templates (charter, narrative, business case, pitch, opportunity, SRS) and BRD/PRFAQ | Product-management scope beyond a software delivery method | Borrow only altitude rules, counter-metrics, change boundary and kill criteria (BM-61–BM-64) |
-| UX DESIGN.md token spec and creative tools (Excalidraw, HTML mocks, design handoffs) | Visual design is out of V-Method scope | State coverage and surface closure checks (BM-88) |
+| UX DESIGN.md token spec and creative tools (Excalidraw, HTML mocks, design handoffs) | Visual design is out of Agentic SDLC scope | State coverage and surface closure checks (BM-88) |
 | Customization authoring (`bmad-customize`), module packaging (`bmod.toml`), migrations, setup/doctor | Distribution plumbing for BMad's own ecosystem | This repo's existing installer |
 | Blind Hunter finding quota as a hard rule in every review | Quotas invite padding when triage is weak | Keep the quota only for the diff-only reviewer, always followed by verify-then-verdict triage (BM-27, BM-32) |
 | Route rule "≤100 LOC → oneshot" as the sole criterion | LOC is a weak proxy for risk; BMad's own docs describe a risk-based test | Intent gaps / irreversible actions / footprint, with LOC as fallback (BM-05) |
 | Time estimates in plans or retros | BMad itself bans them ("AI has changed development speed") | Same ban; use risk and size anchors |
 | Self-improvement auto-iterate loop for skills | Powerful but out of scope for method skills | Manual eval with baseline/variant/trigger modes (BM-89) |
 
-## 7. Top 15 mechanisms ranked by value to the Agentic V-Method
+## 7. Top 15 mechanisms ranked by value to the Agentic SDLC
 
 1. **BM-32 Verify-then-verdict triage** — verify each finding's claim at the cited line, one verdict (high/medium/low/false/maybe-false), reject false and costly-low, group by true root cause → `multi-axis-code-review`.
 2. **BM-33 Root-cause routing with cascading loopbacks** — intent_gap → SPEC revision, bad_plan → PLAN amendment with KEEP list, patch → same implementer, defer → ledger; loop cap 5 → `multi-axis-code-review` + router change protocol.
 3. **BM-12 Frozen human-owned intent block** — approved intent, boundaries (Always/Never) and I/O edge matrix are read-only after approval; agent sections append-only → `spec-driven-development` + `writing-plans`.
 4. **BM-30 Verification Gap lens** — four gap shapes and the list of things that do not count as a test → `test-strategy` + `multi-axis-code-review`.
 5. **BM-87 Acceptance verdict with fail-safe rules** — accepted / accepted-with-open-items / rejected; unfinished work forces rejected; never silently accepted; declared vs profiled criteria → `retrospective`.
-6. **BM-13 READY FOR DEVELOPMENT standard** — Actionable, Logical, Testable, Surface-anchored, Complete, Sufficient, Coherent as the Gate 2 checklist → `writing-plans`.
+6. **BM-13 READY FOR DEVELOPMENT standard** — Actionable, Logical, Testable, Surface-anchored, Complete, Sufficient, Coherent as the CP3 checklist → `writing-plans`.
 7. **BM-25 Parallel, context-free review lenses** — fresh subagents, file paths not pasted diffs, no severity from reviewers, launched together → `multi-axis-code-review`.
 8. **BM-29 Claims check** — the change's narrative is testimony, read only after independent tracing, falsify each claim → `verification-gate` + `multi-axis-code-review`.
 9. **BM-20 Plan-as-sole-source handoff** — three-line dispatch, no parent restatement, `context:` files loaded by the subagent → `executing-plans`.
 10. **BM-80/BM-81 Verified AGENTS.md block with ledger and deletion grounds** — admit/exclude rules, provenance SHA, prefer a check over a line, pitfalls only from observed mistakes → `project-context`.
 11. **BM-56 Story slicing rules** — tracer bullet first, least-certain second, same-code lanes, split-never-shrink, tests in every slice, refactor sweep last → `writing-plans`.
-12. **BM-60 Replan protocol** — required-vs-delivery distinction, never edit an in-progress plan, re-derive with stable ids, dated decisions → `agentic-v-method` change protocol.
+12. **BM-60 Replan protocol** — required-vs-delivery distinction, never edit an in-progress plan, re-derive with stable ids, dated decisions → `agentic-sdlc` change protocol.
 13. **BM-85 Aggregate views** — architecture delta, duplication, size growth, pattern divergence, spec reconciliation across task seams → `retrospective` (and Full-route integration review).
 14. **BM-22 Matrix test audit** — every edge-case row has a test that actually ran and passed; never edit the expectation to match the code → `verification-gate` + `test-driven-development`.
 15. **BM-77 Codebase research with question firewall** — factual questions that hide the intent, git-at-commit reading, `path:line (symbol) @ sha` citations, anchors check → `codebase-modernization` (inventory mode).
