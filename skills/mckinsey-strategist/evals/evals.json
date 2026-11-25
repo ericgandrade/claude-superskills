@@ -1,0 +1,29 @@
+{
+  "skill_name": "mckinsey-strategist",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our B2B SaaS company has 40% churn among customers in the 11-50 employee segment but only 8% churn in the 51-200 segment. We don't know why. Use structured analysis to help us diagnose the root cause and recommend actions.",
+      "expected_output": "A structured McKinsey-style problem breakdown with hypothesis trees, analysis approach, and recommendations",
+      "expectations": [
+        "Output frames the problem using a structured approach (issue tree, MECE breakdown, or hypothesis tree)",
+        "Output generates at least 4-5 specific hypotheses for the churn differential",
+        "Output recommends specific analyses to test each hypothesis",
+        "Output prioritizes the most likely root causes with reasoning",
+        "Output provides initial recommendations even before full analysis"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our CEO needs a board-ready recommendation on whether to expand to Europe in 2026. We're a $20M ARR US-based vertical SaaS company serving healthcare HR teams. We have 3 enterprise customers in the UK who came inbound. Help me structure the strategic analysis and recommendation.",
+      "expected_output": "A structured strategic analysis framework for the Europe expansion decision with clear recommendation logic",
+      "expectations": [
+        "Output uses a structured framework (MECE, strategy pyramid, or similar)",
+        "Output identifies the key questions to answer (market size, go-to-market, regulatory, economics)",
+        "Output highlights the 3 UK inbound customers as a critical data point to investigate",
+        "Output addresses regulatory considerations specific to healthcare in Europe",
+        "Output provides a recommendation structure that leads to a clear Yes/No/Conditional answer"
+      ]
+    }
+  ]
+}

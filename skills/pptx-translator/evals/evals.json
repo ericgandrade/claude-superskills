@@ -1,0 +1,95 @@
+{
+  "skill_name": "pptx-translator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Traduza esta apresentacao ~/docs/proposta.pptx do portugues para ingles",
+      "expected_output": "Checks python-pptx, extracts slide manifest, runs PT→EN parallel translation, creates backup, writes translated file, runs validation report",
+      "assertions": [
+        {"text": "Identifies source as Portuguese and target as English", "weight": 2},
+        {"text": "Creates a backup file before modifying the original", "weight": 2},
+        {"text": "Extracts text blocks from all slides including speaker notes", "weight": 2},
+        {"text": "Launches parallel sub-agents for slide-by-slide translation", "weight": 2},
+        {"text": "Runs validation sub-routine and displays validation report", "weight": 1},
+        {"text": "Cleans up temp files after completion", "weight": 1}
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Translate presentation.pptx to Portuguese, YOLO mode, no backup needed",
+      "expected_output": "Detects YOLO mode, displays warning, asks for confirmation, translates in place with EN→PT, runs validation, no backup created",
+      "assertions": [
+        {"text": "Recognizes YOLO mode from user request", "weight": 2},
+        {"text": "Displays a warning that the original file will be overwritten", "weight": 2},
+        {"text": "Asks for user confirmation before proceeding", "weight": 2},
+        {"text": "Does NOT create a backup file", "weight": 2},
+        {"text": "Still runs validation sub-routine after translation", "weight": 1},
+        {"text": "Reports translation completion with slide count", "weight": 1}
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Translate this deck from Spanish to French: ~/projects/pitch_es.pptx",
+      "expected_output": "Identifies ES→FR language pair, extracts slides, runs parallel ES→FR translation, creates backup, validates that output slides are detected as French",
+      "assertions": [
+        {"text": "Identifies source language as Spanish and target as French", "weight": 3},
+        {"text": "Does not assume default PT/EN direction for this custom pair", "weight": 2},
+        {"text": "Creates backup in safe mode before modifying file", "weight": 1},
+        {"text": "Validation checks that output slides are detected as French (not Spanish)", "weight": 2},
+        {"text": "Saves output as pitch_es_fr.pptx or similar with target lang suffix", "weight": 1},
+        {"text": "Cleans up temp files after completion", "weight": 1}
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "I need to translate this pptx to English including the presenter notes: ~/talks/keynote.pptx",
+      "expected_output": "Extracts both slide text and speaker notes, translates both in parallel, validates that notes were translated, displays notes count in summary",
+      "assertions": [
+        {"text": "Extracts speaker notes from all slides that have them", "weight": 2},
+        {"text": "Passes speaker notes to sub-agents for translation alongside slide text", "weight": 2},
+        {"text": "Writes translated notes back to the notes text frame", "weight": 2},
+        {"text": "Validation report shows speaker notes translated count (e.g. 8/8)", "weight": 2},
+        {"text": "Summary displays speaker notes count separately from slide count", "weight": 1},
+        {"text": "Creates backup before modifying the file", "weight": 1}
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Translate report.pptx to English and show me a detailed validation report",
+      "expected_output": "Completes translation, runs full 4-check validation (completeness, language detection, notes check, file integrity), displays detailed per-slide breakdown in the report",
+      "assertions": [
+        {"text": "Runs all 4 validation checks: completeness, language detection, notes, file integrity", "weight": 3},
+        {"text": "Uses langdetect to verify each slide is in English", "weight": 2},
+        {"text": "Flags any slides with mixed language content as warnings", "weight": 2},
+        {"text": "Displays validation report in the formatted box with checkmarks and warnings", "weight": 2},
+        {"text": "Does not skip validation even when translation appears successful", "weight": 1}
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Translate ~/docs/proposta_comercial.pptx from Portuguese to French. When asked about the output filename, choose option 2 (translate filename to French).",
+      "expected_output": "Shows the 3-option filename menu with French-specific suggestions; on option 2, runs an inline AI call to translate 'proposta_comercial' to French; confirms the suggested name; saves as proposition_commerciale_fr.pptx or similar",
+      "assertions": [
+        {"text": "Shows the 3-option filename menu after the Step 1 confirmation box", "weight": 2},
+        {"text": "Option 1 shows 'proposta_comercial_fr.pptx' (target lang code 'fr', not 'en')", "weight": 3},
+        {"text": "Option 2 translates the stem to French (e.g. 'proposition_commerciale'), not English", "weight": 3},
+        {"text": "Appends '_fr.pptx' suffix (target language), not '_en.pptx'", "weight": 2},
+        {"text": "Shows confirmation prompt before accepting option 2 suggestion", "weight": 1},
+        {"text": "Saves the final file with the chosen French filename", "weight": 2}
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Translate quarterly_review.pptx from English to Portuguese. When asked about the output filename, type a custom name: 'Revisao Trimestral Q1 2026'",
+      "expected_output": "Shows 3-option filename menu; on option 3, prompts for custom name; normalizes 'Revisao Trimestral Q1 2026' → 'Revisao_Trimestral_Q1_2026.pptx'; confirms before proceeding; saves with that name",
+      "assertions": [
+        {"text": "Shows the 3-option filename menu after Step 1 confirmation", "weight": 2},
+        {"text": "Option 3 prompts the user to enter a custom filename", "weight": 2},
+        {"text": "Normalizes spaces to underscores in the custom name", "weight": 2},
+        {"text": "Ensures .pptx extension even if user omits it", "weight": 2},
+        {"text": "Shows confirmation of the normalized filename before proceeding", "weight": 2},
+        {"text": "Saves translated file as 'Revisão_Trimestral_Q1_2026.pptx'", "weight": 2}
+      ]
+    }
+  ]
+}

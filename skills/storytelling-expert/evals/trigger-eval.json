@@ -1,0 +1,26 @@
+{
+  "skill_name": "storytelling-expert",
+  "description": "Triggers for transforming data, ideas, or presentations into compelling narratives",
+  "queries": [
+    {"id": 1, "query": "Transform this data-heavy report into a compelling story for our board", "should_trigger": true},
+    {"id": 2, "query": "Help me craft a narrative for our investor pitch that builds emotional buy-in", "should_trigger": true},
+    {"id": 3, "query": "Turn this product update presentation into a story with a clear arc", "should_trigger": true},
+    {"id": 4, "query": "I need to announce a pivot to my team — help me frame it as a story", "should_trigger": true},
+    {"id": 5, "query": "Make this strategic recommendation more persuasive through storytelling", "should_trigger": true},
+    {"id": 6, "query": "Help me build a narrative around our company's origin and mission", "should_trigger": true},
+    {"id": 7, "query": "Transform these customer case study facts into a compelling story", "should_trigger": true},
+    {"id": 8, "query": "Apply elite storytelling frameworks to this leadership speech", "should_trigger": true},
+    {"id": 9, "query": "Create a story arc for our product launch announcement that builds excitement", "should_trigger": true},
+    {"id": 10, "query": "Help me write a keynote presentation narrative for our annual company meeting", "should_trigger": true},
+    {"id": 11, "query": "Create a product strategy canvas with strategic bets for next year", "should_trigger": false},
+    {"id": 12, "query": "Research competitors and analyze the market landscape", "should_trigger": false},
+    {"id": 13, "query": "Write a cover letter for this job application", "should_trigger": false},
+    {"id": 14, "query": "Run a McKinsey structured analysis for our business problem", "should_trigger": false},
+    {"id": 15, "query": "Design a product roadmap for our SaaS", "should_trigger": false},
+    {"id": 16, "query": "Build an executive resume for a CEO role", "should_trigger": false},
+    {"id": 17, "query": "Optimize this email subject line for better open rates", "should_trigger": false},
+    {"id": 18, "query": "Help me prepare for my leadership interview", "should_trigger": false},
+    {"id": 19, "query": "Create an ABX strategy for our enterprise sales motion", "should_trigger": false},
+    {"id": 20, "query": "Set up a continuous discovery rhythm for our product team", "should_trigger": false}
+  ]
+}

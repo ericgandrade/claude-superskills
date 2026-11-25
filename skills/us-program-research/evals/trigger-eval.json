@@ -1,0 +1,26 @@
+{
+  "skill_name": "us-program-research",
+  "description": "Triggers for researching and ranking US academic programs (PhD, Master's, Bachelor's)",
+  "queries": [
+    {"id": 1, "query": "Research and rank the top PhD programs in Computer Science in the US", "should_trigger": true},
+    {"id": 2, "query": "Find the best Master's programs in Data Science that fit my budget of $50K/year", "should_trigger": true},
+    {"id": 3, "query": "I need a ranked list of MBA programs with strong finance specializations", "should_trigger": true},
+    {"id": 4, "query": "Research US PhD programs in neuroscience with strong faculty match for my research interests", "should_trigger": true},
+    {"id": 5, "query": "Find funded PhD programs in economics — I need full financial support", "should_trigger": true},
+    {"id": 6, "query": "Help me create a target list of US universities for my MS in Statistics application", "should_trigger": true},
+    {"id": 7, "query": "Research the best HCI graduate programs for someone with UX industry experience", "should_trigger": true},
+    {"id": 8, "query": "I'm an international student — research US programs with good OPT and funding support", "should_trigger": true},
+    {"id": 9, "query": "Rank programs for my credential gap: my GPA is 3.2 but I want top-20 schools", "should_trigger": true},
+    {"id": 10, "query": "Build an application strategy and program list for US law school", "should_trigger": true},
+    {"id": 11, "query": "Help me write a statement of purpose for my PhD application", "should_trigger": false},
+    {"id": 12, "query": "Research market salaries for data scientists in the US", "should_trigger": false},
+    {"id": 13, "query": "Build an academic CV for my graduate school applications", "should_trigger": false},
+    {"id": 14, "query": "Help me prepare for graduate school interviews", "should_trigger": false},
+    {"id": 15, "query": "Write a cover letter for a research assistant position", "should_trigger": false},
+    {"id": 16, "query": "Research the competitive landscape for edtech companies", "should_trigger": false},
+    {"id": 17, "query": "Explain how to apply for US student visas", "should_trigger": false},
+    {"id": 18, "query": "Compare two job offers for a data scientist role", "should_trigger": false},
+    {"id": 19, "query": "Transcribe my admission interview recording", "should_trigger": false},
+    {"id": 20, "query": "Optimize my LinkedIn for academic research roles", "should_trigger": false}
+  ]
+}

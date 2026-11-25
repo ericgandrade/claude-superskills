@@ -1,0 +1,837 @@
+---
+name: pptx-translator
+description: This skill should be used when the user needs to translate PowerPoint presentations (.pptx) between languages, preserving formatting and layout. Supports parallel slide-by-slide translation with per-slide validation and retry. Default languages are Portuguese and English but any language pair is supported.
+license: MIT
+---
+
+# pptx-translator
+
+## Purpose
+
+This skill translates PowerPoint presentations (.pptx) between any two languages while preserving the original formatting, layout, fonts, and structure. It uses parallel sub-agent translation (one agent per slide), per-slide validation with automatic retry, recursive group-shape traversal, and a single fast write-back pass.
+
+## When to Use This Skill
+
+- User provides a .pptx file and wants it translated to another language
+- User needs to translate a PowerPoint from Portuguese to English or vice versa
+- User needs to translate slides between any language pair (Spanish, French, German, Japanese, etc.)
+- User wants to translate speaker/presenter notes alongside slide content
+- User asks to "translate", "traduzir", or "convert language" of a PowerPoint or .pptx file
+
+## Step 0: Dependency Setup (Silent)
+
+Check dependencies silently. Do NOT ask for confirmation — install automatically with `--user` and inform the user only of what was installed.
+
+```bash
+python3 -c "import pptx" 2>/dev/null || pip install --user python-pptx -q && echo "Installed python-pptx"
+```
+
+If installation fails (e.g. no pip, restricted environment), ask the user once: "python-pptx is required. Preferred install method: (a) pip install --user, (b) existing venv path, (c) manual?"
+
+## Step 1: Single Consolidated Confirmation
+
+Infer all parameters from the user's request. Ask only for what is truly ambiguous. Then display **one** confirmation box and proceed immediately after the user confirms. Do NOT ask again.
+
+Parameters to infer or confirm:
+1. **Source file path** — validate it exists and has `.pptx` extension
+2. **Source language** — infer from user's request (e.g. "translate from Portuguese"); if not stated, the AI classifier sub-agent (Step 2) will determine it automatically
+3. **Target language** — infer from request; ask if not specified
+4. **Backup mode** — default Safe (output saved as new file); YOLO only if user explicitly says so
+5. **Speaker notes** — default Yes (translate alongside slides)
+6. **Output filename** — resolved interactively in Step 1.5 (after this confirmation box); default is `{stem}_{target_lang_code}.pptx`
+
+```
+╔══════════════════════════════════════════════════════════════╗
+║  PPTX TRANSLATOR — Configuration                            ║
+╠══════════════════════════════════════════════════════════════╣
+║  File:            ~/docs/proposta.pptx                      ║
+║  Direction:       Portuguese → English                      ║
+║  Speaker notes:   Yes (included)                            ║
+║  Original:        preserved (output saved as new file)      ║
+║  Output file:     ~/docs/proposta_en.pptx                   ║
+║  ⚠️  YOLO: original will be overwritten + backup created    ║
+╚══════════════════════════════════════════════════════════════╝
+Proceed? [Y/n]
+```
+
+After this single confirmation, proceed to Step 1.5 without further interruptions.
+
+## Step 1.5: Output Filename Choice
+
+Immediately after the Step 1 confirmation, show this mini-prompt.
+All variables are derived from the **target language** resolved in Step 1 — never hardcoded to English.
+
+Variables:
+- `{stem}` — original filename without extension (e.g. `proposta_comercial`)
+- `{lang_code}` — ISO 639-1 code of the **target** language (e.g. `pt`, `fr`, `de`, `es`, `en`, `ja`)
+- `{target_language}` — human-readable target language name (e.g. `Portuguese`, `French`, `German`)
+
+```
+How should the output file be named?
+
+  [1] {stem}_{lang_code}.pptx              ← original name + target language suffix (default)
+  [2] {translated_stem}_{lang_code}.pptx   ← filename translated to {target_language} (AI suggestion)
+  [3] Custom name                           ← I'll type it myself
+
+Choice [1]:
+```
+
+**Option 1 (default):** If user presses Enter or types `1`, set `output_filename = {stem}_{lang_code}.pptx`.
+
+**Option 2 — AI translates the filename stem to the target language:**
+- Run an inline AI call with this exact prompt:
+  `"Translate only this filename stem to {target_language}: '{stem}'. Return ONLY the translated stem, lowercase, spaces replaced with underscores, no punctuation, no explanation."`
+- Show the suggestion before proceeding:
+  `Suggested: {translated_stem}_{lang_code}.pptx — use this? [Y/n]`
+- If confirmed → `output_filename = {translated_stem}_{lang_code}.pptx`
+- If rejected → fall back silently to Option 1
+
+**Option 3 — Custom name:**
+- Prompt: `Enter filename (with or without .pptx):`
+- Normalize: strip any leading path separators, ensure `.pptx` extension, replace spaces with `_`
+- Confirm: `Output will be saved as: {custom_name} — confirm? [Y/n]`
+- If confirmed → `output_filename = {custom_name}`
+- If rejected → re-show the 3-option menu
+
+**Examples by language pair:**
+
+| Original file | Direction | Option 1 | Option 2 (AI) |
+|---------------|-----------|----------|----------------|
+| `proposta_comercial.pptx` | PT→EN | `proposta_comercial_en.pptx` | `commercial_proposal_en.pptx` |
+| `proposta_comercial.pptx` | PT→FR | `proposta_comercial_fr.pptx` | `proposition_commerciale_fr.pptx` |
+| `proposta_comercial.pptx` | PT→DE | `proposta_comercial_de.pptx` | `geschaeftsvorschlag_de.pptx` |
+| `quarterly_review.pptx`   | EN→PT | `quarterly_review_pt.pptx`  | `revisao_trimestral_pt.pptx` |
+| `marketing_plan.pptx`     | EN→ES | `marketing_plan_es.pptx`    | `plan_de_marketing_es.pptx` |
+
+Store the resolved name as `output_filename`. Use it in Steps 4 and 5 as the output path.
+
+## Step 2: Extract & Analyze Slide Content
+
+```
+[████░░░░░░░░░░░░░░░░] 20% — Step 2/5: Extracting slide content
+```
+
+Use `python-pptx` to extract all translatable content. **CRITICAL: Use a recursive `iter_shapes()` function that descends into GROUP shapes** — do not use `slide.shapes` directly, as it misses text nested inside groups.
+
+### Extraction Script
+
+```python
+from pptx import Presentation
+from pptx.enum.shapes import MSO_SHAPE_TYPE
+import json, sys
+
+def iter_shapes(shapes, parent_id=None):
+    """Recursively yield all leaf shapes, descending into GROUP shapes."""
+    for shape in shapes:
+        if shape.shape_type == MSO_SHAPE_TYPE.GROUP:
+            yield from iter_shapes(shape.shapes, parent_id=shape.shape_id)
+        else:
+            yield shape, parent_id
+
+def extract_text(pptx_path):
+    prs = Presentation(pptx_path)
+    manifest = []
+
+    for slide_num, slide in enumerate(prs.slides, start=1):
+        text_blocks = []
+
+        for shape, parent_id in iter_shapes(slide.shapes):
+            # Text frames in regular shapes (including children of groups)
+            if shape.has_text_frame:
+                for para_idx, para in enumerate(shape.text_frame.paragraphs):
+                    for run_idx, run in enumerate(para.runs):
+                        if run.text.strip():
+                            text_blocks.append({
+                                "shape_id": shape.shape_id,
+                                "parent_id": parent_id,   # None if top-level
+                                "shape_name": shape.name,
+                                "para_idx": para_idx,
+                                "run_idx": run_idx,
+                                "original_text": run.text
+                            })
+
+            # Tables
+            if shape.has_table:
+                for row_idx, row in enumerate(shape.table.rows):
+                    for col_idx, cell in enumerate(row.cells):
+                        if cell.text.strip():
+                            text_blocks.append({
+                                "shape_id": shape.shape_id,
+                                "parent_id": parent_id,
+                                "shape_name": f"table_{shape.name}",
+                                "row_idx": row_idx,
+                                "col_idx": col_idx,
+                                "original_text": cell.text
+                            })
+
+        # Speaker notes
+        notes_text = ""
+        if slide.has_notes_slide:
+            notes_tf = slide.notes_slide.notes_text_frame
+            notes_text = notes_tf.text.strip() if notes_tf else ""
+
+        # SmartArt detection — flag slides with embedded diagrams
+        smartart_found = []
+        for shape in slide.shapes:
+            if shape.shape_type is None:  # graphicFrame (SmartArt/Chart)
+                smartart_found.append(shape.name)
+
+        manifest.append({
+            "slide_num": slide_num,
+            "text_blocks": text_blocks,
+            "notes": notes_text,
+            "smartart_shapes": smartart_found  # non-empty = has SmartArt
+        })
+
+    return manifest
+
+manifest = extract_text(sys.argv[1])
+print(json.dumps(manifest, ensure_ascii=False, indent=2))
+```
+
+Save manifest to `/tmp/pptx_manifest_{timestamp}.json`. **Serialize with `json.dumps(..., ensure_ascii=False)` — no `indent` parameter** to minimize payload size sent to sub-agents.
+
+After extraction, report SmartArt slides and translate their content via zip:
+
+```python
+import zipfile, os, json
+from lxml import etree
+
+smartart_slides = [s for s in manifest if s.get("smartart_shapes")]
+if smartart_slides:
+    print(f"\n⚠️  {len(smartart_slides)} slide(s) contain SmartArt — text stored in separate XML files:")
+    for s in smartart_slides:
+        print(f"   Slide {s['slide_num']}: {s['smartart_shapes']}")
+    print("   SmartArt text will be translated via direct XML editing after write-back.")
+
+    DRAWING_NS = 'http://schemas.openxmlformats.org/drawingml/2006/main'
+
+    with zipfile.ZipFile(output_path, 'r') as zin:
+        diagram_files = [f for f in zin.namelist()
+                         if f.startswith('ppt/diagrams/data') and f.endswith('.xml')]
+        file_roots = {}
+        smartart_items = []
+        for df in diagram_files:
+            root = etree.fromstring(zin.read(df))
+            file_roots[df] = root
+            for i, t in enumerate(root.findall(f'.//{{{DRAWING_NS}}}t')):
+                if t.text and t.text.strip():
+                    smartart_items.append({"file": df, "node_idx": i, "text": t.text})
+
+    if smartart_items:
+        smartart_input = json.dumps(
+            [{"i": idx, "t": item["text"]} for idx, item in enumerate(smartart_items)],
+            ensure_ascii=False
+        )
+        with open("/tmp/smartart_input.json", "w") as f:
+            f.write(smartart_input)
+        print(f"   {len(smartart_items)} SmartArt text nodes — launching SmartArtTranslator agent…")
+
+        # Launch SmartArtTranslator sub-agent (same prompt pattern as SlideTranslator):
+        # Input: /tmp/smartart_input.json — list of {"i": idx, "t": "source text"}
+        # Output: /tmp/smartart_output.json — list of {"i": idx, "t": "translated text"}
+        # Apply same STRICT RULES (preserve proper nouns, whitespace, completeness)
+
+        with open("/tmp/smartart_output.json") as f:
+            smartart_translations = {item["i"]: item["t"] for item in json.load(f)}
+
+        for df, root in file_roots.items():
+            nodes = root.findall(f'.//{{{DRAWING_NS}}}t')
+            for idx, item in enumerate(smartart_items):
+                if item["file"] == df and idx in smartart_translations:
+                    nodes[item["node_idx"]].text = smartart_translations[idx]
+
+        tmp_smartart = output_path + ".sa.tmp"
+        with zipfile.ZipFile(output_path, 'r') as zin:
+            with zipfile.ZipFile(tmp_smartart, 'w', zipfile.ZIP_DEFLATED) as zout:
+                for zi in zin.infolist():
+                    if zi.filename in file_roots:
+                        data = etree.tostring(file_roots[zi.filename],
+                                              xml_declaration=True, encoding='UTF-8', standalone=True)
+                    else:
+                        data = zin.read(zi.filename)
+                    zout.writestr(zi, data)
+        os.replace(tmp_smartart, output_path)
+        print(f"   ✅ SmartArt translations applied to {len(diagram_files)} diagram file(s)")
+```
+
+### After Extraction: AI-Powered Language Classification
+
+**Do NOT use regex or `langdetect` to decide which slides to translate.** Both approaches require hardcoded rules and fail silently on valid words with no accents (e.g. "nossa jornada", "cenário", "nosso time"). Regex lists are never complete; `langdetect` misclassifies short or mixed-language text.
+
+**The model itself already understands language natively** — use it. After extraction, launch a **single classification sub-agent** that receives all slide texts and returns a JSON decision for each slide. No libraries. No hardcoded words. No false negatives.
+
+### Classification Sub-Agent Prompt
+
+> **Note on large presentations:** If the presentation has more than 50 slides, split the input into batches of 50 and launch one classifier agent per batch — large payloads can exceed model context limits. Merge all results before proceeding.
+
+```
+# SlideClassifier — Language Detection Agent
+
+You are a language classifier. For each slide below, determine whether its text is written (fully or partially) in {SOURCE_LANGUAGE}.
+
+Rules:
+- A slide needs translation if ANY text block contains {SOURCE_LANGUAGE} content — even a single sentence or title
+- A slide does NOT need translation only if ALL its text is already in {TARGET_LANGUAGE} or is language-neutral (numbers, dates, proper nouns, acronyms, code)
+- Proper nouns, brand names, product names, and technical terms are language-neutral — do not use them as evidence of either language
+- When in doubt, mark needs_translation: true — it is safer to translate an already-English slide than to skip a source-language one
+
+Slides to classify:
+{SLIDE_TEXTS_JSON}
+
+Save your result to /tmp/pptx_classify_output.json as a JSON array (no explanation, no markdown fences):
+[
+  {"slide_num": 1, "needs_translation": true, "language": "pt", "reason": "Title contains Portuguese: 'A nova era das empresas'"},
+  {"slide_num": 2, "needs_translation": false, "language": "en", "reason": "All text is in English"},
+  ...
+]
+
+After saving, print: "✅ Classification complete: {N} slides need translation, {M} already in target language"
+```
+
+Where `{SLIDE_TEXTS_JSON}` is built from the manifest:
+
+```python
+import json
+
+slide_texts = []
+for slide in manifest:
+    combined = " | ".join(
+        b["original_text"] for b in slide["text_blocks"] if b["original_text"].strip()
+    )
+    if combined.strip():
+        slide_texts.append({"slide_num": slide["slide_num"], "text": combined})
+    else:
+        # No text content — images/charts only, skip
+        slide["needs_translation"] = False
+
+# Save for the classifier agent
+with open("/tmp/pptx_classify_input.json", "w") as f:
+    json.dump(slide_texts, f, ensure_ascii=False, indent=2)
+```
+
+The classifier agent saves its result to `/tmp/pptx_classify_output.json`. The classifier prompt must explicitly instruct the agent to save output there — do NOT rely on the agent inferring it. After it completes, apply the decisions with a fallback for parse failures:
+
+```python
+import json, os
+
+try:
+    with open("/tmp/pptx_classify_output.json") as f:
+        decisions = {d["slide_num"]: d for d in json.load(f)}
+except (FileNotFoundError, json.JSONDecodeError, KeyError):
+    # Fallback: if classifier failed or returned invalid JSON, translate all slides with text
+    print("⚠️  Classifier output invalid — falling back to translate-all-with-text strategy")
+    decisions = {}
+    for slide in manifest:
+        if slide["text_blocks"]:
+            slide["needs_translation"] = True
+            slide["detected_language"] = "unknown"
+        else:
+            slide["needs_translation"] = False
+
+for slide in manifest:
+    decision = decisions.get(slide["slide_num"])
+    if decision:
+        slide["needs_translation"] = decision["needs_translation"]
+        slide["detected_language"] = decision.get("language", "unknown")
+        slide["detection_reason"] = decision.get("reason", "")
+    # slides with no text content were already set to False above
+```
+
+This approach requires **zero hardcoded patterns**, works for any language pair, and handles edge cases (mixed slides, proper nouns, short titles, accented-free Portuguese) correctly.
+
+```
+✅ Extraction complete
+   Slides found:       35
+   Text blocks:        1911
+   Slides to skip:     12 (AI classifier determined already in target language)
+   Slides to translate: 23
+   Speaker notes:      2 slides with notes
+   Group shapes found: 4 slides with grouped content (will be recursed)
+```
+
+## Step 3: Parallel Translation with Per-Slide Validation
+
+```
+[████████░░░░░░░░░░░░] 40% — Step 3/5: Translating slides in parallel
+```
+
+### Batched Parallel Strategy (3 slides per batch, universal)
+
+Group slides that need translation into **batches of 3**. Launch each batch as 3 simultaneous Agent tool calls. Wait for the batch to complete, then launch the next batch. This is the default for all platforms.
+
+**Why batches of 3:** single-agent-per-slide can exceed the internal turn budget of platforms like Gemini CLI, causing session aborts. Batches of 3 keep total turns manageable regardless of platform while still providing parallelism.
+
+```
+Slides to translate: 18
+Batches: 6  (slides 1-3, 4-6, 7-9, 10-12, 13-15, 16-18)
+Agents per batch: 3 (parallel)
+Total rounds: 6
+```
+
+Each agent in a batch:
+1. Receives its slide's JSON text blocks
+2. Translates the content
+3. Self-validates using language understanding (no libraries)
+4. Retries once automatically if validation fails
+5. Saves result to `/tmp/trans_slide_{N}.json`
+6. Reports `✅ Slide N/TOTAL translated — validation: {status}` or `⚠️ Slide N: warning — {reason}`
+
+### Launching SlideTranslator Agents
+
+Each sub-agent must be launched with the identity **SlideTranslator**:
+
+- **Claude Code (Agent tool):** set `description="SlideTranslator — slides X-Y/TOTAL"` and `model="sonnet"`. Translation quality matters — Sonnet handles complex, legal, and technical content reliably. Do NOT use Haiku; it produces partial translations on dense or legal text.
+- **All other platforms:** the agent prompt begins with `# SlideTranslator` so the identity is visible in platform logs. Use the best available model in the session for quality output.
+
+### Sub-Agent Prompt
+
+```
+# SlideTranslator — Professional Slide Translation Agent
+
+You are a professional translator. Translate the following PowerPoint slide content from {SOURCE_LANGUAGE} to {TARGET_LANGUAGE}.
+
+STRICT RULES:
+- Preserve the meaning and tone of the original
+- NEVER translate: proper nouns, personal names (people's names), company names, brand names, product names, technology names, organizational acronyms, or code snippets
+  Examples of what NOT to translate: "Accenture", "Microsoft", "Bradesco", "João Silva", "Azure", "BLT", "YTD", "KPI", "CCI"
+- ALWAYS translate generic role/concept words even if they look like titles: "Agente/Agentes" → "Agent/Agents", "Usuário" → "User", "Reunião" → "Meeting", etc.
+- PRESERVE any leading or trailing whitespace in each run exactly. If the original run is " text ", your translation must also start and end with a space. Spaces are part of the formatting.
+- COMPLETENESS CHECK: count the number of items in the input JSON. Your translated_blocks array MUST contain exactly the same number of items. If counts differ, you have missed blocks — find and translate them before saving.
+- Return JSON with the same structure as input (shape_id, parent_id, para_idx, run_idx preserved — these are required for write-back)
+- Translate speaker notes naturally, maintaining the presenter's voice
+
+Slide {N}/{TOTAL}:
+{JSON_TEXT_BLOCKS}
+
+Speaker notes:
+{NOTES_TEXT}
+
+AFTER translating, self-validate using your own language understanding (no libraries needed):
+- Read back all your translated_text values
+- Confirm they are in {TARGET_LANGUAGE} and not in {SOURCE_LANGUAGE}
+- If you find any block still in {SOURCE_LANGUAGE}, fix it before saving
+- Set validation.status to "ok" if all blocks are correctly translated, or "warning" with a description if any issue remains
+
+Save your result to /tmp/trans_slide_{N}.json in this format:
+{
+  "slide_num": N,
+  "translated_blocks": [
+    {"shape_id": X, "parent_id": Y_or_null, "para_idx": Z, "run_idx": W, "translated_text": "..."},
+    {"shape_id": X, "parent_id": Y_or_null, "row_idx": R, "col_idx": C, "translated_text": "..."}
+  ],
+  "translated_notes": "...",
+  "validation": {"status": "ok|warning", "detected_lang": "{TARGET_LANG_CODE}", "message": ""}
+}
+
+After saving, print: "✅ Slide {N}/{TOTAL} translated — validation: {status} ({detected_lang})"
+```
+
+### Progress Display
+
+Display a running gauge before each batch and print results as agents complete:
+
+```
+[████████░░░░░░░░░░░░] 40% — Batch 1/6: translating slides 1-3…
+✅ Slide 1/18 translated — validation: ok (en)
+✅ Slide 2/18 translated — validation: ok (en)
+✅ Slide 3/18 translated — validation: ok (en)
+
+[█████████████░░░░░░░] 55% — Batch 2/6: translating slides 4-6…
+✅ Slide 4/18 translated — validation: ok (en)
+⚠️ Slide 5/18 — warning (pt detected) — retried OK
+✅ Slide 6/18 translated — validation: ok (en)
+
+…
+
+[████████████████████] Step 3/5 complete — all 18 slides translated
+   Batches: 6  |  Warnings: 1 (auto-retried OK)  |  Failures: 0
+```
+
+**IMPORTANT:** If any agent output contains `"status": "warning"` after retry, flag those slides in the final summary as needing manual review — do NOT silently ignore them.
+
+## Step 4: Write-Back in a Single Pass
+
+```
+[████████████░░░░░░░░] 60% — Step 4/5: Writing translations to PPTX
+```
+
+### Safe Mode (default): Original is preserved automatically
+
+In Safe mode the output is always saved as a **new file** using the `output_filename` resolved in Step 1.5 (default: `{stem}_{lang_code}.pptx`). The original is never touched — it is already the backup. No redundant `_backup_{timestamp}.pptx` is created.
+
+**YOLO mode only:** when the user explicitly chose YOLO, the output overwrites the original. In this case, create a backup first:
+
+```python
+# YOLO mode only — Safe mode does NOT run this block
+import shutil
+from datetime import datetime
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+backup_path = pptx_path.replace(".pptx", f"_backup_{timestamp}.pptx")
+shutil.copy2(pptx_path, backup_path)
+print(f"✅ Backup created: {backup_path}")
+```
+
+### Write-Back Script
+
+Collect all `/tmp/trans_slide_{N}.json` files, then write in a single pass. **CRITICAL: Use the same recursive `iter_shapes()` function** — the write-back must descend into GROUP shapes exactly as the extractor did.
+
+```python
+from pptx import Presentation
+from pptx.enum.shapes import MSO_SHAPE_TYPE
+import json, glob, os
+
+def iter_shapes(shapes, parent_id=None):
+    for shape in shapes:
+        if shape.shape_type == MSO_SHAPE_TYPE.GROUP:
+            yield from iter_shapes(shape.shapes, parent_id=shape.shape_id)
+        else:
+            yield shape, parent_id
+
+def write_translations(pptx_path, output_path, trans_dir):
+    # Load all translation files
+    translations_by_slide = {}
+    for f in glob.glob(f"{trans_dir}/trans_slide_*.json"):
+        with open(f) as fp:
+            data = json.load(fp)
+            translations_by_slide[data["slide_num"]] = data
+
+    prs = Presentation(pptx_path)
+    runs_updated = 0
+    cells_updated = 0
+
+    for slide_num, slide in enumerate(prs.slides, start=1):
+        slide_data = translations_by_slide.get(slide_num)
+        if not slide_data:
+            continue  # Slide was skipped (already in target language)
+
+        # Build lookup keyed by (parent_id, shape_id, para_idx, run_idx) for runs
+        # and (parent_id, shape_id, row_idx, col_idx) for table cells
+        run_map = {}
+        cell_map = {}
+        for b in slide_data["translated_blocks"]:
+            parent_id = b.get("parent_id")
+            shape_id = b["shape_id"]
+            if "run_idx" in b:
+                run_map[(parent_id, shape_id, b["para_idx"], b["run_idx"])] = b["translated_text"]
+            elif "col_idx" in b:
+                cell_map[(parent_id, shape_id, b["row_idx"], b["col_idx"])] = b["translated_text"]
+
+        for shape, parent_id in iter_shapes(slide.shapes):
+            if shape.has_text_frame:
+                for para_idx, para in enumerate(shape.text_frame.paragraphs):
+                    for run_idx, run in enumerate(para.runs):
+                        key = (parent_id, shape.shape_id, para_idx, run_idx)
+                        if key in run_map:
+                            run.text = run_map[key]  # Only change text — preserve all font properties
+                            runs_updated += 1
+
+            if shape.has_table:
+                for row_idx, row in enumerate(shape.table.rows):
+                    for col_idx, cell in enumerate(row.cells):
+                        key = (parent_id, shape.shape_id, row_idx, col_idx)
+                        if key in cell_map:
+                            translated_cell_text = cell_map[key]
+                            tf = cell.text_frame
+                            if tf.paragraphs:
+                                # Split by newline to preserve multi-paragraph cells
+                                cell_lines = translated_cell_text.split("\n")
+                                for para_idx, para in enumerate(tf.paragraphs):
+                                    for run in para.runs:
+                                        run.text = ""
+                                    if para_idx < len(cell_lines):
+                                        if para.runs:
+                                            para.runs[0].text = cell_lines[para_idx]
+                                        else:
+                                            para.add_run().text = cell_lines[para_idx]
+                            cells_updated += 1
+
+        # Write speaker notes — preserve paragraph structure for multiline notes
+        if slide_data.get("translated_notes") and slide.has_notes_slide:
+            notes_tf = slide.notes_slide.notes_text_frame
+            if notes_tf:
+                # Split translated notes by newline to restore paragraph structure
+                translated_lines = slide_data["translated_notes"].split("\n")
+                existing_paras = notes_tf.paragraphs
+
+                for para_idx, para in enumerate(existing_paras):
+                    # Clear all runs in this paragraph
+                    for run in para.runs:
+                        run.text = ""
+                    # Write corresponding translated line if available
+                    if para_idx < len(translated_lines):
+                        if para.runs:
+                            para.runs[0].text = translated_lines[para_idx]
+                        else:
+                            para.add_run().text = translated_lines[para_idx]
+
+                # If translated text has MORE lines than existing paragraphs, append extras
+                from copy import deepcopy
+                if len(translated_lines) > len(existing_paras):
+                    # Use the last paragraph as a template for new ones
+                    last_para_xml = existing_paras[-1]._p
+                    parent_elem = last_para_xml.getparent()
+                    for extra_line in translated_lines[len(existing_paras):]:
+                        new_para = deepcopy(last_para_xml)
+                        # Clear runs in cloned paragraph and set text
+                        for r in new_para.findall(".//{http://schemas.openxmlformats.org/drawingml/2006/main}r"):
+                            t = r.find("{http://schemas.openxmlformats.org/drawingml/2006/main}t")
+                            if t is not None:
+                                t.text = extra_line
+                            break
+                        parent_elem.append(new_para)
+
+    prs.save(output_path)
+    return runs_updated, cells_updated
+```
+
+### Write-Back Post-Processing: Restore Edge Whitespace
+
+After saving, run a second pass to restore any leading/trailing spaces that agents may have stripped. Compare each translated run against the original:
+
+```python
+orig_prs = Presentation(pptx_path)
+trans_prs = Presentation(output_path)
+restored = 0
+
+orig_runs_map = {}
+for slide_idx, slide in enumerate(orig_prs.slides):
+    for shape, parent_id in iter_shapes(slide.shapes):
+        if shape.has_text_frame:
+            for para_idx, para in enumerate(shape.text_frame.paragraphs):
+                for run_idx, run in enumerate(para.runs):
+                    orig_runs_map[(slide_idx, shape.shape_id, parent_id, para_idx, run_idx)] = run.text
+
+for slide_idx, slide in enumerate(trans_prs.slides):
+    for shape, parent_id in iter_shapes(slide.shapes):
+        if shape.has_text_frame:
+            for para_idx, para in enumerate(shape.text_frame.paragraphs):
+                for run_idx, run in enumerate(para.runs):
+                    key = (slide_idx, shape.shape_id, parent_id, para_idx, run_idx)
+                    orig_text = orig_runs_map.get(key, '')
+                    trans_text = run.text
+                    if not orig_text or not trans_text:
+                        continue
+                    modified = trans_text
+                    if orig_text[0] == ' ' and trans_text[0] != ' ':
+                        modified = ' ' + modified
+                    if orig_text[-1] == ' ' and trans_text[-1] != ' ':
+                        modified = modified + ' '
+                    if modified != trans_text:
+                        run.text = modified
+                        restored += 1
+
+trans_prs.save(output_path)
+print(f"✅ Edge whitespace restored: {restored} runs fixed")
+```
+
+**Formatting preservation rules:**
+- Only `run.text` is changed — font size, bold, italic, color, and hyperlinks are untouched
+- Table cell content: clear existing runs, add single new run with translated text
+- Shape positions, sizes, backgrounds, and images are never touched
+- Image shapes are skipped entirely (report in summary)
+
+## Step 5: Integrity Check, Cleanup & Summary (single script)
+
+```
+[████████████████░░░░] 80% — Step 5/5: Finalizing
+```
+
+Run a **single Python script** that performs integrity check, cleanup, and prints the final summary. This must be one tool call — do not split into separate steps.
+
+```python
+from pptx import Presentation
+from pptx.enum.shapes import MSO_SHAPE_TYPE
+import glob, os, re
+
+def iter_shapes_check(shapes, parent_id=None):
+    for shape in shapes:
+        if shape.shape_type == MSO_SHAPE_TYPE.GROUP:
+            yield from iter_shapes_check(shape.shapes, parent_id=shape.shape_id)
+        else:
+            yield shape, parent_id
+
+# Integrity check
+try:
+    prs_check = Presentation(output_path)
+    integrity_ok = True
+except Exception as e:
+    integrity_ok = False
+    print(f"⚠️  Integrity check failed: {e}")
+
+# Quality check — detect slides with residual source-language content
+# Uses unambiguous source-language words unlikely to appear in target language
+SOURCE_LANG_MARKERS = re.compile(
+    r'\b(não|são|também|já|após|antes|pela|pelo|nosso|nossa|nossos|nossas'
+    r'|temos|têm|será|serão|tinha|tinham|foram|deve|devem|pode|podem'
+    r'|cliente|empresa|serviços|solução|equipe|reunião|processo|gestão'
+    r'|fábrica|ágil|implementação|desenvolvimento|entrega|todos|todas'
+    r'|quando|porque|assim|muito|entre|cada)\b',
+    re.IGNORECASE
+)
+residual_slides = []
+if integrity_ok:
+    for slide_num, slide in enumerate(prs_check.slides, start=1):
+        texts = []
+        for shape, _ in iter_shapes_check(slide.shapes):
+            if shape.has_text_frame:
+                for para in shape.text_frame.paragraphs:
+                    for run in para.runs:
+                        if run.text.strip():
+                            texts.append(run.text)
+            if shape.has_table:
+                for row in shape.table.rows:
+                    for cell in row.cells:
+                        if cell.text.strip():
+                            texts.append(cell.text)
+        combined = ' '.join(texts)
+        matches = SOURCE_LANG_MARKERS.findall(combined)
+        total_words = len(combined.split())
+        if total_words > 0 and len(matches) >= 2 and len(matches) / total_words > 0.04:
+            residual_slides.append(slide_num)
+
+quality_ok = len(residual_slides) == 0
+
+# Cleanup all temp files
+for f in (glob.glob("/tmp/pptx_manifest_*.json") +
+          glob.glob("/tmp/trans_slide_*.json") +
+          glob.glob("/tmp/pptx_classify_*.json") +
+          glob.glob("/tmp/smartart_*.json")):
+    os.remove(f)
+
+# Final summary
+residual_note = f"None ✅" if quality_ok else f"{len(residual_slides)} slides ⚠️  → {residual_slides[:10]}"
+print(f"""
+[████████████████████] 100% — Done!
+
+╔══════════════════════════════════════════════════════════════╗
+║  TRANSLATION COMPLETE {'✅' if integrity_ok and quality_ok else '⚠️ REVIEW NEEDED'}
+╠══════════════════════════════════════════════════════════════╣
+║  Original file:      {pptx_path}
+║  Translated file:    {output_path}
+║  Slides translated:  {slides_translated}/{slides_total} ({slides_skipped} already in target language)
+║  Text runs updated:  {runs_updated}
+║  Table cells:        {cells_updated}
+║  Language pair:      {source_lang} → {target_lang}
+║  File integrity:     {'OK' if integrity_ok else 'FAILED — check file manually'}
+║  Residual source:    {residual_note}
+╚══════════════════════════════════════════════════════════════╝
+""")
+
+if residual_slides:
+    print(f"⚠️  {len(residual_slides)} slide(s) may still contain source-language text.")
+    print(f"   Slides: {residual_slides}")
+    print(f"   Recommendation: open the file and verify these slides manually.")
+```
+
+## Error Handling
+
+| Error | Cause | Action |
+|-------|-------|--------|
+| `python-pptx` install fails | Restricted environment / no pip | Ask user once for preferred install method |
+| File not found | Wrong path | Ask user to verify the path |
+| Invalid .pptx | Corrupted file | Inform user; suggest repairing in PowerPoint |
+| Empty slide | Images/charts only | Skip silently; report as "no text content" in summary |
+| Classifier agent fails or returns invalid JSON | Model/network error | Fall back to translate-all-with-text strategy; warn user |
+| Sub-agent translation fails | Model/network error | Retry once automatically; if still failing, skip slide and report |
+| Backup creation fails | Disk full / read-only | Abort before any modification; inform user |
+| GROUP shape ID collision | Two groups with same child shape_id | Use `(parent_id, shape_id)` composite key — always, never shape_id alone |
+
+## Critical Rules
+
+- NEVER modify the original file unless the user explicitly chose YOLO mode
+- In Safe mode the original is preserved automatically (output is a new file) — NEVER create a redundant `_backup_{timestamp}.pptx` in Safe mode; only create backup in YOLO mode before overwriting
+- ALWAYS use recursive `iter_shapes()` for both extraction AND write-back — never `slide.shapes` directly
+- ALWAYS key the write-back lookup by `(parent_id, shape_id, ...)` — never by `shape_id` alone
+- ALWAYS use batched parallel: group slides into batches of 3, launch each batch as 3 simultaneous agents, wait for completion, then launch next batch — NEVER launch all slides at once (exhausts platform turn budgets) and NEVER process one slide at a time (too slow)
+- ALWAYS launch SlideTranslator agents with `model="sonnet"` on Claude Code — quality is critical; Haiku produces partial translations on dense, legal, or technical content and must NOT be used
+- ALWAYS serialize JSON payloads without indentation (`json.dumps(..., ensure_ascii=False)`) — minified JSON reduces input tokens by ~30% on large presentations
+- NEVER create pass-through translations for slides already in the target language — skip them entirely
+- NEVER use regex patterns or `langdetect` to decide which slides to translate — use the AI classifier sub-agent; regex lists are always incomplete and `langdetect` misclassifies short or mixed-language text
+- ALWAYS use the AI classification sub-agent (Step 2) to determine `needs_translation` per slide — the model understands language natively, requires no hardcoded patterns, and handles any language pair
+- ALWAYS treat a slide as needing translation when the classifier is uncertain — it is safer to translate an already-English slide (no harm) than to miss a source-language one
+- NEVER translate proper nouns: personal names, company names, brand names, product names, technology names, organizational acronyms (e.g. "Accenture", "Microsoft", "João Silva", "Azure", "BLT", "YTD")
+- ALWAYS do per-slide self-validation inside each translation agent (translate → read back → fix → save) — agents use their own language understanding, no libraries
+- ALWAYS run Step 5 as a single script: integrity check + cleanup + final summary in one tool call — never split into separate steps
+- ALWAYS preserve text formatting — only change `run.text`, never font/size/color properties
+- NEVER ask the user for confirmation more than once (the initial config confirmation)
+- NEVER add improvised "preview", "debug", or "check" shell commands not specified in this workflow
+
+## Example Usage
+
+### Example 1: Standard PT→EN Translation
+
+```
+User: Translate this presentation from Portuguese to English: ~/docs/proposta_q4.pptx
+
+Skill: [Installs deps silently if needed]
+       [One config confirmation: PT→EN, Safe mode, speaker notes]
+
+       How should the output file be named?
+         [1] proposta_q4_en.pptx              ← original name + target suffix (default)
+         [2] q4_proposal_en.pptx              ← filename translated to English (AI)
+         [3] Custom name                       ← I'll type it myself
+       Choice [1]: 2
+       Suggested: q4_proposal_en.pptx — use this? [Y/n]: Y
+
+       [Extracts 35 slides, 1911 blocks — 12 already in English, skipping]
+       [Launches 23 parallel agents simultaneously]
+       ✅ Slide  3/35 traduzido e validado
+       ✅ Slide  7/35 traduzido e validado
+       ✅ Slide 13/35 traduzido e validado (group shapes traversed)
+       ...
+       [Single write-back pass: 736 runs + 1175 table cells]
+       ✅ Saved: ~/docs/q4_proposal_en.pptx
+```
+
+### Example 2: EN→PT with YOLO Mode
+
+```
+User: Translate presentation.pptx to Portuguese, YOLO mode
+
+Skill: [Config confirmation shows ⚠️ YOLO — original will be overwritten]
+       [User confirms once]
+
+       How should the output file be named?
+         [1] presentation_pt.pptx             ← original name + target suffix (default)
+         [2] apresentacao_pt.pptx             ← filename translated to Portuguese (AI)
+         [3] Custom name                       ← I'll type it myself
+       Choice [1]: 3
+       Enter filename (with or without .pptx): Q1_Apresentacao_Final
+       Output will be saved as: Q1_Apresentacao_Final.pptx — confirm? [Y/n]: Y
+
+       [Translates in place, saves as Q1_Apresentacao_Final.pptx]
+```
+
+### Example 3: Custom Language Pair
+
+```
+User: Translate ~/projects/pitch_es.pptx from Spanish to French
+
+Skill: [AI classifier determines which slides are in Spanish]
+       [Launches parallel agents for all non-French slides]
+       ✅ Saved: ~/projects/pitch_es_fr.pptx
+```
+
+### Example 4: Presentation with Group Shapes
+
+```
+User: Translate keynote.pptx to English
+
+Skill: [Extraction finds 3 slides with GROUP shapes]
+       [iter_shapes() recursively extracts all nested text boxes]
+       [All group content included in translation agents]
+       ✅ Slide 13/20 traduzido e validado (group shapes incluídos)
+       ✅ All grouped text boxes translated correctly
+```
+
+### Example 5: Large Deck with Mixed Languages
+
+```
+User: Can you generate this PPT in English? deck.pptx
+
+Skill: [Detects 15/40 slides already in English — skipped]
+       [Launches 25 parallel agents for Portuguese slides]
+       [Skip slides: 1, 5, 8, 12, 21-35 (already EN)]
+       ✅ 25/40 slides translated, 15 skipped (already English)
+```

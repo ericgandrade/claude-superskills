@@ -1,0 +1,26 @@
+{
+  "skill_name": "youtube-summarizer",
+  "description": "Triggers for extracting transcripts and summarizing YouTube videos",
+  "queries": [
+    {"id": 1, "query": "Summarize this YouTube video for me: [URL]", "should_trigger": true},
+    {"id": 2, "query": "Extract the key points from this YouTube talk on machine learning", "should_trigger": true},
+    {"id": 3, "query": "Create a comprehensive summary of this 2-hour conference recording on YouTube", "should_trigger": true},
+    {"id": 4, "query": "I don't have time to watch this YouTube video — summarize it with timestamps", "should_trigger": true},
+    {"id": 5, "query": "Summarize this YouTube tutorial and give me actionable takeaways", "should_trigger": true},
+    {"id": 6, "query": "Get the transcript from this YouTube video and create a 5-minute read summary", "should_trigger": true},
+    {"id": 7, "query": "Watch this YouTube interview and extract the most important insights", "should_trigger": true},
+    {"id": 8, "query": "Create a structured summary of this YouTube documentary for my team", "should_trigger": true},
+    {"id": 9, "query": "Summarize the YouTube video at this URL with key arguments and evidence", "should_trigger": true},
+    {"id": 10, "query": "I shared a YouTube link — summarize the content and highlight key moments", "should_trigger": true},
+    {"id": 11, "query": "Transcribe my voice memo recording", "should_trigger": false},
+    {"id": 12, "query": "Convert this MP4 video file to text", "should_trigger": false},
+    {"id": 13, "query": "Summarize this PDF research paper", "should_trigger": false},
+    {"id": 14, "query": "Transcribe this Zoom recording I downloaded", "should_trigger": false},
+    {"id": 15, "query": "Create a blog post summary of this article", "should_trigger": false},
+    {"id": 16, "query": "Write show notes for my podcast episode", "should_trigger": false},
+    {"id": 17, "query": "Research trends in video content marketing", "should_trigger": false},
+    {"id": 18, "query": "Help me create a video script for our product demo", "should_trigger": false},
+    {"id": 19, "query": "What is the best way to learn Python programming?", "should_trigger": false},
+    {"id": 20, "query": "Convert this MP3 audio file to a structured document", "should_trigger": false}
+  ]
+}

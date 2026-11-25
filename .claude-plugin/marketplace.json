@@ -1,0 +1,28 @@
+{
+  "name": "knowledge-superskills",
+  "owner": {
+    "name": "Eric Andrade"
+  },
+  "metadata": {
+    "description": "10 skills for knowledge work: research with citations, reading web pages and YouTube videos, transcribing audio, converting documents, translating slides, storytelling, strategy and prompt design."
+  },
+  "plugins": [
+    {
+      "name": "knowledge-superskills",
+      "source": {
+        "source": "github",
+        "repo": "ericgandrade/knowledge-superskills"
+      },
+      "description": "10 skills for knowledge work: research with citations, reading web pages and YouTube videos, transcribing audio, converting documents, translating slides, storytelling, strategy and prompt design.",
+      "author": {
+        "name": "Eric Andrade"
+      },
+      "homepage": "https://github.com/ericgandrade/knowledge-superskills",
+      "repository": "https://github.com/ericgandrade/knowledge-superskills",
+      "license": "MIT",
+      "keywords": ["research", "knowledge-management", "transcription", "documents", "content"],
+      "category": "productivity",
+      "tags": ["research", "content", "documents", "transcription"]
+    }
+  ]
+}

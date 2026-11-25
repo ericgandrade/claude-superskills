@@ -1,0 +1,30 @@
+{
+  "skill_name": "audio-transcriber",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Transcribe this 45-minute product strategy meeting recording and create a structured summary with action items, key decisions, and open questions. The file is at /tmp/strategy-meeting-2026-03-01.mp3",
+      "expected_output": "A structured meeting summary document with transcript, executive summary, action items, decisions, and open questions",
+      "expectations": [
+        "Output checks for transcription tool availability before proceeding",
+        "Output produces a structured Markdown document",
+        "Output includes an executive summary section",
+        "Output extracts and lists action items with owners if mentioned",
+        "Output captures key decisions made during the meeting",
+        "Output includes open questions or follow-ups"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I have a voice memo from a customer interview (interview-customer-acme-2026-02-28.m4a). Transcribe it and format it as a research interview snapshot with key insights, quotes, and themes.",
+      "expected_output": "A formatted interview snapshot with transcript and structured insights extraction",
+      "expectations": [
+        "Output transcribes the audio file",
+        "Output formats the result as an interview snapshot (not just raw transcript)",
+        "Output extracts notable quotes from the customer",
+        "Output identifies key themes or insights from the interview",
+        "Output is saved as a structured Markdown document"
+      ]
+    }
+  ]
+}

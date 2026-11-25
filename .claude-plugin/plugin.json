@@ -1,0 +1,14 @@
+{
+  "name": "knowledge-superskills",
+  "version": "1.0.0",
+  "description": "10 AI skills for knowledge work: deep research, web and YouTube reading, audio transcription, document conversion, slide translation, storytelling, strategy and prompt design.",
+  "author": {
+    "name": "Eric Andrade",
+    "url": "https://github.com/ericgandrade"
+  },
+  "homepage": "https://github.com/ericgandrade/knowledge-superskills",
+  "repository": "https://github.com/ericgandrade/knowledge-superskills",
+  "license": "MIT",
+  "skills": "skills/",
+  "keywords": ["research", "knowledge-management", "transcription", "documents", "content", "ai", "skills"]
+}

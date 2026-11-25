@@ -1,0 +1,29 @@
+{
+  "skill_name": "storytelling-expert",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Transform this data-heavy investor update into a compelling story: 'Q1 results: ARR $2.1M (+35% YoY), 3 new enterprise customers, churn 4.2% (down from 6.1%), NPS 52, team grew to 18 people, launched 4 features, spent $450K on S&M.' Make it boardroom-ready.",
+      "expected_output": "A transformed narrative investor update that leads with insight and story, not just numbers",
+      "expectations": [
+        "Output identifies the narrative arc in the data (declining churn + enterprise wins = turning point)",
+        "Output opens with a compelling story hook, not 'ARR grew 35%'",
+        "Output structures the metrics to support a narrative, not list them",
+        "Output is appropriate length and format for a board/investor update",
+        "Output includes a forward-looking call to action or next chapter"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Help me turn this product strategy presentation into a story. I need to explain why we're pivoting our B2B tool to focus exclusively on the healthcare vertical, abandoning our current general-purpose positioning. The audience is our 50-person internal team.",
+      "expected_output": "A strategic narrative for an internal pivot announcement that builds understanding and alignment",
+      "expectations": [
+        "Output uses a narrative framework appropriate for a pivot announcement (problem → journey → realization → new direction)",
+        "Output frames the pivot as a choice, not a failure",
+        "Output addresses the 'why now' and 'why healthcare' story arcs",
+        "Output anticipates and addresses team concerns about the change",
+        "Output ends with a rallying call that creates momentum, not anxiety"
+      ]
+    }
+  ]
+}

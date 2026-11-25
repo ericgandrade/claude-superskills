@@ -1,0 +1,69 @@
+{
+  "skill_name": "deep-research",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Research the current state of AI regulation in the European Union. I need to understand the AI Act requirements, which companies are most affected, implementation timelines, and how it compares to US approaches. This is for a board presentation.",
+      "expected_output": "A comprehensive research report on EU AI regulation with current facts, timelines, affected companies, and US comparison",
+      "expectations": [
+        "Output uses WebSearch and WebFetch to gather current information",
+        "Output decomposes the research topic into 3-5 concrete sub-questions",
+        "Output covers the EU AI Act's key requirements and risk categories",
+        "Output includes specific implementation timelines",
+        "Output compares EU vs US regulatory approaches",
+        "Output cites sources for major claims",
+        "Output includes an evidence matrix or evidence ledger",
+        "Output distinguishes confirmed, contested, weak, and inferred claims where relevant",
+        "Output closes with a confidence & gaps section",
+        "Output is structured for executive/board readability"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I need deep research on the competitive landscape for B2B expense management software. Who are the top 5-7 players, what are their pricing models, key differentiators, recent funding rounds, and what are customers saying about them on review sites?",
+      "expected_output": "A competitive landscape report with player profiles, pricing, differentiators, funding data, and customer sentiment",
+      "expectations": [
+        "Output decomposes the research topic into 3-5 concrete sub-questions",
+        "Output identifies at least 5 key players in expense management",
+        "Output researches pricing models for each (or notes where pricing is not public)",
+        "Output includes recent funding information where available",
+        "Output includes customer review insights from G2, Capterra, or similar",
+        "Output structures the competitive comparison in a readable format (table or profiles)",
+        "Output includes an evidence matrix or evidence ledger",
+        "Output distinguishes confirmed, contested, weak, and inferred claims where relevant",
+        "Output closes with a confidence & gaps section",
+        "Output draws conclusions about market positioning and white space"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Deep research whether remote work improves or reduces software engineering productivity. I need a balanced evidence review that separates peer-reviewed findings, company surveys, and opinion pieces, and explains why sources disagree.",
+      "expected_output": "A balanced evidence review with sub-questions, source hierarchy, contested claims, confidence assessment, and gaps",
+      "expectations": [
+        "Output decomposes the topic into 3-5 concrete sub-questions",
+        "Output separates peer-reviewed research, company surveys, and opinion/commentary",
+        "Output identifies conflicting claims about productivity, collaboration, retention, or innovation",
+        "Output explains which evidence is more credible and why",
+        "Output cites sources for major claims",
+        "Output includes an evidence matrix or evidence ledger",
+        "Output distinguishes confirmed, contested, weak, and inferred claims where relevant",
+        "Output includes a confidence & gaps section"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Use dense deep-research with a frontier model to create a Perplexity-like evidence report on whether AI coding agents are ready for enterprise software delivery. I care more about depth than cost.",
+      "expected_output": "A dense frontier-style evidence report with model recommendation, parallel agent research topology, primary sources, critique, citation audit, and confidence/gap analysis",
+      "expectations": [
+        "Output recommends a frontier model or model class before execution",
+        "Output explains why the recommended model fits the research task",
+        "Output uses or simulates a parallel agent topology for sub-questions, primary-source harvesting, contrarian evidence, recency checks, citation audit, and synthesis",
+        "Output decomposes the topic into 3-5 concrete sub-questions",
+        "Output prioritizes primary sources, official docs, papers, and credible secondary sources",
+        "Output includes an evidence matrix or evidence ledger",
+        "Output includes critique or rebuttal notes for contested claims",
+        "Output closes with a confidence & gaps section"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "skill_name": "prompt-engineer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Transform this raw prompt into an optimized version: 'Write a blog post about AI'",
+      "expected_output": "An optimized, detailed prompt using an appropriate framework (RTF, RISEN, RODES, or similar) that produces far better output than the original",
+      "expectations": [
+        "Output identifies the appropriate framework for this use case",
+        "Output specifies Role, Task, and Format at minimum",
+        "Output adds concrete constraints (word count, audience, tone, angle)",
+        "Output is significantly more specific and actionable than the original",
+        "Output explains which framework was used and why"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I need help with this prompt I'm using for customer support responses: 'You are a customer service agent. Reply to customer complaints.' Optimize it for our SaaS product support context where we want empathetic, solution-focused responses under 150 words.",
+      "expected_output": "An optimized system prompt for customer support that incorporates the specific requirements",
+      "expectations": [
+        "Output produces a complete, ready-to-use system prompt",
+        "Output includes empathy and solution-focus as behavioral guidelines",
+        "Output incorporates the 150-word constraint",
+        "Output uses a framework appropriate for system prompt optimization",
+        "Output includes example response patterns or guardrails"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Optimize this data extraction prompt: 'Extract the key information from this contract.' I need it to reliably extract: party names, effective date, payment terms, termination clauses, and governing law from legal contracts.",
+      "expected_output": "A structured, reliable extraction prompt that specifies exactly what to extract and in what format",
+      "expectations": [
+        "Output produces a prompt that specifies all 5 fields explicitly",
+        "Output includes output format specification (JSON, table, etc.)",
+        "Output handles the case where a field is not found",
+        "Output uses chain-of-thought or structured extraction techniques",
+        "Output is significantly more reliable than the original for data extraction"
+      ]
+    }
+  ]
+}
