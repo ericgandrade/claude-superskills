@@ -1,0 +1,21 @@
+{
+  "skill_name": "ui-styling",
+  "description": "Triggers for UI styling work with shadcn/ui, Tailwind CSS, responsive layouts, dark mode, accessibility, and canvas design",
+  "queries": [
+    {"id": 1,  "query": "Style this data table with sorting and pagination using shadcn/ui", "should_trigger": true},
+    {"id": 2,  "query": "Add dark mode to my Next.js app with Tailwind CSS", "should_trigger": true},
+    {"id": 3,  "query": "Create a responsive layout for my product page — two columns on desktop, stacked on mobile", "should_trigger": true},
+    {"id": 4,  "query": "Build an accessible contact form with inline validation", "should_trigger": true},
+    {"id": 5,  "query": "Implement design tokens from our design system in Tailwind CSS", "should_trigger": true},
+    {"id": 6,  "query": "Style a shadcn UI card component with hover effects", "should_trigger": true},
+    {"id": 7,  "query": "Create a canvas poster at 1200x628px for our social media campaign", "should_trigger": true},
+    {"id": 8,  "query": "Style this component using Tailwind CSS utility classes only", "should_trigger": true},
+    {"id": 9,  "query": "Implement a consistent button component with all interaction states", "should_trigger": true},
+    {"id": 10, "query": "Apply Tailwind responsive breakpoints to make this layout mobile-friendly", "should_trigger": true},
+    {"id": 11, "query": "Write a Python class to handle database connections", "should_trigger": false},
+    {"id": 12, "query": "Create a Docker container for my Node.js API", "should_trigger": false},
+    {"id": 13, "query": "Optimize my PostgreSQL query for better performance", "should_trigger": false},
+    {"id": 14, "query": "Help me prepare a salary negotiation pitch", "should_trigger": false},
+    {"id": 15, "query": "Summarize this academic paper on neural networks", "should_trigger": false}
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "skill_name": "career-changer-translator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm a military officer (8 years, Army logistics) transitioning to supply chain management in the private sector. I managed a $12M equipment portfolio and led 45-person teams in deployed environments. Help me translate my military experience into civilian business language for my resume and LinkedIn.",
+      "expected_output": "Translated resume content and LinkedIn framing that converts military experience into private-sector supply chain terminology",
+      "expectations": [
+        "Output replaces military jargon with civilian equivalents (e.g., 'deployed environment' → 'high-pressure, time-sensitive operations')",
+        "Output frames leadership of 45-person teams in civilian management terms",
+        "Output translates $12M equipment portfolio into supply chain/operations language",
+        "Output identifies transferable skills relevant to supply chain management",
+        "Output provides 3-5 rewritten resume bullet points using civilian language"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I'm a high school math teacher (7 years) pivoting to data analytics and business intelligence roles. I have a master's in mathematics, built a school-wide assessment tracking system in Excel, and taught AP Statistics. Translate my teaching experience for data analyst job applications.",
+      "expected_output": "Reframed career narrative and resume content positioning teaching as relevant to data analytics roles",
+      "expectations": [
+        "Output reframes teaching as communication, data interpretation, and stakeholder management skills",
+        "Output highlights the assessment tracking system as a data engineering/analytics project",
+        "Output positions AP Statistics teaching as domain expertise in statistics",
+        "Output provides rewritten resume bullets that would appeal to data/analytics hiring managers",
+        "Output suggests which data analyst job types best align with the teaching background"
+      ]
+    }
+  ]
+}

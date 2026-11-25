@@ -1,0 +1,26 @@
+{
+  "skill_name": "job-description-analyzer",
+  "description": "Triggers for analyzing job descriptions, scoring fit, and extracting requirements",
+  "queries": [
+    {"id": 1, "query": "Analyze this job description and score my fit based on my resume", "should_trigger": true},
+    {"id": 2, "query": "Extract the must-have vs nice-to-have requirements from this JD", "should_trigger": true},
+    {"id": 3, "query": "What is this company really looking for between the lines in this job posting?", "should_trigger": true},
+    {"id": 4, "query": "Score my match for this senior engineer role based on the requirements", "should_trigger": true},
+    {"id": 5, "query": "Analyze this job posting and tell me what gaps I have to address", "should_trigger": true},
+    {"id": 6, "query": "Break down this marketing director JD into priorities and red flags", "should_trigger": true},
+    {"id": 7, "query": "What skills from this job description do I not have on my resume?", "should_trigger": true},
+    {"id": 8, "query": "Decode this vague job description — what are they actually looking for?", "should_trigger": true},
+    {"id": 9, "query": "Analyze the culture signals in this job posting", "should_trigger": true},
+    {"id": 10, "query": "Tell me if I should apply to this job based on my experience vs the requirements", "should_trigger": true},
+    {"id": 11, "query": "Write a cover letter for this role", "should_trigger": false},
+    {"id": 12, "query": "Tailor my resume to match this job description", "should_trigger": false},
+    {"id": 13, "query": "Prepare me for the interview at this company", "should_trigger": false},
+    {"id": 14, "query": "Compare these two job offers I received", "should_trigger": false},
+    {"id": 15, "query": "What salary should I ask for at this company?", "should_trigger": false},
+    {"id": 16, "query": "Optimize my LinkedIn for this type of role", "should_trigger": false},
+    {"id": 17, "query": "Write a reference list for my job applications", "should_trigger": false},
+    {"id": 18, "query": "Research this company before my interview", "should_trigger": false},
+    {"id": 19, "query": "Format my resume for this application", "should_trigger": false},
+    {"id": 20, "query": "Translate my experience into language that matches this industry", "should_trigger": false}
+  ]
+}

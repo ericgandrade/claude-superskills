@@ -1,0 +1,26 @@
+{
+  "skill_name": "abx-strategy",
+  "description": "Triggers for ABX/account-based GTM strategy for complex B2B sales",
+  "queries": [
+    {"id": 1, "query": "Build me an account-based marketing strategy for our enterprise SaaS product", "should_trigger": true},
+    {"id": 2, "query": "We sell to Fortune 500 companies with 9-month sales cycles — how do we approach GTM?", "should_trigger": true},
+    {"id": 3, "query": "Help me create an ICP scoring model for our B2B sales team", "should_trigger": true},
+    {"id": 4, "query": "Design a messaging architecture for our buying committee of 7 stakeholders", "should_trigger": true},
+    {"id": 5, "query": "Our pipeline is stalling at late-stage deals — build an ABX acceleration play", "should_trigger": true},
+    {"id": 6, "query": "We have 300 target accounts. How do I tier and prioritize them?", "should_trigger": true},
+    {"id": 7, "query": "Build a personalized outreach sequence for our Tier 1 enterprise accounts", "should_trigger": true},
+    {"id": 8, "query": "How should marketing support a complex B2B deal with 5+ stakeholders?", "should_trigger": true},
+    {"id": 9, "query": "Create an ABM campaign for our $200K average deal size product", "should_trigger": true},
+    {"id": 10, "query": "We need to build sales and marketing alignment around our key accounts", "should_trigger": true},
+    {"id": 11, "query": "Write me a Python function to sort a list of accounts", "should_trigger": false},
+    {"id": 12, "query": "How do I write a resume for a marketing manager role?", "should_trigger": false},
+    {"id": 13, "query": "Explain how TCP/IP networking works", "should_trigger": false},
+    {"id": 14, "query": "Help me build a consumer mobile app with React Native", "should_trigger": false},
+    {"id": 15, "query": "What is the best way to negotiate my salary?", "should_trigger": false},
+    {"id": 16, "query": "Summarize this YouTube video for me", "should_trigger": false},
+    {"id": 17, "query": "How do I set up CI/CD with GitHub Actions?", "should_trigger": false},
+    {"id": 18, "query": "Write a blog post about digital transformation", "should_trigger": false},
+    {"id": 19, "query": "Help me prepare for my software engineering interview at Google", "should_trigger": false},
+    {"id": 20, "query": "Design a database schema for a social media app", "should_trigger": false}
+  ]
+}

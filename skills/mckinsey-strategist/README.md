@@ -11,7 +11,7 @@ Help users solve complex problems using elite consulting frameworks, analytical 
 ### Installation
 
 ```bash
-# install: see https://github.com/ericgandrade/knowledge-superskills#install
+# install: see https://github.com/ericgandrade/claude-superskills#install
 ```
 
 ### Example Commands

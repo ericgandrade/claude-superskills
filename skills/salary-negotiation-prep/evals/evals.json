@@ -1,0 +1,29 @@
+{
+  "skill_name": "salary-negotiation-prep",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I just received an offer: $145K base, $15K bonus, 20K RSUs over 4 years from a public tech company. I'm currently at $138K base. Market data shows the role should be $155-170K. Help me prepare to negotiate.",
+      "expected_output": "A complete negotiation preparation with target range, scripts, and counter-offer strategy",
+      "expectations": [
+        "Output establishes a target range based on market data ($155-170K)",
+        "Output recommends a specific counter-offer anchor (typically above the target)",
+        "Output provides negotiation scripts for the counter-offer conversation",
+        "Output addresses equity and bonus as negotiating levers beyond base",
+        "Output prepares the candidate for common recruiter responses"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I'm negotiating a salary as a first-time job candidate (new grad). I have competing offers: Company A at $95K and Company B (my preferred) at $88K. I'm uncomfortable negotiating. Help me confidently ask Company B to match or beat Company A, with scripts.",
+      "expected_output": "A gentle negotiation approach with specific scripts designed for someone uncomfortable negotiating",
+      "expectations": [
+        "Output acknowledges the discomfort and frames negotiation as normal and expected",
+        "Output provides a specific, word-for-word script for the ask",
+        "Output uses the competing offer as leverage appropriately",
+        "Output prepares for the response if Company B can't fully match",
+        "Output maintains relationship tone — not adversarial"
+      ]
+    }
+  ]
+}

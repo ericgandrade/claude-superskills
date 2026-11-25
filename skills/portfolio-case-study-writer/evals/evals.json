@@ -1,0 +1,29 @@
+{
+  "skill_name": "portfolio-case-study-writer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write a portfolio case study for a UX designer. Project: Redesigned the checkout flow for an e-commerce app, reducing cart abandonment from 73% to 41% over 6 months. Used user research (12 interviews + usability tests), tried 3 design directions, iterated based on data, and shipped to 2M monthly users. Include problem, process, solution, and outcome.",
+      "expected_output": "A compelling portfolio case study covering problem framing, design process, solution rationale, and measurable outcomes",
+      "expectations": [
+        "Output structures the case study with clear Problem → Process → Solution → Outcome sections",
+        "Output leads with the business impact (73% → 41% cart abandonment)",
+        "Output describes the research process (12 interviews, usability tests) in design terms",
+        "Output explains why the final direction was chosen over the other 2",
+        "Output is suitable for a portfolio website or PDF presentation"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Transform these resume bullets into a product management case study for a PM portfolio. Bullets: 'Led search relevance redesign increasing CTR 28%', 'Managed 6-person team', 'Shipped in 3 months', 'Cross-functional with engineering, data science, and design'.",
+      "expected_output": "An expanded narrative case study that turns sparse resume bullets into a compelling PM portfolio story",
+      "expectations": [
+        "Output expands the bullets into a full narrative case study",
+        "Output includes a problem statement (even if inferred from context)",
+        "Output describes the process and decision-making, not just outputs",
+        "Output highlights the cross-functional leadership aspect",
+        "Output structures the 28% CTR improvement as the headline outcome"
+      ]
+    }
+  ]
+}

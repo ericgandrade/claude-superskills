@@ -1,0 +1,21 @@
+{
+  "skill_name": "brand",
+  "description": "Triggers for brand identity work including voice, style guides, audits, messaging frameworks, and visual identity standards",
+  "queries": [
+    {"id": 1,  "query": "Define the brand voice for our cybersecurity company", "should_trigger": true},
+    {"id": 2,  "query": "Create a brand style guide for our wellness startup", "should_trigger": true},
+    {"id": 3,  "query": "Our brand feels inconsistent across channels — run a brand audit", "should_trigger": true},
+    {"id": 4,  "query": "Create a messaging framework for our product launch", "should_trigger": true},
+    {"id": 5,  "query": "Define visual identity standards and logo usage rules", "should_trigger": true},
+    {"id": 6,  "query": "Write brand guidelines for our new sub-brand", "should_trigger": true},
+    {"id": 7,  "query": "Define our tone of voice for social media and email", "should_trigger": true},
+    {"id": 8,  "query": "Create brand asset management guidelines and naming conventions", "should_trigger": true},
+    {"id": 9,  "query": "Review our brand consistency across website and marketing materials", "should_trigger": true},
+    {"id": 10, "query": "Define color palette management rules and typography specifications for our brand", "should_trigger": true},
+    {"id": 11, "query": "Write unit tests for my authentication service", "should_trigger": false},
+    {"id": 12, "query": "Help me set up a CI/CD pipeline with GitHub Actions", "should_trigger": false},
+    {"id": 13, "query": "Create a Python script to automate data processing", "should_trigger": false},
+    {"id": 14, "query": "Summarize this YouTube video about market research", "should_trigger": false},
+    {"id": 15, "query": "Help me prepare for my job interview at a tech company", "should_trigger": false}
+  ]
+}

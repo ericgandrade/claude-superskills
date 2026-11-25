@@ -1,0 +1,29 @@
+{
+  "skill_name": "resume-section-builder",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Build a skills section for a senior backend engineer. Technologies include: Python, Go, Java, PostgreSQL, Redis, Kafka, Kubernetes, AWS (EC2, S3, RDS, Lambda), Docker, Terraform, GitHub Actions, gRPC, REST APIs. Organize this effectively for a resume targeting Staff Engineer roles.",
+      "expected_output": "A well-organized skills section with logical categorization appropriate for a Staff Engineer resume",
+      "expectations": [
+        "Output organizes skills into logical categories (Languages, Infrastructure, Cloud, Data, etc.)",
+        "Output prioritizes skills relevant to Staff Engineer scope",
+        "Output avoids listing basic tools that are assumed (Git, Linux)",
+        "Output is formatted for both ATS and human readability",
+        "Output recommends which skills to lead with for Staff Engineer targeting"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I need to build a professional summary section for my resume. I'm a marketing director, 8 years experience, specializing in B2B SaaS demand generation, I've built two marketing teams from scratch, generated $15M in pipeline last year, and I'm looking for VP Marketing roles at Series B/C companies.",
+      "expected_output": "A compelling 3-4 sentence professional summary that positions the candidate for VP Marketing roles",
+      "expectations": [
+        "Output is 3-4 sentences (not a paragraph or bulleted list)",
+        "Output opens with a strong positioning statement (not 'I am a...')",
+        "Output mentions $15M pipeline as the headline metric",
+        "Output signals VP-readiness by emphasizing team building and leadership",
+        "Output includes B2B SaaS and demand generation as keyword-rich context"
+      ]
+    }
+  ]
+}

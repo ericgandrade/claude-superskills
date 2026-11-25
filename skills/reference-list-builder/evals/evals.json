@@ -1,0 +1,29 @@
+{
+  "skill_name": "reference-list-builder",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Help me build a professional reference list for a VP of Engineering job application. I have these potential references: my direct manager at current job (great relationship but awkward to ask), my manager from 3 years ago at my last company (still in touch), a peer who I collaborated with on a major project, a direct report I mentored for 2 years, and an external partner. Guide me on who to include, in what order, and how to format the list.",
+      "expected_output": "A structured reference selection strategy with recommended choices, order, and a formatted reference list template",
+      "expectations": [
+        "Output advises on reference selection (likely excluding current manager unless confident)",
+        "Output recommends 3-4 references appropriate for VP Engineering level",
+        "Output explains the rationale for inclusion/exclusion of each potential reference",
+        "Output provides a formatted reference list with required fields (name, title, company, relationship, contact info)",
+        "Output advises on how to brief references before they're contacted"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Format these reference contacts into a professional reference document for a senior marketing manager application. References: 1) John Chen, Chief Marketing Officer at Salesforce, was my skip-level manager, john.chen@salesforce.com, 415-555-0100. 2) Maria Santos, Director of Demand Gen, was my peer, maria.santos@acme.com, no phone. 3) Derek Williams, CEO at StartupXYZ, client relationship, derekw@startupxyz.io.",
+      "expected_output": "A professionally formatted reference list document ready for submission",
+      "expectations": [
+        "Output formats all three references consistently",
+        "Output includes relationship context for each reference",
+        "Output handles the missing phone number for reference 2 gracefully",
+        "Output is formatted for professional job application submission",
+        "Output includes a header/title appropriate for the document"
+      ]
+    }
+  ]
+}

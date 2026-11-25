@@ -1,0 +1,65 @@
+{
+  "skill_name": "design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Design a logo for a tech startup called 'Luminary' that builds AI-powered analytics tools. Make it modern and memorable.",
+      "expected_output": "Generates a logo in one of 55 available styles using Gemini AI, provides SVG and PNG export, and explains the style choice in relation to the brand personality.",
+      "assertions": [
+        {"text": "Selects a specific logo style from the 55-style library with documented reasoning for 'tech/AI/analytics' brand positioning", "weight": 3},
+        {"text": "Uses Gemini AI to generate the visual element and produces SVG output", "weight": 3},
+        {"text": "Provides at least 2–3 logo concept variations for the client to choose from", "weight": 2},
+        {"text": "Includes PNG export alongside SVG for immediate usability", "weight": 1},
+        {"text": "Documents the visual reasoning: icon metaphor, typography choice, and color selection", "weight": 3}
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Create a complete corporate identity program for a consultancy firm named 'Meridian Partners'. Include all standard deliverables.",
+      "expected_output": "Produces a CIP with 50 standard deliverables including stationery, branded templates, signage mockups, and digital assets, plus CIP mockup previews.",
+      "assertions": [
+        {"text": "References the 50-deliverable CIP checklist and tracks completion of each item", "weight": 3},
+        {"text": "Generates CIP mockup previews for key deliverables (business card, letterhead, email signature)", "weight": 3},
+        {"text": "Applies consistent brand colors, typography, and logo usage across all deliverables", "weight": 2},
+        {"text": "Provides a branded deliverables package with organized file naming and folder structure", "weight": 2},
+        {"text": "Includes digital and print variants where applicable (RGB vs CMYK, screen vs print resolution)", "weight": 2}
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Create an icon set for a project management app — I need icons for tasks, calendar, users, notifications, and settings.",
+      "expected_output": "Generates 5 SVG icons in a consistent style chosen from the 15 available styles, with scalable vector output and a coherent visual language across the set.",
+      "assertions": [
+        {"text": "Selects a single icon style from the 15-style library and applies it consistently across all 5 icons", "weight": 3},
+        {"text": "Produces SVG output for each icon that is clean, scalable, and pixel-aligned at common sizes (16, 24, 32px)", "weight": 3},
+        {"text": "Maintains visual coherence: stroke weight, corner radius, and proportions match across the set", "weight": 3},
+        {"text": "Documents the style choice and visual system so additional icons can be added consistently", "weight": 2},
+        {"text": "Provides icons in a format usable in web projects without manual cleanup", "weight": 1}
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Generate Instagram, LinkedIn, and Twitter/X social media photos announcing our new product launch.",
+      "expected_output": "Creates platform-specific social media images with correct dimensions for each network using HTML→screenshot workflow, brand-appropriate copywriting, and visual hierarchy.",
+      "assertions": [
+        {"text": "Uses platform-specific dimensions: 1080×1080 for Instagram, 1200×627 for LinkedIn, 1600×900 for Twitter/X", "weight": 3},
+        {"text": "Uses the HTML→screenshot workflow rather than generating raster images directly", "weight": 2},
+        {"text": "Applies design tokens for brand-consistent colors, fonts, and spacing across all three images", "weight": 2},
+        {"text": "Includes platform-appropriate visual hierarchy and copywriting tone for each network", "weight": 2},
+        {"text": "Produces ready-to-post output without requiring manual resizing or editing", "weight": 3}
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Create a 10-slide HTML presentation for a pitch deck. The company is in renewable energy and needs an impactful visual treatment.",
+      "expected_output": "Generates a 10-slide HTML presentation with Chart.js visualizations, renewable-energy-appropriate visual treatment, responsive layouts, and design token application.",
+      "assertions": [
+        {"text": "Generates a complete HTML file with all 10 slides in a responsive, browser-renderable format", "weight": 2},
+        {"text": "Applies a visual style appropriate for renewable energy (earthy tones, clean/minimal, nature-inspired palette)", "weight": 3},
+        {"text": "Includes at least one Chart.js data visualization slide relevant to energy metrics", "weight": 2},
+        {"text": "Uses design tokens for typographic hierarchy, spacing, and color consistently across all slides", "weight": 2},
+        {"text": "Varies slide layout types — cover, data, two-column, and closing — rather than repeating the same layout", "weight": 3}
+      ]
+    }
+  ]
+}

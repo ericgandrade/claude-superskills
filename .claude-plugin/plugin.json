@@ -1,21 +1,26 @@
 {
-  "name": "knowledge-superskills",
-  "version": "1.0.0",
-  "description": "10 AI skills for knowledge work: deep research, web and YouTube reading, audio transcription, document conversion, slide translation, storytelling, strategy and prompt design.",
+  "name": "superskills",
+  "version": "3.0.0",
+  "description": "53 AI skills for career, product, design, Obsidian and knowledge work: resumes and interviews, product strategy, UI/UX and brand design, diagrams and slides, Obsidian notes, deep research, transcription, documents and prompts.",
   "author": {
     "name": "Eric Andrade",
     "url": "https://github.com/ericgandrade"
   },
-  "homepage": "https://github.com/ericgandrade/knowledge-superskills",
-  "repository": "https://github.com/ericgandrade/knowledge-superskills",
+  "homepage": "https://github.com/ericgandrade/claude-superskills",
+  "repository": "https://github.com/ericgandrade/claude-superskills",
   "license": "MIT",
   "keywords": [
+    "skills",
+    "ai",
+    "career",
+    "resume",
+    "product-management",
+    "design",
+    "ui-ux",
+    "obsidian",
     "research",
-    "knowledge-management",
     "transcription",
     "documents",
-    "content",
-    "ai",
-    "skills"
+    "productivity"
   ]
 }

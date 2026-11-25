@@ -1,0 +1,26 @@
+{
+  "skill_name": "resume-quantifier",
+  "description": "Triggers for adding metrics, numbers, and quantifiable impact to resume bullets",
+  "queries": [
+    {"id": 1, "query": "Add numbers and metrics to these vague resume bullets", "should_trigger": true},
+    {"id": 2, "query": "Quantify my resume achievements — I know my impact but don't have exact numbers", "should_trigger": true},
+    {"id": 3, "query": "My resume says 'improved performance' — help me add the specific percentage", "should_trigger": true},
+    {"id": 4, "query": "Help me estimate and add honest quantification to my experience", "should_trigger": true},
+    {"id": 5, "query": "I managed a team but don't know how to quantify my leadership impact", "should_trigger": true},
+    {"id": 6, "query": "Add dollar amounts, percentages, and scale metrics to my resume", "should_trigger": true},
+    {"id": 7, "query": "My resume lacks measurable achievements — help me add data points", "should_trigger": true},
+    {"id": 8, "query": "Turn 'grew the user base' into a quantified achievement on my resume", "should_trigger": true},
+    {"id": 9, "query": "What numbers should I add to make these bullets more impressive?", "should_trigger": true},
+    {"id": 10, "query": "I reduced costs but can't remember the exact figure — help me estimate credibly", "should_trigger": true},
+    {"id": 11, "query": "Rewrite my bullets with better action verbs and impact language", "should_trigger": false},
+    {"id": 12, "query": "Fix my resume formatting and layout consistency", "should_trigger": false},
+    {"id": 13, "query": "Optimize my resume for ATS keyword matching", "should_trigger": false},
+    {"id": 14, "query": "Tailor my resume for a specific job description", "should_trigger": false},
+    {"id": 15, "query": "Create a professional summary section for my resume", "should_trigger": false},
+    {"id": 16, "query": "Write a cover letter for this engineering role", "should_trigger": false},
+    {"id": 17, "query": "Optimize my LinkedIn for recruiter searches", "should_trigger": false},
+    {"id": 18, "query": "Build an executive resume for a C-suite role", "should_trigger": false},
+    {"id": 19, "query": "Manage multiple tailored resume versions", "should_trigger": false},
+    {"id": 20, "query": "Prepare STAR stories for my behavioral interview", "should_trigger": false}
+  ]
+}

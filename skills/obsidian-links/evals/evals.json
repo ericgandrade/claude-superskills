@@ -1,0 +1,69 @@
+{
+  "skill_name": "obsidian-links",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Add wikilinks to the following meeting note. The vault contains notes named 'Alice Chen', 'Bob Martinez', 'Project Alpha', and 'Q2 Planning'.\n\nMeeting: Q2 Planning Kickoff\nAttendees: Alice Chen, Bob Martinez.\nWe discussed Project Alpha timeline and the agenda for Q2 Planning.",
+      "expected_output": "The meeting note with [[Alice Chen]], [[Bob Martinez]], [[Project Alpha]], and [[Q2 Planning]] inserted as wikilinks around the matching plain-text names.",
+      "expectations": [
+        "Alice Chen is wrapped in [[Alice Chen]]",
+        "Bob Martinez is wrapped in [[Bob Martinez]]",
+        "Project Alpha is wrapped in [[Project Alpha]]",
+        "Q2 Planning is wrapped in [[Q2 Planning]]",
+        "No other text is modified",
+        "Output uses correct [[double bracket]] syntax"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Check this note for broken links. The vault only contains: 'Deep Work.md' and 'Atomic Habits.md'.\n\nNote content:\n- [[Deep Work]] is a book by Cal Newport\n- [[Atomic Habits]] changed my morning routine\n- See also [[Focus Techniques]] and [[Reading List 2024#^morning-reads]]",
+      "expected_output": "A validation report identifying [[Focus Techniques]] as broken (no matching file) and [[Reading List 2024#^morning-reads]] as broken (note not found). [[Deep Work]] and [[Atomic Habits]] marked as valid.",
+      "expectations": [
+        "[[Deep Work]] reported as valid (✅)",
+        "[[Atomic Habits]] reported as valid (✅)",
+        "[[Focus Techniques]] reported as broken (❌)",
+        "[[Reading List 2024#^morning-reads]] reported as broken (❌)",
+        "Report includes a suggestion for fixing or investigating broken links",
+        "Broken link count is stated at the end"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Create a Map of Content for Product Management topics. The vault has these notes: 'Product Strategy.md', 'User Research.md', 'Sprint Planning.md', 'OKR Framework.md', 'Stakeholder Management.md', 'Product Discovery.md'.",
+      "expected_output": "A well-structured MOC note with a title heading, notes grouped into logical sections (e.g., Strategy, Research, Execution), and each note linked using [[wikilink]] syntax with a brief description.",
+      "expectations": [
+        "Output is a complete Markdown note with a heading",
+        "All 6 notes are included as wikilinks",
+        "Notes are grouped into at least 2 logical sections",
+        "Each entry has a one-line description or label",
+        "Uses [[wikilink]] syntax consistently",
+        "Structure is readable and navigable"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "I renamed 'Project Alpha' to 'Initiative Orion'. Find all wikilinks in these notes that need updating:\n- Note A contains: 'See [[Project Alpha]] for details.'\n- Note B contains: '[[Project Alpha|Alpha Budget]] was approved.'\n- Note C contains: 'Reference: [[Project Beta]] and [[Project Alpha#Timeline]].'\n\nOutput the corrected versions of all three notes.",
+      "expected_output": "All three notes with [[Project Alpha]] replaced by [[Initiative Orion]], [[Project Alpha|Alpha Budget]] replaced by [[Initiative Orion|Alpha Budget]], and [[Project Alpha#Timeline]] replaced by [[Initiative Orion#Timeline]]. Project Beta is unchanged.",
+      "expectations": [
+        "[[Project Alpha]] becomes [[Initiative Orion]] in Note A",
+        "[[Project Alpha|Alpha Budget]] becomes [[Initiative Orion|Alpha Budget]] in Note B",
+        "[[Project Alpha#Timeline]] becomes [[Initiative Orion#Timeline]] in Note C",
+        "[[Project Beta]] in Note C is not modified",
+        "All notes are output in full",
+        "No other text is changed"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Link the 'Product Strategy' note to the 'OKR Tracker' note. I want a forward link from Product Strategy to OKR Tracker and a reverse link from OKR Tracker back to Product Strategy.",
+      "expected_output": "Instructions or edits adding [[OKR Tracker]] to Product Strategy.md (in a Related or See Also section) and [[Product Strategy]] to OKR Tracker.md.",
+      "expectations": [
+        "Shows an edit to Product Strategy.md adding [[OKR Tracker]]",
+        "Shows an edit to OKR Tracker.md adding [[Product Strategy]]",
+        "Uses correct [[wikilink]] syntax in both",
+        "Suggests a section placement (Related, See Also, or at end of note)",
+        "Does not delete or overwrite existing content"
+      ]
+    }
+  ]
+}

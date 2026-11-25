@@ -1,0 +1,65 @@
+{
+  "skill_name": "brand",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Define the brand voice for a B2B cybersecurity company called 'Fortis'. They want to project confidence, expertise, and trustworthiness without sounding cold or robotic.",
+      "expected_output": "Produces a brand voice definition with personality traits, tone descriptors, vocabulary guidance, and do/don't content examples aligned to the B2B cybersecurity context.",
+      "assertions": [
+        {"text": "Defines 3–5 brand voice personality traits with descriptions (e.g., 'Authoritative but approachable') rather than generic adjectives", "weight": 3},
+        {"text": "Includes a tone scale or tone descriptors showing how the voice adapts across contexts (marketing vs support vs crisis)", "weight": 2},
+        {"text": "Provides concrete do/don't language examples for each personality trait", "weight": 3},
+        {"text": "Includes vocabulary guidance: preferred words, words to avoid, and industry jargon policy", "weight": 2},
+        {"text": "Addresses the B2B cybersecurity context specifically — not generic brand voice advice", "weight": 2}
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Create a complete style guide for a wellness brand called 'Bloom'. Colors are sage green (#6B8F71), warm cream (#F5F0E8), and terracotta (#C06B4E). Font is Playfair Display for headings and Lato for body.",
+      "expected_output": "Assembles a comprehensive style guide covering color system, typography rules, logo usage, photography direction, and messaging tone with all provided values correctly applied.",
+      "assertions": [
+        {"text": "Incorporates all three provided brand colors with correct hex values and adds neutral/text color recommendations", "weight": 3},
+        {"text": "Defines typography hierarchy using Playfair Display for headings and Lato for body with size and weight specifications", "weight": 2},
+        {"text": "Includes logo usage rules: clear space, minimum size, approved color variations, and incorrect usage examples", "weight": 2},
+        {"text": "Provides photography and imagery direction aligned to the wellness brand personality", "weight": 2},
+        {"text": "Assembles all elements into a shareable style guide structure with a clear table of contents", "weight": 3}
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Conduct a brand audit for our SaaS company. Our website uses 4 different shades of blue, 3 different fonts, and our LinkedIn posts don't match our website tone.",
+      "expected_output": "Performs a structured brand audit identifying inconsistencies, scoring brand cohesion, and providing a prioritized remediation plan.",
+      "assertions": [
+        {"text": "Documents all identified inconsistencies: color variations, font proliferation, and tone misalignment", "weight": 3},
+        {"text": "Scores or rates brand cohesion across the identified channels (website, social, communications)", "weight": 2},
+        {"text": "Provides a prioritized remediation plan ordered by impact and effort", "weight": 3},
+        {"text": "Recommends a single canonical color, a defined font hierarchy, and a tone-of-voice standard to resolve each inconsistency", "weight": 2},
+        {"text": "Suggests a governance process or style guide update to prevent future drift", "weight": 2}
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Create a messaging framework for a startup launching an AI productivity tool for remote teams. Include positioning statement, value propositions, and tagline options.",
+      "expected_output": "Produces a complete messaging framework with a positioning statement template, tiered value propositions, audience-specific messaging, and 3–5 tagline options.",
+      "assertions": [
+        {"text": "Provides a positioning statement following a recognized template (e.g., 'For [audience], [product] is the [category] that [key benefit] because [reason to believe]')", "weight": 3},
+        {"text": "Includes 3–5 distinct value propositions mapped to specific audience pain points for remote teams", "weight": 3},
+        {"text": "Offers at least 3 tagline options with rationale for each", "weight": 2},
+        {"text": "Differentiates messaging by audience segment (e.g., individual contributor vs team lead vs executive buyer)", "weight": 2},
+        {"text": "Avoids overused startup clichés (e.g., 'disruptive', 'game-changing', 'seamless') in favor of specific, credible language", "weight": 2}
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Define the visual identity standards for our logo. We have a primary logo, a horizontal variant, and a symbol/icon mark. How should each be used?",
+      "expected_output": "Produces visual identity standards for all three logo variants covering correct usage, clear space rules, minimum sizes, color variations, and incorrect usage examples.",
+      "assertions": [
+        {"text": "Defines clear space rules (minimum padding) for all three logo variants using the logo's own unit as the measurement reference", "weight": 3},
+        {"text": "Specifies minimum display sizes for print (mm) and screen (px) to ensure legibility", "weight": 2},
+        {"text": "Defines approved color variations: full color, reversed (white), single-color, and black-only", "weight": 2},
+        {"text": "Provides concrete incorrect usage examples: stretching, recoloring, adding effects, placing on busy backgrounds", "weight": 2},
+        {"text": "Explains when to use each variant: primary for formal, horizontal for header/nav, symbol for favicon/app icon", "weight": 3}
+      ]
+    }
+  ]
+}

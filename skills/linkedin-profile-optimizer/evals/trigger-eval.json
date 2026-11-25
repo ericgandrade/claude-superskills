@@ -1,0 +1,26 @@
+{
+  "skill_name": "linkedin-profile-optimizer",
+  "description": "Triggers for LinkedIn profile optimization for job searching and recruiter attraction",
+  "queries": [
+    {"id": 1, "query": "Optimize my LinkedIn profile to attract product manager recruiters", "should_trigger": true},
+    {"id": 2, "query": "Rewrite my LinkedIn headline and About section for engineering roles", "should_trigger": true},
+    {"id": 3, "query": "My LinkedIn is getting no recruiter messages — audit and fix it", "should_trigger": true},
+    {"id": 4, "query": "Help me improve my LinkedIn profile for a career change to data science", "should_trigger": true},
+    {"id": 5, "query": "Write a compelling LinkedIn summary for a senior marketing professional", "should_trigger": true},
+    {"id": 6, "query": "Optimize my LinkedIn experience section with better keywords and impact", "should_trigger": true},
+    {"id": 7, "query": "Build an all-star LinkedIn profile for a software engineer job search", "should_trigger": true},
+    {"id": 8, "query": "Sync my resume with my LinkedIn profile for consistency", "should_trigger": true},
+    {"id": 9, "query": "Make my LinkedIn profile searchable for fintech PM roles", "should_trigger": true},
+    {"id": 10, "query": "Write an authentic first-person LinkedIn About section for an executive", "should_trigger": true},
+    {"id": 11, "query": "Write a cover letter for a product role at Stripe", "should_trigger": false},
+    {"id": 12, "query": "Format my resume for ATS compatibility", "should_trigger": false},
+    {"id": 13, "query": "Prepare me for my Google interview next week", "should_trigger": false},
+    {"id": 14, "query": "Compare my two job offers", "should_trigger": false},
+    {"id": 15, "query": "Build an academic CV for postdoc applications", "should_trigger": false},
+    {"id": 16, "query": "Help me negotiate my salary", "should_trigger": false},
+    {"id": 17, "query": "Analyze this job description for fit", "should_trigger": false},
+    {"id": 18, "query": "Write STAR stories for my behavioral interview", "should_trigger": false},
+    {"id": 19, "query": "Create resume bullet points for my current role", "should_trigger": false},
+    {"id": 20, "query": "Help me build a reference list for employers", "should_trigger": false}
+  ]
+}

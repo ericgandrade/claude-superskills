@@ -1,0 +1,26 @@
+{
+  "skill_name": "product-operating-model",
+  "description": "Triggers for overview of the Modern Product Operating Model and skill selection guidance",
+  "queries": [
+    {"id": 1, "query": "Give me an overview of the Modern Product Operating Model", "should_trigger": true},
+    {"id": 2, "query": "Which product skill should I use for my situation?", "should_trigger": true},
+    {"id": 3, "query": "Explain how the 6 product skills connect and work together", "should_trigger": true},
+    {"id": 4, "query": "I'm new to structured product management — where do I start?", "should_trigger": true},
+    {"id": 5, "query": "What's the difference between product-strategy, product-discovery, and product-architecture?", "should_trigger": true},
+    {"id": 6, "query": "I need a quick reference guide to know when to use each product skill", "should_trigger": true},
+    {"id": 7, "query": "Map my current problem to the right product operating model component", "should_trigger": true},
+    {"id": 8, "query": "How should I introduce the modern product operating model to my team?", "should_trigger": true},
+    {"id": 9, "query": "What is the full product operating system and how do I implement it?", "should_trigger": true},
+    {"id": 10, "query": "Show me all available product skills and when to use each", "should_trigger": true},
+    {"id": 11, "query": "Build an Opportunity Solution Tree for our retention challenge", "should_trigger": false},
+    {"id": 12, "query": "Create a 1-page product strategy canvas", "should_trigger": false},
+    {"id": 13, "query": "Design a staged rollout plan for our feature", "should_trigger": false},
+    {"id": 14, "query": "Help me coach a struggling PM on their development", "should_trigger": false},
+    {"id": 15, "query": "Run a bet retrospective — scale, iterate, or kill?", "should_trigger": false},
+    {"id": 16, "query": "Build the bet backlog for Q2 planning", "should_trigger": false},
+    {"id": 17, "query": "Set up eval strategy for our AI-native product", "should_trigger": false},
+    {"id": 18, "query": "Design the board communication materials for our CPO", "should_trigger": false},
+    {"id": 19, "query": "Create an interview guide for customer discovery", "should_trigger": false},
+    {"id": 20, "query": "Write a solution brief for the onboarding bet", "should_trigger": false}
+  ]
+}

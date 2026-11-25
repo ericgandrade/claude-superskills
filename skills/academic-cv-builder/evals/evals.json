@@ -1,0 +1,41 @@
+{
+  "skill_name": "academic-cv-builder",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm a PhD candidate in computational biology applying for postdoc positions at R1 universities. I have 4 publications (2 first-author in Nature Methods and Cell Systems), 3 conference presentations, received an NSF fellowship, and have TAed 3 courses. Build me an academic CV.",
+      "expected_output": "A structured academic CV with all standard sections formatted for research-focused postdoc applications at R1 institutions",
+      "expectations": [
+        "Output includes standard CV sections: Education, Research Experience, Publications, Presentations, Grants/Fellowships, Teaching",
+        "Publications section distinguishes first-author from co-author works",
+        "Nature Methods and Cell Systems are cited with full bibliographic format",
+        "NSF fellowship is prominently featured in grants/awards section",
+        "Output uses academic CV conventions (not resume conventions — no objective statement, full dates, complete publication titles)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I'm a tenured associate professor in sociology applying for a full professor position. I have 2 books, 18 journal articles, 5 grants totaling $2.1M, supervised 12 PhD students (7 graduated), and have significant service including department chair for 2 years. Create a comprehensive academic CV.",
+      "expected_output": "A comprehensive multi-page academic CV appropriate for a senior faculty tenure/promotion dossier",
+      "expectations": [
+        "Output includes books section distinct from journal articles",
+        "Grant funding is listed with amounts, funding agencies, and dates",
+        "PhD student supervision is listed with graduation status",
+        "Service section includes department chair with dates",
+        "Output reflects senior faculty profile with appropriate weight on scholarly impact"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I'm transitioning from industry (5 years as a data scientist at Google) to academia. I have a PhD in statistics, 2 publications from my dissertation, 1 industry co-authored paper, and I'm applying for lecturer and assistant professor positions. How should I format my CV and what should I emphasize?",
+      "expected_output": "Academic CV guidance and template for an industry-to-academia transition, with advice on framing industry experience for academic audiences",
+      "expectations": [
+        "Output advises leading with academic credentials (PhD, publications) over industry titles",
+        "Output includes a research statement or research interests section",
+        "Industry experience is framed in terms of research contribution, not business metrics",
+        "Output addresses the gap in traditional academic markers (limited teaching, service) and how to handle it",
+        "Output recommends emphasizing any industry publications and open-source contributions"
+      ]
+    }
+  ]
+}

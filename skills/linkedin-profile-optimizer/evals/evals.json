@@ -1,0 +1,29 @@
+{
+  "skill_name": "linkedin-profile-optimizer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Optimize my LinkedIn profile for a Senior Product Manager role at B2B SaaS companies. I'm currently PM at a fintech startup, have 5 years experience, led 3 major product launches, and want to attract inbound from recruiting teams at Salesforce, HubSpot, or similar. My headline currently says 'Product Manager at PayFlow'.",
+      "expected_output": "Optimized LinkedIn sections including a new headline, about section, and experience bullet rewrites with keyword strategy",
+      "expectations": [
+        "Output proposes a new, keyword-rich headline beyond 'Product Manager at PayFlow'",
+        "Output writes an optimized About section in first person",
+        "Output rewrites at least 2-3 experience bullets with impact and keywords",
+        "Output identifies relevant keywords for B2B SaaS PM roles",
+        "Output addresses LinkedIn algorithm factors (completeness, engagement signals)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I'm a software engineer with 3 years of experience actively job searching. My LinkedIn is getting zero recruiter messages. Audit my profile approach and tell me what's wrong. I have generic bullets like 'Developed software features' and my headline just says 'Software Engineer'.",
+      "expected_output": "A LinkedIn profile audit identifying specific weaknesses and providing concrete rewrites",
+      "expectations": [
+        "Output identifies the generic headline as the primary issue and rewrites it",
+        "Output flags 'Developed software features' as weak and provides rewritten alternatives",
+        "Output addresses the all-star profile completeness score",
+        "Output recommends specific sections to add or improve",
+        "Output explains why each change improves recruiter visibility"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "skill_name": "product-leadership",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm a new VP of Product inheriting a team of 6 PMs across 4 product areas: Core Platform, Growth, Integrations, and Enterprise. Help me design the operating rhythm for this organization including weekly, monthly, and quarterly cadences.",
+      "expected_output": "A comprehensive operating rhythm with specific meeting cadences, agendas, and purposes for each timeframe",
+      "expectations": [
+        "Output covers daily, weekly, bi-weekly, monthly, and quarterly cadences",
+        "Output provides specific agenda structures for key meetings (PM sync, 1:1, product review)",
+        "Output explains the purpose of each cadence element",
+        "Output accounts for a 6-PM team across 4 product areas",
+        "Output includes quarterly planning process outline"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I'm coaching a senior PM who is struggling with executive communication. She's technically excellent but loses executives in meetings — too much detail, no clear ask, and doesn't manage up well. Design a 90-day coaching plan for her.",
+      "expected_output": "A structured 90-day PM coaching plan addressing executive communication and managing up",
+      "expectations": [
+        "Output uses coaching (not directing) approach with questions and reflection",
+        "Output phases the 90 days into progressive development milestones",
+        "Output addresses the specific issues: too much detail, no clear ask, poor managing up",
+        "Output includes concrete exercises or practice scenarios",
+        "Output includes feedback mechanisms and success criteria for the coaching"
+      ]
+    }
+  ]
+}

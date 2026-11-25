@@ -1,0 +1,26 @@
+{
+  "skill_name": "obsidian-automation",
+  "description": "Triggers when the user needs to automate Obsidian tasks using the CLI, shell scripts, or batch operations",
+  "queries": [
+    { "id": 1, "query": "open today's daily note in Obsidian from the command line", "should_trigger": true },
+    { "id": 2, "query": "write a script to batch-create meeting notes for all my attendees", "should_trigger": true },
+    { "id": 3, "query": "automate daily note creation using the Obsidian CLI", "should_trigger": true },
+    { "id": 4, "query": "archive all inbox notes older than two weeks", "should_trigger": true },
+    { "id": 5, "query": "obsidian-cli command to append a quick note to my inbox", "should_trigger": true },
+    { "id": 6, "query": "find all notes in my vault that mention OKR using the command line", "should_trigger": true },
+    { "id": 7, "query": "batch update the status field in all project notes to done", "should_trigger": true },
+    { "id": 8, "query": "set up a nightly script to generate a project index note", "should_trigger": true },
+    { "id": 9, "query": "how do I use the Obsidian Local REST API to create notes programmatically?", "should_trigger": true },
+    { "id": 10, "query": "move all notes from Inbox to Projects folder in bulk", "should_trigger": true },
+    { "id": 11, "query": "add frontmatter tags to this note", "should_trigger": false },
+    { "id": 12, "query": "create a mermaid state diagram for the order lifecycle", "should_trigger": false },
+    { "id": 13, "query": "optimize my resume for software engineering roles", "should_trigger": false },
+    { "id": 14, "query": "add wikilinks to the people in this meeting note", "should_trigger": false },
+    { "id": 15, "query": "create an Excalidraw diagram for the architecture", "should_trigger": false },
+    { "id": 16, "query": "summarize this YouTube video", "should_trigger": false },
+    { "id": 17, "query": "write a Python REST API with FastAPI", "should_trigger": false },
+    { "id": 18, "query": "what is the best Zettelkasten workflow for students?", "should_trigger": false },
+    { "id": 19, "query": "create a cover letter for this product manager job", "should_trigger": false },
+    { "id": 20, "query": "transcribe this meeting recording to markdown notes", "should_trigger": false }
+  ]
+}

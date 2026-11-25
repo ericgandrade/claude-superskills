@@ -1,0 +1,26 @@
+{
+  "skill_name": "obsidian-canvas",
+  "description": "Triggers when the user wants to create or edit an Obsidian Canvas file for visual spatial organization of notes",
+  "queries": [
+    { "id": 1, "query": "create an Obsidian canvas dashboard for my three active projects", "should_trigger": true },
+    { "id": 2, "query": "build a visual workspace in Obsidian to map my strategy notes spatially", "should_trigger": true },
+    { "id": 3, "query": "obsidian canvas Kanban board with Backlog, In Progress, and Done columns", "should_trigger": true },
+    { "id": 4, "query": "create a canvas file with a hub-and-spoke layout for my research topic", "should_trigger": true },
+    { "id": 5, "query": "brainstorming canvas for the Q3 planning session", "should_trigger": true },
+    { "id": 6, "query": "open a canvas in Obsidian with all my project notes arranged by status", "should_trigger": true },
+    { "id": 7, "query": "create an Obsidian canvas to show how my concept notes connect to each other", "should_trigger": true },
+    { "id": 8, "query": "build a .canvas file I can use as an area-of-life dashboard", "should_trigger": true },
+    { "id": 9, "query": "canvas layout with my meeting notes and a central weekly review file", "should_trigger": true },
+    { "id": 10, "query": "create a research workspace canvas for the remote work trends topic", "should_trigger": true },
+    { "id": 11, "query": "draw an Excalidraw whiteboard sketch of the system architecture", "should_trigger": false },
+    { "id": 12, "query": "create a mermaid mindmap for the product roadmap themes", "should_trigger": false },
+    { "id": 13, "query": "add wikilinks to the people mentioned in this meeting note", "should_trigger": false },
+    { "id": 14, "query": "fix the YAML frontmatter in this Obsidian note", "should_trigger": false },
+    { "id": 15, "query": "write a Python script to process CSV files", "should_trigger": false },
+    { "id": 16, "query": "summarize this YouTube tutorial video", "should_trigger": false },
+    { "id": 17, "query": "optimize my resume for a product manager role", "should_trigger": false },
+    { "id": 18, "query": "transcribe this audio file to markdown notes", "should_trigger": false },
+    { "id": 19, "query": "automate daily note creation using the Obsidian CLI", "should_trigger": false },
+    { "id": 20, "query": "generate a deep research report on remote work productivity", "should_trigger": false }
+  ]
+}

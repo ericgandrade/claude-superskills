@@ -40,7 +40,7 @@ See **[CHANGELOG.md](./CHANGELOG.md)** for complete v1.1.0 details.
 ### Quick Install (NPX)
 
 ```bash
-# install: see https://github.com/ericgandrade/knowledge-superskills#install
+# install: see https://github.com/ericgandrade/claude-superskills#install
 ```
 
 This automatically:
@@ -90,7 +90,7 @@ gh extension install github/gh-copilot
 
 **Global installation:**
 ```bash
-cd /path/to/knowledge-superskills
+cd /path/to/claude-superskills
 ./scripts/local-install.sh
 ```
 
@@ -333,13 +333,13 @@ A: Yes! Edit the Markdown template in SKILL.md Step 3.
 
 ## 📄 License
 
-This skill is part of the knowledge-superskills repository.  
+This skill is part of the claude-superskills repository.  
 MIT License - See repository LICENSE file.
 
 ## 🤝 Contributing
 
 Found a bug or have a feature request?  
-Open an issue in the [knowledge-superskills repository](https://github.com/ericgandrade/knowledge-superskills).
+Open an issue in the [claude-superskills repository](https://github.com/ericgandrade/claude-superskills).
 
 ---
 

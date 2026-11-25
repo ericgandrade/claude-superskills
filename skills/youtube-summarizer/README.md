@@ -313,14 +313,14 @@ Files are saved as `resumo-{VIDEO_ID}-{YYYY-MM-DD}.md` (summary) or `transcript-
 Install through the repository installer:
 
 ```bash
-# install: see https://github.com/ericgandrade/knowledge-superskills#install
+# install: see https://github.com/ericgandrade/claude-superskills#install
 ```
 
 Or clone the repository and run the local installer:
 
 ```bash
-git clone https://github.com/ericgandrade/knowledge-superskills.git
-cd knowledge-superskills
+git clone https://github.com/ericgandrade/claude-superskills.git
+cd claude-superskills
 ./scripts/local-install.sh -y
 ```
 

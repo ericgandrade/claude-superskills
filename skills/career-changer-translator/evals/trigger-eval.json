@@ -1,0 +1,26 @@
+{
+  "skill_name": "career-changer-translator",
+  "description": "Triggers for translating skills and experience from one industry to another",
+  "queries": [
+    {"id": 1, "query": "I'm leaving the military and need to translate my experience to civilian business roles", "should_trigger": true},
+    {"id": 2, "query": "Help me pivot from teaching to product management — translate my skills", "should_trigger": true},
+    {"id": 3, "query": "I'm a nurse transitioning to healthcare tech — how do I reframe my experience?", "should_trigger": true},
+    {"id": 4, "query": "Translate my 10 years in government into private sector resume language", "should_trigger": true},
+    {"id": 5, "query": "I'm a lawyer moving into consulting — help me position my transferable skills", "should_trigger": true},
+    {"id": 6, "query": "Convert my academic research background into industry-relevant language", "should_trigger": true},
+    {"id": 7, "query": "I need to translate my nonprofit experience for corporate job applications", "should_trigger": true},
+    {"id": 8, "query": "Help me reframe my journalism career for marketing or content strategy roles", "should_trigger": true},
+    {"id": 9, "query": "I'm pivoting from finance to data science — what transferable skills should I highlight?", "should_trigger": true},
+    {"id": 10, "query": "Translate my skills from one industry to another for my resume and LinkedIn", "should_trigger": true},
+    {"id": 11, "query": "Write me a resume for a marketing manager role", "should_trigger": false},
+    {"id": 12, "query": "Optimize my LinkedIn headline for software engineering roles", "should_trigger": false},
+    {"id": 13, "query": "How do I quantify my resume bullets?", "should_trigger": false},
+    {"id": 14, "query": "Format my resume in ATS-compatible style", "should_trigger": false},
+    {"id": 15, "query": "Help me negotiate my job offer", "should_trigger": false},
+    {"id": 16, "query": "Write STAR stories for my product manager interview", "should_trigger": false},
+    {"id": 17, "query": "Build me an academic CV for postdoc applications", "should_trigger": false},
+    {"id": 18, "query": "Create a cover letter for a software engineer role", "should_trigger": false},
+    {"id": 19, "query": "Help me build a reference list for my job applications", "should_trigger": false},
+    {"id": 20, "query": "Compare these two job offers I received", "should_trigger": false}
+  ]
+}

@@ -1,6 +1,6 @@
 ---
 name: prompt-engineer
-description: Use this skill when the user explicitly asks to create, write, improve, or optimize a prompt for use with an AI. Trigger on phrases like "write me a prompt", "improve this prompt", "create a system prompt", "how do I ask ChatGPT/Claude to...", or "quero um prompt para...". Do NOT trigger for direct task requests where the user wants the output, not the prompt.
+description: This skill should be used when the user explicitly asks to create, write, improve, or optimize a prompt for use with an AI, with phrases like "write me a prompt", "improve this prompt", "create a system prompt", "how do I ask ChatGPT/Claude to...", or "quero um prompt para...". Not for direct task requests where the user wants the output, not the prompt.
 license: MIT
 ---
 

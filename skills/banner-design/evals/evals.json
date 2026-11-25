@@ -1,0 +1,65 @@
+{
+  "skill_name": "banner-design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Design a LinkedIn company banner for a B2B SaaS startup called 'Nexus'. They want a professional, modern look with their brand colors: deep navy (#1B2B4B) and electric blue (#0066FF).",
+      "expected_output": "Generates a LinkedIn banner at 1584×396px in one or more of 22 art direction styles, using the provided brand colors, with multiple creative options and AI-generated visual elements via Gemini.",
+      "assertions": [
+        {"text": "Produces output at the correct LinkedIn banner dimensions: 1584×396px", "weight": 3},
+        {"text": "Applies the provided brand colors (#1B2B4B and #0066FF) as the primary color palette rather than inventing new colors", "weight": 3},
+        {"text": "Selects one or more styles from the 22 art direction options appropriate for B2B/professional context", "weight": 2},
+        {"text": "Generates at least 2–3 creative direction options for client review", "weight": 2},
+        {"text": "Uses Gemini AI to generate a background visual or texture element if the style warrants it", "weight": 2}
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Create a set of Google Display ad banners for a fitness app promotion. I need the full set of standard IAB ad sizes.",
+      "expected_output": "Generates banner ads in all major IAB standard sizes (leaderboard, rectangle, skyscraper, half-page, and billboard) with consistent creative treatment across all formats.",
+      "assertions": [
+        {"text": "Covers the core IAB standard sizes: 728×90 (leaderboard), 300×250 (medium rectangle), 160×600 (skyscraper), 300×600 (half-page), 970×250 (billboard)", "weight": 3},
+        {"text": "Maintains consistent visual identity — same colors, typography style, and messaging — across all size variants", "weight": 3},
+        {"text": "Adapts the layout appropriately for each format: horizontal for leaderboard, vertical for skyscraper, square for rectangle", "weight": 2},
+        {"text": "Applies a fitness-appropriate art direction style from the 22-style library (e.g., bold typography, energetic gradient, or dynamic geometric)", "weight": 2},
+        {"text": "Includes CTA copy and brand name placement correctly sized for legibility at each banner dimension", "weight": 2}
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Design a YouTube channel art banner for a tech creator called 'DevScope'. Cyberpunk neon aesthetic, dark background, animated elements are a plus.",
+      "expected_output": "Generates a YouTube channel art banner at 2560×1440px with the safe viewing area (1546×423px) respected, using a cyberpunk/neon style from the 22-style library with AI-generated visual elements.",
+      "assertions": [
+        {"text": "Produces output at the YouTube channel art dimensions 2560×1440px with critical content within the 1546×423px safe zone", "weight": 3},
+        {"text": "Applies the neon or cyberpunk style from the 22-style library — uses electric neon colors on dark background", "weight": 3},
+        {"text": "Incorporates Gemini AI-generated visuals for the background or atmospheric elements", "weight": 2},
+        {"text": "Typography is bold and legible within the safe zone at reduced viewing sizes (tablet, mobile)", "weight": 2},
+        {"text": "Provides the design as an HTML/CSS file that can be screenshotted for upload", "weight": 2}
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Create a website hero banner for a luxury real estate company. Elegant, minimal, high-end feeling. No AI-generated images — use typography and color only.",
+      "expected_output": "Generates a web hero section at appropriate responsive dimensions using a minimalist or typographic style from the 22 options, with elegant typography-driven design and no AI image generation.",
+      "assertions": [
+        {"text": "Selects a minimalist or editorial typographic style from the 22-style library appropriate for luxury positioning", "weight": 3},
+        {"text": "Does NOT use Gemini AI image generation — design relies on typography, spacing, and color as the user specified", "weight": 3},
+        {"text": "Produces an HTML/CSS hero section with responsive breakpoint variants (desktop, tablet, mobile)", "weight": 2},
+        {"text": "Uses a luxury color palette: muted tones, deep neutrals, gold accents — not bright primary colors", "weight": 2},
+        {"text": "Typography treatment communicates prestige: large, elegant headline with generous whitespace and refined secondary text", "weight": 2}
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Design a set of Instagram story and feed post banners for a product drop campaign. Bold, vibrant, attention-grabbing. The product is a limited-edition sneaker.",
+      "expected_output": "Generates Instagram story (1080×1920px) and feed post (1080×1080px) banners in 3–5 bold creative directions using high-energy art direction styles appropriate for a sneaker drop campaign.",
+      "assertions": [
+        {"text": "Produces correct Instagram dimensions: 1080×1920px for stories and 1080×1080px for feed posts", "weight": 3},
+        {"text": "Applies a high-energy style from the 22 options appropriate for a product drop (bold typography, neon, grunge, retro, or graphic)", "weight": 3},
+        {"text": "Generates 3–5 creative direction options per format for campaign selection", "weight": 2},
+        {"text": "Uses Gemini AI to generate sneaker-relevant visual elements (textures, abstract shapes, or product-suggestive imagery)", "weight": 2},
+        {"text": "Story and feed variants maintain brand consistency while adapting to format constraints (vertical vs square)", "weight": 2}
+      ]
+    }
+  ]
+}

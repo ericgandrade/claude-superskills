@@ -1,28 +1,42 @@
 {
-  "name": "knowledge-superskills",
+  "name": "claude-superskills",
   "owner": {
     "name": "Eric Andrade"
   },
   "metadata": {
-    "description": "10 skills for knowledge work: research with citations, reading web pages and YouTube videos, transcribing audio, converting documents, translating slides, storytelling, strategy and prompt design."
+    "description": "53 AI skills for career, product, design, Obsidian and knowledge work: resumes and interviews, product strategy, UI/UX and brand design, diagrams and slides, Obsidian notes, deep research, transcription, documents and prompts."
   },
   "plugins": [
     {
-      "name": "knowledge-superskills",
+      "name": "superskills",
       "source": {
         "source": "github",
-        "repo": "ericgandrade/knowledge-superskills"
+        "repo": "ericgandrade/claude-superskills"
       },
-      "description": "10 skills for knowledge work: research with citations, reading web pages and YouTube videos, transcribing audio, converting documents, translating slides, storytelling, strategy and prompt design.",
+      "description": "53 AI skills for career, product, design, Obsidian and knowledge work: resumes and interviews, product strategy, UI/UX and brand design, diagrams and slides, Obsidian notes, deep research, transcription, documents and prompts.",
       "author": {
         "name": "Eric Andrade"
       },
-      "homepage": "https://github.com/ericgandrade/knowledge-superskills",
-      "repository": "https://github.com/ericgandrade/knowledge-superskills",
+      "homepage": "https://github.com/ericgandrade/claude-superskills",
+      "repository": "https://github.com/ericgandrade/claude-superskills",
       "license": "MIT",
-      "keywords": ["research", "knowledge-management", "transcription", "documents", "content"],
+      "keywords": [
+        "skills",
+        "career",
+        "product-management",
+        "design",
+        "obsidian",
+        "research"
+      ],
       "category": "productivity",
-      "tags": ["research", "content", "documents", "transcription"]
+      "tags": [
+        "career",
+        "product",
+        "design",
+        "obsidian",
+        "research",
+        "documents"
+      ]
     }
   ]
 }
