@@ -51,5 +51,4 @@ Orchestrates document conversion and PDF operations using locally installed tool
 
 ## Related Skills
 
-- [`docling-converter`](../docling-converter/README.md) — structured Markdown/JSON extraction from PDFs
 - [`pptx-translator`](../pptx-translator/README.md) — translate PowerPoint files between languages

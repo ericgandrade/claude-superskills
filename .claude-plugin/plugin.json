@@ -9,6 +9,13 @@
   "homepage": "https://github.com/ericgandrade/knowledge-superskills",
   "repository": "https://github.com/ericgandrade/knowledge-superskills",
   "license": "MIT",
-  "skills": "skills/",
-  "keywords": ["research", "knowledge-management", "transcription", "documents", "content", "ai", "skills"]
+  "keywords": [
+    "research",
+    "knowledge-management",
+    "transcription",
+    "documents",
+    "content",
+    "ai",
+    "skills"
+  ]
 }

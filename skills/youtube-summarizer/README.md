@@ -341,7 +341,7 @@ Found a bug or have a feature request? Contributions welcome!
 
 ## License
 
-MIT License - see [LICENSE](../../../LICENSE) for details.
+MIT License - see [LICENSE](../../LICENSE) for details.
 
 ---
 
