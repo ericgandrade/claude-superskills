@@ -1,0 +1,21 @@
+{
+  "skill_name": "ui-ux-pro-max",
+  "description": "Triggers for comprehensive UI/UX design intelligence including styles, palettes, fonts, stacks, and UX guidelines",
+  "queries": [
+    {"id": 1,  "query": "Design a landing page for my SaaS product using React", "should_trigger": true},
+    {"id": 2,  "query": "Choose a color palette for my mobile fitness app", "should_trigger": true},
+    {"id": 3,  "query": "What font pairing should I use for a fintech dashboard?", "should_trigger": true},
+    {"id": 4,  "query": "UX review my checkout flow — it has 12 fields and no progress bar", "should_trigger": true},
+    {"id": 5,  "query": "What style should I use for my e-commerce site built with Next.js?", "should_trigger": true},
+    {"id": 6,  "query": "Design this UI component: a data table with sorting and filtering", "should_trigger": true},
+    {"id": 7,  "query": "Build a responsive layout for my admin panel in Svelte", "should_trigger": true},
+    {"id": 8,  "query": "Implement this Figma design in Flutter — what stack patterns should I follow?", "should_trigger": true},
+    {"id": 9,  "query": "What chart type should I use for time series data in my analytics app?", "should_trigger": true},
+    {"id": 10, "query": "Apply UX guidelines to improve my mobile onboarding flow", "should_trigger": true},
+    {"id": 11, "query": "Summarize this YouTube video for me", "should_trigger": false},
+    {"id": 12, "query": "Write a Python script to parse CSV files", "should_trigger": false},
+    {"id": 13, "query": "Translate this document from Spanish to English", "should_trigger": false},
+    {"id": 14, "query": "Create a PowerPoint deck for our quarterly review", "should_trigger": false},
+    {"id": 15, "query": "Help me write unit tests for my authentication module", "should_trigger": false}
+  ]
+}

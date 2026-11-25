@@ -1,0 +1,26 @@
+{
+  "skill_name": "offer-comparison-analyzer",
+  "description": "Triggers for comparing multiple job offers including compensation, equity, and career factors",
+  "queries": [
+    {"id": 1, "query": "Compare these two job offers I received and help me decide", "should_trigger": true},
+    {"id": 2, "query": "Analyze my offer from Google vs the startup offer with equity", "should_trigger": true},
+    {"id": 3, "query": "Help me evaluate three competing offers — which is best for my situation?", "should_trigger": true},
+    {"id": 4, "query": "Calculate and compare total compensation for these two offers including RSUs", "should_trigger": true},
+    {"id": 5, "query": "Is $180K base with 40K RSUs better than $200K base with no equity?", "should_trigger": true},
+    {"id": 6, "query": "I have a public company offer and a startup offer — help me weigh the tradeoffs", "should_trigger": true},
+    {"id": 7, "query": "Evaluate this offer: base, bonus, equity, benefits, location, growth potential", "should_trigger": true},
+    {"id": 8, "query": "Which of these two offers is better for a risk-averse person with a mortgage?", "should_trigger": true},
+    {"id": 9, "query": "Model the financial upside of this startup equity vs the public company offer", "should_trigger": true},
+    {"id": 10, "query": "My FAANG offer vs my dream startup offer — help me make the decision", "should_trigger": true},
+    {"id": 11, "query": "Negotiate a better salary for this job offer", "should_trigger": false},
+    {"id": 12, "query": "Write my resume for a senior engineering role", "should_trigger": false},
+    {"id": 13, "query": "Prepare me for the interview at this company", "should_trigger": false},
+    {"id": 14, "query": "Research the market salary for a data scientist in San Francisco", "should_trigger": false},
+    {"id": 15, "query": "Help me evaluate whether this company is a good fit for me culturally", "should_trigger": false},
+    {"id": 16, "query": "What questions should I ask at the end of my interview?", "should_trigger": false},
+    {"id": 17, "query": "Optimize my LinkedIn for job searching", "should_trigger": false},
+    {"id": 18, "query": "Write a cover letter for this position", "should_trigger": false},
+    {"id": 19, "query": "How do I ask for more time to decide on a job offer?", "should_trigger": false},
+    {"id": 20, "query": "Build my reference list for these applications", "should_trigger": false}
+  ]
+}

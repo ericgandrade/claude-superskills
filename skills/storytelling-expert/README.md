@@ -11,7 +11,7 @@ Help users communicate their messages with maximum psychological and emotional i
 ### Installation
 
 ```bash
-# install: see https://github.com/ericgandrade/knowledge-superskills#install
+# install: see https://github.com/ericgandrade/claude-superskills#install
 ```
 
 ### Example Commands

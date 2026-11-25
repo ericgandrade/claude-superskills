@@ -1,0 +1,26 @@
+{
+  "skill_name": "product-leadership",
+  "description": "Triggers for Director/VP/CPO-level product leadership, team structure, and operating rhythm",
+  "queries": [
+    {"id": 1, "query": "Design the operating rhythm for my product organization of 6 PMs", "should_trigger": true},
+    {"id": 2, "query": "Help me coach a PM who struggles with executive communication", "should_trigger": true},
+    {"id": 3, "query": "Design my team structure for 4 product areas with 8 PMs total", "should_trigger": true},
+    {"id": 4, "query": "Prepare board communication materials for our Q1 product review", "should_trigger": true},
+    {"id": 5, "query": "Assess my product portfolio — where am I over/under-invested?", "should_trigger": true},
+    {"id": 6, "query": "I'm a new VP of Product — design my first 90-day plan", "should_trigger": true},
+    {"id": 7, "query": "Create a quarterly planning process for my product leadership team", "should_trigger": true},
+    {"id": 8, "query": "How do I manage a stakeholder who keeps bypassing product process?", "should_trigger": true},
+    {"id": 9, "query": "Build a PM career ladder and development framework for my team", "should_trigger": true},
+    {"id": 10, "query": "Design the 1:1 structure and coaching approach I should use with my PMs", "should_trigger": true},
+    {"id": 11, "query": "Create a product strategy canvas for our SaaS product", "should_trigger": false},
+    {"id": 12, "query": "Set up an Opportunity Solution Tree for activation improvement", "should_trigger": false},
+    {"id": 13, "query": "Design a staged rollout for our new feature", "should_trigger": false},
+    {"id": 14, "query": "Build a bet backlog for Q2 planning", "should_trigger": false},
+    {"id": 15, "query": "Run a bet retrospective and make the scale/iterate/kill decision", "should_trigger": false},
+    {"id": 16, "query": "Help me with AI-native product agency-control tradeoffs", "should_trigger": false},
+    {"id": 17, "query": "Create interview prep for a PM job interview", "should_trigger": false},
+    {"id": 18, "query": "Write a cover letter for a head of product role", "should_trigger": false},
+    {"id": 19, "query": "Build a McKinsey-style analysis for our business problem", "should_trigger": false},
+    {"id": 20, "query": "Set up ABX strategy for our enterprise sales team", "should_trigger": false}
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "skill_name": "obsidian-markdown",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create an Obsidian meeting note for a call with Sarah about the Q3 roadmap. Include proper frontmatter, wikilinks to Sarah and the Q3 Roadmap MOC, a callout for context, and task items.",
+      "expected_output": "A complete Obsidian note with YAML frontmatter, wikilinks, a callout block, and task checkboxes",
+      "expectations": [
+        "Output contains valid YAML frontmatter between --- delimiters at the top of the file",
+        "Output uses [[wikilink]] format for internal references (Sarah, Q3 Roadmap MOC)",
+        "Output includes at least one callout block using > [!type] syntax",
+        "Output includes task items using - [ ] format",
+        "Output uses tags as a YAML list with dashes, not inline format"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Write a note about event sourcing that other notes can link to specific paragraphs. Include block IDs for the definition, when-to-use, and trade-offs sections.",
+      "expected_output": "A structured note with block IDs appended after each target paragraph",
+      "expectations": [
+        "Output contains frontmatter with relevant tags",
+        "Output appends ^block-id after each target paragraph on its own line",
+        "Output has at least three block IDs for the three specified sections",
+        "Block IDs use only letters, numbers, and hyphens",
+        "Output demonstrates correct block ID placement without blank lines between paragraph and ID"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Add an embed of the Current Risks section from [[Risk Register]] and a collapsed warning callout before it.",
+      "expected_output": "A warning callout followed by an embed of a specific note section",
+      "expectations": [
+        "Output uses > [!warning]- syntax for a collapsed callout",
+        "Output uses ![[Risk Register#Current Risks]] for the section embed",
+        "Output places the callout before the embed as requested",
+        "Embed syntax uses the correct ![[Note#Heading]] format"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Create a daily note for today with frontmatter (date, tags: daily), an inline tag #review, a highlight using ==text==, and a footnote.",
+      "expected_output": "A daily note demonstrating all four Obsidian-specific syntax elements",
+      "expectations": [
+        "Output contains frontmatter with date and tags fields",
+        "Output contains at least one inline #tag in the body",
+        "Output contains ==highlighted text== using Obsidian highlight syntax",
+        "Output contains a footnote using [^1] syntax",
+        "Frontmatter tags use YAML list format, not inline"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Write a note that embeds a full sub-note, an image with a 400px width, and a specific page of a PDF document.",
+      "expected_output": "A note demonstrating three different embed types with correct syntax",
+      "expectations": [
+        "Output uses ![[Note Name]] for full note embed",
+        "Output uses ![[image.png|400]] for sized image embed",
+        "Output uses ![[document.pdf#page=3]] for PDF page embed",
+        "All embeds are prefixed with ! before the [[ syntax"
+      ]
+    }
+  ]
+}

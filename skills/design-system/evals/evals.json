@@ -1,0 +1,65 @@
+{
+  "skill_name": "design-system",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create a complete design token system for a fintech app. We have a primary blue, secondary green, and need semantic tokens for success, warning, error, and info states.",
+      "expected_output": "Produces a three-layer token architecture with primitive (raw hex values), semantic (purpose-mapped: success, warning, error, info), and component-level tokens, with CSS custom properties output.",
+      "assertions": [
+        {"text": "Implements all three token layers: primitive (--color-blue-500), semantic (--color-status-success), and component (--button-primary-bg)", "weight": 3},
+        {"text": "Generates CSS custom properties (--var) rather than hardcoded values in component styles", "weight": 3},
+        {"text": "Includes all four semantic state tokens: success, warning, error, and info with light/dark variants", "weight": 2},
+        {"text": "Provides a Tailwind theme extension config mapping tokens to utility class names", "weight": 2},
+        {"text": "Documents the token hierarchy with a clear diagram or table showing primitive → semantic → component relationships", "weight": 2}
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Define the typography system for our design system. We use Inter for UI and Georgia for editorial content. Include all hierarchy levels.",
+      "expected_output": "Defines a complete typography scale with size, weight, line-height, and letter-spacing tokens for all hierarchy levels (display, h1–h4, body, caption, label), mapped as CSS variables.",
+      "assertions": [
+        {"text": "Defines tokens for all expected hierarchy levels: display, h1, h2, h3, h4, body-lg, body, body-sm, caption, label", "weight": 3},
+        {"text": "Maps Inter to UI elements and Georgia to editorial content with clear usage guidelines", "weight": 2},
+        {"text": "Includes size, weight, line-height, and letter-spacing for each hierarchy level — not just font size", "weight": 3},
+        {"text": "Uses a modular type scale (e.g., 1.25 or 1.333 ratio) rather than arbitrary size values", "weight": 2},
+        {"text": "Provides CSS custom property declarations and Tailwind fontFamily/fontSize configuration", "weight": 2}
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Create component specifications for a button component. It needs primary, secondary, and ghost variants in default, hover, active, focus, disabled, and loading states.",
+      "expected_output": "Produces complete component specs for a button in 3 variants × 6 states, with token references for each visual property and accessibility annotations.",
+      "assertions": [
+        {"text": "Covers all 6 states for each variant: default, hover, active, focus, disabled, and loading — 18 state definitions total", "weight": 3},
+        {"text": "References design tokens (not hardcoded values) for background, text, border, and shadow in every state", "weight": 3},
+        {"text": "Includes focus ring specification with WCAG 2.1 AA compliant contrast and offset values", "weight": 2},
+        {"text": "Specifies disabled state with pointer-events: none, reduced opacity, and cursor: not-allowed", "weight": 2},
+        {"text": "Provides size variants (sm, md, lg) with padding, font-size, and height tokens", "weight": 2}
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Build a spacing scale for our design system. We need consistent spacing from 2px to 96px used across padding, margin, and gap.",
+      "expected_output": "Generates a systematic spacing scale with named tokens on a consistent mathematical ratio, CSS custom properties, and usage guidance for padding, margin, and layout gap.",
+      "assertions": [
+        {"text": "Uses a consistent mathematical progression (base-4 or base-8 scale) rather than arbitrary values", "weight": 3},
+        {"text": "Provides named semantic tokens (--spacing-xs, --spacing-sm, etc.) in addition to numbered scale (--spacing-1, --spacing-2)", "weight": 2},
+        {"text": "Covers the requested range from 2px to 96px with appropriate step granularity", "weight": 2},
+        {"text": "Includes Tailwind spacing config to extend the default spacing utilities", "weight": 2},
+        {"text": "Documents intended usage: which tokens are for padding, gap, section margin vs micro-spacing", "weight": 3}
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Generate a brand-compliant HTML presentation slide template using our design system tokens. It should work as a slide framework for our team.",
+      "expected_output": "Produces an HTML slide template that imports design system tokens as CSS variables and applies them to a complete slide layout framework with multiple slide types.",
+      "assertions": [
+        {"text": "Imports all design system token CSS variables at the root level before any component styles", "weight": 3},
+        {"text": "Applies tokens (not hardcoded values) for all visual properties: color, typography, spacing, and shadow", "weight": 3},
+        {"text": "Includes multiple slide layout types: cover, content, two-column, and closing", "weight": 2},
+        {"text": "Slide template is self-contained HTML that renders correctly in a browser without external dependencies", "weight": 2},
+        {"text": "Includes a design system token reference comment block at the top of the file for maintainability", "weight": 2}
+      ]
+    }
+  ]
+}

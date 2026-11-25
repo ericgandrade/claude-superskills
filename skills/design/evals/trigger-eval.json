@@ -1,0 +1,21 @@
+{
+  "skill_name": "design",
+  "description": "Triggers for unified design work including logos, brand identity, CIP, banners, icons, and social media assets",
+  "queries": [
+    {"id": 1,  "query": "Design a logo for my tech startup called Luminary", "should_trigger": true},
+    {"id": 2,  "query": "Create a brand identity for my consultancy firm", "should_trigger": true},
+    {"id": 3,  "query": "Design a banner for our product launch campaign", "should_trigger": true},
+    {"id": 4,  "query": "Create a set of icons for my mobile app", "should_trigger": true},
+    {"id": 5,  "query": "Generate social media images for our Instagram and LinkedIn", "should_trigger": true},
+    {"id": 6,  "query": "Create corporate identity program with all deliverables", "should_trigger": true},
+    {"id": 7,  "query": "Design slides for our investor pitch deck", "should_trigger": true},
+    {"id": 8,  "query": "Design mockups for our new product packaging", "should_trigger": true},
+    {"id": 9,  "query": "Create a visual identity system for our new sub-brand", "should_trigger": true},
+    {"id": 10, "query": "Generate a logo in a minimalist style with AI", "should_trigger": true},
+    {"id": 11, "query": "Write unit tests for my React components", "should_trigger": false},
+    {"id": 12, "query": "Analyze the performance bottleneck in my Node.js API", "should_trigger": false},
+    {"id": 13, "query": "Transcribe this audio recording from the client meeting", "should_trigger": false},
+    {"id": 14, "query": "Help me optimize my SQL query for better performance", "should_trigger": false},
+    {"id": 15, "query": "Summarize this research paper on machine learning", "should_trigger": false}
+  ]
+}

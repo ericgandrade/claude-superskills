@@ -1,0 +1,72 @@
+{
+  "skill_name": "obsidian-frontmatter",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Add a frontmatter block to this meeting note:\n\n# Q2 Planning Kickoff\nAttendees: Alice Chen, Bob Martinez.\nWe reviewed the Q2 roadmap and assigned action items.\n\nUse date 2024-01-15, attendees as wikilinks, and tags: meeting, project/active.",
+      "expected_output": "The note with a YAML frontmatter block inserted at the top before the heading. Block includes title, date (2024-01-15), tags as a multiline list, and attendees as quoted wikilinks.",
+      "expectations": [
+        "Frontmatter block starts with --- on line 1",
+        "date field is ISO 8601 format: 2024-01-15",
+        "tags is a multiline YAML list (not inline [...])",
+        "tags include meeting and project/active",
+        "attendees listed as quoted wikilinks: \"[[Alice Chen]]\"",
+        "Closing --- present before the original note content",
+        "All original note content is preserved after the frontmatter"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Fix the YAML errors in this frontmatter:\n---\ntitle: Strategy Note\ntags: [product, strategy, q2]\ndate: March 2024\nproject: [[Initiative X]]\nstatus:\tactive\n---",
+      "expected_output": "A corrected frontmatter block: tags converted to multiline list, date converted to 2024-03-01, project wikilink quoted as \"[[Initiative X]]\", tab in status replaced with space.",
+      "expectations": [
+        "tags is a multiline list with - product, - strategy, - q2",
+        "date is 2024-03-01 in ISO 8601 format",
+        "project is quoted: \"[[Initiative X]]\"",
+        "status: active with no tab character",
+        "All original property keys are preserved",
+        "Opening and closing --- delimiters present"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Add the tags 'area/work' and 'type/reference' to this existing frontmatter without changing anything else:\n---\ntitle: Deep Work Notes\ndate: 2024-01-10\ntags:\n  - books\n  - productivity\nstatus: done\n---",
+      "expected_output": "The frontmatter block with two new tags appended to the existing tags list. All original fields (title, date, existing tags, status) preserved unchanged.",
+      "expectations": [
+        "area/work is added to the tags list",
+        "type/reference is added to the tags list",
+        "Original tags books and productivity are preserved",
+        "title, date, and status fields are unchanged",
+        "tags remains a multiline list format"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Create a reusable frontmatter template for project notes in our vault. Projects have a title, start and end dates, status (values: planning/active/on-hold/done), priority (low/medium/high), stakeholders (list of people), and a parent goal wikilink.",
+      "expected_output": "A YAML frontmatter template with placeholder values for all requested fields, using the correct types (dates in YYYY-MM-DD, lists for stakeholders, quoted wikilink for parent goal) and a status field with valid options noted.",
+      "expectations": [
+        "Includes title field",
+        "Includes start_date and due_date or end_date in YYYY-MM-DD format",
+        "Includes status field with placeholder or comment showing valid values",
+        "Includes priority field",
+        "Includes stakeholders as a multiline list",
+        "Includes a parent_goal or related field as a quoted wikilink",
+        "Template uses opening and closing --- delimiters"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "This note has no frontmatter and needs to be prepared for Dataview queries. The note is about a book called 'Deep Work' by Cal Newport, I read it in January 2024, would rate it 5/5, and it has themes of focus, productivity, and deep work.\n\n# Deep Work — Notes\nMy notes on the book by Cal Newport...",
+      "expected_output": "The note with a well-formed frontmatter block including title, author, read_date (2024-01-01 or similar), rating (5), and tags as a multiline list with relevant themes. Original note body preserved.",
+      "expectations": [
+        "Frontmatter block inserted at line 1",
+        "title field contains 'Deep Work'",
+        "author field contains 'Cal Newport'",
+        "read_date is in ISO 8601 format",
+        "rating is a number (5)",
+        "tags is a multiline list including focus, productivity, and/or deep-work",
+        "Original note heading and body preserved after closing ---"
+      ]
+    }
+  ]
+}

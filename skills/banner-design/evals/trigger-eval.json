@@ -1,0 +1,21 @@
+{
+  "skill_name": "banner-design",
+  "description": "Triggers for banner design across social media, advertising networks, website heroes, and print formats in 22 art direction styles",
+  "queries": [
+    {"id": 1,  "query": "Design a LinkedIn company banner for our B2B startup", "should_trigger": true},
+    {"id": 2,  "query": "Create a Facebook ad banner for our summer sale campaign", "should_trigger": true},
+    {"id": 3,  "query": "Design a YouTube channel art banner for my tech channel", "should_trigger": true},
+    {"id": 4,  "query": "Create a set of Google Display ad banners in all standard IAB sizes", "should_trigger": true},
+    {"id": 5,  "query": "Design a website hero banner for our product landing page", "should_trigger": true},
+    {"id": 6,  "query": "Create Instagram story and feed post banners for our product drop", "should_trigger": true},
+    {"id": 7,  "query": "Design a Twitter/X header banner for our company account", "should_trigger": true},
+    {"id": 8,  "query": "Create a banner ad for our Google Display campaign", "should_trigger": true},
+    {"id": 9,  "query": "Design an event banner for our tech conference in a cyberpunk style", "should_trigger": true},
+    {"id": 10, "query": "Create a retractable banner for our trade show booth", "should_trigger": true},
+    {"id": 11, "query": "Define brand voice guidelines for our startup", "should_trigger": false},
+    {"id": 12, "query": "Build a design system with token architecture for our product team", "should_trigger": false},
+    {"id": 13, "query": "Analyze competitor pricing strategy for our SaaS product", "should_trigger": false},
+    {"id": 14, "query": "Write a cover letter tailored to a UX designer position", "should_trigger": false},
+    {"id": 15, "query": "Help me set up a GitHub Actions CI/CD workflow", "should_trigger": false}
+  ]
+}

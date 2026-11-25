@@ -1,0 +1,29 @@
+{
+  "skill_name": "resume-quantifier",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Add metrics and quantification to these resume bullets: 1) 'Managed a team of engineers' 2) 'Reduced customer complaints' 3) 'Led a successful product launch' 4) 'Improved the deployment process' 5) 'Grew the user base'",
+      "expected_output": "Quantified versions of all 5 bullets, or probing questions to extract the numbers needed",
+      "expectations": [
+        "Output asks targeted questions to extract specific numbers for each bullet",
+        "Output provides example quantified versions showing what the final bullet could look like",
+        "Output offers multiple quantification options per bullet (time saved, % improvement, $ impact, scale)",
+        "Output explains the logic of why each metric strengthens the bullet",
+        "Output produces final quantified bullets once numbers are provided or estimated"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I know I reduced customer support tickets but I don't have exact numbers. I know I launched 3 features in one year, managed roughly 8-10 engineers, and our team's products serve about 500K users. Help me add credible, honest quantification to my resume without fabricating numbers.",
+      "expected_output": "Honestly quantified resume content using the approximations provided with appropriate hedging language",
+      "expectations": [
+        "Output uses the provided approximations (8-10 engineers, ~500K users, 3 features)",
+        "Output recommends appropriate hedging language ('approximately', 'up to', 'across team of 8-10')",
+        "Output does not fabricate specific percentages the candidate cannot verify",
+        "Output suggests ways to estimate the support ticket reduction from available data",
+        "Output produces ready-to-use quantified bullets"
+      ]
+    }
+  ]
+}

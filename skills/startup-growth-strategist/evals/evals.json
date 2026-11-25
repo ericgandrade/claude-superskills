@@ -1,0 +1,29 @@
+{
+  "skill_name": "startup-growth-strategist",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm building a B2B SaaS product that helps restaurant chains manage their supplier relationships. I have 5 paying customers, MRR of $3K, and 2 churned after 60 days. Validate my business idea: am I building something real? What should I do next?",
+      "expected_output": "A structured startup validation analysis with signal interpretation, PMF assessment, and specific next steps",
+      "expectations": [
+        "Output interprets the signals: 5 paying customers (positive), $3K MRR, 2 churned (churn is a warning signal)",
+        "Output assesses PMF status honestly",
+        "Output identifies key questions to answer next (why did 2 churn? what did the 3 retained do differently?)",
+        "Output recommends specific validation experiments",
+        "Output provides a framework for what PMF would look like for this business"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We're a Series A B2C consumer app with 200K MAU, 15% DAU/MAU ratio, and we're growing 8% MoM. We've been running a PLG motion but want to know if we should add a sales team. Build me a growth strategy analysis.",
+      "expected_output": "A growth strategy analysis evaluating PLG vs. adding sales, with specific recommendations",
+      "expectations": [
+        "Output interprets the metrics (200K MAU, 15% engagement ratio, 8% MoM growth) in context",
+        "Output evaluates whether the metrics justify adding a sales motion",
+        "Output identifies what signals would indicate sales-readiness",
+        "Output recommends a specific growth lever to pursue next",
+        "Output addresses the risk of fragmenting focus by adding sales too early"
+      ]
+    }
+  ]
+}

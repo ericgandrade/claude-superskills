@@ -610,7 +610,7 @@ This skill is designed to work **globally** across all your projects.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/ericgandrade/knowledge-superskills.git
+   git clone https://github.com/ericgandrade/claude-superskills.git
    ```
 
 2. Configure Copilot to load skills globally:
@@ -619,7 +619,7 @@ This skill is designed to work **globally** across all your projects.
    {
      "skills": {
        "directories": [
-         "/path/to/knowledge-superskills/.github/skills"
+         "/path/to/claude-superskills/.github/skills"
        ]
      }
    }
@@ -628,7 +628,7 @@ This skill is designed to work **globally** across all your projects.
 ### Option 2: Use the Installer
 
 ```bash
-# install: see https://github.com/ericgandrade/knowledge-superskills#install
+# install: see https://github.com/ericgandrade/claude-superskills#install
 ```
 
 Or from a local clone:

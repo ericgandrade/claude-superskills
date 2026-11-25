@@ -1,0 +1,29 @@
+{
+  "skill_name": "tech-resume-optimizer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Optimize this resume for a Staff Software Engineer role at a FAANG company. Current issues: skills section is just a wall of text, experience bullets describe tasks not impact, GitHub isn't mentioned, and there's an outdated objective statement. I have 9 years of experience, built distributed systems at scale, and led a team of 6.",
+      "expected_output": "A fully optimized tech resume with restructured skills, impact-focused bullets, and appropriate senior positioning",
+      "expectations": [
+        "Output removes the objective statement and replaces with a technical summary",
+        "Output restructures the skills section into categories (not a wall of text)",
+        "Output rewrites experience bullets to focus on scale and impact",
+        "Output adds GitHub and technical contribution presence",
+        "Output positions the candidate appropriately for Staff Engineer level (leadership + technical scope)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I'm a frontend engineer with 4 years of experience applying for both senior IC roles and tech lead roles. Optimize my resume so it works for both audiences. Key background: React, TypeScript, performance optimization (improved LCP by 40%), and I've mentored 2 junior engineers.",
+      "expected_output": "A dual-purpose optimized tech resume that positions for both senior IC and tech lead audiences",
+      "expectations": [
+        "Output identifies the key differentiator for tech lead positioning (mentorship, leadership signals)",
+        "Output keeps technical depth for IC roles (React, TypeScript, LCP metric)",
+        "Output features the 40% LCP improvement prominently as a technical impact metric",
+        "Output recommends a flexible summary that can be adjusted per application",
+        "Output structures experience to show both technical and leadership contributions"
+      ]
+    }
+  ]
+}

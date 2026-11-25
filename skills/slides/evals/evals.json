@@ -1,0 +1,65 @@
+{
+  "skill_name": "slides",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Create a 7-slide investor pitch deck for a Series A startup in climate tech. Include market size, problem, solution, traction, team, and financials slides.",
+      "expected_output": "Generates a 7-slide HTML presentation using a pitch deck structure with AIDA copywriting formula, Chart.js visualizations for market and financial data, and investor-appropriate visual treatment.",
+      "assertions": [
+        {"text": "Applies AIDA or a recognized pitch copywriting structure across the slides rather than generic bullet points", "weight": 3},
+        {"text": "Generates at least one Chart.js visualization for market size (TAM/SAM/SOM) or traction data", "weight": 3},
+        {"text": "Uses design tokens for consistent typography, color, and spacing across all 7 slides", "weight": 2},
+        {"text": "Selects an investor-appropriate visual strategy (clean, credible, data-forward) rather than a generic template", "weight": 2},
+        {"text": "Includes speaker notes for each slide with talking points and anticipated investor questions", "weight": 2}
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Build a data-heavy quarterly business review presentation. I have revenue, churn, NPS, and CAC data. The audience is the executive leadership team.",
+      "expected_output": "Produces an executive-formatted HTML presentation with Chart.js charts for each KPI, stat callout slides for key numbers, and minimal text optimized for a leadership audience.",
+      "assertions": [
+        {"text": "Creates separate Chart.js visualizations for each KPI: revenue (line/bar), churn (line), NPS (gauge or bar), CAC (bar/trend)", "weight": 3},
+        {"text": "Uses stat callout or KPI card layouts for the most critical numbers — not dense bullet point slides", "weight": 3},
+        {"text": "Selects an executive presentation strategy: minimal text, large data, clear narrative flow", "weight": 2},
+        {"text": "Applies consistent design tokens so charts and text slides share the same visual language", "weight": 2},
+        {"text": "Includes a summary or highlights slide that synthesizes the most important insights at the top", "weight": 2}
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Create an educational presentation explaining how machine learning works to a non-technical audience. 8 slides, progressive complexity.",
+      "expected_output": "Generates an 8-slide educational HTML presentation using the explanation-first structure, progressive complexity, relatable analogies, and simple diagrams via Chart.js or CSS illustrations.",
+      "assertions": [
+        {"text": "Applies an educational copywriting structure (explain → example → apply) rather than a sales or data-driven format", "weight": 3},
+        {"text": "Increases complexity progressively slide by slide — starts with a relatable analogy, ends with practical applications", "weight": 3},
+        {"text": "Avoids technical jargon without explanation; defines key terms visually or with callout boxes when introduced", "weight": 2},
+        {"text": "Includes at least one visual diagram (CSS-based flowchart or Chart.js illustration) to support a key concept", "weight": 2},
+        {"text": "Speaker notes include suggested explanations and anticipated audience questions for each slide", "weight": 2}
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Build a 5-slide HTML slideshow for a product launch. Use the PAS (Problem-Agitate-Solution) framework and include a call-to-action slide.",
+      "expected_output": "Produces a 5-slide HTML presentation explicitly structured around PAS: problem identification, pain amplification, solution reveal, proof/evidence, and CTA slide.",
+      "assertions": [
+        {"text": "Slide 1–2 clearly articulates the target problem and agitates the pain (consequence, urgency) per PAS framework", "weight": 3},
+        {"text": "Slide 3 reveals the solution with feature-benefit framing — not a feature list", "weight": 2},
+        {"text": "Includes a proof or evidence slide (testimonial, stat, or case study) before the CTA", "weight": 2},
+        {"text": "CTA slide has a single, clear action with urgency or incentive — not multiple competing CTAs", "weight": 3},
+        {"text": "All 5 slides use design tokens and a consistent visual style — not mismatched layouts", "weight": 2}
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Create a presentation comparing three strategic options for expanding into the US market. The audience is the board of directors.",
+      "expected_output": "Generates a board-appropriate HTML presentation with a structured options comparison, decision matrix or radar chart, recommendation slide, and executive copywriting style.",
+      "assertions": [
+        {"text": "Includes a structured options comparison using a table, matrix, or side-by-side layout — not a sequential slide per option", "weight": 3},
+        {"text": "Uses a Chart.js radar or bar chart to visualize the options across evaluation criteria (cost, speed, risk, upside)", "weight": 3},
+        {"text": "Applies board-appropriate copywriting: decisive, evidence-backed, concise — avoids management consulting jargon without substance", "weight": 2},
+        {"text": "Includes a clear recommendation slide with rationale rather than leaving the decision entirely to the audience", "weight": 2},
+        {"text": "Speaker notes include anticipated board objections and supporting data for each recommendation point", "weight": 2}
+      ]
+    }
+  ]
+}

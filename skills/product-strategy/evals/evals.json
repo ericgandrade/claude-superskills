@@ -1,0 +1,30 @@
+{
+  "skill_name": "product-strategy",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Help me build a 1-page strategy canvas for our HR tech product. We serve mid-market companies (200-1000 employees), our core product is onboarding automation, we charge per seat ($12/user/month), and we're trying to decide whether to expand into performance management or double down on onboarding. Our main competitors are BambooHR and Rippling.",
+      "expected_output": "A completed 1-page strategy canvas with all sections filled: mission, objective, ICP, anti-ICP, JTBD, where to play, how to win, positioning, value metric, GTM, strategic bets, and non-goals",
+      "expectations": [
+        "Output produces a populated strategy canvas with all required sections",
+        "Output defines a specific ICP (not just 'mid-market HR teams')",
+        "Output includes an explicit Anti-ICP",
+        "Output addresses the expand vs double-down strategic choice",
+        "Output includes non-goals list",
+        "Output has at least 2-3 strategic bets with hypotheses"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Challenge our current pricing strategy. We price per seat at $15/user/month with a 10-seat minimum. Our customers tell us they love us and would pay more, but we're losing deals to cheaper alternatives at the low end. Should we change our value metric? What pricing alternatives should we consider?",
+      "expected_output": "A structured pricing strategy analysis with alternative value metric options and a recommendation",
+      "expectations": [
+        "Output analyzes the current per-seat model and its constraints",
+        "Output generates at least 3 alternative value metric options (per usage, per outcome, tiered, etc.)",
+        "Output addresses the low-end competitive problem vs premium retention tension",
+        "Output recommends a specific pricing direction with rationale",
+        "Output considers the packaging/tier structure implications"
+      ]
+    }
+  ]
+}

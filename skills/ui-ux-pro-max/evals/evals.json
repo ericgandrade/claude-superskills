@@ -1,0 +1,65 @@
+{
+  "skill_name": "ui-ux-pro-max",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Design a SaaS dashboard for a project management tool using React. Choose an appropriate color palette and font pairing.",
+      "expected_output": "Selects a React-appropriate color palette from the 161-palette database, recommends a font pairing suited to SaaS products, applies relevant UX guidelines for dashboard layouts, and provides component-level styling recommendations.",
+      "assertions": [
+        {"text": "Queries the color palette database to select a palette suited to SaaS/dashboard product types — does not invent colors ad hoc", "weight": 3},
+        {"text": "Recommends a specific font pairing from the 57 curated pairings with reasoning tied to the product type", "weight": 3},
+        {"text": "Applies relevant UX guidelines from the 99-guideline set for dashboard information architecture", "weight": 2},
+        {"text": "References the React stack-specific best practices when structuring components", "weight": 2},
+        {"text": "Includes accessibility considerations (contrast ratios, keyboard navigation) from the UX guideline set", "weight": 2}
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Build a landing page for a fintech mobile app using Flutter. What style and color palette should I use?",
+      "expected_output": "Selects a style from the 50+ options appropriate for fintech, recommends a Flutter-compatible color palette with trust-signaling tones, and provides Flutter-specific component guidance.",
+      "assertions": [
+        {"text": "Selects a style explicitly from the 50+ style database rather than making up a generic recommendation", "weight": 3},
+        {"text": "Chooses a color palette from the 161-palette database with reasoning for fintech (trust, professionalism, security signals)", "weight": 3},
+        {"text": "References Flutter stack best practices — does not default to React or web CSS patterns", "weight": 3},
+        {"text": "Maps the recommendation to a product type profile from the 161 product type database", "weight": 2},
+        {"text": "Provides specific hex values, not vague color descriptions", "weight": 2}
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Review my e-commerce checkout flow for UX issues. The form has 12 fields, no progress indicator, and errors only appear on submit.",
+      "expected_output": "Identifies multiple UX violations from the guideline set, recommends specific improvements (inline validation, progress steps, field reduction), and references relevant UX heuristics.",
+      "assertions": [
+        {"text": "Identifies the missing progress indicator as a UX violation and references the specific guideline", "weight": 2},
+        {"text": "Flags delayed error handling (submit-only validation) as an accessibility and UX anti-pattern with a specific fix", "weight": 3},
+        {"text": "Recommends reducing the 12-field form using progressive disclosure or multi-step patterns", "weight": 2},
+        {"text": "References at least 3 relevant UX guidelines from the 99-guideline set by concept (not just generic advice)", "weight": 3},
+        {"text": "Provides concrete implementation recommendations tied to the relevant stack", "weight": 2}
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "I need a color palette and typography system for a health and wellness app built with Next.js. It should feel calm and trustworthy.",
+      "expected_output": "Searches the palette database for health/wellness-appropriate palettes (calming tones, soft greens/blues), selects a font pairing that conveys calm and trust, and applies Next.js-specific token configuration.",
+      "assertions": [
+        {"text": "Searches the palette database by product type or mood — selects a palette with documented reasoning for wellness", "weight": 3},
+        {"text": "Recommends a font pairing from the 57-pairing database with personality alignment to 'calm and trustworthy'", "weight": 3},
+        {"text": "Provides Next.js-specific implementation: Tailwind config, CSS variables, or next/font setup", "weight": 2},
+        {"text": "Includes contrast ratio validation for the chosen palette to ensure accessibility", "weight": 2},
+        {"text": "Documents the reasoning chain: product type → palette selection → font pairing → stack config", "weight": 2}
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "What chart types should I use in an analytics admin panel built with Vue? I need to show time series data, category comparisons, and a KPI summary.",
+      "expected_output": "Recommends specific chart types from the 25-chart database for each use case, provides Vue stack-specific implementation guidance, and suggests layout patterns for the admin panel.",
+      "assertions": [
+        {"text": "Recommends a line or area chart for time series data from the 25-chart type database — not a bar chart or pie chart", "weight": 3},
+        {"text": "Recommends a bar or grouped bar chart for category comparisons with specific reasoning", "weight": 2},
+        {"text": "Recommends a stat card or KPI tile pattern for the summary section with layout guidance", "weight": 2},
+        {"text": "References Vue stack-specific chart library recommendations (e.g., Chart.js with Vue wrapper, ECharts)", "weight": 3},
+        {"text": "Applies admin panel layout UX guidelines from the guideline set for information hierarchy", "weight": 2}
+      ]
+    }
+  ]
+}

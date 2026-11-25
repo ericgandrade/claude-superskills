@@ -1,0 +1,65 @@
+{
+  "skill_name": "ui-styling",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Style a data table component using shadcn/ui and Tailwind CSS. It needs sorting indicators, pagination, row selection checkboxes, and a loading skeleton state.",
+      "expected_output": "Produces a complete shadcn/ui Table component with Tailwind CSS styling for sorting UI, pagination controls, checkbox selection, and a skeleton loader state using Radix primitives.",
+      "assertions": [
+        {"text": "Uses shadcn/ui Table component primitives (TableHeader, TableBody, TableRow, TableCell) as the base — not custom HTML tables", "weight": 3},
+        {"text": "Implements sorting indicators with accessible aria-sort attributes and Tailwind chevron icons", "weight": 2},
+        {"text": "Uses shadcn/ui Checkbox for row selection with indeterminate state support for select-all", "weight": 2},
+        {"text": "Implements skeleton loading state using shadcn/ui Skeleton component rather than a spinner", "weight": 2},
+        {"text": "Applies Tailwind utility classes throughout — no inline styles or hardcoded CSS values", "weight": 3}
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Add dark mode support to my Next.js app. I'm using Tailwind CSS and shadcn/ui. The toggle should persist across page reloads.",
+      "expected_output": "Implements dark mode using Tailwind dark: modifier and CSS variables, with a persistent theme toggle using localStorage, and a shadcn/ui Switch or Button component for the UI control.",
+      "assertions": [
+        {"text": "Uses Tailwind's darkMode: 'class' strategy with a class toggle on the html or body element", "weight": 3},
+        {"text": "Stores the user's preference in localStorage and reads it on initial load to prevent flash of wrong theme", "weight": 3},
+        {"text": "Implements the toggle UI using a shadcn/ui component (Switch, Button, or DropdownMenu)", "weight": 2},
+        {"text": "Updates CSS custom properties (shadcn/ui color tokens) for dark mode rather than duplicating color values", "weight": 2},
+        {"text": "Respects the OS-level prefers-color-scheme as the initial default when no stored preference exists", "weight": 2}
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Build an accessible contact form with name, email, message, and file upload fields. It should work without a mouse and show inline validation errors.",
+      "expected_output": "Produces an accessible form using shadcn/ui Form + react-hook-form with proper ARIA attributes, keyboard navigation, inline validation, and a Tailwind-styled file upload input.",
+      "assertions": [
+        {"text": "Uses shadcn/ui Form component with react-hook-form integration for state management and validation", "weight": 3},
+        {"text": "All form fields have visible labels associated via htmlFor/id — no placeholder-only labeling", "weight": 3},
+        {"text": "Validation errors appear inline beneath the field that triggered them using shadcn/ui FormMessage", "weight": 2},
+        {"text": "Form is fully keyboard navigable: Tab through fields, Space/Enter to activate buttons, arrow keys in selects", "weight": 2},
+        {"text": "File upload includes aria-describedby for accepted file types and size limits", "weight": 2}
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Create a responsive two-column layout for a product page: image gallery on the left, product details on the right. On mobile it should stack vertically.",
+      "expected_output": "Produces a responsive Tailwind CSS layout using CSS Grid or Flexbox that shows two columns on desktop and a single column stack on mobile, with appropriate breakpoint utilities.",
+      "assertions": [
+        {"text": "Uses Tailwind responsive prefixes (md:, lg:) to implement the column/stack behavior — not media queries in a style tag", "weight": 3},
+        {"text": "Mobile-first approach: single column as the default, multi-column added at the md: or lg: breakpoint", "weight": 2},
+        {"text": "Image gallery and product details are sticky/scrollable independently when the viewport allows it", "weight": 2},
+        {"text": "Applies appropriate spacing tokens (gap, padding) from the design system rather than arbitrary pixel values", "weight": 2},
+        {"text": "Layout works correctly without JavaScript (pure CSS, no layout-impacting JS)", "weight": 3}
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Design a canvas poster for a music festival. 1200×628px, bold typography, dark background, neon accent colors. Output as an HTML canvas element.",
+      "expected_output": "Produces a self-contained HTML file with a canvas element rendering a festival poster at 1200×628px using the Canvas 2D API with bold typography, dark background, and neon accents.",
+      "assertions": [
+        {"text": "Generates a complete HTML file with a <canvas> element at exactly 1200×628px — not a CSS div layout", "weight": 3},
+        {"text": "Uses the Canvas 2D API (ctx.fillText, ctx.fillRect, ctx.createLinearGradient) for all rendering", "weight": 3},
+        {"text": "Applies neon accent colors with glow effects using shadowBlur and shadowColor canvas properties", "weight": 2},
+        {"text": "Typography is bold and legible: uses fillText with large font sizes appropriate for poster hierarchy", "weight": 2},
+        {"text": "Output is self-contained and renders immediately in a browser without external dependencies", "weight": 2}
+      ]
+    }
+  ]
+}

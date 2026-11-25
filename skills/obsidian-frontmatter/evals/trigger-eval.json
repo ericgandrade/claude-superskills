@@ -1,0 +1,26 @@
+{
+  "skill_name": "obsidian-frontmatter",
+  "description": "Triggers when the user needs to create, fix, or manage YAML frontmatter properties in Obsidian notes",
+  "queries": [
+    { "id": 1, "query": "add frontmatter to this meeting note with date, attendees, and tags", "should_trigger": true },
+    { "id": 2, "query": "Obsidian is showing a YAML parse error on this note", "should_trigger": true },
+    { "id": 3, "query": "fix the inline tags in this frontmatter to use the multiline list format", "should_trigger": true },
+    { "id": 4, "query": "add the tags area/work and type/reference to this note properties", "should_trigger": true },
+    { "id": 5, "query": "create a frontmatter template for my project notes", "should_trigger": true },
+    { "id": 6, "query": "update the status field in this note to done", "should_trigger": true },
+    { "id": 7, "query": "standardize the metadata across all my meeting notes in the Meetings folder", "should_trigger": true },
+    { "id": 8, "query": "add an aliases field to this note with two alternative names", "should_trigger": true },
+    { "id": 9, "query": "prepare this note for Dataview queries with proper frontmatter", "should_trigger": true },
+    { "id": 10, "query": "the date in my frontmatter is in the wrong format, fix it to ISO 8601", "should_trigger": true },
+    { "id": 11, "query": "add wikilinks between my product notes and the strategy MOC", "should_trigger": false },
+    { "id": 12, "query": "create a mermaid flowchart for the deployment process", "should_trigger": false },
+    { "id": 13, "query": "write a Python script to process CSV files", "should_trigger": false },
+    { "id": 14, "query": "summarize this YouTube video for me", "should_trigger": false },
+    { "id": 15, "query": "create an Excalidraw diagram for the system architecture", "should_trigger": false },
+    { "id": 16, "query": "optimize my LinkedIn profile headline", "should_trigger": false },
+    { "id": 17, "query": "how do I structure my Obsidian vault for a Zettelkasten system?", "should_trigger": false },
+    { "id": 18, "query": "create an Obsidian canvas with my strategy notes", "should_trigger": false },
+    { "id": 19, "query": "build a new note about product discovery principles", "should_trigger": false },
+    { "id": 20, "query": "transcribe this audio file", "should_trigger": false }
+  ]
+}

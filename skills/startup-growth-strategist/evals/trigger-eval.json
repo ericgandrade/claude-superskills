@@ -1,0 +1,26 @@
+{
+  "skill_name": "startup-growth-strategist",
+  "description": "Triggers for startup validation, PMF assessment, growth strategy, and unit economics",
+  "queries": [
+    {"id": 1, "query": "Validate my startup idea — am I building something people want?", "should_trigger": true},
+    {"id": 2, "query": "Help me assess if we have product-market fit yet", "should_trigger": true},
+    {"id": 3, "query": "Calculate our unit economics — CAC, LTV, payback period", "should_trigger": true},
+    {"id": 4, "query": "Build a growth strategy for our pre-seed B2B startup", "should_trigger": true},
+    {"id": 5, "query": "We're at $50K MRR — what are the levers to reach $500K?", "should_trigger": true},
+    {"id": 6, "query": "Should we focus on growth or profitability at our current stage?", "should_trigger": true},
+    {"id": 7, "query": "Help me size the market and validate the TAM/SAM/SOM for my startup", "should_trigger": true},
+    {"id": 8, "query": "Analyze our metrics: 30% MoM growth, 18% churn, NPS 42 — what should we do?", "should_trigger": true},
+    {"id": 9, "query": "Should we add a sales team or stay PLG at our current growth rate?", "should_trigger": true},
+    {"id": 10, "query": "Build a 12-month growth roadmap for our early-stage startup", "should_trigger": true},
+    {"id": 11, "query": "Create a 1-page product strategy canvas for our product", "should_trigger": false},
+    {"id": 12, "query": "Build an ABX enterprise marketing campaign", "should_trigger": false},
+    {"id": 13, "query": "Set up an Opportunity Solution Tree for our retention problem", "should_trigger": false},
+    {"id": 14, "query": "Write an executive resume for a founder moving to a new startup", "should_trigger": false},
+    {"id": 15, "query": "Create a system architecture for our startup's MVP", "should_trigger": false},
+    {"id": 16, "query": "Build a McKinsey-style structured analysis for our pricing decision", "should_trigger": false},
+    {"id": 17, "query": "Help me build an operating rhythm for my 5-person product team", "should_trigger": false},
+    {"id": 18, "query": "Create a comprehensive storytelling narrative for our investor pitch", "should_trigger": false},
+    {"id": 19, "query": "Research the competitive landscape for our industry", "should_trigger": false},
+    {"id": 20, "query": "Help me set up evals for our AI-native product feature", "should_trigger": false}
+  ]
+}

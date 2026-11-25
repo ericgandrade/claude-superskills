@@ -1,0 +1,68 @@
+{
+  "skill_name": "obsidian-automation",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write a shell command to open today's daily note in Obsidian using the obsidian-cli. The daily notes are in a folder called 'Daily Notes' and the filename format is YYYY-MM-DD.md.",
+      "expected_output": "A shell command using obsidian-cli and the $(date +%Y-%m-%d) substitution to form the correct path and open the note.",
+      "expectations": [
+        "Uses obsidian-cli open",
+        "Constructs the path as Daily Notes/YYYY-MM-DD",
+        "Uses $(date +%Y-%m-%d) or equivalent to generate today's date",
+        "Command is a single runnable line or short block",
+        "Correctly quotes the path with spaces"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Write a bash script to batch-create meeting notes for 5 people: Alice Chen, Bob Martinez, Carol Lee, David Park, and Eve Torres. Each note should go in Meetings/, have a date of today, the person's name as an attendee wikilink, and tags: meeting, scheduled.",
+      "expected_output": "A bash script with a loop over the 5 names, using date command for today's date, obsidian-cli put or file creation to write each note with a frontmatter block, and echo output for each created note.",
+      "expectations": [
+        "Script has a shebang line (#!/usr/bin/env bash or #!/bin/bash)",
+        "Loops over all 5 names",
+        "Each note placed in Meetings/ folder",
+        "Frontmatter includes date (today), tags as multiline list, attendees as wikilinks",
+        "Echo or print for each created note",
+        "No hardcoded paths — uses a variable for the vault"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write a shell command to search my entire Obsidian vault for all notes that contain the phrase 'action item'. Show results as a list of file paths.",
+      "expected_output": "A grep command or obsidian-cli search command that finds all .md files containing 'action item' and outputs their paths.",
+      "expectations": [
+        "Uses grep -rl or obsidian-cli search",
+        "Searches recursively in the vault",
+        "Filters for .md files only",
+        "Outputs file paths",
+        "Case handling mentioned or handled (case-insensitive flag)"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Create a bash script to archive all notes in the Inbox/ folder that have not been modified in more than 30 days. Move them to Archive/Inbox/. Include a dry-run mode that shows what would be moved without doing it.",
+      "expected_output": "A bash script with find -mtime +30, an Archive target directory, a dry-run mode (default), and an --execute flag to actually move files. Script prints each file being moved.",
+      "expectations": [
+        "Uses find with -mtime +30 to identify old files",
+        "Creates Archive/Inbox/ directory if it does not exist",
+        "Has dry-run default mode (prints without moving)",
+        "Has --execute or -f flag to apply actual moves",
+        "Prints each file being processed",
+        "Does not hardcode vault path — accepts as argument"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Write a script to append a quick note to my Obsidian Inbox note from the command line. The script should accept the note text as an argument, add the current timestamp, and append it as a bullet point.",
+      "expected_output": "A bash one-liner or short script using obsidian-cli append with the current time and provided text formatted as a Markdown bullet point.",
+      "expectations": [
+        "Accepts note text as an argument (or reads from stdin)",
+        "Prepends a timestamp using $(date) or similar",
+        "Formats as a Markdown bullet: '- HH:MM — note text'",
+        "Appends to a note called Inbox (or similar)",
+        "Uses obsidian-cli append or file append",
+        "Handles quoting of the argument string"
+      ]
+    }
+  ]
+}

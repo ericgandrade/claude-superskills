@@ -1,0 +1,29 @@
+{
+  "skill_name": "offer-comparison-analyzer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Compare these two job offers. Offer A: $180K base, $30K bonus, 40K RSUs vesting over 4 years at a public tech company (current stock price $45), 4 weeks PTO, fully remote. Offer B: $165K base, 80K options at $8 strike (Series C startup, last round at $25/share), 0.15% equity, unlimited PTO, NYC hybrid. I care most about total compensation and work-life balance.",
+      "expected_output": "A side-by-side comparison with financial analysis of both offers including equity valuation and personalized recommendation",
+      "expectations": [
+        "Output calculates total compensation for both offers including equity",
+        "Output explains the RSU vs options difference and risk profile",
+        "Output estimates equity value scenarios for the startup offer",
+        "Output addresses the work-life balance dimension (unlimited vs 4 weeks PTO, remote vs hybrid)",
+        "Output provides a recommendation based on the stated priorities"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I have three offers: one from Google ($210K TC), one from a seed-stage startup ($130K + 2% equity), and one from a mid-size private company ($175K + cash bonus). I'm 28, single, have $50K in savings, and this is my first post-MBA job. Help me think through which to take.",
+      "expected_output": "A multi-offer analysis with financial projections, risk assessment, and career-stage appropriate recommendations",
+      "expectations": [
+        "Output analyzes all three offers with financial projections",
+        "Output addresses risk tolerance appropriate to the candidate profile (28, single, $50K savings)",
+        "Output evaluates the seed-stage equity realistically (dilution, probability of exit)",
+        "Output considers career development and optionality, not just compensation",
+        "Output provides a clear recommendation with reasoning"
+      ]
+    }
+  ]
+}

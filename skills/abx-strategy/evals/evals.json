@@ -1,0 +1,41 @@
+{
+  "skill_name": "abx-strategy",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're a B2B SaaS company selling data governance software. Average deal size is $180K, sales cycle is 8 months, and we have about 200 target enterprise accounts. Help me build an ABX GTM strategy including ICP scoring, buying committee map, and messaging architecture.",
+      "expected_output": "A complete ABX strategy with ICP scoring criteria, stakeholder map with personas (economic buyer, champion, influencer, blocker), tier-based account segmentation (T1/T2/T3), and messaging pillars per persona",
+      "expectations": [
+        "Output includes ICP scoring criteria with weighted dimensions (pain severity, fit, intent)",
+        "Output maps the buying committee with at least 3 distinct personas",
+        "Output segments accounts into tiers (Tier 1/2/3 or similar) with different engagement strategies",
+        "Output includes at least 3 messaging pillars differentiated by persona or role",
+        "Output addresses the 6-month+ sales cycle with multi-touch engagement strategy"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our pipeline is stalling in late stage deals. We have 12 enterprise accounts stuck in procurement/legal for 3+ months. Design an ABX pipeline acceleration play to move them to close, including sales + marketing plays, executive alignment tactics, and success story assets we should create.",
+      "expected_output": "A targeted pipeline acceleration playbook with specific plays for stuck late-stage deals, executive engagement tactics, and content assets",
+      "expectations": [
+        "Output identifies specific plays for late-stage pipeline acceleration (executive sponsor, business case, champion enablement)",
+        "Output includes a success story or case study strategy",
+        "Output addresses procurement/legal stage with specific tactics (mutual action plan, legal pre-work, etc.)",
+        "Output distinguishes between marketing-assisted and sales-led plays",
+        "Output includes tracking metrics for the acceleration campaign"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We're launching a new product module (AI-powered compliance automation) to our existing 150 enterprise customer base. Build an ABX expansion campaign strategy treating this as a launch within our installed base, including account prioritization, internal champion identification, and personalized outreach sequences.",
+      "expected_output": "An installed-base expansion ABX campaign with account scoring, champion mapping, and multi-touch outreach sequences",
+      "expectations": [
+        "Output prioritizes accounts using usage data, contract size, or expansion signals",
+        "Output identifies champion identification criteria within existing accounts",
+        "Output includes a multi-touch outreach sequence (at least 3 touches) with specific messaging",
+        "Output differentiates this expansion motion from a new logo campaign",
+        "Output includes success criteria and measurement plan for the expansion campaign"
+      ]
+    }
+  ]
+}

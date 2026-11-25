@@ -1,0 +1,29 @@
+{
+  "skill_name": "resume-formatter",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "My resume is a mess — inconsistent date formats (some say 'Jan 2020', some say '01/2020', some say 'January 2020'), bullet points using both dashes and dots, some company names in bold and some not, and the spacing is all over the place. Audit my formatting and give me a corrected, consistent version.",
+      "expected_output": "A formatting audit report with specific issues identified and a consistently formatted resume",
+      "expectations": [
+        "Output identifies all inconsistency categories (dates, bullets, formatting)",
+        "Output recommends a consistent date format and explains why",
+        "Output standardizes bullet point style throughout",
+        "Output applies consistent formatting for company names and titles",
+        "Output produces a clean, corrected version"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I need to convert my resume to a clean, ATS-friendly single-column format. It currently has a two-column layout with a sidebar for skills. I'm applying to corporate roles where they use Workday and Taleo. What changes do I need?",
+      "expected_output": "Formatting guidance for converting to ATS-compatible single-column layout with specific changes",
+      "expectations": [
+        "Output recommends removing the two-column/sidebar layout",
+        "Output explains why two-column layouts fail in Workday and Taleo",
+        "Output describes how to restructure the sidebar content into the main body",
+        "Output provides specific formatting specifications (fonts, sizes, margins)",
+        "Output recommends against graphics, tables, text boxes, and headers/footers"
+      ]
+    }
+  ]
+}

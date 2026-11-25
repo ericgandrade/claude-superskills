@@ -1,0 +1,29 @@
+{
+  "skill_name": "interview-prep-generator",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Generate interview prep for a Product Manager role at Stripe. I'm interviewing next Thursday for a PM role on their payments API team. I've been a PM for 4 years at fintech companies, have shipped 3 payment-related products, and my biggest weakness is that I sometimes over-invest in data before deciding. Generate STAR stories and question prep.",
+      "expected_output": "Comprehensive interview prep with STAR stories, anticipated questions, and Stripe-specific preparation",
+      "expectations": [
+        "Output generates at least 4-5 STAR-format stories from the provided background",
+        "Output includes Stripe-specific research questions and talking points",
+        "Output prepares for behavioral AND product/case interview questions",
+        "Output addresses how to handle the stated weakness constructively",
+        "Output organizes prep by question type or interview stage"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I have a final round interview at Google for a Senior Software Engineer role. The loop has 5 interviews: system design, 2 coding rounds, a behavioral/leadership round, and a Googleyness/culture fit round. Help me prepare for all 5 types. I have 7 years of experience in distributed systems.",
+      "expected_output": "Comprehensive prep guide covering all 5 Google interview types with specific preparation for each",
+      "expectations": [
+        "Output covers all 5 interview types separately",
+        "Output provides system design framework relevant to distributed systems background",
+        "Output generates behavioral stories using the 7 years of experience context",
+        "Output addresses the 'Googleyness' round with specific preparation advice",
+        "Output includes coding interview tips relevant to the role level"
+      ]
+    }
+  ]
+}

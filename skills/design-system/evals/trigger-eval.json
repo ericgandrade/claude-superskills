@@ -1,0 +1,21 @@
+{
+  "skill_name": "design-system",
+  "description": "Triggers for creating and maintaining design token systems, component specs, spacing/typography scales, and CSS variable frameworks",
+  "queries": [
+    {"id": 1,  "query": "Create design tokens for our color palette and semantic states", "should_trigger": true},
+    {"id": 2,  "query": "Build a design system with three-layer token architecture", "should_trigger": true},
+    {"id": 3,  "query": "Define CSS variables for our component library", "should_trigger": true},
+    {"id": 4,  "query": "Create a spacing scale for our design system", "should_trigger": true},
+    {"id": 5,  "query": "Define typography tokens for all heading levels and body text", "should_trigger": true},
+    {"id": 6,  "query": "Create component specifications for our button with all states", "should_trigger": true},
+    {"id": 7,  "query": "Set up Tailwind theme configuration from our design tokens", "should_trigger": true},
+    {"id": 8,  "query": "Generate a brand-compliant HTML slide template from our design tokens", "should_trigger": true},
+    {"id": 9,  "query": "Migrate our existing hardcoded styles to a CSS variable system", "should_trigger": true},
+    {"id": 10, "query": "Define semantic color tokens for success, warning, error, and info states", "should_trigger": true},
+    {"id": 11, "query": "Write a REST API endpoint in Node.js for user authentication", "should_trigger": false},
+    {"id": 12, "query": "Summarize this YouTube video about product strategy", "should_trigger": false},
+    {"id": 13, "query": "Transcribe the audio from our team meeting recording", "should_trigger": false},
+    {"id": 14, "query": "Help me write a cover letter for a product manager role", "should_trigger": false},
+    {"id": 15, "query": "Create a Kubernetes deployment config for my microservice", "should_trigger": false}
+  ]
+}
