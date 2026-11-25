@@ -8,7 +8,8 @@ Companion project, not included here: The Agentic SDLC Method (`ericgandrade/age
 
 - Claude Code plugin: **`superskills`** (`.claude-plugin/plugin.json`). Plugin names may not start with `claude-`; `claude plugin validate` rejects them. Skills appear as `/superskills:<skill>`.
 - Marketplace: `claude-superskills` (`.claude-plugin/marketplace.json`). Install: `/plugin marketplace add ericgandrade/claude-superskills` then `/plugin install superskills@claude-superskills`.
-- npm: the name `claude-superskills` belongs to this project; versions up to 2.0.8 came from the earlier project now called agentic-sdlc. An `npx` installer is planned; when it is added, it must use its own cache folder (never `~/.claude-superskills` or `~/.agentic-sdlc`) and must manage only this repository's skills.
+- npm: package `claude-superskills` (installer in `cli-installer/`, version source of truth `cli-installer/package.json`); versions up to 2.0.8 came from the earlier project now called agentic-sdlc. Release: `node scripts/release.js [patch|minor|major]`, review `CHANGELOG.md`, merge, then create the GitHub release `vX.Y.Z` on main; `.github/workflows/publish-npm.yml` publishes.
+- Installer isolation (do not break): `lib/core/downloader.js` `REPO_NAME` equals the GitHub repo name (release zips unpack to `<repo>-<version>/`); the cache is `~/.superskills/cache` (never `~/.claude-superskills` or `~/.agentic-sdlc`, which belong to other installers); `getManagedSkillNames()` in `bin/cli.js` lists only this package's skills (`bundles.json` and its own cache), so `uninstall`, `update` and `status` never touch other packages' skills.
 
 ## Rules
 
@@ -22,5 +23,7 @@ Companion project, not included here: The Agentic SDLC Method (`ericgandrade/age
 ## Checks before a commit
 
 - `claude plugin validate .` passes.
-- Every `SKILL.md` frontmatter parses with a strict YAML parser and holds only the three fields.
+- `node scripts/check-skills.mjs` passes (needs `npm ci` in `cli-installer/`): frontmatter, bundles and counts.
+- `./scripts/verify-version-sync.sh` passes: `cli-installer/package.json`, `.claude-plugin/plugin.json`, the README hero and badge, and `cli-installer/README.md` show the same version.
+- Adding a skill also means adding it to its domain bundle and to `all` in `bundles.json`.
 - Relative links in `README.md` and `skills/*/README.md` resolve.

@@ -4,3 +4,6 @@ __pycache__/
 *.pyc
 .venv/
 .claude/
+cli-installer/node_modules/
+cli-installer/bundles.json
+node_modules/

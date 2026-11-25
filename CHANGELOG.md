@@ -17,6 +17,7 @@
 - Version 3.0.0 continues the numbering of the `claude-superskills` name, which reached 2.0.8 in the earlier project now called agentic-sdlc.
 
 ### Added
+- **npm installer `claude-superskills` 3.0.0** (`npx claude-superskills`), based on the installer of The Agentic SDLC Method: bundles `career`, `product`, `design`, `obsidian`, `knowledge` and `all`. It caches in `~/.superskills/cache` and manages only this package's skills, so it never removes skills installed by `agentic-sdlc-method` or by hand. Publishing runs from `.github/workflows/publish-npm.yml` (npm Trusted Publishing with provenance, `NPM_TOKEN` fallback); `scripts/check-skills.mjs` checks frontmatter, bundles and counts in CI.
 - `THIRD_PARTY_NOTICES.md` with the MIT notice of ui-ux-pro-max-skill (Next Level Builder), adapted by seven design skills, and the bundled Apache 2.0 and SIL OFL licenses of `ui-styling`.
 - README with the full catalog by domain.
 
