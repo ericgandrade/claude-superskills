@@ -1,0 +1,55 @@
+{
+  "name": "claude-superskills",
+  "version": "3.0.0",
+  "description": "Installer for Claude Superskills: 53 AI skills for career, product, design, Obsidian and knowledge work, for Claude Code, GitHub Copilot and 6 more AI tools",
+  "bin": {
+    "claude-superskills": "bin/cli.js"
+  },
+  "scripts": {
+    "test": "node --check bin/cli.js && node bin/cli.js --version",
+    "prepack": "cp ../bundles.json ./bundles.json"
+  },
+  "keywords": [
+    "skills",
+    "ai-skills",
+    "claude-code",
+    "github-copilot",
+    "career",
+    "resume",
+    "product-management",
+    "design",
+    "obsidian",
+    "research",
+    "cli"
+  ],
+  "author": "Eric Andrade",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "files": [
+    "bin/",
+    "lib/",
+    "README.md",
+    "bundles.json"
+  ],
+  "dependencies": {
+    "adm-zip": "^0.5.16",
+    "axios": "^1.6.5",
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0",
+    "fs-extra": "^11.2.0",
+    "inquirer": "^8.2.5",
+    "js-yaml": "^4.1.0",
+    "ora": "^5.4.1",
+    "semver": "^7.5.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericgandrade/claude-superskills.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ericgandrade/claude-superskills/issues"
+  },
+  "homepage": "https://github.com/ericgandrade/claude-superskills#readme"
+}

@@ -1,0 +1,516 @@
+const { execSync, spawnSync } = require('child_process');
+const fs = require('fs');
+const os = require('os');
+const path = require('path');
+
+const EXEC_TIMEOUT = 3000; // 3 seconds max per command — prevents hangs on slow networks/VPNs
+
+function normalizeVersionOutput(raw, { preferSemver = false } = {}) {
+  if (!raw) return null;
+
+  const cleaned = String(raw)
+    .replace(/\x1B\[[0-9;]*[A-Za-z]/g, '')
+    .replace(/\r/g, '')
+    .trim();
+
+  if (!cleaned) return null;
+
+  const lines = cleaned
+    .split('\n')
+    .map(line => line.trim())
+    .filter(Boolean)
+    .filter(line => !/^\[[0-9/.:A-Z_-]+.*ERROR:/i.test(line));
+
+  if (lines.length === 0) return null;
+
+  if (preferSemver) {
+    for (const line of lines) {
+      const semver = line.match(/\b\d+\.\d+\.\d+\b/);
+      if (semver) return semver[0];
+    }
+  }
+
+  return lines[0];
+}
+
+function extractGeminiVersionFromPath(binPath) {
+  if (!binPath) return null;
+
+  const symlinkVersion = binPath.match(/\/Cellar\/gemini-cli\/([^/]+)\/bin\/gemini$/);
+  if (symlinkVersion) return symlinkVersion[1];
+
+  try {
+    const resolved = fs.realpathSync(binPath);
+    const resolvedVersion = resolved.match(/\/Cellar\/gemini-cli\/([^/]+)\//);
+    if (resolvedVersion) return resolvedVersion[1];
+  } catch {
+    // Ignore realpath failures and continue with other heuristics.
+  }
+
+  return null;
+}
+
+/**
+ * Detects AI CLI tools installed on the system
+ * @returns {Object} { copilot: {installed, version, path}, claude: {...}, codex_cli: {...}, codex_app: {...}, ... }
+ */
+function detectTools() {
+  const tools = {
+    copilot: detectCopilot(),
+    claude: detectClaude(),
+    cowork: detectCowork(),
+    codex_cli: detectCodexCli(),
+    codex_app: detectCodexApp(),
+    opencode: detectOpenCode(),
+    gemini: detectGemini(),
+    antigravity: detectAntigravity(),
+    cursor: detectCursor(),
+    adal: detectAdal()
+  };
+
+  return tools;
+}
+
+function readMacAppVersion(appPath) {
+  const plistPath = path.join(appPath, 'Contents', 'Info.plist');
+  if (!fs.existsSync(plistPath)) return null;
+
+  try {
+    const output = execSync(`plutil -p "${plistPath}"`, {
+      encoding: 'utf-8',
+      stdio: ['pipe', 'pipe', 'ignore'],
+      timeout: EXEC_TIMEOUT
+    });
+
+    const match = output.match(/"CFBundleShortVersionString" => "([^"]+)"/);
+    return match ? match[1] : null;
+  } catch {
+    return null;
+  }
+}
+
+function findFirstExistingPath(possiblePaths) {
+  for (const candidate of possiblePaths) {
+    if (!candidate) continue;
+    if (fs.existsSync(candidate)) return candidate;
+  }
+  return null;
+}
+
+function hasAnyExistingPath(possiblePaths) {
+  return possiblePaths.some((candidate) => candidate && fs.existsSync(candidate));
+}
+
+function readLinuxDesktopFileVersion(desktopFilePath) {
+  if (!desktopFilePath || !fs.existsSync(desktopFilePath)) return null;
+
+  try {
+    const content = fs.readFileSync(desktopFilePath, 'utf-8');
+    const versionMatch = content.match(/^X-AppImage-Version=(.+)$/m) || content.match(/^Version=(.+)$/m);
+    return versionMatch ? versionMatch[1].trim() : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Detects Claude Desktop / Cowork-capable app
+ */
+function detectCowork() {
+  // macOS
+  if (os.platform() === 'darwin') {
+    const appPath = '/Applications/Claude.app';
+    if (fs.existsSync(appPath)) {
+      const version = readMacAppVersion(appPath);
+      return { installed: true, version: version || 'Claude Desktop detected', path: appPath };
+    }
+  }
+
+  // Windows
+  if (os.platform() === 'win32') {
+    const homeDir = os.homedir();
+    const localAppData = process.env.LOCALAPPDATA || path.join(os.homedir(), 'AppData', 'Local');
+    const roamingAppData = process.env.APPDATA || path.join(homeDir, 'AppData', 'Roaming');
+    const programFiles = process.env['ProgramFiles'] || 'C:\\Program Files';
+    const programFilesX86 = process.env['ProgramFiles(x86)'] || 'C:\\Program Files (x86)';
+    const possiblePaths = [
+      path.join(localAppData, 'Programs', 'Claude', 'Claude.exe'),
+      path.join(programFiles, 'Claude', 'Claude.exe'),
+      path.join(programFilesX86, 'Claude', 'Claude.exe'),
+      path.join(localAppData, 'Claude', 'Claude.exe'),
+      path.join(localAppData, 'Programs', 'claude', 'Claude.exe')
+    ];
+    const supportPaths = [
+      path.join(roamingAppData, 'Claude'),
+      path.join(roamingAppData, 'Anthropic', 'Claude'),
+      path.join(localAppData, 'Claude'),
+      path.join(localAppData, 'Anthropic', 'Claude'),
+      path.join(localAppData, 'com.anthropic.claudefordesktop')
+    ];
+
+    const appPath = findFirstExistingPath(possiblePaths);
+    if (appPath) {
+      return { installed: true, version: 'Claude Desktop detected', path: appPath };
+    }
+
+    if (hasAnyExistingPath(supportPaths)) {
+      return {
+        installed: true,
+        version: 'Claude Desktop data detected',
+        path: findFirstExistingPath(supportPaths)
+      };
+    }
+  }
+
+  // Linux
+  if (os.platform() === 'linux') {
+    const homeDir = os.homedir();
+    const possiblePaths = [
+      path.join(homeDir, '.local', 'share', 'applications', 'Claude.desktop'),
+      path.join(homeDir, '.local', 'share', 'applications', 'claude.desktop'),
+      '/usr/share/applications/Claude.desktop',
+      '/usr/share/applications/claude.desktop',
+      '/var/lib/flatpak/exports/share/applications/com.anthropic.claudefordesktop.desktop',
+      path.join(homeDir, '.local', 'share', 'flatpak', 'exports', 'share', 'applications', 'com.anthropic.claudefordesktop.desktop'),
+      '/opt/Claude',
+      '/opt/Claude/claude'
+    ];
+    const supportPaths = [
+      path.join(homeDir, '.config', 'Claude'),
+      path.join(homeDir, '.config', 'claude'),
+      path.join(homeDir, '.var', 'app', 'com.anthropic.claudefordesktop'),
+      path.join(homeDir, '.local', 'share', 'Claude')
+    ];
+
+    const appPath = findFirstExistingPath(possiblePaths);
+    if (appPath) {
+      const version = appPath.endsWith('.desktop')
+        ? readLinuxDesktopFileVersion(appPath) || 'Claude Desktop detected'
+        : 'Claude Desktop detected';
+      return { installed: true, version, path: appPath };
+    }
+
+    if (hasAnyExistingPath(supportPaths)) {
+      return {
+        installed: true,
+        version: 'Claude Desktop data detected',
+        path: findFirstExistingPath(supportPaths)
+      };
+    }
+  }
+
+  return { installed: false, version: null, path: null };
+}
+
+/**
+ * Detects GitHub Copilot CLI
+ */
+function detectCopilot() {
+  try {
+    const version = normalizeVersionOutput(execSync('gh copilot --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }));
+    const pathExec = execSync('which gh', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    return { installed: true, version, path: pathExec };
+  } catch (e) {
+    return { installed: false, version: null, path: null };
+  }
+}
+
+/**
+ * Detects Claude Code
+ */
+function detectClaude() {
+  try {
+    const version = normalizeVersionOutput(execSync('claude --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }));
+    const pathExec = execSync('which claude', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    return { installed: true, version, path: pathExec };
+  } catch (e) {
+    return { installed: false, version: null, path: null };
+  }
+}
+
+/**
+ * Detects OpenAI Codex CLI
+ */
+function detectCodexCli() {
+  try {
+    const version = normalizeVersionOutput(execSync('codex --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }));
+    const pathExec = execSync('which codex', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    return { installed: true, version, path: pathExec };
+  } catch (e) {
+    return { installed: false, version: null, path: null };
+  }
+}
+
+/**
+ * Detects OpenAI Codex App (Desktop)
+ */
+function detectCodexApp() {
+  // Check macOS
+  if (os.platform() === 'darwin') {
+    const appPath = '/Applications/Codex.app';
+    if (fs.existsSync(appPath)) {
+      try {
+        // Try to get version from Info.plist
+        const version = 'Codex Desktop'; // Could parse plist for exact version
+        return { installed: true, version, path: appPath };
+      } catch (e) {
+        return { installed: true, version: 'unknown', path: appPath };
+      }
+    }
+  }
+
+  // Check Linux (if applicable)
+  if (os.platform() === 'linux') {
+    // Could check for ~/.local/share/applications or similar
+    const homeDir = os.homedir();
+    const possiblePaths = [
+      path.join(homeDir, '.local', 'share', 'codex'),
+      '/opt/Codex',
+      '/usr/local/bin/Codex'
+    ];
+
+    for (const appPath of possiblePaths) {
+      if (fs.existsSync(appPath)) {
+        return { installed: true, version: 'Codex Desktop', path: appPath };
+      }
+    }
+  }
+
+  // Check Windows
+  if (os.platform() === 'win32') {
+    const programFiles = process.env['ProgramFiles'] || 'C:\\Program Files';
+    const appPath = path.join(programFiles, 'Codex', 'Codex.exe');
+    if (fs.existsSync(appPath)) {
+      return { installed: true, version: 'Codex Desktop', path: appPath };
+    }
+  }
+
+  return { installed: false, version: null, path: null };
+}
+
+/**
+ * @deprecated Use detectCodexCli() and detectCodexApp() instead
+ * Detects OpenAI Codex (kept for backward compatibility)
+ */
+function detectCodex() {
+  return detectCodexCli();
+}
+
+/**
+ * Detects OpenCode
+ */
+function detectOpenCode() {
+  try {
+    const version = normalizeVersionOutput(execSync('opencode --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }));
+    const pathExec = execSync('which opencode', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    return { installed: true, version, path: pathExec };
+  } catch (e) {
+    return { installed: false, version: null, path: null };
+  }
+}
+
+/**
+ * Detects Gemini CLI
+ */
+function detectGemini() {
+  // Helper: run a binary with spawnSync to capture stdout+stderr without throwing on non-zero exit
+  function tryGetVersion(bin, args = ['--version'], extraEnv = {}) {
+    try {
+      const result = spawnSync(bin, args, {
+        encoding: 'utf-8',
+        timeout: EXEC_TIMEOUT,
+        stdio: ['ignore', 'pipe', 'pipe'],
+        env: { ...process.env, ...extraEnv }
+      });
+      if (result.error) return null;
+      return normalizeVersionOutput((result.stdout || '') + (result.stderr || ''), { preferSemver: true });
+    } catch {
+      return null;
+    }
+  }
+
+  let binPath = null;
+  try {
+    binPath = execSync('which gemini', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+  } catch {
+    binPath = null;
+  }
+
+  if (binPath) {
+    const pathVersion = extractGeminiVersionFromPath(binPath);
+    if (pathVersion) {
+      return { installed: true, version: pathVersion, path: binPath };
+    }
+  }
+
+  // 1. Try 'gemini --version' via PATH (stdout + stderr)
+  const viaPath = tryGetVersion('gemini');
+  if (viaPath) {
+    return { installed: true, version: viaPath, path: binPath || 'gemini' };
+  }
+
+  // 2. Try common install paths (Homebrew on macOS doesn't always appear in npx PATH)
+  const commonPaths = [
+    '/opt/homebrew/bin/gemini',                          // macOS Apple Silicon (Homebrew)
+    '/usr/local/bin/gemini',                             // macOS Intel (Homebrew)
+    path.join(os.homedir(), '.local', 'bin', 'gemini'), // Linux user install
+    path.join(os.homedir(), 'go', 'bin', 'gemini'),     // Go-based install
+    path.join(os.homedir(), 'n', 'bin', 'gemini'),      // n (node version manager) install
+  ];
+  for (const binPath of commonPaths) {
+    if (fs.existsSync(binPath)) {
+      const pathVersion = extractGeminiVersionFromPath(binPath);
+      if (pathVersion) {
+        return { installed: true, version: pathVersion, path: binPath };
+      }
+      const extraPath = `/opt/homebrew/bin:/usr/local/bin:${process.env.PATH || ''}`;
+      const version = tryGetVersion(binPath, ['--version'], { PATH: extraPath });
+      return { installed: true, version: version || 'Detected', path: binPath };
+    }
+  }
+
+  // 3. Fallback: check ~/.gemini exists with real Gemini CLI content (not just antigravity)
+  const geminiDir = path.join(os.homedir(), '.gemini');
+  if (fs.existsSync(geminiDir)) {
+    const hasGeminiContent = fs.readdirSync(geminiDir).some(f => f !== 'antigravity');
+    if (hasGeminiContent) {
+      return { installed: true, version: 'Detected via ~/.gemini', path: geminiDir };
+    }
+  }
+
+  return { installed: false, version: null, path: null };
+}
+
+/**
+ * Detect Google Antigravity installation
+ */
+function detectAntigravity() {
+  // 1. Try 'antigravity' command
+  try {
+    const version = normalizeVersionOutput(execSync('antigravity --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }), { preferSemver: true });
+    const pathExec = execSync('which antigravity', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    return { installed: true, version, path: pathExec };
+  } catch (e) {
+    // 2. Try 'agy' command (common alias)
+    try {
+      const version = normalizeVersionOutput(execSync('agy --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }), { preferSemver: true });
+      const pathExec = execSync('which agy', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+      return { installed: true, version, path: pathExec };
+    } catch (e2) {
+      // 3. Check for application paths (macOS/Windows/Linux)
+      const homeDir = os.homedir();
+
+      // macOS
+      if (os.platform() === 'darwin') {
+        const appPath = '/Applications/Antigravity.app';
+        if (fs.existsSync(appPath)) {
+          return { installed: true, version: 'Antigravity App', path: appPath };
+        }
+      }
+
+      // Windows
+      if (os.platform() === 'win32') {
+        const localAppData = process.env.LOCALAPPDATA || path.join(homeDir, 'AppData', 'Local');
+        const winPath = path.join(localAppData, 'Programs', 'Antigravity', 'Antigravity.exe');
+        if (fs.existsSync(winPath)) {
+          return { installed: true, version: 'Antigravity App', path: winPath };
+        }
+      }
+
+      // Linux
+      if (os.platform() === 'linux') {
+        const optPath = '/opt/Antigravity';
+        if (fs.existsSync(optPath)) {
+          return { installed: true, version: 'Antigravity App', path: optPath };
+        }
+      }
+
+      // 4. Fallback: check for skills directory (~/.gemini/antigravity/skills)
+      const skillsDir = path.join(homeDir, '.gemini', 'antigravity', 'skills');
+      if (fs.existsSync(skillsDir)) {
+        return { installed: true, version: 'Detected via skills path', path: skillsDir };
+      }
+
+      return { installed: false, version: null, path: null };
+    }
+  }
+}
+
+/**
+ * Detect Cursor IDE
+ */
+function detectCursor() {
+  // Check macOS Application
+  if (os.platform() === 'darwin') {
+    const appPath = '/Applications/Cursor.app';
+    if (fs.existsSync(appPath)) {
+      return { installed: true, version: 'Cursor IDE', path: appPath };
+    }
+  }
+
+  // Check for 'cursor' command
+  try {
+    const pathExec = execSync('which cursor', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    return { installed: true, version: 'Cursor CLI', path: pathExec };
+  } catch {
+    // Check for ~/.cursor directory
+    const homeDir = os.homedir();
+    if (fs.existsSync(path.join(homeDir, '.cursor'))) {
+        return { installed: true, version: 'Unknown', path: path.join(homeDir, '.cursor') };
+    }
+    return { installed: false, version: null, path: null };
+  }
+}
+
+/**
+ * Detect AdaL CLI
+ */
+function detectAdal() {
+  try {
+    const version = execSync('adal --version', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    const pathExec = execSync('which adal', { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'], timeout: EXEC_TIMEOUT }).trim();
+    return { installed: true, version, path: pathExec };
+  } catch {
+    // Check for ~/.adal directory
+    const homeDir = os.homedir();
+    if (fs.existsSync(path.join(homeDir, '.adal'))) {
+        return { installed: true, version: 'Unknown', path: path.join(homeDir, '.adal') };
+    }
+    return { installed: false, version: null, path: null };
+  }
+}
+
+/**
+ * Returns help message for tools that are not installed
+ */
+function getInstallInstructions() {
+  return `
+╔════════════════════════════════════════════════════════════╗
+║  No AI CLI tool detected!                                  ║
+╚════════════════════════════════════════════════════════════╝
+
+Install at least one of the following tools:
+
+📦 GitHub Copilot CLI:
+   gh extension install github/gh-copilot
+
+📦 Claude Code:
+   npm install -g @anthropic-ai/claude-code
+
+📦 OpenAI Codex:
+   npm install -g @openai/codex
+
+📦 OpenCode:
+   npm install -g opencode
+
+📦 Gemini CLI:
+   npm install -g @google/gemini-cli
+
+📦 Google Antigravity:
+   https://antigravity.google/download
+
+After installing, run again: npx claude-superskills
+  `;
+}
+
+module.exports = { detectTools, getInstallInstructions, detectCodex, detectCodexCli, detectCodexApp, detectAntigravity, detectCursor, detectAdal, detectCowork };

@@ -1,0 +1,86 @@
+name: Publish to npm
+
+# Publishes the `claude-superskills` npm package when a version tag is pushed (or a release is created).
+# Preferred auth: npm Trusted Publishing (OIDC), configured once on npmjs.com for package
+# claude-superskills → GitHub Actions, repository ericgandrade/claude-superskills, workflow publish-npm.yml.
+# Fallback: the NPM_TOKEN secret (a granular token with publish rights on claude-superskills).
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Pre-publish validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Tag matches the package version
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          VERSION=$(node -p "require('./cli-installer/package.json').version")
+          if [ "$GITHUB_REF_NAME" != "v$VERSION" ]; then
+            echo "::error::tag $GITHUB_REF_NAME does not match cli-installer/package.json version $VERSION"
+            exit 1
+          fi
+
+      - name: Version not already published
+        run: |
+          CURRENT=$(node -p "require('./cli-installer/package.json').version")
+          if npm view "claude-superskills@$CURRENT" version >/dev/null 2>&1; then
+            echo "::error::claude-superskills@$CURRENT is already on npm; bump it with node scripts/release.js"
+            exit 1
+          fi
+
+      - name: Version consistency
+        run: ./scripts/verify-version-sync.sh
+
+      - name: Install js-yaml for the frontmatter check
+        working-directory: ./cli-installer
+        run: npm ci
+
+      - name: Skills and bundles
+        run: node scripts/check-skills.mjs
+
+  publish:
+    name: Publish to npm
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write   # npm Trusted Publishing (OIDC) and provenance
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Use npm 11.5.1 or later (required for Trusted Publishing)
+        run: npm install -g npm@latest && npm --version
+
+      - name: Install dependencies
+        working-directory: ./cli-installer
+        run: npm ci
+
+      - name: Smoke test
+        working-directory: ./cli-installer
+        run: npm test
+
+      - name: Publish
+        working-directory: ./cli-installer
+        run: npm publish --provenance --access public
+        env:
+          # Used only when Trusted Publishing is not configured for this repository.
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

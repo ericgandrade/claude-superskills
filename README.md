@@ -110,14 +110,21 @@ Some skills need local tools, for example `ffmpeg` and Whisper for audio, LibreO
 
 Skills appear as `/superskills:<skill-name>`, or just ask in plain language.
 
-**Other tools (GitHub Copilot CLI, Codex, Gemini CLI, Cursor, OpenCode and others).** Copy the skill folders you want into the tool's skills directory:
+**Any supported tool (npm installer).** Detects GitHub Copilot CLI, Claude Code, Codex, OpenCode, Gemini CLI, Antigravity, Cursor and AdaL, and installs into each:
+
+```bash
+npx claude-superskills                      # interactive
+npx claude-superskills --bundle career -y   # one domain: career, product, design, obsidian, knowledge, all
+```
+
+The installer manages only these 53 skills; skills from other packages stay untouched. Details: [cli-installer/README.md](cli-installer/README.md).
+
+**Manual.** Copy the skill folders you want into the tool's skills directory:
 
 ```bash
 git clone https://github.com/ericgandrade/claude-superskills
 cp -R claude-superskills/skills/resume-tailor ~/.copilot/skills/
 ```
-
-An `npx` installer for all tools is planned for this repository.
 
 ## One repository instead of five
 

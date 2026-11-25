@@ -1,0 +1,55 @@
+name: Validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  skills:
+    name: Skills, bundles and versions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install js-yaml for the frontmatter check
+        working-directory: ./cli-installer
+        run: npm ci
+      - name: Skills and bundles
+        run: node scripts/check-skills.mjs
+      - name: Version consistency
+        run: ./scripts/verify-version-sync.sh
+
+  package:
+    name: npm package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install dependencies
+        working-directory: ./cli-installer
+        run: npm ci
+      - name: Smoke test
+        working-directory: ./cli-installer
+        run: npm test
+      - name: Pack (dry run)
+        working-directory: ./cli-installer
+        run: npm pack --dry-run
+
+  workflows:
+    name: GitHub Actions syntax
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install pyyaml
+      - run: ./scripts/validate-workflows.sh
