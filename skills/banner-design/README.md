@@ -4,9 +4,14 @@ Designs banners across 22 art direction styles (minimalist, gradient, bold typog
 
 ## Installation
 
-```bash
-npx claude-superskills install banner-design
+Part of [Claude Superskills](https://github.com/ericgandrade/claude-superskills). In Claude Code:
+
+```text
+/plugin marketplace add ericgandrade/claude-superskills
+/plugin install superskills@claude-superskills
 ```
+
+Other tools: copy `skills/banner-design/` into the tool's skills directory.
 
 ## Usage
 

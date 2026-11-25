@@ -4,9 +4,14 @@ Creates strategic HTML presentations with Chart.js data visualizations, design t
 
 ## Installation
 
-```bash
-npx claude-superskills install slides
+Part of [Claude Superskills](https://github.com/ericgandrade/claude-superskills). In Claude Code:
+
+```text
+/plugin marketplace add ericgandrade/claude-superskills
+/plugin install superskills@claude-superskills
 ```
+
+Other tools: copy `skills/slides/` into the tool's skills directory.
 
 ## Usage
 

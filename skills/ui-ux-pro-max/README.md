@@ -4,9 +4,14 @@ Comprehensive design intelligence for web and mobile projects, combining 50+ vis
 
 ## Installation
 
-```bash
-npx claude-superskills install ui-ux-pro-max
+Part of [Claude Superskills](https://github.com/ericgandrade/claude-superskills). In Claude Code:
+
+```text
+/plugin marketplace add ericgandrade/claude-superskills
+/plugin install superskills@claude-superskills
 ```
+
+Other tools: copy `skills/ui-ux-pro-max/` into the tool's skills directory.
 
 ## Usage
 

@@ -4,9 +4,14 @@ Implements beautiful, accessible user interfaces using shadcn/ui components (Rad
 
 ## Installation
 
-```bash
-npx claude-superskills install ui-styling
+Part of [Claude Superskills](https://github.com/ericgandrade/claude-superskills). In Claude Code:
+
+```text
+/plugin marketplace add ericgandrade/claude-superskills
+/plugin install superskills@claude-superskills
 ```
+
+Other tools: copy `skills/ui-styling/` into the tool's skills directory.
 
 ## Usage
 

@@ -4,9 +4,14 @@ Unified design skill covering brand identity, logo generation (55 styles with Ge
 
 ## Installation
 
-```bash
-npx claude-superskills install design
+Part of [Claude Superskills](https://github.com/ericgandrade/claude-superskills). In Claude Code:
+
+```text
+/plugin marketplace add ericgandrade/claude-superskills
+/plugin install superskills@claude-superskills
 ```
+
+Other tools: copy `skills/design/` into the tool's skills directory.
 
 ## Usage
 

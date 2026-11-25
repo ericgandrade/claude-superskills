@@ -4,9 +4,14 @@ Defines and maintains brand identity systems including voice guidelines, visual 
 
 ## Installation
 
-```bash
-npx claude-superskills install brand
+Part of [Claude Superskills](https://github.com/ericgandrade/claude-superskills). In Claude Code:
+
+```text
+/plugin marketplace add ericgandrade/claude-superskills
+/plugin install superskills@claude-superskills
 ```
+
+Other tools: copy `skills/brand/` into the tool's skills directory.
 
 ## Usage
 

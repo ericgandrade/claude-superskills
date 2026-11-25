@@ -4,9 +4,14 @@ Creates and maintains structured design systems using a three-layer token archit
 
 ## Installation
 
-```bash
-npx claude-superskills install design-system
+Part of [Claude Superskills](https://github.com/ericgandrade/claude-superskills). In Claude Code:
+
+```text
+/plugin marketplace add ericgandrade/claude-superskills
+/plugin install superskills@claude-superskills
 ```
+
+Other tools: copy `skills/design-system/` into the tool's skills directory.
 
 ## Usage
 
