@@ -6,7 +6,7 @@
 
 **10 AI skills for knowledge work**: research with citations, reading web pages and YouTube videos, transcribing audio, converting documents, translating slides, telling a story, structuring a strategy and writing better prompts.
 
-Part of the Superskills family: [claude-superskills](https://github.com/ericgandrade/claude-superskills) (Agentic SDLC) · [product-superskills](https://github.com/ericgandrade/product-superskills) · [design-superskills](https://github.com/ericgandrade/design-superskills) · [career-superskills](https://github.com/ericgandrade/career-superskills) · [obsidian-superskills](https://github.com/ericgandrade/obsidian-superskills).
+Part of the Superskills family: [agentic-sdlc](https://github.com/ericgandrade/agentic-sdlc) (The Agentic SDLC Method) · [product-superskills](https://github.com/ericgandrade/product-superskills) · [design-superskills](https://github.com/ericgandrade/design-superskills) · [career-superskills](https://github.com/ericgandrade/career-superskills) · [obsidian-superskills](https://github.com/ericgandrade/obsidian-superskills).
 
 ## Skills
 
@@ -47,7 +47,7 @@ An `npx` installer like the other Superskills packages is planned.
 
 ## History
 
-These skills were part of [claude-superskills](https://github.com/ericgandrade/claude-superskills) up to v2.0.8. They moved here in November 2026 so that claude-superskills can focus on the Agentic SDLC method. Their earlier history is in that repository.
+These skills were part of claude-superskills, now [agentic-sdlc](https://github.com/ericgandrade/agentic-sdlc), up to v2.0.8. They moved here in November 2026 so that agentic-sdlc can focus on the Agentic SDLC method. Their earlier history is in that repository.
 
 ## License
 
